@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://silencezheng.top">
   <title>双重指针，指针的指针！ | silenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言说来惭愧，从大一完了以后接触Java就觉得C好笨啊，于是现在重学数据结构的时候，总是遇到C语言的一些问题，今天终于对双重指针有了一定理解，但还有一些问题，待日后学习再解决吧。对了，此问题是由严蔚敏数据结构中，稀疏矩阵压缩存储的十字链表引申而来。 我的理解首先为了对新手友好，先放如下代码解决一下typedef方面的问题。 123456789101112typedef struct LNode&amp;#">
+  <meta name="description" content="前言说来惭愧，从大一完了以后接触Java就觉得C好笨啊，于是现在重学数据结构的时候，总是遇到C语言的一些问题，今天终于对双重指针有了一定理解，但还有一些问题，待日后学习再解决吧。对了，此问题是由严蔚敏数据结构中，稀疏矩阵压缩存储的十字链表引申而来。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="双重指针，指针的指针！">
 <meta property="og:url" content="http://silencezheng.top/2021/07/13/article29/index.html">
 <meta property="og:site_name" content="silenceZheng66-BLOG">
-<meta property="og:description" content="前言说来惭愧，从大一完了以后接触Java就觉得C好笨啊，于是现在重学数据结构的时候，总是遇到C语言的一些问题，今天终于对双重指针有了一定理解，但还有一些问题，待日后学习再解决吧。对了，此问题是由严蔚敏数据结构中，稀疏矩阵压缩存储的十字链表引申而来。 我的理解首先为了对新手友好，先放如下代码解决一下typedef方面的问题。 123456789101112typedef struct LNode&amp;#">
+<meta property="og:description" content="前言说来惭愧，从大一完了以后接触Java就觉得C好笨啊，于是现在重学数据结构的时候，总是遇到C语言的一些问题，今天终于对双重指针有了一定理解，但还有一些问题，待日后学习再解决吧。对了，此问题是由严蔚敏数据结构中，稀疏矩阵压缩存储的十字链表引申而来。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-13T09:09:17.000Z">
-<meta property="article:modified_time" content="2021-07-13T09:18:40.505Z">
+<meta property="article:modified_time" content="2021-07-13T15:04:01.949Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="C">
@@ -207,6 +207,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说来惭愧，从大一完了以后接触Java就觉得C好笨啊，于是现在重学数据结构的时候，总是遇到C语言的一些问题，今天终于对双重指针有了一定理解，但还有一些问题，待日后学习再解决吧。对了，此问题是由严蔚敏数据结构中，稀疏矩阵压缩存储的十字链表引申而来。</p>
+<span id="more"></span>
 <h2 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h2><p>首先为了对新手友好，先放如下代码解决一下typedef方面的问题。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef struct LNode&#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct LNode *<span class="keyword">next</span>;</span><br><span class="line">&#125;LNode, *LinkList;</span><br><span class="line"><span class="regexp">//</span>等价于下面：</span><br><span class="line"><span class="regexp">//</span>struct LNode&#123;</span><br><span class="line"><span class="regexp">//</span>    int data;</span><br><span class="line"><span class="regexp">//</span>    struct LNode *<span class="keyword">next</span>;</span><br><span class="line"><span class="regexp">//</span>&#125;</span><br><span class="line"><span class="regexp">//</span>typedef struct LNode LNode;</span><br><span class="line"><span class="regexp">//</span>typedef struct LNode *LinkList;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>然后就正式开始解决双重指针的问题啦，我将我的解释写在了注释中，读者可以边读代码边看注释进行理解（当然我的理解也可能有问题，欢迎大家评论告诉我～）。下面代码可以extern到main.c中跑一下，注意头文件。</p>
