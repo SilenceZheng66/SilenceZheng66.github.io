@@ -55,9 +55,9 @@
     
     
     
-    <category term="PHP" scheme="http://silencezheng.top/tags/PHP/"/>
-    
     <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
+    
+    <category term="PHP" scheme="http://silencezheng.top/tags/PHP/"/>
     
     <category term="MySQL" scheme="http://silencezheng.top/tags/MySQL/"/>
     
@@ -122,9 +122,9 @@
     
     
     
-    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
-    
     <category term="Homebrew" scheme="http://silencezheng.top/tags/Homebrew/"/>
+    
+    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
     
   </entry>
   
