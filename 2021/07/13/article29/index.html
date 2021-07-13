@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>silenceZheng66-BLOG</title>
+  <title>双重指针，指针的指针！ | silenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="silenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/page/3/index.html">
+  <meta name="description" content="前言说来惭愧，从大一完了以后接触Java就觉得C好笨啊，于是现在重学数据结构的时候，总是遇到C语言的一些问题，今天终于对双重指针有了一定理解，但还有一些问题，待日后学习再解决吧。对了，此问题是由严蔚敏数据结构中，稀疏矩阵压缩存储的十字链表引申而来。 我的理解首先为了对新手友好，先放如下代码解决一下typedef方面的问题。 123456789101112typedef struct LNode&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="双重指针，指针的指针！">
+<meta property="og:url" content="http://silencezheng.top/2021/07/13/article29/index.html">
 <meta property="og:site_name" content="silenceZheng66-BLOG">
+<meta property="og:description" content="前言说来惭愧，从大一完了以后接触Java就觉得C好笨啊，于是现在重学数据结构的时候，总是遇到C语言的一些问题，今天终于对双重指针有了一定理解，但还有一些问题，待日后学习再解决吧。对了，此问题是由严蔚敏数据结构中，稀疏矩阵压缩存储的十字链表引申而来。 我的理解首先为了对新手友好，先放如下代码解决一下typedef方面的问题。 123456789101112typedef struct LNode&amp;#">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-13T09:09:17.000Z">
+<meta property="article:modified_time" content="2021-07-13T09:18:40.505Z">
 <meta property="article:author" content="silenceZheng66">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="silenceZheng66-BLOG" type="application/atom+xml">
@@ -151,23 +157,26 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-article9" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-article29" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/06/article9/">前端开发id,name和value的笔记</a>
+    <h1 class="article-title" itemprop="name">
+      双重指针，指针的指针！
     </h1>
   
 
         
         
-<a href="/2020/09/06/article9/" class="archive-article-date">
-  	<time datetime="2020-09-06T03:05:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2021/07/13/article29/" class="archive-article-date">
+  	<time datetime="2021-07-13T09:09:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-13</time>
 </a>
         <!-- 需要添加的位置 -->
         <!-- 开始添加字数统计-->
@@ -177,306 +186,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">729字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">2分</span>
-      </span>
-    </span>
-</div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近几天在学习servlet和jsp，在本地搭建了一个材料收集系统，开发过程中遇到<br>的一些问题想逐步填填坑，其中一个问题就是html控件中id，name和value的区分。<br>简单说，id具有唯一性，是身份证号；name是控件的名称，value是控件的值。<br>下面将分为两部分说一下我对这三种属性的理解：<br>1.id、name、value的区别<br>2.id为什么不能取代name</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTML</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/06/article9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-article8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/03/article8/">hexo yilia主题配置gitalk插件</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/09/03/article8/" class="archive-article-date">
-  	<time datetime="2020-09-03T09:54:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-03</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">995字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">4分</span>
-      </span>
-    </span>
-</div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天想给我的yilia博客配置一下评论系统，左选右选选择了不会被墙又不像国内评论插件浮夸的gitment，<br>一切都配置好了给我报Object ProgressEvent错误，经调查发现作者服务器到期了，但是作者公开了<br>该部分的源码，可以供使用者搭一个服务器来运行，但对于我这种轻度博客用户来说，自己制作属实<br>有些繁琐，使用其他人搭建好的服务器又不知何日会不能使用，总没什么安全感，于是采用gitalk来<br>实现评论功能。gitalk使用虽然简单，但中途还是遇到一些弯路，所以写一篇博文来记录一下。<br>本文参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuurick/p/10713673.html">https://www.cnblogs.com/liuurick/p/10713673.html</a> ，在其基础上解决了一些常见错误。<br>以下是实现步骤：</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Gitalk</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/03/article8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-article7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/02/article7/">StringBuffer报错解决</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/09/02/article7/" class="archive-article-date">
-  	<time datetime="2020-09-02T10:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-02</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.2k字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">4分</span>
-      </span>
-    </span>
-</div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>String和StringBuffer<br>做项目遇到了StringBuffer报Exception in thread “main” java.lang.NullPointerException错误，<br>查资料发现原来StringBuffer需要实例化后使用，记录一下。<br>以下内容收集自网络，有部分修改。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/02/article7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-article6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/30/article6/">Mysql导入中文csv文件办法</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/08/30/article6/" class="archive-article-date">
-  	<time datetime="2020-08-30T08:07:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-30</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">825字</span>
+        <span class="post-count">775字</span>
       </span>
     </span>
 
@@ -496,107 +206,45 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Mysql导入正常编码文件的方法就不赘述了，今天主要说一说Mysql导入中文csv的解决办法，折腾了一下午终于解决了。<br>需要使用到的工具有：Notepad++，Mysql8.0<br>这次实践的经验是：Windows记事本真是垃圾。<br>后附关于utf8和utf8mb4编码的二三事。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说来惭愧，从大一完了以后接触Java就觉得C好笨啊，于是现在重学数据结构的时候，总是遇到C语言的一些问题，今天终于对双重指针有了一定理解，但还有一些问题，待日后学习再解决吧。对了，此问题是由严蔚敏数据结构中，稀疏矩阵压缩存储的十字链表引申而来。</p>
+<h2 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h2><p>首先为了对新手友好，先放如下代码解决一下typedef方面的问题。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef struct LNode&#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct LNode *<span class="keyword">next</span>;</span><br><span class="line">&#125;LNode, *LinkList;</span><br><span class="line"><span class="regexp">//</span>等价于下面：</span><br><span class="line"><span class="regexp">//</span>struct LNode&#123;</span><br><span class="line"><span class="regexp">//</span>    int data;</span><br><span class="line"><span class="regexp">//</span>    struct LNode *<span class="keyword">next</span>;</span><br><span class="line"><span class="regexp">//</span>&#125;</span><br><span class="line"><span class="regexp">//</span>typedef struct LNode LNode;</span><br><span class="line"><span class="regexp">//</span>typedef struct LNode *LinkList;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后就正式开始解决双重指针的问题啦，我将我的解释写在了注释中，读者可以边读代码边看注释进行理解（当然我的理解也可能有问题，欢迎大家评论告诉我～）。下面代码可以extern到main.c中跑一下，注意头文件。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  双重指针.c</span></span><br><span class="line"><span class="comment">//  test</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by silenceZheng on 2021/7/13.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ANode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ANode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;ANode, * ALink;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ALink *start;</span><br><span class="line">&#125;AList;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pointerAsArray_int</span><span class="params">(<span class="keyword">int</span> data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>* a = (<span class="keyword">int</span> *) <span class="built_in">malloc</span>(<span class="number">6</span>*<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br><span class="line">    a[<span class="number">3</span>] = data;</span><br><span class="line">    a[<span class="number">5</span>] = <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">return</span> a[<span class="number">3</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pointerAsArray_ptr</span><span class="params">(<span class="keyword">int</span> data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 分配空间</span></span><br><span class="line">    AList* alist = (AList *)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(AList));</span><br><span class="line">    ALink* s = (ALink *)<span class="built_in">malloc</span>(<span class="number">3</span>*<span class="built_in"><span class="keyword">sizeof</span></span>(ALink));</span><br><span class="line">    ALink node1 = (ALink)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(ANode));</span><br><span class="line">    ALink node2 = (ALink)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(ANode));</span><br><span class="line">    ALink node3 = (ALink)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(ANode));</span><br><span class="line">    <span class="comment">// 赋值</span></span><br><span class="line">    node1-&gt;data = <span class="number">1</span>;</span><br><span class="line">    node2-&gt;data = <span class="number">22</span>;</span><br><span class="line">    node3-&gt;data = data;</span><br><span class="line">    node1-&gt;next = node2;</span><br><span class="line">    node2-&gt;next = node3;</span><br><span class="line">    node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">// 这里ALink*与上面int*的实质是一样的，只不过是“指针的指针”，ALink*指向ALink，其值为ALink的地址。</span></span><br><span class="line">    <span class="comment">// 由于我分配了3个ALink的空间，所以可以存放3个ALink成为数组。</span></span><br><span class="line">    <span class="comment">// 而ALink实质是ANode的指针，也就是结构体指针，所以需要再为ALink指向的东西（ANode）分配空间。</span></span><br><span class="line">    <span class="comment">// 这样就构成了AList中ALink*是一个指针，也是一个数组的头指针</span></span><br><span class="line">    <span class="comment">// 该数组中的每一个元素都是一个指针，指向一个ANode节点。</span></span><br><span class="line">    <span class="comment">// 下面开始将结点放到数组中。</span></span><br><span class="line">    s[<span class="number">0</span>] = node1;</span><br><span class="line">    s[<span class="number">1</span>] = node2;</span><br><span class="line">    s[<span class="number">2</span>] = node3;</span><br><span class="line">    alist-&gt;start = s;</span><br><span class="line">    <span class="comment">// 验证结果</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,alist-&gt;start[<span class="number">2</span>]-&gt;data);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,alist-&gt;start[<span class="number">0</span>]-&gt;data);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,alist-&gt;start[<span class="number">0</span>]-&gt;next-&gt;next-&gt;data);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 说明与问题</span></span><br><span class="line">    <span class="comment">// ANode使用链表节点的结构是随便用的，事实上并不对阐述“指针的指针”这一概念有任何帮助。</span></span><br><span class="line">    <span class="comment">// 问题1. s[500] = node3; printf(&quot;%d\n&quot;,alist-&gt;start[500]-&gt;data);</span></span><br><span class="line">    <span class="comment">//       上面语句依然可以正确输出参数值，而实际上我只给ALink指针分配了3个ALink大小的空间。</span></span><br><span class="line">    <span class="comment">//       如果这样，那么为ALink*分配空间有什么意义？ 或者说分配的空间是固定的？而不分配</span></span><br><span class="line">    <span class="comment">//       则有可能丢失数据？</span></span><br><span class="line">    <span class="comment">// 问题2.    printf(&quot;%lu\n&quot;,sizeof(ANode));</span></span><br><span class="line">    <span class="comment">//          printf(&quot;%lu\n&quot;,sizeof(ALink));</span></span><br><span class="line">    <span class="comment">//          printf(&quot;%lu\n&quot;,sizeof(AList));</span></span><br><span class="line">    <span class="comment">//      输出结果分别为16、8、8，在我的电脑里int的size是4，为什么ANode是8？</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/30/article6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-article5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/20/article5/">Error Code：1175. You are using safe update mode and you tried to update a table without a WHERE</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/08/20/article5/" class="archive-article-date">
-  	<time datetime="2020-08-19T19:28:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-20</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">172字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>大晚上删数据库学到的- =。<br>Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.<br>To disable safe mode, toggle the option in Preferences -&gt; SQL Editor and reconnect.<br>mysql在执行删除更新语句时报这种错误，是因为在mysql在safe-updates模式中，如果where后跟的条件不是主键id，那么就会出现这种错误。<br>解决方式有两种</p>
-        
-      
-
       
     </div>
     <div class="article-info article-info-index">
@@ -607,108 +255,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/20/article5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-article4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/06/article4/">servlet和servlet-mapping的作用</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/08/06/article4/" class="archive-article-date">
-  	<time datetime="2020-08-05T21:06:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-06</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">239字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>简书一篇博文看到的，讲的很好记录一下<br>原博链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6dadc489969a">https://www.jianshu.com/p/6dadc489969a</a></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">C</a>
         		</li>
       		
 		</ul>
@@ -717,408 +268,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/06/article4/">展开全文 >></a>
-        </p>
-      
 
       
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
         
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-article3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/27/article3/">Python零基础操作MySQL傻瓜教程</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/07/27/article3/" class="archive-article-date">
-  	<time datetime="2020-07-26T16:34:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-27</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.4k字</span>
-      </span>
+      </div>
     </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">6分</span>
-      </span>
-    </span>
+  </div>
 </div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前几日做了一个Python操作MySQL的项目，参考了GitHub上mysql2graph的一些功能，故记录一下，<br>本篇包含了从建库删库到增删查改的系列操作，适合于初次使用python操作mysql的新手食用。此<br>教程通过从csv读取数据存到MySQL中并进行增删查改操作的实例进行讲解。<br>ps：阅读本文需要一定的SQL语法基础，如有不懂之处，推荐到W3school学习。<br>pps：如在代码实现上有逻辑问题等请谅解，作者也是菜鸡。</p>
-        
-      
 
-      
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2021/07/13/article29/" alt="微信分享二维码">
     </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/27/article3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-article2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/22/article2/">基于Java swing实现的小计划日历</a>
-    </h1>
-  
-
-        
-        
-<a href="/2020/07/22/article2/" class="archive-article-date">
-  	<time datetime="2020-07-22T11:06:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-22</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">2.1k字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">11分</span>
-      </span>
-    </span>
 </div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本篇并非技术贴，只是为有需要的人提供参考，我所写的代码有很多限制，例如<br>只能操作指定格式的计划，删除多行内容会产生一些显示错误等等，期望大家使用<br>时可以进行优化，本篇只提供一个参考。</p>
-        
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/22/article2/">展开全文 >></a>
-        </p>
-      
-
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
   
-    <article id="post-article1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/17/article1/">Windows快速建立hexo博客指南</a>
-    </h1>
   
-
-        
-        
-<a href="/2020/07/17/article1/" class="archive-article-date">
-  	<time datetime="2020-07-17T09:51:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-17</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">645字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">2分</span>
-      </span>
-    </span>
-</div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>需要的工具有：windows系统、nodejs、git<br>这里nodejs可以直接到 <a target="_blank" rel="noopener" href="https://nodejs.org/en/">Nodejs</a>进行下载，注意下载LTS版本。<br>git从官网下载速度十分缓慢，建议从清华tuna镜像站下载，此处就不贴链接了。<br>git最主要的作用是在cmd操作不了git指令时转到git bash进行操作。但有时git bash中会有无法显示下载的现象，这个之后会提到。<br>两个软件下载后找地方安装就可以了，基本都是默认配置。<br>安装完成后以管理员模式打开CMD。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/17/article1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    <a href="/2021/07/11/article28/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mac下配置MAP环境（mysql+apache+php）</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-    <article id="post-hello" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/17/hello/">欢迎浏览silenceZheng66的博客</a>
-    </h1>
-  
+</nav>
 
-        
-        
-<a href="/2020/07/17/hello/" class="archive-article-date">
-  	<time datetime="2020-07-17T05:18:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-17</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">30字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="欢迎浏览我的技术博客"><a href="#欢迎浏览我的技术博客" class="headerlink" title="欢迎浏览我的技术博客"></a>欢迎浏览我的技术博客</h2><p>希望本站能在学习技术的路上帮你节约半小时。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">欢迎</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/17/hello/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1140,11 +358,35 @@
 
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
   
 
+  
+
+  
+
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'silenceZheng66.github.io',
+  	owner: 'silenceZheng66',
+  	admin: ['silenceZheng66'],
+  	id: 'Tue Jul 13 2021 17:09:17 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -1178,8 +420,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
