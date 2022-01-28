@@ -235,13 +235,6 @@
 
   
   <url>
-    <loc>http://silencezheng.top/tags/Hexo/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://silencezheng.top/tags/Java/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
@@ -263,6 +256,13 @@
   </url>
   
   <url>
+    <loc>http://silencezheng.top/tags/Spring/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://silencezheng.top/tags/Idea/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
@@ -270,7 +270,7 @@
   </url>
   
   <url>
-    <loc>http://silencezheng.top/tags/HTML/</loc>
+    <loc>http://silencezheng.top/tags/Hexo/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -284,28 +284,7 @@
   </url>
   
   <url>
-    <loc>http://silencezheng.top/tags/Spring/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://silencezheng.top/tags/Linux/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://silencezheng.top/tags/Javascript/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://silencezheng.top/tags/Chrome/</loc>
+    <loc>http://silencezheng.top/tags/HTML/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -313,6 +292,13 @@
   
   <url>
     <loc>http://silencezheng.top/tags/Python/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://silencezheng.top/tags/Linux/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -327,27 +313,6 @@
   
   <url>
     <loc>http://silencezheng.top/tags/MacOS/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://silencezheng.top/tags/PHP/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://silencezheng.top/tags/MySQL/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://silencezheng.top/tags/Apache/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -369,6 +334,41 @@
   
   <url>
     <loc>http://silencezheng.top/tags/C/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://silencezheng.top/tags/Javascript/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://silencezheng.top/tags/Chrome/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://silencezheng.top/tags/PHP/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://silencezheng.top/tags/MySQL/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://silencezheng.top/tags/Apache/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
