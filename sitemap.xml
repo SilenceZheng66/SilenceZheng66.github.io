@@ -242,7 +242,7 @@
   </url>
   
   <url>
-    <loc>http://silencezheng.top/tags/Hexo/</loc>
+    <loc>http://silencezheng.top/tags/Servlet/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -256,7 +256,7 @@
   </url>
   
   <url>
-    <loc>http://silencezheng.top/tags/Servlet/</loc>
+    <loc>http://silencezheng.top/tags/Hexo/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -277,14 +277,14 @@
   </url>
   
   <url>
-    <loc>http://silencezheng.top/tags/Swing/</loc>
+    <loc>http://silencezheng.top/tags/HTML/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://silencezheng.top/tags/HTML/</loc>
+    <loc>http://silencezheng.top/tags/Swing/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -320,13 +320,6 @@
   
   <url>
     <loc>http://silencezheng.top/tags/MacOS/</loc>
-    <lastmod>2022-01-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://silencezheng.top/tags/Linux/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -369,6 +362,13 @@
   
   <url>
     <loc>http://silencezheng.top/tags/C/</loc>
+    <lastmod>2022-01-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://silencezheng.top/tags/Linux/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
