@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Tag: 欢迎 | silenceZheng66-BLOG</title>
+  <title>Spring学习笔记 | silenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="silenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/tags/%E6%AC%A2%E8%BF%8E/index.html">
+  <meta name="description" content="Spring学习笔记 前言：学习方法 第一个demo 构建RESTful风格的服务 连接MySQL 使用RESTful风格的服务 用Spring Boot构建Web应用 使用 Spring MVC 提供 Web 内容 保护 Web 应用程序，确认用户   - 前言：学习方法先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：ht">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring学习笔记">
+<meta property="og:url" content="http://silencezheng.top/2022/01/29/article30/index.html">
 <meta property="og:site_name" content="silenceZheng66-BLOG">
+<meta property="og:description" content="Spring学习笔记 前言：学习方法 第一个demo 构建RESTful风格的服务 连接MySQL 使用RESTful风格的服务 用Spring Boot构建Web应用 使用 Spring MVC 提供 Web 内容 保护 Web 应用程序，确认用户   - 前言：学习方法先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：ht">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-28T16:42:17.000Z">
+<meta property="article:modified_time" content="2022-01-28T16:49:49.950Z">
 <meta property="article:author" content="silenceZheng66">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="silenceZheng66-BLOG" type="application/atom+xml">
@@ -151,62 +157,328 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article30" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/07/17/hello/" class="archive-article-date">
-  	<time datetime="2020-07-17T05:18:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/17/hello/">欢迎浏览silenceZheng66的博客</a>
+    <h1 class="article-title" itemprop="name">
+      Spring学习笔记
     </h1>
   
 
-        <div class="article-info info-on-right">
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/01/29/article30/" class="archive-article-date">
+  	<time datetime="2022-01-28T16:42:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-29</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">1.6k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">6分</span>
+      </span>
+    </span>
+</div>
           
+        <!-- 添加完成 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring学习笔记"><a href="#Spring学习笔记" class="headerlink" title="Spring学习笔记"></a>Spring学习笔记</h1><ul>
+<li>前言：学习方法</li>
+<li>第一个demo</li>
+<li>构建RESTful风格的服务</li>
+<li>连接MySQL</li>
+<li>使用RESTful风格的服务</li>
+<li>用Spring Boot构建Web应用</li>
+<li>使用 Spring MVC 提供 Web 内容</li>
+<li>保护 Web 应用程序，确认用户 </li>
+</ul>
+<h2 id="前言：学习方法"><a href="#前言：学习方法" class="headerlink" title="- 前言：学习方法"></a>- 前言：学习方法</h2><p>先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/">https://docs.spring.io/spring-boot/docs/current/reference/html/</a></p>
+<span id="more"></span>
+
+
+
+
+<h2 id="第一个demo"><a href="#第一个demo" class="headerlink" title="- 第一个demo"></a>- 第一个demo</h2><p><a target="_blank" rel="noopener" href="https://spring.io/quickstart">https://spring.io/quickstart</a></p>
+<ol>
+<li><p>@SpringBootApplication、@RestController、@GetMapping</p>
+</li>
+<li><p>本地配置tomcat要开权限，不然idea不能启动tomcat</p>
+</li>
+<li><p>代码示例：</p>
+<p> @SpringBootApplication<br> @RestController<br> public class DemoApplication {</p>
+</li>
+</ol>
+<pre><code>    public static void main(String[] args) &#123;
+        SpringApplication.run(DemoApplication.class, args);
+    &#125;
+
+    @GetMapping(&quot;/hello&quot;)
+    public String hello(@RequestParam(value = &quot;name&quot;, defaultValue = &quot;World&quot;) String name) &#123;
+        return String.format(&quot;Hello %s!&quot;, name);
+    &#125;
+
+&#125;</code></pre><h2 id="构建RESTful风格的服务"><a href="#构建RESTful风格的服务" class="headerlink" title="- 构建RESTful风格的服务"></a>- 构建RESTful风格的服务</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/rest-service/#initial">https://spring.io/guides/gs/rest-service/#initial</a></p>
+<ol>
+<li>通过 mvn clean package将app进行打包（jar），终端可以直接运行java -jar</li>
+<li>jar包和war包的区别，spring boot项目的jar包内建服务器可以直接运行</li>
+<li>不需要web.xml，纯Java</li>
+</ol>
+<h2 id="连接MySQL"><a href="#连接MySQL" class="headerlink" title="- 连接MySQL"></a>- 连接MySQL</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/accessing-data-mysql/">https://spring.io/guides/gs/accessing-data-mysql/</a></p>
+<ol>
+<li>需要添加新依赖，bash进入mysql时若用sudo命令要先输入sudo密码再输入root密码</li>
+<li>MySQL创建新用户后的%指允许在任何主机登陆，可换为ip或localhost（仅在本地）</li>
+<li>在resources中修改application.properties文件，了解spring.jpa.hibernate.ddl-auto的四个类型，数据库用户和scheme也从这里配置</li>
+<li>了解Hibernate ORM ，Hibernate 将 Java 类映射到数据库表中，从 Java 数据类型中映射到 SQL 数据类型中。此demo通过Hibernate将user类映射到MySQL中，可通过Datagrip查看</li>
+<li>用postman发送请求测试接口</li>
+<li>进行安全测试，防止sql注入攻击，将用户权限设置为只能对数据操作而无法涉及数据表结构（scheme） </li>
+</ol>
+<h2 id="–-使用RESTful风格的服务"><a href="#–-使用RESTful风格的服务" class="headerlink" title="– 使用RESTful风格的服务"></a>– 使用RESTful风格的服务</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/consuming-rest/">https://spring.io/guides/gs/consuming-rest/</a></p>
+<ol>
+<li>一般可以通过浏览器访问URL来使用一个web服务，但用变成方式来使用RESTful风格的服务是更有用的方法,这个demo要从接口中取数据放到springboot的控制台中以log形式显示</li>
+<li>由于demo给定的接口无法访问（可能是墙的原因），CommandLineRunner启动会失败，故无法查看结果，接口应获得的内容如下：</li>
+</ol>
+<p>{</p>
+<p>   type: “success”,</p>
+<p>   value: {</p>
+<pre><code>id: 10,
+
+quote: &quot;Really loving Spring Boot, makes stand alone Spring apps easy.&quot;</code></pre><p>   }</p>
+<p>} 为一个两层结构的json对象</p>
+<ol start="3">
+<li>@JsonIgnoreProperties表示任何未绑定在此类型中的属性都应被忽略，要将接口获得的数据与自定义的类型绑定（反序列化），需要使定义的变量名与json对象的键名完全一致，如果不匹配可以用@JsonProperty注释来指定json对象中的某个键（这也可以用于处理含特殊字符或其他不便于作为变量名出现的json键）</li>
+</ol>
+<h2 id="用spring-boot构建Web应用"><a href="#用spring-boot构建Web应用" class="headerlink" title="- 用spring boot构建Web应用"></a>- 用spring boot构建Web应用</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/spring-boot/">https://spring.io/guides/gs/spring-boot/</a></p>
+<ol>
+<li>CommandLineRunner, ApplicationContext, DispatcherServlet</li>
+<li>添加单元测试，先添加maven依赖. MockMvc, 两种测试。</li>
+<li>Spring Boot Actuator，帮助监控和管理web应用。添加依赖到maven，通过<a target="_blank" rel="noopener" href="http://localhost:8080/actuator">http://localhost:8080/actuator</a> 可访问。详细见：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#actuator">https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#actuator</a></li>
+<li>JMX，是Java Management Extensions(Java管理扩展)的缩写，是一个为应用程序植入管理功能的框架。</li>
+<li>For more details about each of these REST endpoints and how you can tune their settings with an application.properties file (in src/main/resources), see the <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#production-ready-endpoints">https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#production-ready-endpoints</a></li>
+<li>Groovy 另一门语言（基于Java）</li>
+</ol>
+<h2 id="使用-Spring-MVC-提供-Web-内容"><a href="#使用-Spring-MVC-提供-Web-内容" class="headerlink" title="- 使用 Spring MVC 提供 Web 内容"></a>- 使用 Spring MVC 提供 Web 内容</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/serving-web-content/">https://spring.io/guides/gs/serving-web-content/</a></p>
+<ol>
+<li>Model object, easy to use in view template</li>
+<li>Thymeleaf, 一个现代的服务器端 Java 模板引擎，适用于 Web 和独立环境。添加spring-boot-starter-thymeleaf</li>
+<li>Spring-boot-devtools, 可以实现指定目录（默认为classpath路径）下的文件进行更改后，项目自动重启，更改后的代码自动生效，热部署节省了“编写更改代码、重新启动应用程序并刷新浏览器以查看更改”这一过程的时间，添加依赖</li>
+<li>Spring boot app serves static content from resources in the classpath at /static (or /public). The index.html resource is used as a welcome page.</li>
+</ol>
+<h2 id="保护-Web-应用程序，确认用户"><a href="#保护-Web-应用程序，确认用户" class="headerlink" title="- 保护 Web 应用程序，确认用户"></a>- 保护 Web 应用程序，确认用户</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/securing-web/">https://spring.io/guides/gs/securing-web/</a></p>
+<ol>
+<li>分两部分，先构建一个app(Spring MVC)，再用Spring Security做登录界面</li>
+<li>Spring MVC负责请求的转发和视图管理</li>
+<li>If Spring Security is on the classpath, Spring Boot automatically secures all HTTP endpoints with “basic” authentication. </li>
+<li>第二部分，首先添加ss的两个依赖（本身和测试），然后编写安全类</li>
+<li>根据配置，Spring Security提供了一个过滤器，可以拦截请求和验证用户的过滤器。如果用户无法验证，页面将被重定向到/login？error，您的页面显示适当的错误信息。成功退出登录后，您的申请将发送到/login?logout，您的页面将显示适当的成功信息。</li>
+<li>更新hello页面，We display the username by using Spring Security’s integration with HttpServletRequest#getRemoteUser(). The “Sign Out” form submits a POST to /logout. Upon successfully logging out, it redirects the user to /login?logout.</li>
+<li>关于Thymeleaf:</li>
+</ol>
+<blockquote>
+<p>${user.name}表示“获取用户的变量，并调用其getName()方法”<br>通过标签中的th:text属性来填充该标签的一段内容，意思是$表达式只能写在th标签内部,不然不会生效,使用th:text标签的值替换div标签里面的值,至于div里面的原有的值只是为了给前端开发时做展示用的.这样的话很好的做到了前后端分离.意味着div标签中的内容会被表达式${session.book}的值所替代，无论模板中它的内容是什么，之所以在模板中“多此一举“地填充它的内容，完全是为了它能够作为原型在浏览器中直接显示出来。<br>访问spring-mvc中model的属性，语法格式为“${}”，如${user.id}可以获取model里的user对象的id属性<br>为了模板更加易用，Thymeleaf还提供了一系列Utility对象（内置于Context中），可以通过#直接访问。例如${ #dates.format(dateVar, ‘dd/MMM/yyyy HH:mm’)} 使用java.util.Date的功能方法类</p>
+</blockquote>
+<ol start="8">
+<li>结果是智能允许名为user密码为password的用户登录</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">欢迎</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/01/29/article30/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/07/13/article29/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">双重指针，指针的指针！</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
 
+  
+
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'silenceZheng66.github.io',
+  	owner: 'silenceZheng66',
+  	admin: ['silenceZheng66'],
+  	id: 'Sat Jan 29 2022 00:42:17 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -241,9 +513,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

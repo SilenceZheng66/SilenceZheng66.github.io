@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2021-07-13T15:04:01.949Z</updated>
+  <updated>2022-01-28T16:49:49.950Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring学习笔记</title>
+    <link href="http://silencezheng.top/2022/01/29/article30/"/>
+    <id>http://silencezheng.top/2022/01/29/article30/</id>
+    <published>2022-01-28T16:42:17.000Z</published>
+    <updated>2022-01-28T16:49:49.950Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Spring学习笔记"><a href="#Spring学习笔记" class="headerlink" title="Spring学习笔记"></a>Spring学习笔记</h1><ul><li>前言：学习方法</li><li>第一个demo</li><li>构建RESTful风格的服务</li><li>连接MySQL</li><li>使用RESTful风格的服务</li><li>用Spring Boot构建Web应用</li><li>使用 Spring MVC 提供 Web 内容</li><li>保护 Web 应用程序，确认用户 </li></ul><h2 id="前言：学习方法"><a href="#前言：学习方法" class="headerlink" title="- 前言：学习方法"></a>- 前言：学习方法</h2><p>先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/">https://docs.spring.io/spring-boot/docs/current/reference/html/</a></p><span id="more"></span><h2 id="第一个demo"><a href="#第一个demo" class="headerlink" title="- 第一个demo"></a>- 第一个demo</h2><p><a href="https://spring.io/quickstart">https://spring.io/quickstart</a></p><ol><li><p>@SpringBootApplication、@RestController、@GetMapping</p></li><li><p>本地配置tomcat要开权限，不然idea不能启动tomcat</p></li><li><p>代码示例：</p><p> @SpringBootApplication<br> @RestController<br> public class DemoApplication {</p></li></ol><pre><code>    public static void main(String[] args) &#123;        SpringApplication.run(DemoApplication.class, args);    &#125;    @GetMapping(&quot;/hello&quot;)    public String hello(@RequestParam(value = &quot;name&quot;, defaultValue = &quot;World&quot;) String name) &#123;        return String.format(&quot;Hello %s!&quot;, name);    &#125;&#125;</code></pre><h2 id="构建RESTful风格的服务"><a href="#构建RESTful风格的服务" class="headerlink" title="- 构建RESTful风格的服务"></a>- 构建RESTful风格的服务</h2><p><a href="https://spring.io/guides/gs/rest-service/#initial">https://spring.io/guides/gs/rest-service/#initial</a></p><ol><li>通过 mvn clean package将app进行打包（jar），终端可以直接运行java -jar</li><li>jar包和war包的区别，spring boot项目的jar包内建服务器可以直接运行</li><li>不需要web.xml，纯Java</li></ol><h2 id="连接MySQL"><a href="#连接MySQL" class="headerlink" title="- 连接MySQL"></a>- 连接MySQL</h2><p><a href="https://spring.io/guides/gs/accessing-data-mysql/">https://spring.io/guides/gs/accessing-data-mysql/</a></p><ol><li>需要添加新依赖，bash进入mysql时若用sudo命令要先输入sudo密码再输入root密码</li><li>MySQL创建新用户后的%指允许在任何主机登陆，可换为ip或localhost（仅在本地）</li><li>在resources中修改application.properties文件，了解spring.jpa.hibernate.ddl-auto的四个类型，数据库用户和scheme也从这里配置</li><li>了解Hibernate ORM ，Hibernate 将 Java 类映射到数据库表中，从 Java 数据类型中映射到 SQL 数据类型中。此demo通过Hibernate将user类映射到MySQL中，可通过Datagrip查看</li><li>用postman发送请求测试接口</li><li>进行安全测试，防止sql注入攻击，将用户权限设置为只能对数据操作而无法涉及数据表结构（scheme） </li></ol><h2 id="–-使用RESTful风格的服务"><a href="#–-使用RESTful风格的服务" class="headerlink" title="– 使用RESTful风格的服务"></a>– 使用RESTful风格的服务</h2><p><a href="https://spring.io/guides/gs/consuming-rest/">https://spring.io/guides/gs/consuming-rest/</a></p><ol><li>一般可以通过浏览器访问URL来使用一个web服务，但用变成方式来使用RESTful风格的服务是更有用的方法,这个demo要从接口中取数据放到springboot的控制台中以log形式显示</li><li>由于demo给定的接口无法访问（可能是墙的原因），CommandLineRunner启动会失败，故无法查看结果，接口应获得的内容如下：</li></ol><p>{</p><p>   type: “success”,</p><p>   value: {</p><pre><code>id: 10,quote: &quot;Really loving Spring Boot, makes stand alone Spring apps easy.&quot;</code></pre><p>   }</p><p>} 为一个两层结构的json对象</p><ol start="3"><li>@JsonIgnoreProperties表示任何未绑定在此类型中的属性都应被忽略，要将接口获得的数据与自定义的类型绑定（反序列化），需要使定义的变量名与json对象的键名完全一致，如果不匹配可以用@JsonProperty注释来指定json对象中的某个键（这也可以用于处理含特殊字符或其他不便于作为变量名出现的json键）</li></ol><h2 id="用spring-boot构建Web应用"><a href="#用spring-boot构建Web应用" class="headerlink" title="- 用spring boot构建Web应用"></a>- 用spring boot构建Web应用</h2><p><a href="https://spring.io/guides/gs/spring-boot/">https://spring.io/guides/gs/spring-boot/</a></p><ol><li>CommandLineRunner, ApplicationContext, DispatcherServlet</li><li>添加单元测试，先添加maven依赖. MockMvc, 两种测试。</li><li>Spring Boot Actuator，帮助监控和管理web应用。添加依赖到maven，通过<a href="http://localhost:8080/actuator">http://localhost:8080/actuator</a> 可访问。详细见：<a href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#actuator">https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#actuator</a></li><li>JMX，是Java Management Extensions(Java管理扩展)的缩写，是一个为应用程序植入管理功能的框架。</li><li>For more details about each of these REST endpoints and how you can tune their settings with an application.properties file (in src/main/resources), see the <a href="https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#production-ready-endpoints">https://docs.spring.io/spring-boot/docs/2.5.0/reference/htmlsingle/#production-ready-endpoints</a></li><li>Groovy 另一门语言（基于Java）</li></ol><h2 id="使用-Spring-MVC-提供-Web-内容"><a href="#使用-Spring-MVC-提供-Web-内容" class="headerlink" title="- 使用 Spring MVC 提供 Web 内容"></a>- 使用 Spring MVC 提供 Web 内容</h2><p><a href="https://spring.io/guides/gs/serving-web-content/">https://spring.io/guides/gs/serving-web-content/</a></p><ol><li>Model object, easy to use in view template</li><li>Thymeleaf, 一个现代的服务器端 Java 模板引擎，适用于 Web 和独立环境。添加spring-boot-starter-thymeleaf</li><li>Spring-boot-devtools, 可以实现指定目录（默认为classpath路径）下的文件进行更改后，项目自动重启，更改后的代码自动生效，热部署节省了“编写更改代码、重新启动应用程序并刷新浏览器以查看更改”这一过程的时间，添加依赖</li><li>Spring boot app serves static content from resources in the classpath at /static (or /public). The index.html resource is used as a welcome page.</li></ol><h2 id="保护-Web-应用程序，确认用户"><a href="#保护-Web-应用程序，确认用户" class="headerlink" title="- 保护 Web 应用程序，确认用户"></a>- 保护 Web 应用程序，确认用户</h2><p><a href="https://spring.io/guides/gs/securing-web/">https://spring.io/guides/gs/securing-web/</a></p><ol><li>分两部分，先构建一个app(Spring MVC)，再用Spring Security做登录界面</li><li>Spring MVC负责请求的转发和视图管理</li><li>If Spring Security is on the classpath, Spring Boot automatically secures all HTTP endpoints with “basic” authentication. </li><li>第二部分，首先添加ss的两个依赖（本身和测试），然后编写安全类</li><li>根据配置，Spring Security提供了一个过滤器，可以拦截请求和验证用户的过滤器。如果用户无法验证，页面将被重定向到/login？error，您的页面显示适当的错误信息。成功退出登录后，您的申请将发送到/login?logout，您的页面将显示适当的成功信息。</li><li>更新hello页面，We display the username by using Spring Security’s integration with HttpServletRequest#getRemoteUser(). The “Sign Out” form submits a POST to /logout. Upon successfully logging out, it redirects the user to /login?logout.</li><li>关于Thymeleaf:</li></ol><blockquote><p>${user.name}表示“获取用户的变量，并调用其getName()方法”<br>通过标签中的th:text属性来填充该标签的一段内容，意思是$表达式只能写在th标签内部,不然不会生效,使用th:text标签的值替换div标签里面的值,至于div里面的原有的值只是为了给前端开发时做展示用的.这样的话很好的做到了前后端分离.意味着div标签中的内容会被表达式${session.book}的值所替代，无论模板中它的内容是什么，之所以在模板中“多此一举“地填充它的内容，完全是为了它能够作为原型在浏览器中直接显示出来。<br>访问spring-mvc中model的属性，语法格式为“${}”，如${user.id}可以获取model里的user对象的id属性<br>为了模板更加易用，Thymeleaf还提供了一系列Utility对象（内置于Context中），可以通过#直接访问。例如${ #dates.format(dateVar, ‘dd/MMM/yyyy HH:mm’)} 使用java.util.Date的功能方法类</p></blockquote><ol start="8"><li>结果是智能允许名为user密码为password的用户登录</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;Spring学习笔记&quot;&gt;&lt;a href=&quot;#Spring学习笔记&quot; class=&quot;headerlink&quot; title=&quot;Spring学习笔记&quot;&gt;&lt;/a&gt;Spring学习笔记&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;前言：学习方法&lt;/li&gt;
+&lt;li&gt;第一个demo&lt;/li&gt;
+&lt;li&gt;构建RESTful风格的服务&lt;/li&gt;
+&lt;li&gt;连接MySQL&lt;/li&gt;
+&lt;li&gt;使用RESTful风格的服务&lt;/li&gt;
+&lt;li&gt;用Spring Boot构建Web应用&lt;/li&gt;
+&lt;li&gt;使用 Spring MVC 提供 Web 内容&lt;/li&gt;
+&lt;li&gt;保护 Web 应用程序，确认用户 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;前言：学习方法&quot;&gt;&lt;a href=&quot;#前言：学习方法&quot; class=&quot;headerlink&quot; title=&quot;- 前言：学习方法&quot;&gt;&lt;/a&gt;- 前言：学习方法&lt;/h2&gt;&lt;p&gt;先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：&lt;a href=&quot;https://docs.spring.io/spring-boot/docs/current/reference/html/&quot;&gt;https://docs.spring.io/spring-boot/docs/current/reference/html/&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
+    
+    <category term="Spring" scheme="http://silencezheng.top/tags/Spring/"/>
+    
+  </entry>
   
   <entry>
     <title>双重指针，指针的指针！</title>
@@ -52,9 +83,9 @@
     
     
     
-    <category term="PHP" scheme="http://silencezheng.top/tags/PHP/"/>
-    
     <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
+    
+    <category term="PHP" scheme="http://silencezheng.top/tags/PHP/"/>
     
     <category term="MySQL" scheme="http://silencezheng.top/tags/MySQL/"/>
     
@@ -260,9 +291,9 @@
     
     <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
     
-    <category term="Idea" scheme="http://silencezheng.top/tags/Idea/"/>
-    
     <category term="Maven" scheme="http://silencezheng.top/tags/Maven/"/>
+    
+    <category term="Idea" scheme="http://silencezheng.top/tags/Idea/"/>
     
   </entry>
   
@@ -412,25 +443,6 @@
     <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
     
     <category term="Maven" scheme="http://silencezheng.top/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java.lang.NullPointerException报错原因及解决</title>
-    <link href="http://silencezheng.top/2020/09/07/article10/"/>
-    <id>http://silencezheng.top/2020/09/07/article10/</id>
-    <published>2020-09-07T05:18:56.000Z</published>
-    <updated>2020-09-07T05:40:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天尝试idea的MAVEN管理的时候发生了奇怪的事，在本来普通javaweb项目结构中运行畅通的项目放到<br>MAVEN中连报两次java.lang.NullPointerException，于是进行了一番研究，其实就是当一个对象<br>的值为空时，没有判断为空的情况。idea给出的自动解决办法并不好，于是记录下来以备后用。<br>参考：<a href="https://blog.csdn.net/qq_44543508/article/details/94589868">https://blog.csdn.net/qq_44543508/article/details/94589868</a></p><span id="more"></span><p>首先下面是报此错误的常见原因：</p><p>1、字符串变量未初始化</p><p>2、接口类型的对象没有用具体的类初始化，比如：</p><pre><code>Map map // 会报错Map map = new Map(); //则不会报错了</code></pre><p>3、当一个对象的值为空时，没有判断为空的情况。</p><p>4、字符串与文字的比较，文字可以是一个字符串或Enum的元素，如下会出现异常</p><pre><code>String str = null;if（str.equals（“Test”））&#123;//这里的代码将不会被触发，因为会抛出java.lang.NullPointerException异常。&#125;</code></pre><p>5、优先使用String.valueOf（）方法代替toString（）<br>当程序代码需要对象的字符串表示形式时，请避免使用该对象的toString方法。如果你的对象的引用等于null，<br>NullPointerException则会抛出，使用静态String.valueOf方法，该方法不会抛出任何异常并打印”null”</p><p>6、class被声明了类型， 默认 class = null; 这样在调用class中方法的时候系统只能给你个空指针异常， 给其实例化就好了：class = new Class();</p><p>7、返回null，方法的返回值不要定义成为一般的类型，而是用数组。这样如果想要返回null的时候就能避免许多不必要的NullPointerException</p><p>我遇到的情况属于3、当一个对象的值为空时，没有判断为空的情况。<br>下面来看实例。</p><pre><code>ResultSet rs;String stuClass = null;String sql = (&quot;select class from monitorsys.students where id =&quot;+userid);rs = DataProvide.getResultSet(sql);while (rs.next())&#123;    stuClass = rs.getString(&quot;class&quot;);&#125;System.out.println(stuClass);return stuClass;&#125;</code></pre><p>这是我一开始写的代码，其中rs只是声明并未赋值，故在rs.next处报错了.<br>idea给出的快速解决办法是加入 <code>assert rs!=null</code>,但因为assert只适合调试并不适合写入<br>业务逻辑,所以我不想使用assert来解决这一报错.(关于为什么assert不适合写入业务逻辑请自行搜索”assert陷阱”)</p><p>于是我将代码改成下面这样:</p><pre><code>if(rs!=null)&#123;        while (rs.next())&#123;            stuClass = rs.getString(&quot;class&quot;);        &#125;        System.out.println(stuClass);    &#125;else &#123;        System.out.println(&quot;null error!&quot;);    &#125;    return stuClass;&#125;</code></pre><p>再运行,无报错显示.</p><p>然后插一个图结束这篇吧~<br><img src="/assets/post_img/article10/exception.png" alt="EXCEPTION"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;今天尝试idea的MAVEN管理的时候发生了奇怪的事，在本来普通javaweb项目结构中运行畅通的项目放到&lt;br&gt;MAVEN中连报两次java.lang.NullPointerException，于是进行了一番研究，其实就是当一个对象&lt;br&gt;的值为空时，没有判断为空的情况。idea给出的自动解决办法并不好，于是记录下来以备后用。&lt;br&gt;参考：&lt;a href=&quot;https://blog.csdn.net/qq_44543508/article/details/94589868&quot;&gt;https://blog.csdn.net/qq_44543508/article/details/94589868&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
     
   </entry>
   
