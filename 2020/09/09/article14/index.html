@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言这几天开始学习web框架了，发现很多术语和缩写自己竟然完全不知道，想到很多刚入门的人学起来应该也是这种感觉，就写一篇记录一下，方便大家使用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-09T14:49:57.000Z">
-<meta property="article:modified_time" content="2020-10-05T09:07:42.000Z">
+<meta property="article:modified_time" content="2022-02-06T03:47:26.101Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Servlet">
@@ -68,7 +68,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 31
+			总文章数 32
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -215,7 +215,7 @@
 <li>私有化的属性必须通过public类型的方法暴露给其它程序，并且方法的命名也必须遵守一定的命名规范。</li>
 </ul>
 <p>JavaBean的属性可以是任意类型，并且一个JavaBean可以有多个属性。每个属性通常都需要具有相应的setter、 getter方法，setter方法称为属性修改器，getter方法称为属性访问器。<br>属性修改器必须以小写的set前缀开始，后跟属性名，且属性名的第一个字母要改为大写，例如，name属性的修改器名称为setName，password属性的修改器名称为setPassword。<br>属性访问器通常以小写的get前缀开始，后跟属性名，且属性名的第一个字母也要改为大写，例如，name属性的访问器名称为getName，password属性的访问器名称为getPassword。<br>一个JavaBean的某个属性也可以只有set方法或get方法，这样的属性通常也称之为只写、只读属性。</p>
-<p><strong>POJO</strong><br>POJO = “Plain Old Java Object”，是MartinFowler等发明的一个术语，用来表示普通的Java对象，不是JavaBean, EntityBean 或者 SessionBean。POJO不担当任何特殊的角色，<br>也不实现任何特殊的Java框架的接口如，EJB，JDBC等等。<br>即POJO是一个简单的普通的Java对象，它不包含业务逻辑或持久逻辑等，但不是JavaBean、EntityBean等，不具有任何特殊角色和不继承或不实现任何其它Java框架的类或接口。<br>下面是摘自Martin Fowler个人网站的一句话：<br>“We wondered why people were so against using regular objects in their systems and concluded that it was because simple objects lacked a fancy name.<br>So we gave them one, and it’s caught on very nicely.”－－Martin Fowler</p>
+<p><strong>POJO</strong><br>POJO = “Plain Ordinary Java Object”，是MartinFowler等发明的一个术语，用来表示普通的Java对象，不是JavaBean, EntityBean 或者 SessionBean。POJO不担当任何特殊的角色，<br>也不实现任何特殊的Java框架的接口如，EJB，JDBC等等。<br>即POJO是一个简单的普通的Java对象，它不包含业务逻辑或持久逻辑等，但不是JavaBean、EntityBean等，不具有任何特殊角色和不继承或不实现任何其它Java框架的类或接口。<br>下面是摘自Martin Fowler个人网站的一句话：<br>“We wondered why people were so against using regular objects in their systems and concluded that it was because simple objects lacked a fancy name.<br>So we gave them one, and it’s caught on very nicely.”－－Martin Fowler</p>
 <p>我们疑惑为什么人们不喜欢在他们的系统中使用普通的对象，我们得到的结论是——普通的对象缺少一个响亮的名字，因此我们给它们起了一个，并且取得了很好的效果。——Martin Fowler</p>
 <p><strong>EJB</strong><br>EJB是的Enterprise Java Beans技术的简称, 又被称为企业Java Beans。<br>EJB (Enterprise Java Beans) 是基于分布式事务处理的企业级应用程序的组件。Sun公司发布的文档中对EJB的定义是：EJB是用于开发和部署多层结构的、分布式的、面向对象的Java应用系统的跨平台的构件体系结构。<br>EJB实现原理： 就是把原来放到客户端实现的代码放到服务器端，并依靠RMI进行通信。<br>把EJB 这个概念变成大白话 ：<br>变成大白话就是，”把你编写的软件中那些需要执行制定的任务的类，不放到客户端软<br>件上了，而是给他打成包放到一个服务器上了”。<br>EJB 和JSP 有什么关系？EJB 和JSP 有关系，但是关系还真不怎么大，至多是在JSP 的<br>服务器端调用远端服务上的EJB 类，仅此而已。</p>
 <p><strong>MVC模式</strong><br>MVC 模式代表 Model-View-Controller（模型-视图-控制器） 模式。这种模式用于应用程序的分层开发。是一种设计模式。</p>
@@ -638,11 +638,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,10 +663,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -686,14 +686,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">yilia</a>
               </li>
              
@@ -707,6 +699,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Apache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">

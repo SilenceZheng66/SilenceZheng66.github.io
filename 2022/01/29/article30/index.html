@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://silencezheng.top">
   <title>Spring学习笔记 | silenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Spring学习笔记 前言：学习方法 第一个demo 构建RESTful风格的服务 连接MySQL 使用RESTful风格的服务 用Spring Boot构建Web应用 使用 Spring MVC 提供 Web 内容 保护 Web 应用程序，确认用户   - 前言：学习方法先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：ht">
+  <meta name="description" content="Spring学习笔记 前言：学习方法 第一个demo 构建RESTful风格的服务 连接MySQL 使用RESTful风格的服务 用Spring Boot构建Web应用 使用 Spring MVC 提供 Web 内容 保护 Web 应用程序，确认用户   前言：学习方法先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：http">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring学习笔记">
 <meta property="og:url" content="http://silencezheng.top/2022/01/29/article30/index.html">
 <meta property="og:site_name" content="silenceZheng66-BLOG">
-<meta property="og:description" content="Spring学习笔记 前言：学习方法 第一个demo 构建RESTful风格的服务 连接MySQL 使用RESTful风格的服务 用Spring Boot构建Web应用 使用 Spring MVC 提供 Web 内容 保护 Web 应用程序，确认用户   - 前言：学习方法先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：ht">
+<meta property="og:description" content="Spring学习笔记 前言：学习方法 第一个demo 构建RESTful风格的服务 连接MySQL 使用RESTful风格的服务 用Spring Boot构建Web应用 使用 Spring MVC 提供 Web 内容 保护 Web 应用程序，确认用户   前言：学习方法先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：http">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-28T16:42:17.000Z">
-<meta property="article:modified_time" content="2022-01-28T16:49:49.950Z">
+<meta property="article:modified_time" content="2022-02-13T07:37:53.556Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Spring">
@@ -68,7 +68,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 31
+			总文章数 32
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -216,38 +216,29 @@
 <li>使用 Spring MVC 提供 Web 内容</li>
 <li>保护 Web 应用程序，确认用户 </li>
 </ul>
-<h2 id="前言：学习方法"><a href="#前言：学习方法" class="headerlink" title="- 前言：学习方法"></a>- 前言：学习方法</h2><p>先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/">https://docs.spring.io/spring-boot/docs/current/reference/html/</a></p>
+<h2 id="前言：学习方法"><a href="#前言：学习方法" class="headerlink" title="前言：学习方法"></a>前言：学习方法</h2><p>先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/">https://docs.spring.io/spring-boot/docs/current/reference/html/</a></p>
 <span id="more"></span>
 
 
 
 
-<h2 id="第一个demo"><a href="#第一个demo" class="headerlink" title="- 第一个demo"></a>- 第一个demo</h2><p><a target="_blank" rel="noopener" href="https://spring.io/quickstart">https://spring.io/quickstart</a></p>
+<h2 id="第一个demo"><a href="#第一个demo" class="headerlink" title="第一个demo"></a>第一个demo</h2><p><a target="_blank" rel="noopener" href="https://spring.io/quickstart">https://spring.io/quickstart</a></p>
 <ol>
-<li><p>@SpringBootApplication、@RestController、@GetMapping</p>
-</li>
-<li><p>本地配置tomcat要开权限，不然idea不能启动tomcat</p>
-</li>
-<li><p>代码示例：</p>
-<p> @SpringBootApplication<br> @RestController<br> public class DemoApplication {</p>
+<li>@SpringBootApplication、@RestController、@GetMapping</li>
+<li>本地配置tomcat要开权限，不然idea不能启动tomcat</li>
+<li>代码示例：<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@SpringBootApplication</span></span><br><span class="line"><span class="variable">@RestController</span></span><br><span class="line">public class DemoApplication &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">public</span> <span class="selector-tag">static</span> <span class="selector-tag">void</span> <span class="selector-tag">main</span>(String[] args) &#123;</span><br><span class="line">		<span class="selector-tag">SpringApplication</span><span class="selector-class">.run</span>(DemoApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@<span class="selector-tag">GetMapping</span>(<span class="string">&quot;/hello&quot;</span>)</span><br><span class="line">	<span class="selector-tag">public</span> <span class="selector-tag">String</span> <span class="selector-tag">hello</span>(<span class="variable">@RequestParam</span>(value = <span class="string">&quot;name&quot;</span>, defaultValue = <span class="string">&quot;World&quot;</span>) String name) &#123;</span><br><span class="line">		<span class="selector-tag">return</span> <span class="selector-tag">String</span><span class="selector-class">.format</span>(<span class="string">&quot;Hello %s!&quot;</span>, name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
 </li>
 </ol>
-<pre><code>    public static void main(String[] args) &#123;
-        SpringApplication.run(DemoApplication.class, args);
-    &#125;
-
-    @GetMapping(&quot;/hello&quot;)
-    public String hello(@RequestParam(value = &quot;name&quot;, defaultValue = &quot;World&quot;) String name) &#123;
-        return String.format(&quot;Hello %s!&quot;, name);
-    &#125;
-
-&#125;</code></pre><h2 id="构建RESTful风格的服务"><a href="#构建RESTful风格的服务" class="headerlink" title="- 构建RESTful风格的服务"></a>- 构建RESTful风格的服务</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/rest-service/#initial">https://spring.io/guides/gs/rest-service/#initial</a></p>
+<h2 id="构建RESTful风格的服务"><a href="#构建RESTful风格的服务" class="headerlink" title="构建RESTful风格的服务"></a>构建RESTful风格的服务</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/rest-service/#initial">https://spring.io/guides/gs/rest-service/#initial</a></p>
 <ol>
 <li>通过 mvn clean package将app进行打包（jar），终端可以直接运行java -jar</li>
 <li>jar包和war包的区别，spring boot项目的jar包内建服务器可以直接运行</li>
 <li>不需要web.xml，纯Java</li>
 </ol>
-<h2 id="连接MySQL"><a href="#连接MySQL" class="headerlink" title="- 连接MySQL"></a>- 连接MySQL</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/accessing-data-mysql/">https://spring.io/guides/gs/accessing-data-mysql/</a></p>
+<h2 id="连接MySQL"><a href="#连接MySQL" class="headerlink" title="连接MySQL"></a>连接MySQL</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/accessing-data-mysql/">https://spring.io/guides/gs/accessing-data-mysql/</a></p>
 <ol>
 <li>需要添加新依赖，bash进入mysql时若用sudo命令要先输入sudo密码再输入root密码</li>
 <li>MySQL创建新用户后的%指允许在任何主机登陆，可换为ip或localhost（仅在本地）</li>
@@ -256,19 +247,10 @@
 <li>用postman发送请求测试接口</li>
 <li>进行安全测试，防止sql注入攻击，将用户权限设置为只能对数据操作而无法涉及数据表结构（scheme） </li>
 </ol>
-<h2 id="–-使用RESTful风格的服务"><a href="#–-使用RESTful风格的服务" class="headerlink" title="– 使用RESTful风格的服务"></a>– 使用RESTful风格的服务</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/consuming-rest/">https://spring.io/guides/gs/consuming-rest/</a></p>
+<h2 id="使用RESTful风格的服务"><a href="#使用RESTful风格的服务" class="headerlink" title="使用RESTful风格的服务"></a>使用RESTful风格的服务</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/consuming-rest/">https://spring.io/guides/gs/consuming-rest/</a></p>
 <ol>
 <li>一般可以通过浏览器访问URL来使用一个web服务，但用变成方式来使用RESTful风格的服务是更有用的方法,这个demo要从接口中取数据放到springboot的控制台中以log形式显示</li>
-<li>由于demo给定的接口无法访问（可能是墙的原因），CommandLineRunner启动会失败，故无法查看结果，接口应获得的内容如下：</li>
-</ol>
-<p>{</p>
-<p>   type: “success”,</p>
-<p>   value: {</p>
-<pre><code>id: 10,
-
-quote: &quot;Really loving Spring Boot, makes stand alone Spring apps easy.&quot;</code></pre><p>   }</p>
-<p>} 为一个两层结构的json对象</p>
-<ol start="3">
+<li>由于demo给定的接口无法访问（可能是墙的原因），CommandLineRunner启动会失败，故无法查看结果，接口应获得的内容如下：<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">   type:</span> <span class="string">&quot;success&quot;</span>,</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">   value:</span> &#123;</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">      id:</span> <span class="number">10</span>,</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">      quote:</span> <span class="string">&quot;Really loving Spring Boot, makes stand alone Spring apps easy.&quot;</span></span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125; 为一个两层结构的json对象</span><br></pre></td></tr></table></figure></li>
 <li>@JsonIgnoreProperties表示任何未绑定在此类型中的属性都应被忽略，要将接口获得的数据与自定义的类型绑定（反序列化），需要使定义的变量名与json对象的键名完全一致，如果不匹配可以用@JsonProperty注释来指定json对象中的某个键（这也可以用于处理含特殊字符或其他不便于作为变量名出现的json键）</li>
 </ol>
 <h2 id="用spring-boot构建Web应用"><a href="#用spring-boot构建Web应用" class="headerlink" title="- 用spring boot构建Web应用"></a>- 用spring boot构建Web应用</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/spring-boot/">https://spring.io/guides/gs/spring-boot/</a></p>
@@ -420,6 +402,15 @@ quote: &quot;Really loving Spring Boot, makes stand alone Spring apps easy.&quot
 
   
 <nav id="article-nav">
+  
+    <a href="/2022/02/13/article31/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Elastic Search7.x学习笔记
+        
+      </div>
+    </a>
   
   
     <a href="/2021/07/13/article29/" id="article-nav-older" class="article-nav-link-wrap">
@@ -587,11 +578,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,10 +603,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,14 +626,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">yilia</a>
               </li>
              
@@ -656,6 +639,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Apache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
