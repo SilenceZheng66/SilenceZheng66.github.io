@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://silencezheng.top">
   <title>Elastic Search7.x学习笔记 | silenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Elastic Search7.x学习笔记 前言 入门  前言：近期开始学习ES，先从官方文档和视频入手学习。">
+  <meta name="description" content="Elastic Search7.x学习笔记 前言 入门  前言：近期开始学习ES，先从官方文档和一些入门博客入手学习。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elastic Search7.x学习笔记">
 <meta property="og:url" content="http://silencezheng.top/2022/02/13/article31/index.html">
 <meta property="og:site_name" content="silenceZheng66-BLOG">
-<meta property="og:description" content="Elastic Search7.x学习笔记 前言 入门  前言：近期开始学习ES，先从官方文档和视频入手学习。">
+<meta property="og:description" content="Elastic Search7.x学习笔记 前言 入门  前言：近期开始学习ES，先从官方文档和一些入门博客入手学习。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-13T07:41:30.000Z">
-<meta property="article:modified_time" content="2022-02-27T18:20:50.116Z">
+<meta property="article:modified_time" content="2022-03-10T06:03:38.326Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="ElasticSearch">
 <meta name="twitter:card" content="summary">
@@ -185,7 +185,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">4.8k字</span>
+        <span class="post-count">6.2k字</span>
       </span>
     </span>
 
@@ -194,7 +194,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">19分</span>
+        <span class="post-count">24分</span>
       </span>
     </span>
 </div>
@@ -209,7 +209,7 @@
 <li>前言</li>
 <li>入门</li>
 </ol>
-<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>近期开始学习ES，先从官方文档和视频入手学习。</p>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>近期开始学习ES，先从官方文档和一些入门博客入手学习。</p>
 <span id="more"></span>
 <p>推荐博客系列：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qdhxhz/p/11448451.html">https://www.cnblogs.com/qdhxhz/p/11448451.html</a></p>
 <h2 id="入门："><a href="#入门：" class="headerlink" title="入门："></a>入门：</h2><ul>
@@ -451,8 +451,83 @@ docker rm kib01-test</code></pre><h3 id="Elasticsearch概念简析"><a href="#El
 </ul>
 <h4 id="下面举点Query和Filter的例子，数据接用上个例子中的。"><a href="#下面举点Query和Filter的例子，数据接用上个例子中的。" class="headerlink" title="下面举点Query和Filter的例子，数据接用上个例子中的。"></a>下面举点Query和Filter的例子，数据接用上个例子中的。</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">查询兴趣里包含<span class="string">&#x27;旅游&#x27;</span>的：</span><br><span class="line"><span class="builtin-name">GET</span> student/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;query&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;match&quot;</span>:&#123;<span class="string">&quot;interests&quot;</span>: <span class="string">&quot;旅游&quot;</span>&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">这里只要interests包含<span class="string">&#x27;旅游&#x27;</span>,<span class="string">&#x27;旅&#x27;</span>,<span class="string">&#x27;游&#x27;</span>的都会命中</span><br><span class="line"></span><br><span class="line">查询name和address包含<span class="string">&#x27;北&#x27;</span>：</span><br><span class="line"><span class="builtin-name">GET</span> student/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;query&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;multi_match&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;query&quot;</span>: <span class="string">&quot;北&quot;</span>,</span><br><span class="line">      <span class="string">&quot;fields&quot;</span>:[<span class="string">&quot;name&quot;</span>,<span class="string">&quot;address&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">我们索引结构中，address属性是一个keyword类型，它是需要完全匹配，而不是包含的关系，所以只有当query北京时才能被查到</span><br><span class="line"></span><br><span class="line">查询兴趣里包含<span class="string">&#x27;摄影&#x27;</span>的：</span><br><span class="line"><span class="builtin-name">GET</span> student/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;query&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;match_phrase&quot;</span>:&#123;<span class="string">&quot;interests&quot;</span>: <span class="string">&quot;摄影&quot;</span>&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">这里和match的区别是这里是真正包含<span class="string">&#x27;摄影&#x27;</span>，而不是只要满足其中一个字就会被模糊命中</span><br><span class="line"></span><br><span class="line">terms查询地址等于<span class="string">&quot;香港&quot;</span>或<span class="string">&quot;北京&quot;</span>的：</span><br><span class="line"><span class="builtin-name">GET</span> student/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;query&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;terms&quot;</span>:&#123;</span><br><span class="line">      <span class="string">&quot;address&quot;</span>:[<span class="string">&quot;香港&quot;</span>,<span class="string">&quot;北京&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">如果仅检索<span class="string">&#x27;香&#x27;</span>或<span class="string">&#x27;北&#x27;</span>那是无法命中的，因为keyword需要完全匹配才能命中，如果查询一个地址则使用term</span><br><span class="line"></span><br><span class="line">按成绩排序：</span><br><span class="line"><span class="builtin-name">GET</span> student/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;query&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;match_all&quot;</span>: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line"> <span class="string">&quot;sort&quot;</span>:[&#123;</span><br><span class="line">        <span class="string">&quot;age&quot;</span>:&#123;<span class="string">&quot;order&quot;</span>: <span class="string">&quot;desc&quot;</span>&#125;</span><br><span class="line">      &#125;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">范围查询：</span><br><span class="line"><span class="builtin-name">GET</span> student/_search</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;query&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;range&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;birthday&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;from&quot;</span>: <span class="string">&quot;1950-01-11&quot;</span>,</span><br><span class="line">                <span class="string">&quot;to&quot;</span>: <span class="string">&quot;2000-01-11&quot;</span>,</span><br><span class="line">                 <span class="string">&quot;include_lower&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="string">&quot;include_upper&quot;</span>: <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">通配符查询：</span><br><span class="line"><span class="builtin-name">GET</span> student/_search</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;query&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;wildcard&quot;</span>: &#123;</span><br><span class="line">             <span class="string">&quot;name&quot;</span>: <span class="string">&quot;李*&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">？符号中文似乎无法使用</span><br><span class="line"></span><br><span class="line">Filter查询age为23或32的：</span><br><span class="line"><span class="builtin-name">GET</span> student/_search</span><br><span class="line">&#123; </span><br><span class="line">  <span class="string">&quot;post_filter&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;terms&quot;</span>:&#123;<span class="string">&quot;age&quot;</span>:[32,23]&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-
-
+<h4 id="复合查询"><a href="#复合查询" class="headerlink" title="复合查询"></a>复合查询</h4><ul>
+<li>布尔查询bool query<ul>
+<li>概念、特点<ul>
+<li>通过布尔逻辑将较小的查询组合成较大的查询</li>
+<li>子查询可以任意顺序出现</li>
+<li>可以嵌套多个查询，包括bool查询</li>
+<li>如果bool查询中没有must条件，should中必须至少满足一条才会返回结果</li>
+</ul>
+</li>
+<li>操作符<ul>
+<li>must：必须出现在匹配文档中 ，贡献算分</li>
+<li>must_not：必须不能出现在匹配文档中，但不贡献算分 </li>
+<li>should：选择性匹配，至少满足一条，贡献算分</li>
+<li>filter：过滤子句，必须出现在匹配文档中，但不贡献算分</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>提高查询boosting query<ul>
+<li>在bool复合查询我们可以通过 must_not+must 先剔除不想匹配的文档，再获取匹配的文档，但是有一种场景就是我并不需要完全剔除，而是把需要剔除的那部分文档的分数降低。这个时候就可以使用boosting query</li>
+<li>boosting需要搭配三个关键字 positive , negative , negative_boost<ul>
+<li>只有匹配了 positive查询 的文档才会被包含到结果集中</li>
+<li>但是在匹配了 positive 的同时匹配了negative查询 的文档会被降低相关度并也包含在结果中，通过将文档原本的_score和negative_boost参数进行相乘来得到新的_score</li>
+<li>所以negative_boost参数一般小于1.0，这样才能降低得分，如该参数等于0.5时匹配 negative 时会降低一半得分</li>
+</ul>
+</li>
+<li>应用场景<ul>
+<li>例如搜索“苹果公司”相关信息，查询中用于匹配的信息为“苹果”</li>
+<li>那么我们查询的条件是：must = ‘苹果’。但如果你的文档是 ‘苹果树’,’苹果水果’，那么此时如果匹配到其实没有任何意义。</li>
+<li>那么我们修改查询条件为：must = ‘苹果’ AND must_not = ‘树 or 水果’ 因为我们要查的苹果公司相关信息，如果你是苹果树那对我来讲确实是不匹配，所以直接过滤掉。但直接过滤会过于粗暴，因为一个文档中包含’苹果’和’树’那不代表一定是苹果树，而可能是 ‘苹果公司组织员工一起去种树’ 那么这条文档理应出现，此时产生了 boosting 应用的场景</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>固定分数查询constant_score<ul>
+<li>常量分值查询，目的就是返回指定的score，一般都结合filter使用，因为filter context忽略score</li>
+<li>例如 constant_score 中先加入一个filter，后跟<strong>boost参数</strong>，此时所有结果文档的score都会变为boost参数指定的值</li>
+</ul>
+</li>
+<li>最佳匹配查询dis_max<ul>
+<li>如果在查询中有多个匹配条件，则结果的得分只是取分数最高的那个query的分数</li>
+<li>可以通过指定 <strong>tie**</strong>_breaker** 这个参数将其他匹配语句的评分也考虑其中，但最佳匹配语句依然占最终结果里的很大一部分</li>
+<li>tie_breaker 参数提供了一种 dis_max 和 bool 之间的折中选择，它的评分方式如下<ul>
+<li>获得最佳匹配语句的评分 _score</li>
+<li>将其他匹配语句的评分结果与 tie_breaker 相乘</li>
+<li>对以上评分求和并规范化</li>
+</ul>
+</li>
+<li>tie_breaker 可以是 0 到 1 之间的浮点数，其中 0 代表使用 dis_max 最佳匹配语句的普通逻辑， 1 表示所有匹配语句同等重要。最佳的精确值需要根据数据与查询调试得出，但是合理值应该与零接近（处于 0.1 - 0.4 之间），这样就不会颠覆 dis_max 最佳匹配性质的根本</li>
+</ul>
+</li>
+<li>函数查询function_score （简单介绍）<ul>
+<li>概念<ul>
+<li>function_score是处理分值计算过程的终极工具，它让你能够对所有匹配了主查询的每份文档调用一个函数来调整甚至是完全替换原来的_score</li>
+<li>要使用function_score，用户必须定义一个查询和一个或多个函数，这些函数计算查询返回的每个文档的新分数</li>
+</ul>
+</li>
+<li>一些预定义的函数<ul>
+<li>weight: 对每份文档适用一个简单的提升，且该提升不会被归约，例如当weight为2时，结果为2 * _score</li>
+<li>field_value_factor: 使用文档中某个字段的值来改变_score，比如将受欢迎程度或者投票数量考虑在内</li>
+<li>random_score: 使用一致性随机分值计算来对每个用户采用不同的结果排序方式，对相同用户仍然使用相同的排序方式</li>
+<li>衰减函数Decay Function<ul>
+<li>linear，exp，gauss等</li>
+</ul>
+</li>
+<li>script_score: 使用自定义的脚本来完全控制分值计算逻辑。如果你需要以上预定义函数之外的功能，可以根据需要通过脚本进行实现。</li>
+</ul>
+</li>
+<li>使用场景举例<ul>
+<li>假设有一个资讯类APP，我们希望让人阅读量高的文章出现在结果列表的头部，但是主要的排序依据仍然是全文搜索分值</li>
+<li>当用户搜索酒店，它的要求是 1、离他目前位置1Km内 2、价格在500元内。如果我们只是使用一个 filter 排除所有市中心方圆 1KM以外的酒店，再用一个filter排除每晚价格超过500元的酒店，这种作法太过强硬，可能有一间房在2K米，但是超级便宜一晚只要100元，用户可能会因此愿意妥协住这间房。</li>
+</ul>
+</li>
+<li>官方文档： <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html</a></li>
+</ul>
+</li>
+</ul>
 
       
 
@@ -725,11 +800,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -757,10 +832,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
               </li>
              
@@ -769,19 +840,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Homebrew</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -797,6 +860,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
@@ -805,11 +876,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color4">Homebrew</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Gitalk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
