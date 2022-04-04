@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-03-31T17:55:53.614Z</updated>
+  <updated>2022-04-04T09:32:34.875Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>M1芯片VMfusion安装win11教程</title>
+    <link href="http://silencezheng.top/2022/04/04/article33/"/>
+    <id>http://silencezheng.top/2022/04/04/article33/</id>
+    <published>2022-04-04T09:26:33.000Z</published>
+    <updated>2022-04-04T09:32:34.875Z</updated>
+    
+    <content type="html"><![CDATA[<p>首先需要准备的有：VMfusion预览版（支持ARM架构）、Win11ARM版镜像（.iso）</p><span id="more"></span><p>下面开始安装：</p><ol><li>打开VMfusion创建自定虚拟机，操作系统选择Other 64-bit Arm</li><li>下一步虚拟磁盘那块点继续，不用设置</li><li>然后一定要注意选择 <strong>自定设置</strong> ，否则虚拟机会自动启动，就无法安装了。</li><li>自定设置时，cpu推荐4核以上，内存4g以上，硬盘容量52g以上（保险起见，实际30g也够用了）</li><li>dvd设置我们下载的win11镜像后，在启动磁盘处选择dvd启动（不选应该也会默认这个）</li><li>找到该虚拟机的安装位置，查看包内容，编辑vmx文件，把guestOS改为arm-windows11-64</li><li>启动虚拟机，点击任意按键进入安装界面</li><li>选择没有产品密钥，一直进入到选择操作系统界面</li><li>下面需要绕过TPM，首先按住fn+shift+f10打开cmd，输入regedit打开注册表编辑器</li><li>进到HKEY_LOCAL_MACHINE-&gt;SYSTEM-&gt;Setup下，新建项LabConfig</li><li>在该项创建两个DWORD值，key分别为BypassTPMCheck和BypassSecureBootCheck，value都为1</li><li>然后都关闭掉继续进行安装，到网络设置界面发现无法继续，打开cmd准备跳过</li><li>输入taskmgr打开任务管理器，详细信息中找到OOBE开头的进程关闭掉，然后全部关闭返回发现跳过了网络设置步骤</li><li>下面成功进入桌面后，需要配置好网络才能正常使用（装来玩扫雷当我没说），管理员身份打开cmd</li><li>输入命令<code>bcdedit /debug on</code> 启用默认启动项的内核调试</li><li>再输入 <code>bcdedit /dbgsettings net hostip:10.0.0.1 port:55555</code> 将目标计算机配置为使用以太网连接进行调试，并指定主计算机的 IP 地址和主机可用于连接到目标计算机的端口号。</li><li>重启系统后即可连接网络，配置完毕。</li></ol><p>解读：<br>10.X.X.X是私有地址（私有地址是互联网上不使用，而用在局域网络中的地址）<br><code>netstat -ano     查看所有端口使用情况</code><br><code>netstat -aon|findstr &quot;55555&quot; 查看55555端口pid</code><br><code>tasklist|findstr &quot;9088&quot; 查看pid对应程序</code></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;首先需要准备的有：VMfusion预览版（支持ARM架构）、Win11ARM版镜像（.iso）&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
+    
+  </entry>
   
   <entry>
     <title>机器学习概述--《动手学深度学习》笔记0x01</title>
@@ -192,9 +211,9 @@
     
     
     
-    <category term="Homebrew" scheme="http://silencezheng.top/tags/Homebrew/"/>
-    
     <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
+    
+    <category term="Homebrew" scheme="http://silencezheng.top/tags/Homebrew/"/>
     
   </entry>
   
@@ -415,27 +434,6 @@
     
     
     <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;这几天开始学习web框架了，发现很多术语和缩写自己竟然完全不知道，&lt;br&gt;想到很多刚入门的人学起来应该也是这种感觉，就写一篇记录一下，&lt;br&gt;方便大家使用。&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
-    
-    <category term="Servlet" scheme="http://silencezheng.top/tags/Servlet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Servlet中的RequestDispatcher 两个方法详解</title>
-    <link href="http://silencezheng.top/2020/09/09/article13/"/>
-    <id>http://silencezheng.top/2020/09/09/article13/</id>
-    <published>2020-09-09T14:14:57.000Z</published>
-    <updated>2020-09-09T14:29:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我认为讲的很详细的对RequestDispatcher的解释，记录一下。<br>转自：<a href="https://www.jianshu.com/p/35d9e05d5989">https://www.jianshu.com/p/35d9e05d5989</a>  （翻译）<br>英文原博：<a href="https://www.javatpoint.com/requestdispatcher-in-servlet">https://www.javatpoint.com/requestdispatcher-in-servlet</a><br>下面是简单总结：</p><span id="more"></span><p>请求调度器 接口 提供调度request到另一个资源（servlet/jsp/html）的功能。<br>该接口也可以用incloude方法包含另一个资源（servlet/jsp/html）的内容。它是servlet协作的一种方式。<br>在RequestDispatcher接口中定义了两种方法： forward和include</p><p><strong>forward</strong><br>如下图所示，servlet2的response发送给客户端。而servlet1的response不会显示给用户。</p><p><img src="/assets/post_img/article13/forward.png" alt="forward"></p><p>ServletRequest接口的getRequestDispatcher（）方法返回RequestDispatcher的对象。句法：</p><p><code>public RequestDispatcher getRequestDispatcher(String resource);</code>  </p><p>例子:</p><pre><code>RequestDispatcher requestDispatcher = request.getRequestDispatcher(&quot;/sessionLoginDemo/login.jsp&quot;);//得到转发器requestDispatcher.forward(request, response);//转发（调度）请求给/sessionLoginDemo/login.jsp 并由login.jsp发送response给客户端。</code></pre><p><strong>include</strong><br>如下图所示，servlet2的response包含在（正在发送给客户端的）servlet1的response包中。</p><p><img src="/assets/post_img/article13/include.png" alt="include"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;我认为讲的很详细的对RequestDispatcher的解释，记录一下。&lt;br&gt;转自：&lt;a href=&quot;https://www.jianshu.com/p/35d9e05d5989&quot;&gt;https://www.jianshu.com/p/35d9e05d5989&lt;/a&gt;  （翻译）&lt;br&gt;英文原博：&lt;a href=&quot;https://www.javatpoint.com/requestdispatcher-in-servlet&quot;&gt;https://www.javatpoint.com/requestdispatcher-in-servlet&lt;/a&gt;&lt;br&gt;下面是简单总结：&lt;/p&gt;</summary>
     
     
     
