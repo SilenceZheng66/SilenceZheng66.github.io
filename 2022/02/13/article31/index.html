@@ -16,7 +16,7 @@
 <meta property="og:description" content="Elastic Search7.x学习笔记 前言 入门 深入  1. 前言：先从官方入门视频、官方文档和一些入门博客入手学习。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-13T07:41:30.000Z">
-<meta property="article:modified_time" content="2022-04-12T04:36:52.760Z">
+<meta property="article:modified_time" content="2022-04-12T04:45:12.244Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="ElasticSearch">
 <meta name="twitter:card" content="summary">
@@ -185,7 +185,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">9k字</span>
+        <span class="post-count">9.1k字</span>
       </span>
     </span>
 
@@ -261,11 +261,8 @@
 docker stop kib01-test
 docker network rm elastic
 docker rm es01-test
-docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsearch集群"><a href="#2-1-2-在Linux系统上配置Elasticsearch集群" class="headerlink" title="2.1.2. 在Linux系统上配置Elasticsearch集群"></a>2.1.2. 在Linux系统上配置Elasticsearch集群</h4><p>集群基础配置：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/important-settings.html#path-settings">https://www.elastic.co/guide/en/elasticsearch/reference/7.17/important-settings.html#path-settings</a></p>
-<p>在elasticsearch.yml中可以配置存储路径（不建议动），集群名称，节点名称，网络等等。<strong>以及重要生产环境配置：discovery和cluster formation</strong>，这两项配置能使集群中的节点发现彼此并选举出一个主节点（master node）。</p>
-<p>cluster.name：设置集群名称<br>node.name：设置节点名称<br>network.host：设置网络地址，默认是<code>127.0.0.1和[::1]</code>，可以用于开发但是不能用于生产。修改这个IP会使ES从开发模式变成<strong>生产模式</strong>，ES启动检测会发生变化。</p>
-<p><strong>discovery.seed**</strong>_hosts**：默认情况下，没有进行网络配置时，ES会绑定本地IP并监听9300和9305端口，与所在主机上的其他ES节点构成集群。当想要进行集群配置时，该参数可以接受集群中所有符合主节点条件的节点地址构成的 YAML 序列或数组（以 - 开头）。每个地址可以是 IP 地址，也可以是能够通过 DNS 解析为一个或多个 IP 地址的主机名。总之该参数下的节点能够被选举为主节点。</p>
-<p><strong>cluster.initial**</strong>_master<strong>**_nodes</strong>：当第一次启动 Elasticsearch 集群时， 集群引导步骤会确定在第一次选举中计票的符合主节点资格的节点集。在<strong>生产模式</strong>下启动新集群时，必须通过此设置明确列出应在第一次选举中计票的符合主节点选举条件的节点集。<strong>注意！在集群首次启动成功后需要在各节点删除此配置，不要在重启集群或向集群中加入新节点时使用该配置</strong> 该配置项只能使用节点名称（node name），以YAML数组形式列出。</p>
+docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsearch集群"><a href="#2-1-2-在Linux系统上配置Elasticsearch集群" class="headerlink" title="2.1.2. 在Linux系统上配置Elasticsearch集群"></a>2.1.2. 在Linux系统上配置Elasticsearch集群</h4><p>集群基础配置：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/important-settings.html#path-settings">https://www.elastic.co/guide/en/elasticsearch/reference/7.17/important-settings.html#path-settings</a><br>在elasticsearch.yml中可以配置存储路径（不建议动），集群名称，节点名称，网络等等。<strong>以及重要生产环境配置：discovery和cluster formation</strong>，这两项配置能使集群中的节点发现彼此并选举出一个主节点（master node）。<br>cluster.name：设置集群名称<br>node.name：设置节点名称<br>network.host：设置网络地址，默认是<code>127.0.0.1和[::1]</code>，可以用于开发但是不能用于生产。修改这个IP会使ES从开发模式变成<strong>生产模式</strong>，ES启动检测会发生变化。</p>
+<p><strong>discovery.seed**</strong>_hosts<strong>：默认情况下，没有进行网络配置时，ES会绑定本地IP并监听9300和9305端口，与所在主机上的其他ES节点构成集群。当想要进行集群配置时，该参数可以接受集群中所有符合主节点条件的节点地址构成的 YAML 序列或数组（以 - 开头）。每个地址可以是 IP 地址，也可以是能够通过 DNS 解析为一个或多个 IP 地址的主机名。总之该参数下的节点能够被选举为主节点。<br><strong>cluster.initial</strong></strong>_master<strong>**_nodes</strong>：当第一次启动 Elasticsearch 集群时， 集群引导步骤会确定在第一次选举中计票的符合主节点资格的节点集。在<strong>生产模式</strong>下启动新集群时，必须通过此设置明确列出应在第一次选举中计票的符合主节点选举条件的节点集。<strong>注意！在集群首次启动成功后需要在各节点删除此配置，不要在重启集群或向集群中加入新节点时使用该配置</strong> 该配置项只能使用节点名称（node name），以YAML数组形式列出。</p>
 <h3 id="2-2-Elasticsearch概念简析"><a href="#2-2-Elasticsearch概念简析" class="headerlink" title="2.2. Elasticsearch概念简析"></a>2.2. Elasticsearch概念简析</h3><h4 id="2-2-1-Index"><a href="#2-2-1-Index" class="headerlink" title="2.2.1. Index"></a>2.2.1. Index</h4><p>索引index是文档doc的容器，是一类文档的集合。<br>作为名词，类比关系型数据库，索引相当于SQL中的一个Database。索引由其名称(必须为全小写字符)进行标识。<br>作为动词，含义为保存一个文档到索引的过程。这类似于SQL语句中的 INSERT关键词。如果该文档已存在时那就相当于数据库的UPDATE。<br>关系型数据库通过增加一个B+树索引到指定的列上，以便提升数据检索速度。索引ElasticSearch 使用了一个叫做<strong>倒排索引</strong>的结构来达到相同的目的。<strong>mapping</strong>就是index的结构，相当于关系型数据库中的库表结构</p>
 <h4 id="2-2-2-Document、Doc"><a href="#2-2-2-Document、Doc" class="headerlink" title="2.2.2. Document、Doc"></a>2.2.2. Document、Doc</h4><p>Index 里面单条的记录称为Document（文档）。等同于关系型数据库表中的行。</p>
 <ul>
@@ -276,8 +273,10 @@ docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsea
 <li>_seq_no：严格递增的顺序号，每个文档一个，Shard级别严格递增，保证后写入的Doc的_seq_no大于先写入的Doc的_seq_no。</li>
 <li>_primary_term：_/primary_term也和_seq_no一样是一个整数，每当Primary Shard发生重新分配时，比如重启，Primary选举等，_primary_term会递增1</li>
 <li>found：查询的ID正确那么ture, 如果 Id 不正确，就查不到数据，found字段就是false。</li>
-<li>_source：文档的原始JSON数据。<h4 id="2-2-3-Type（被淘汰）"><a href="#2-2-3-Type（被淘汰）" class="headerlink" title="2.2.3. Type（被淘汰）"></a>2.2.3. Type（被淘汰）</h4>在7.0开始，一个索引只能建一个Type为_doc<h4 id="2-2-4-Cluster"><a href="#2-2-4-Cluster" class="headerlink" title="2.2.4. Cluster"></a>2.2.4. Cluster</h4>ElasticSearch集群实际上是一个分布式系统，它需要具备两个特性：高可用性和可扩展性。</li>
+<li>_source：文档的原始JSON数据。</li>
 </ul>
+<h4 id="2-2-3-Type（被淘汰）"><a href="#2-2-3-Type（被淘汰）" class="headerlink" title="2.2.3. Type（被淘汰）"></a>2.2.3. Type（被淘汰）</h4><p>在7.0开始，一个索引只能建一个Type为_doc</p>
+<h4 id="2-2-4-Cluster"><a href="#2-2-4-Cluster" class="headerlink" title="2.2.4. Cluster"></a>2.2.4. Cluster</h4><p>ElasticSearch集群实际上是一个分布式系统，它需要具备两个特性：高可用性和可扩展性。</p>
 <ol>
 <li>允许有节点停止服务</li>
 <li>部分节点丢失，不会丢失数据</li>
@@ -310,10 +309,11 @@ docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsea
 <ul>
 <li>对于生产环境中分片的设定，需要提前做好容量规划，因为主分片数是在索引创建时预先设定的，后续无法修改。</li>
 <li>分片数过小会导致后续无法增加节点进行水平扩展、导致分片的数据量太大，数据在重新分配时耗时</li>
-<li>分片数过大会影响搜索结果的相关性打分，影响统计结果的准确性、单个节点上过多的分片，会导致资源浪费，同时也会影响性能；<h4 id="2-2-7-倒排索引"><a href="#2-2-7-倒排索引" class="headerlink" title="2.2.7. 倒排索引"></a>2.2.7. 倒排索引</h4>ES的搜索功能是基于lucene,而lucene搜索的基本原理就是倒叙索引,倒序排序的结果跟分词的类型有关。<br>假设我们搜索谷歌地图之父,搜索流程会是这样分词,分词插件将句子分为3个term 谷歌,地图,之父，然后将这3个term拿到倒叙索引中去查找(会很高效,比如二分查找),如果匹配到了就拿对应的文档id,获得文档内容。<br>TF、IDF在结果排序中起到了作用。</li>
+<li>分片数过大会影响搜索结果的相关性打分，影响统计结果的准确性、单个节点上过多的分片，会导致资源浪费，同时也会影响性能；</li>
 </ul>
-<h3 id="2-3-通过REST-API执行CRUD"><a href="#2-3-通过REST-API执行CRUD" class="headerlink" title="2.3. 通过REST API执行CRUD"></a>2.3. 通过REST API执行CRUD</h3><h4 id="2-3-1-ES集群相关命令"><a href="#2-3-1-ES集群相关命令" class="headerlink" title="2.3.1. ES集群相关命令"></a>2.3.1. ES集群相关命令</h4><ul>
-<li>_cat系列提供了一系列查询Elasticsearch集群状态的接口<ul>
+<h4 id="2-2-7-倒排索引"><a href="#2-2-7-倒排索引" class="headerlink" title="2.2.7. 倒排索引"></a>2.2.7. 倒排索引</h4><p>ES的搜索功能是基于lucene,而lucene搜索的基本原理就是倒叙索引,倒序排序的结果跟分词的类型有关。<br>假设我们搜索谷歌地图之父,搜索流程会是这样分词,分词插件将句子分为3个term 谷歌,地图,之父，然后将这3个term拿到倒叙索引中去查找(会很高效,比如二分查找),如果匹配到了就拿对应的文档id,获得文档内容。<br>TF、IDF在结果排序中起到了作用。</p>
+<h3 id="2-3-通过REST-API执行CRUD"><a href="#2-3-通过REST-API执行CRUD" class="headerlink" title="2.3. 通过REST API执行CRUD"></a>2.3. 通过REST API执行CRUD</h3><h4 id="2-3-1-ES集群相关命令"><a href="#2-3-1-ES集群相关命令" class="headerlink" title="2.3.1. ES集群相关命令"></a>2.3.1. ES集群相关命令</h4><p>_cat系列提供了一系列查询Elasticsearch集群状态的接口</p>
+<ul>
 <li>_cat/shards          #查看各shard的详细情况</li>
 <li>_cat/nodes           #查看所有节点信息</li>
 <li>_cat/count           #查看当前集群的doc数量</li>
@@ -321,32 +321,14 @@ docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsea
 <li>_cat/health          #查看集群当前状态：红、黄、绿</li>
 <li>…etc</li>
 <li>每个命令都支持使用?v参数，让输出内容表格显示表头; pretty则让输出缩进更规范。 如<code>GET _cat/health?v</code></li>
-<li>？pretty参数可以使输出更美观<h4 id="2-3-2-索引CRUD命令"><a href="#2-3-2-索引CRUD命令" class="headerlink" title="2.3.2. 索引CRUD命令"></a>2.3.2. 索引CRUD命令</h4></li>
+<li>？pretty参数可以使输出更美观<h4 id="2-3-2-索引CRUD命令"><a href="#2-3-2-索引CRUD命令" class="headerlink" title="2.3.2. 索引CRUD命令"></a>2.3.2. 索引CRUD命令</h4>查询索引举例<br>_cat/indices         #查看集群中所有index的详细信息<br>_cat/indices/{index} #查看集群中指定index的详细信息<br>_cat/segments        #查看各index的segment详细信息,包括segment名, 所属shard, 内存(磁盘)占用大小, 是否刷盘<br>_cat/segments/{index}#查看指定index的segment详细信息<br>_cat/indices?v&amp;health=yellow   #查询健康状态为yellow的索引<br>_cat/indices?v&amp;health=yellow&amp;s=docs.count:desc #根据文档数量进行索引排序</li>
 </ul>
-</li>
-<li>查询索引举例<ul>
-<li>_cat/indices         #查看集群中所有index的详细信息</li>
-<li>_cat/indices/{index} #查看集群中指定index的详细信息</li>
-<li>_cat/segments        #查看各index的segment详细信息,包括segment名, 所属shard, 内存(磁盘)占用大小, 是否刷盘</li>
-<li>_cat/segments/{index}#查看指定index的segment详细信息</li>
-<li>_cat/indices?v&amp;health=yellow   #查询健康状态为yellow的索引</li>
-<li>cat/indices?v&amp;health=yellow&amp;s=docs.count:desc #根据文档数量进行索引排序</li>
-</ul>
-</li>
-<li>创建索引举例<ul>
-<li>PUT /student{“settings”: {“number_of_shards”: 3,”number_of_replicas”: 1},”mappings”: {“properties”: {“name”: {“type”:”text”}, “country”: {“type”:”keyword”},”age”: {“type”:”integer”},”date”: {“type”: “date”,”format”: “yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis”}}}}</li>
-<li>查看创建结果<code>GET /_cat/indices/student?v</code></li>
-</ul>
-</li>
-<li>更新索引<ul>
-<li>使用put也可以更新索引</li>
-</ul>
-</li>
-<li>删除索引<ul>
-<li>curl -X DELETE “localhost:9200/index-name”<h4 id="2-3-3-文档CRUD命令"><a href="#2-3-3-文档CRUD命令" class="headerlink" title="2.3.3. 文档CRUD命令"></a>2.3.3. 文档CRUD命令</h4>POST /uri用于创建，DELETE /uri/xxx用于删除，PUT /uri/xxx用于更新或创建，GET /uri/xxx用于查询。<br>POST与PUT的区别:</li>
-</ul>
-</li>
-</ul>
+<p>创建索引举例</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PUT student</span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;:&#123;</span><br><span class="line">    <span class="string">&quot;number_of_shards&quot;</span>:<span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;number_of_replicas&quot;</span>:<span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;mappings&quot;:&#123;</span><br><span class="line">      <span class="string">&quot;properties&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;text&quot;</span>&#125;,</span><br><span class="line">        &quot;sid&quot;:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;integer&quot;</span>&#125;,</span><br><span class="line">        &quot;<span class="selector-tag">address</span>&quot;:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;keyword&quot;</span>&#125;,</span><br><span class="line">        &quot;age&quot;:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;integer&quot;</span>&#125;,</span><br><span class="line">        &quot;interests&quot;:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;text&quot;</span>&#125;,</span><br><span class="line">        &quot;birthday&quot;:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;date&quot;</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>查看创建结果<code>GET /_cat/indices/student?v</code></p>
+<p>更新索引<br>使用PUT也可以更新索引</p>
+<p>删除索引<br><code>curl -X DELETE &quot;localhost:9200/index-name&quot;</code></p>
+<h4 id="2-3-3-文档CRUD命令"><a href="#2-3-3-文档CRUD命令" class="headerlink" title="2.3.3. 文档CRUD命令"></a>2.3.3. 文档CRUD命令</h4><p>POST /uri用于创建，DELETE /uri/xxx用于删除，PUT /uri/xxx用于更新或创建，GET /uri/xxx用于查询。<br>POST与PUT的区别:</p>
 <ol>
 <li>在ES中,如果不确定文档的ID，那么就需要用POST，它可以自己生成唯一的文档ID。如果确定文档的ID，那么就可以用PUT，当然也可以用POST，它们都可以创建或修改文档（如果是修改，那么_version版本号提高1）</li>
 <li>PUT、GET、DELETE是幂等的，而POST并不一定是幂等。如果你对POST也指定了文档ID,那它其实和PUT没啥区别，那它就是幂等。如果你没有指定文档ID那么就不是幂等操作了，因为同一数据，你执行多次POST，那么生成多个UUID的文档，也就是每POST一次都会新增一条数据</li>
@@ -357,7 +339,10 @@ docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsea
 <ul>
 <li>条件查询请求的协议方法是POST方法(为什么使用get也可以查询)</li>
 <li>条件查询需要使用_search关键字</li>
-<li>条件查询需要在请求体内将条件写在一个json体内，如下面的query和filter<br>聚合查询：aggs是聚合查询的关键词<br>对mapping中的字段type，text表示可以进行全文搜索、进行分词的字段，keyword表示用于聚合查询、统计分析的字段，同一个字段可同时支持这两种type<h4 id="2-4-1-Query查询"><a href="#2-4-1-Query查询" class="headerlink" title="2.4.1. Query查询"></a>2.4.1. Query查询</h4>Query context(查询上下文)这种语句在执行时既要计算文档是否匹配，还要计算文档相对于其他文档的匹配度有多高，匹配度越高，_score 分数就越高</li>
+<li>条件查询需要在请求体内将条件写在一个json体内，如下面的query和filter<br>聚合查询：aggs是聚合查询的关键词<br>对mapping中的字段type，text表示可以进行全文搜索、进行分词的字段，keyword表示用于聚合查询、统计分析的字段，同一个字段可同时支持这两种type</li>
+</ul>
+<h4 id="2-4-1-Query查询"><a href="#2-4-1-Query查询" class="headerlink" title="2.4.1. Query查询"></a>2.4.1. Query查询</h4><p>Query context(查询上下文)这种语句在执行时既要计算文档是否匹配，还要计算文档相对于其他文档的匹配度有多高，匹配度越高，_score 分数就越高</p>
+<ul>
 <li>match查询<ul>
 <li>match query: 知道分词器的存在，会对filed进行分词操作，然后再查询</li>
 <li>match_all: 查询所有文档</li>
@@ -390,10 +375,15 @@ docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsea
 <li>通过_source指定返回的字段，或也可以控制显示要的字段和去除不需要的字段，此时可使用通配符*</li>
 <li>通过sort:[{}]进行排序，如其中可填入<code>&quot;age&quot;:&#123;&quot;order&quot;: &quot;desc&quot;&#125;</code></li>
 <li>fuzzy实现模糊查询，模糊查询可以在Match和 Multi-Match查询中使用以便解决拼写的错误，模糊度是基于Levenshteindistance计算与原单词的距离</li>
-<li>highlight高亮搜索结果<h4 id="2-4-2-Filter查询"><a href="#2-4-2-Filter查询" class="headerlink" title="2.4.2. Filter查询"></a>2.4.2. Filter查询</h4></li>
+<li>highlight高亮搜索结果</li>
+</ul>
+<h4 id="2-4-2-Filter查询"><a href="#2-4-2-Filter查询" class="headerlink" title="2.4.2. Filter查询"></a>2.4.2. Filter查询</h4><ul>
 <li>Filter context(过滤上下文)过滤上下文中的语句在执行时只关心文档是否和查询匹配，不会计算匹配度，也就是得分（score）</li>
 <li>filter是不计算相关性的，同时可以cache。因此，filter速度要快于query</li>
-<li>将上面的query替换为post_filter<h4 id="2-4-3-复合查询"><a href="#2-4-3-复合查询" class="headerlink" title="2.4.3. 复合查询"></a>2.4.3. 复合查询</h4><h5 id="2-4-3-1-布尔查询bool-query"><a href="#2-4-3-1-布尔查询bool-query" class="headerlink" title="2.4.3.1. 布尔查询bool query"></a>2.4.3.1. 布尔查询bool query</h5>概念、特点:</li>
+<li>将上面的query替换为post_filter</li>
+</ul>
+<h4 id="2-4-3-复合查询"><a href="#2-4-3-复合查询" class="headerlink" title="2.4.3. 复合查询"></a>2.4.3. 复合查询</h4><h5 id="2-4-3-1-布尔查询bool-query"><a href="#2-4-3-1-布尔查询bool-query" class="headerlink" title="2.4.3.1. 布尔查询bool query"></a>2.4.3.1. 布尔查询bool query</h5><p>概念、特点:</p>
+<ul>
 <li>通过布尔逻辑将较小的查询组合成较大的查询</li>
 <li>子查询可以任意顺序出现</li>
 <li>可以嵌套多个查询，包括bool查询</li>
@@ -401,13 +391,23 @@ docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsea
 <li>must：必须出现在匹配文档中 ，贡献算分</li>
 <li>must_not：必须不能出现在匹配文档中，但不贡献算分 </li>
 <li>should：选择性匹配，至少满足一条，贡献算分</li>
-<li>filter：过滤子句，必须出现在匹配文档中，但不贡献算分<h5 id="2-4-3-2-提高查询boosting-query"><a href="#2-4-3-2-提高查询boosting-query" class="headerlink" title="2.4.3.2. 提高查询boosting query"></a>2.4.3.2. 提高查询boosting query</h5>在bool复合查询我们可以通过 must_not+must 先剔除不想匹配的文档，再获取匹配的文档，但是有一种场景就是我并不需要完全剔除，而是把需要剔除的那部分文档的分数降低。这个时候就可以使用boosting query<br>boosting需要搭配三个关键字：positive , negative , negative_boost</li>
+<li>filter：过滤子句，必须出现在匹配文档中，但不贡献算分</li>
+</ul>
+<h5 id="2-4-3-2-提高查询boosting-query"><a href="#2-4-3-2-提高查询boosting-query" class="headerlink" title="2.4.3.2. 提高查询boosting query"></a>2.4.3.2. 提高查询boosting query</h5><p>在bool复合查询我们可以通过 must_not+must 先剔除不想匹配的文档，再获取匹配的文档，但是有一种场景就是我并不需要完全剔除，而是把需要剔除的那部分文档的分数降低。这个时候就可以使用boosting query<br>boosting需要搭配三个关键字：positive , negative , negative_boost</p>
+<ul>
 <li>只有匹配了 positive查询 的文档才会被包含到结果集中</li>
 <li>但是在匹配了 positive 的同时匹配了negative查询 的文档会被降低相关度并也包含在结果中，通过将文档原本的_score和negative_boost参数进行相乘来得到新的_score</li>
-<li>所以negative_boost参数一般小于1.0，这样才能降低得分，如该参数等于0.5时匹配 negative 时会降低一半得分<br>应用场景:<br>例如搜索“苹果公司”相关信息，查询中用于匹配的信息为“苹果”。那么我们查询的条件是：must = ‘苹果’。但如果你的文档是 ‘苹果树’,’苹果水果’，那么此时如果匹配到其实没有任何意义。那么我们修改查询条件为：must = ‘苹果’ AND must_not = ‘树 or 水果’ 因为我们要查的苹果公司相关信息，如果你是苹果树那对我来讲确实是不匹配，所以直接过滤掉。但直接过滤会过于粗暴，因为一个文档中包含’苹果’和’树’那不代表一定是苹果树，而可能是 ‘苹果公司组织员工一起去种树’ 那么这条文档理应出现，此时产生了 boosting 应用的场景<h5 id="2-4-3-3-固定分数查询constant-score"><a href="#2-4-3-3-固定分数查询constant-score" class="headerlink" title="2.4.3.3. 固定分数查询constant_score"></a>2.4.3.3. 固定分数查询constant_score</h5>常量分值查询，目的就是返回指定的score，一般都结合filter使用，因为filter context忽略score<br>例如 constant_score 中先加入一个filter，后跟<strong>boost参数</strong>，此时所有结果文档的score都会变为boost参数指定的值<h5 id="2-4-3-4-最佳匹配查询dis-max"><a href="#2-4-3-4-最佳匹配查询dis-max" class="headerlink" title="2.4.3.4.最佳匹配查询dis_max"></a>2.4.3.4.最佳匹配查询dis_max</h5>如果在查询中有多个匹配条件，则结果的得分只是取分数最高的那个query的分数<br>可以通过指定 <strong>tie**</strong>_breaker** 这个参数将其他匹配语句的评分也考虑其中，但最佳匹配语句依然占最终结果里的很大一部分<br>tie_breaker 参数提供了一种 dis_max 和 bool 之间的折中选择，它的评分方式如下：</li>
+<li>所以negative_boost参数一般小于1.0，这样才能降低得分，如该参数等于0.5时匹配 negative 时会降低一半得分<br>应用场景:<br>例如搜索“苹果公司”相关信息，查询中用于匹配的信息为“苹果”。那么我们查询的条件是：must = ‘苹果’。但如果你的文档是 ‘苹果树’,’苹果水果’，那么此时如果匹配到其实没有任何意义。那么我们修改查询条件为：must = ‘苹果’ AND must_not = ‘树 or 水果’ 因为我们要查的苹果公司相关信息，如果你是苹果树那对我来讲确实是不匹配，所以直接过滤掉。但直接过滤会过于粗暴，因为一个文档中包含’苹果’和’树’那不代表一定是苹果树，而可能是 ‘苹果公司组织员工一起去种树’ 那么这条文档理应出现，此时产生了 boosting 应用的场景</li>
+</ul>
+<h5 id="2-4-3-3-固定分数查询constant-score"><a href="#2-4-3-3-固定分数查询constant-score" class="headerlink" title="2.4.3.3. 固定分数查询constant_score"></a>2.4.3.3. 固定分数查询constant_score</h5><p>常量分值查询，目的就是返回指定的score，一般都结合filter使用，因为filter context忽略score<br>例如 constant_score 中先加入一个filter，后跟<strong>boost参数</strong>，此时所有结果文档的score都会变为boost参数指定的值</p>
+<h5 id="2-4-3-4-最佳匹配查询dis-max"><a href="#2-4-3-4-最佳匹配查询dis-max" class="headerlink" title="2.4.3.4.最佳匹配查询dis_max"></a>2.4.3.4.最佳匹配查询dis_max</h5><p>如果在查询中有多个匹配条件，则结果的得分只是取分数最高的那个query的分数<br>可以通过指定 <strong>tie**</strong>_breaker** 这个参数将其他匹配语句的评分也考虑其中，但最佳匹配语句依然占最终结果里的很大一部分<br>tie_breaker 参数提供了一种 dis_max 和 bool 之间的折中选择，它的评分方式如下：</p>
+<ul>
 <li>获得最佳匹配语句的评分 _score</li>
 <li>将其他匹配语句的评分结果与 tie_breaker 相乘</li>
-<li>对以上评分求和并规范化<br>tie_breaker 可以是 0 到 1 之间的浮点数，其中 0 代表使用 dis_max 最佳匹配语句的普通逻辑， 1 表示所有匹配语句同等重要。最佳的精确值需要根据数据与查询调试得出，但是合理值应该与零接近（处于 0.1 - 0.4 之间），这样就不会颠覆 dis_max 最佳匹配性质的根本<h5 id="2-4-3-5-函数查询function-score-（简单介绍）"><a href="#2-4-3-5-函数查询function-score-（简单介绍）" class="headerlink" title="2.4.3.5. 函数查询function_score （简单介绍）"></a>2.4.3.5. 函数查询function_score （简单介绍）</h5>概念：</li>
+<li>对以上评分求和并规范化<br>tie_breaker 可以是 0 到 1 之间的浮点数，其中 0 代表使用 dis_max 最佳匹配语句的普通逻辑， 1 表示所有匹配语句同等重要。最佳的精确值需要根据数据与查询调试得出，但是合理值应该与零接近（处于 0.1 - 0.4 之间），这样就不会颠覆 dis_max 最佳匹配性质的根本</li>
+</ul>
+<h5 id="2-4-3-5-函数查询function-score-（简单介绍）"><a href="#2-4-3-5-函数查询function-score-（简单介绍）" class="headerlink" title="2.4.3.5. 函数查询function_score （简单介绍）"></a>2.4.3.5. 函数查询function_score （简单介绍）</h5><p>概念：</p>
+<ul>
 <li>function_score是处理分值计算过程的终极工具，它让你能够对所有匹配了主查询的每份文档调用一个函数来调整甚至是完全替换原来的_score</li>
 <li>要使用function_score，用户必须定义一个查询和一个或多个函数，这些函数计算查询返回的每个文档的新分数<br>一些预定义的函数：</li>
 <li>weight: 对每份文档适用一个简单的提升，且该提升不会被归约，例如当weight为2时，结果为2 * _score</li>
@@ -428,7 +428,10 @@ docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsea
 <li>Bucket(桶):     分桶类型，类似SQL中的GROUP BY语法 （满足特定条件的文档的集合）</li>
 <li>Pipeline(管道): 管道分析类型，基于上一级的聚合分析结果进行再分析</li>
 <li>Matrix(矩阵):   矩阵分析类型（聚合是一种面向数值型的聚合，用于计算一组文档字段中的统计信息）</li>
-<li>在查询请求体中以aggregations节点按规定语法定义聚合分析，可简写为aggs，如<code>&#123;&quot;aggs&quot; : &#123;&quot;&lt;aggregation_name&gt;&quot; :&#123;&quot;&lt;aggregation_type&gt;&quot; : &#123;&lt;aggregation_body&gt; &#125; &#125; &#125; &#125;</code> <h4 id="2-5-1-Metric聚合"><a href="#2-5-1-Metric聚合" class="headerlink" title="2.5.1. Metric聚合"></a>2.5.1. Metric聚合</h4>官方文档：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics.html</a><br>简介：<br>桶(Bucket)能让我们划分文档到有意义的集合，但是最终我们需要的是对这些桶内的文档进行一些<strong>指标</strong>的计算。分桶是一种达到目的地的手段：它提供了一种给文档分组的方法来让我们可以计算感兴趣的指标。<br>大多数指标是简单的数学运算（如：最小值、平均值、最大值、汇总），这些是通过文档的值来计算的。<br>Metric聚合分析分为单值分析和多值分析两类</li>
+<li>在查询请求体中以aggregations节点按规定语法定义聚合分析，可简写为aggs，如<code>&#123;&quot;aggs&quot; : &#123;&quot;&lt;aggregation_name&gt;&quot; :&#123;&quot;&lt;aggregation_type&gt;&quot; : &#123;&lt;aggregation_body&gt; &#125; &#125; &#125; &#125;</code> </li>
+</ul>
+<h4 id="2-5-1-Metric聚合"><a href="#2-5-1-Metric聚合" class="headerlink" title="2.5.1. Metric聚合"></a>2.5.1. Metric聚合</h4><p>官方文档：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics.html</a><br>简介：<br>桶(Bucket)能让我们划分文档到有意义的集合，但是最终我们需要的是对这些桶内的文档进行一些<strong>指标</strong>的计算。分桶是一种达到目的地的手段：它提供了一种给文档分组的方法来让我们可以计算感兴趣的指标。<br>大多数指标是简单的数学运算（如：最小值、平均值、最大值、汇总），这些是通过文档的值来计算的。<br>Metric聚合分析分为单值分析和多值分析两类</p>
+<ul>
 <li>单值分析：只输出一个分析结果，如min、max、avg、sum…</li>
 <li>多值分析：输出多个分析结果，如stats、percentile、extended_stats、percentile_rank…<br>1、Avg（均值）<br>计算从聚合文档中提取的数值的平均数<br>如：<code>&#123;&quot;aggs&quot; : &#123;&quot;avg_grade&quot; : &#123; &quot;avg&quot; : &#123; &quot;field&quot; : &quot;grade&quot; &#125; &#125;&#125;&#125;</code><br>2、Max&amp;Min<br>计算从聚合文档中提取的数值的最值<br>如： <code>&quot;max_price&quot; : &#123; &quot;max&quot; : &#123; &quot;field&quot; : &quot;price&quot; &#125; &#125;</code><br>3、Sum（总和）<br>计算从聚合文档中提取的数值的总和<br>如： <code>&quot;hat_prices&quot; : &#123; &quot;sum&quot; : &#123; &quot;field&quot; : &quot;price&quot; &#125; &#125;</code><br>4、Cardinality(唯一值)<br>cardinality 求唯一值，即不重复的字段有多少（相当于mysql中的distinct）<br>如： <code>&quot;type_count&quot; : &#123;&quot;cardinality&quot; : &#123;&quot;field&quot; : &quot;type&quot;&#125; &#125;</code><br>5、Stats（统计）<br>stats 统计，请求后会直接显示多种聚合结果，count、min、max、avg、sum等<br>如： <code>&quot;grades_stats&quot; : &#123; &quot;stats&quot; : &#123; &quot;field&quot; : &quot;grade&quot; &#125; &#125;</code><br>6、Percentiles（文档占比）<br>对指定字段的值按从小到大累计每个值对应的文档数的占比，返回指定占比比例对应的值，如对字段 “load_time” 使用percentiles返回<code>&quot;50.0&quot;: 445.0,</code>，则表示占比为百分之五十的文档”load_time”值小于等于445<br>下面给几种使用方法：</li>
 </ul>
@@ -437,10 +440,11 @@ docker rm kib01-test</code></pre><h4 id="2-1-2-在Linux系统上配置Elasticsea
 <li>指定分位值，则可在body内增加如<code>&quot;percents&quot; : [95, 99, 99.9]</code></li>
 <li>Keyed Response<ul>
 <li>默认情况下，keyed标志设置为true，它将唯一的字符串键与每个存储桶相关联，并将范围作为哈希而不是数组返回</li>
-<li>也可以修改keyed为false，在body内<code>&quot;keyed&quot;: false</code>，这样则会返回一个数组，通过结果也可以看出percentiles中键值对是按照百分比作键，字段值作值构成的<br>7、Percentile_Ranks<br>percentiles是通过指定百分比求文档值，这里通过文档值求百分比，即字段值作键，百分比作值<br>如： <code>&quot;percentile_ranks&quot; : &#123; &quot;field&quot; : &quot;load_time&quot; , &quot;values&quot; : [500,600] &#125;</code> ，返回结果若为 <code>&quot;500.0&quot;: 55.1, &quot;600.0&quot;: 64.0</code> 则表示 时间小于500的文档占比为55.1%，时间小于600的文档占比为64%<br>注意这里一定要通过values指定值数组<br>8、Top_Hits<br>一般用于分桶后获取该桶内匹配前n的文档列表，例如可以展示出某一个网站文档浏览前N名的文档<h4 id="2-5-2-Bucket聚合"><a href="#2-5-2-Bucket聚合" class="headerlink" title="2.5.2. Bucket聚合"></a>2.5.2. Bucket聚合</h4>简介：<br>简单来说桶就是满足特定条件的文档的集合，它会遍历文档中的内容，凡是符合某一要求的就放入一个桶中，分桶相当于 SQL 中的 group by。<br>当聚合开始被执行，每个文档里面的值通过计算来决定符合哪个桶的条件，如果匹配到，文档将放入相应的桶并接着开始聚合操作。<br>桶也可以被嵌套在其他桶里面。<br>1、Terms Aggregation<br>根据某一项的每个唯一的值的聚合<br>如：<code>&quot;terms&quot; : &#123; &quot;field&quot; : &quot;brand&quot; &#125;</code>，根据品牌分桶<br>常见使用：</li>
+<li>也可以修改keyed为false，在body内<code>&quot;keyed&quot;: false</code>，这样则会返回一个数组，通过结果也可以看出percentiles中键值对是按照百分比作键，字段值作值构成的<br>7、Percentile_Ranks<br>percentiles是通过指定百分比求文档值，这里通过文档值求百分比，即字段值作键，百分比作值<br>如： <code>&quot;percentile_ranks&quot; : &#123; &quot;field&quot; : &quot;load_time&quot; , &quot;values&quot; : [500,600] &#125;</code> ，返回结果若为 <code>&quot;500.0&quot;: 55.1, &quot;600.0&quot;: 64.0</code> 则表示 时间小于500的文档占比为55.1%，时间小于600的文档占比为64%<br>注意这里一定要通过values指定值数组<br>8、Top_Hits<br>一般用于分桶后获取该桶内匹配前n的文档列表，例如可以展示出某一个网站文档浏览前N名的文档</li>
 </ul>
 </li>
 </ul>
+<h4 id="2-5-2-Bucket聚合"><a href="#2-5-2-Bucket聚合" class="headerlink" title="2.5.2. Bucket聚合"></a>2.5.2. Bucket聚合</h4><p>简介：<br>简单来说桶就是满足特定条件的文档的集合，它会遍历文档中的内容，凡是符合某一要求的就放入一个桶中，分桶相当于 SQL 中的 group by。<br>当聚合开始被执行，每个文档里面的值通过计算来决定符合哪个桶的条件，如果匹配到，文档将放入相应的桶并接着开始聚合操作。<br>桶也可以被嵌套在其他桶里面。<br>1、Terms Aggregation<br>根据某一项的每个唯一的值的聚合<br>如：<code>&quot;terms&quot; : &#123; &quot;field&quot; : &quot;brand&quot; &#125;</code>，根据品牌分桶<br>常见使用：</p>
 <ul>
 <li>若只显示数量前n的桶，可通过size参数控制，如在body中加入<code>&quot;size&quot; : 3</code> 则只显示前三的桶</li>
 <li>若分桶后需要排序，可通过order参数控制，如在body中加入<code>&quot;order&quot; : &#123; &quot;_count&quot; : &quot;asc&quot; &#125;</code></li>
@@ -753,11 +757,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
