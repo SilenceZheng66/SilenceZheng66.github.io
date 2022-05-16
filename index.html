@@ -62,7 +62,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 37
+			总文章数 38
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -152,6 +152,188 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-article37" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/05/16/article37/">线性神经网络--《动手学深度学习》笔记0x03</a>
+    </h1>
+  
+
+        
+        
+<a href="/2022/05/16/article37/" class="archive-article-date">
+  	<time datetime="2022-05-16T15:55:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-16</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">9.5k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">35分</span>
+      </span>
+    </span>
+</div>
+          
+        <!-- 添加完成 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="线性神经网络–《动手学深度学习》笔记0x03"><a href="#线性神经网络–《动手学深度学习》笔记0x03" class="headerlink" title="线性神经网络–《动手学深度学习》笔记0x03"></a>线性神经网络–《动手学深度学习》笔记0x03</h1><h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>从经典算法————<em>线性</em>神经网络开始，介绍神经网络的基础知识。 经典统计学习技术中的线性回归和softmax回归可以视为线性神经网络。</p>
+<p>对应实践：<a target="_blank" rel="noopener" href="https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x03.ipynb">https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x03.ipynb</a></p>
+<h3 id="0-1-各章总结"><a href="#0-1-各章总结" class="headerlink" title="0.1. 各章总结"></a>0.1. 各章总结</h3><ul>
+<li>机器学习模型中的关键要素是训练数据、损失函数、优化算法，还有模型本身。</li>
+<li>矢量化使数学表达上更简洁，同时运行的更快。</li>
+<li>最小化目标函数和执行极大似然估计等价。</li>
+<li>线性回归模型也是一个简单的神经网络。</li>
+<li>我们可以使用PyTorch的高级API更简洁地实现模型。在PyTorch中，data模块提供了数据处理工具，nn模块定义了大量的神经网络层和常见损失函数。可以通过<code>_</code>结尾的方法将参数替换，从而初始化参数。</li>
+<li>softmax运算获取一个向量并将其映射为概率。</li>
+<li>softmax回归适用于分类问题，它使用了softmax运算中输出类别的概率分布。</li>
+<li>交叉熵是一个衡量两个概率分布之间差异的很好的度量，它测量给定模型编码数据所需的比特数。</li>
+<li>数据迭代器是获得更高性能的关键组件。依靠实现良好的数据迭代器，利用高性能计算来避免减慢训练过程。</li>
+<li>借助softmax回归，我们可以训练多分类的模型。</li>
+<li>训练softmax回归循环模型与训练线性回归模型非常相似：先读取数据，再定义模型和损失函数，然后使用优化算法训练模型。大多数常见的深度学习模型都有类似的训练过程。</li>
+<li>使用深度学习框架的高级API，我们可以更简洁地实现softmax回归。</li>
+<li>从计算的角度来看，实现softmax回归比较复杂。在许多情况下，深度学习框架在这些著名的技巧之外采取了额外的预防措施，来确保数值的稳定性。这使我们避免了在实践中从零开始编写模型时可能遇到的陷阱。</li>
+</ul>
+<h2 id="1-线性回归"><a href="#1-线性回归" class="headerlink" title="1. 线性回归"></a>1. 线性回归</h2><p><em>回归</em>（regression）是能为一个或多个自变量与因变量之间关系建模的一类方法。 在自然科学和社会科学领域，回归经常用来表示输入和输出之间的关系。</p>
+<p>在机器学习领域中的大多数任务通常都与<em>预测</em>（prediction）有关。 当我们想预测一个数值时，就会涉及到回归问题。 常见的例子包括：预测价格（房屋、股票等）、预测住院时间（针对住院病人等）、 预测需求（零售销量等）。 但不是所有的<em>预测</em>都是回归问题，比如分类问题也属于<em>预测</em>，目标是预测数据属于一组类别中的哪一个。</p>
+<h3 id="1-1-线性回归基本元素"><a href="#1-1-线性回归基本元素" class="headerlink" title="1.1. 线性回归基本元素"></a>1.1. 线性回归基本元素</h3><p><em>线性回归</em>（linear regression）基于几个简单的假设： 首先，假设自变量x和因变量y之间的关系是线性的， 即y可以表示为x中元素的加权和，这里通常允许包含观测值的一些噪声； 其次，我们假设任何噪声都比较正常，如噪声遵循正态分布。</p>
+<p>为了解释<em>线性回归</em>，我们举一个实际的例子： 我们希望根据房屋的面积（平方英尺）和房龄（年）来估算房屋价格（美元）。 为了开发一个能预测房价的模型，我们需要收集一个真实的数据集。 这个数据集包括了房屋的销售价格、面积和房龄。 在机器学习的术语中，该数据集称为<em>训练数据集</em>（training data set） 或<em>训练集</em>（training set）。 每行数据（比如一次房屋交易相对应的数据）称为<em>样本</em>（sample）， 也可以称为<em>数据点</em>（data point）或<em>数据样本</em>（data instance）。 我们把试图预测的目标（比如预测房屋价格）称为<em>标签</em>（label）或<em>目标</em>（target）。 预测所依据的自变量（面积和房龄）称为<em>特征</em>（feature）或<em>协变量</em>（covariate）。</p>
+<h4 id="1-1-1-线性模型"><a href="#1-1-1-线性模型" class="headerlink" title="1.1.1. 线性模型"></a>1.1.1. 线性模型</h4><p>线性假设是指目标（房屋价格）可以表示为特征（面积和房龄）的加权和，如下面的式子：<br>$$<br>\text { price }=w_{\text {1}} \cdot \text { area }+w_{\text {2}} \cdot \text { age }+b<br>$$<br>其中的w1和w2称为<em>权重</em>（weight），分别对应面积（area）和房龄（age），权重决定了每个特征对我们预测值的影响。b称为<em>偏置</em>（bias）、<em>偏移量</em>（offset）或<em>截距</em>（intercept）。 偏置是指当所有特征都取值为0时，预测值应该为多少。 即使现实中不会有任何房子的面积是0或房龄正好是0年，我们仍然需要偏置项。 如果没有偏置项，我们模型的表达能力将受到限制。 严格来说，上式是输入特征的一个<strong>仿射变换（affine transformation）</strong>。 仿射变换的特点是通过加权和对特征进行<em>线性变换（linear transformation）</em>， 并通过偏置项来进行<em>平移（translation）</em>。</p>
+<p>给定一个数据集，我们的目标是寻找模型的权重w和偏置b， 使得根据模型做出的预测大体符合数据里的真实价格。 输出的预测值由输入特征通过<em>线性模型</em>的仿射变换决定，仿射变换由所选权重和偏置确定。</p>
+<p>而在机器学习领域，我们通常使用的是高维数据集，建模时采用线性代数表示法会比较方便。 当我们的输入包含d个特征时，我们将预测结果$\hat{y}$（通常使用“尖角”符号表示y的估计值）表示为：$\hat{y}=w_{1} x_{1}+\ldots+w_{d} x_{d}+b$.</p>
+<p>将所有特征放到向量x∈Rd中， 并将所有权重放到向量w∈Rd中， 我们可以用点积形式来简洁地表达模型：$\hat{y}=\mathbf{w}^{\top} \mathbf{x}+b$，其中向量x对应于单个数据样本的特征。 用符号表示的矩阵X∈Rn×d可以很方便地引用我们整个数据集的n个样本。 其中，X的每一行是一个样本，每一列是一种特征。</p>
+<p>对于特征集合X，预测值y^∈Rn可以通过矩阵-向量乘法表示为：$\hat{\mathbf{y}}=\mathbf{X} \mathbf{w}+b$。</p>
+<p>这个过程中的求和将使用广播机制。给定训练数据特征X和对应的已知标签y， 线性回归的目标是找到一组<strong>权重向量w和偏置b</strong>：当给定从X的同分布中取样的新样本特征时， 这组权重向量和偏置能够使得新样本预测标签的误差尽可能小。</p>
+<p>虽然我们相信给定x预测y的最佳模型会是线性的， 但我们很难找到一个有n个样本的真实数据集，其中对于所有的1≤i≤n，$\boldsymbol{y}^{(i)}$完全等于$\mathbf{w}^{\top} \mathbf{x}^{(i)}+b$。 无论我们使用什么手段来观察特征X和标签y， 都可能会出现少量的观测误差。 因此，即使确信特征与标签的潜在关系是线性的， 我们也会加入一个噪声项来考虑观测误差带来的影响。</p>
+<p>在开始寻找最好的<em>模型参数</em>（model parameters）w和b之前， 我们还需要两个东西： （1）一种模型质量的度量方式（损失函数）； （2）一种能够更新模型以提高模型预测质量的方法（比如随机梯度下降）。</p>
+<h4 id="1-1-2-损失函数（loss-function）！"><a href="#1-1-2-损失函数（loss-function）！" class="headerlink" title="1.1.2. 损失函数（loss function）！"></a>1.1.2. 损失函数（loss function）！</h4><p>在开始考虑如何用模型<em>拟合</em>（fit）数据之前，我们需要确定一个拟合程度的度量。<strong>损失函数（loss function）</strong>能够量化目标的<em>实际</em>值与<em>预测</em>值之间的差距。 通常我们会选择非负数作为损失，且数值越小表示损失越小，完美预测时的损失为0。 </p>
+<p>回归问题中最常用的损失函数是平方误差函数。当样本i的预测值为y，其相应的真实标签为ty时， 平方误差可以定义为以下公式：<code>l(w,b)=0.5(y−ty)^2</code>其中常数0.5不会带来本质的差别，但这样在形式上稍微简单一些 （因为当我们对损失函数求导后常数系数为1）。由于训练数据集并不受我们控制，所以经验误差只是关于模型参数的函数。经验误差即l，w和b是线性模型参数。<br>由于平方误差函数中的二次方项， 估计值和观测值之间较大的差异将导致更大的损失。为了度量模型在整个数据集上的质量，我们需计算在训练集n个样本上的<em>损失均值</em>，也就是对每一个样本计算损失然后求和再除样本数。<br>$$<br>L(\mathbf{w}, b)=\frac{1}{n} \sum_{i=1}^{n} l^{(i)}(\mathbf{w}, b)=\frac{1}{n} \sum_{i=1}^{n} \frac{1}{2}\left(\mathbf{w}^{\top} \mathbf{x}^{(i)}+b-y^{(i)}\right)^{2}<br>$$</p>
+<p>在训练模型时，我们希望寻找一组参数（w∗,b∗）， 这组参数能最小化在所有训练样本上的总损失。</p>
+<h4 id="1-1-3-解析解"><a href="#1-1-3-解析解" class="headerlink" title="1.1.3. 解析解"></a>1.1.3. 解析解</h4><p>线性回归刚好是一个很简单的优化问题。 与在d2l中所讲到的其他大部分模型不同，线性回归的解可以用一个公式简单地表达出来， 这类解叫作解析解（analytical solution）。 首先，我们将偏置b合并到参数w中，合并方法是在包含所有参数的矩阵中附加一列。 我们的预测问题是最小化$|\mathbf{y}-\mathbf{X} \mathbf{w}|^{2}$。 这在损失平面上只有一个临界点，这个临界点对应于整个区域的损失极小点。 将损失关于w的导数设为0，得到解析解：<br>$$<br>\mathbf{w}^{*}=\left(\mathbf{X}^{\top} \mathbf{X}\right)^{-1} \mathbf{X}^{\top} \mathbf{y}<br>$$</p>
+<p>像线性回归这样的简单问题存在解析解，但并不是所有的问题都存在解析解。 解析解可以进行很好的数学分析，但解析解对问题的限制很严格，导致它无法广泛应用在深度学习里。</p>
+<h4 id="1-1-4-随机梯度下降（Stochastic-Gradient-Descent）！"><a href="#1-1-4-随机梯度下降（Stochastic-Gradient-Descent）！" class="headerlink" title="1.1.4. 随机梯度下降（Stochastic Gradient Descent）！"></a>1.1.4. 随机梯度下降（Stochastic Gradient Descent）！</h4><p>即使在我们无法得到解析解的情况下，我们仍然可以有效地训练模型。 在许多任务上，那些难以优化的模型效果要更好。 因此，弄清楚如何训练这些难以优化的模型是非常重要的。</p>
+<p>本书中我们用到一种名为<strong>梯度下降</strong>的方法， 这种方法几乎可以优化所有深度学习模型。<strong>它通过不断地在损失函数递减的方向上更新参数来降低误差。</strong></p>
+<p>梯度下降最简单的用法是计算损失函数（数据集中所有样本的损失均值） 关于模型参数的导数（在这里也可以称为梯度）。 但实际中的执行可能会非常慢：因为在每一次更新参数之前，我们必须遍历整个数据集。 因此，我们通常会在每次需要计算更新的时候随机抽取一小批样本， 这种变体叫做<strong>小批量随机梯度下降（minibatch stochastic gradient descent）</strong>。</p>
+<p>在每次迭代中，我们首先随机抽样一个小批量B， 它是由固定数量的训练样本组成的。 然后，我们计算小批量的平均损失关于模型参数的导数（也可以称为梯度）。 最后，我们将梯度乘以一个预先确定的正数η，并从当前参数的值中减掉。</p>
+<p>总结一下，算法的步骤如下： （1）初始化模型参数的值，如随机初始化； （2）从数据集中随机抽取小批量样本且在负梯度的方向上更新参数，并不断迭代这一步骤。</p>
+<p>|B|表示每个小批量中的样本数，这也称为<strong>批量大小（batch size）</strong>。η表示<strong>学习率（learning rate）</strong>。 批量大小和学习率的值通常是手动预先指定，而不是通过模型训练得到的。 这些可以调整但不在训练过程中更新的参数称为<strong>超参数（hyperparameter）</strong>。<strong>调参（hyperparameter tuning</strong>是选择超参数的过程。 超参数通常是我们根据训练迭代结果来调整的， 而训练迭代结果是在独立的<em>验证数据集</em>（validation dataset）上评估得到的。</p>
+<p>在训练了预先确定的若干迭代次数后（或者直到满足某些其他停止条件后）， 我们记录下模型参数的估计值，表示为$\hat{\mathbf{w}}, \hat{b}$。 但是，即使我们的函数确实是线性的且无<strong>噪声</strong>，这些估计值也不会使损失函数真正地达到最小值。 因为算法会使得损失向最小值缓慢收敛，但却不能在有限的步数内非常精确地达到最小值。</p>
+<p>关于<strong>噪声</strong>的解释：深度神经网络的成功依赖于高质量标记的训练数据。训练数据中存在标记错误（标记噪声，即Noisy Labels）会大大降低模型在干净测试数据上的准确性。大型数据集几乎总是包含带有不正确或不准确的标签。这导致了一个悖论：一方面，大型数据集对于深度网络的训练是非常必要的，而另一方面，深度网络往往会记住训练标签噪声，从而在实践中导致较差的模型性能。</p>
+<p>线性回归恰好是一个在整个域中只有一个最小值的学习问题。 但是对于像深度神经网络这样复杂的模型来说，损失平面上通常包含多个最小值。 深度学习实践者很少会去花费大力气寻找这样一组参数，使得在<em>训练集</em>上的损失达到最小。 事实上，更难做到的是找到一组参数，这组参数能够在我们从未见过的数据上实现较低的损失， 这一挑战被称为<em>泛化</em>（generalization）。</p>
+<h4 id="1-1-5-用模型进行预测"><a href="#1-1-5-用模型进行预测" class="headerlink" title="1.1.5. 用模型进行预测"></a>1.1.5. 用模型进行预测</h4><p>给定“已学习”的线性回归模型$\hat{\mathbf{w}}^{\top} \mathbf{x}+\hat{b}$， 现在我们可以通过房屋面积和房龄来估计一个（未包含在训练数据中的）新房屋价格。 给定特征估计目标的过程通常称为<em>预测</em>（prediction）或<em>推断</em>（inference）。</p>
+<h3 id="1-2-矢量化加速"><a href="#1-2-矢量化加速" class="headerlink" title="1.2. 矢量化加速"></a>1.2. 矢量化加速</h3><p>在训练我们的模型时，我们经常希望能够同时处理整个小批量的样本。 为了实现这一点，需要我们对计算进行矢量化， 从而利用线性代数库，而不是在Python中编写开销高昂的for循环。矢量化代码通常会带来数量级的加速。而且将更多的数学运算放到库中，而无须自己编写那么多的计算，从而减少了出错的可能性。</p>
+<h3 id="1-3-正态分布与平方损失"><a href="#1-3-正态分布与平方损失" class="headerlink" title="1.3. 正态分布与平方损失"></a>1.3. 正态分布与平方损失</h3><p>这一部分通过对噪声分布的假设（假设符合正态分布）来解读平方损失目标函数（1.1.2决定的损失函数），也就是解释为什么均方误差可以用来作为线性回归的损失函数。<br>回顾一下，最大似然估计，就是利用已知的样本结果信息，反推具有最大概率导致这些样本结果出现的模型参数值。<br>正态分布和线性回归之间的关系很密切。 正态分布（normal distribution），也称为<em>高斯分布</em>（Gaussian distribution）。设随机变量x具有均值μ和方差 $\sigma^{2}$（标准差σ），概率密度函数如下。<br>$$<br>p(x)=\frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left(-\frac{1}{2 \sigma^{2}}(x-\mu)^{2}\right)<br>$$<br>从正态分布的图像上看，改变均值会产生沿x轴的偏移，增加方差将会分散分布、降低其峰值。<br>均方误差损失函数（简称均方损失）可以用于线性回归的一个原因是： 我们假设了观测中包含噪声，其中噪声服从正态分布。噪声正态分布如：$y=\mathbf{w}^{\top} \mathbf{x}+b+\epsilon$,其中，$\epsilon \sim \mathcal{N}\left(0, \sigma^{2}\right)$。</p>
+<p>通过把 $\epsilon$ 以外的项移到式子右侧可以得出 $y-\mathbf{w}^{\top} \mathbf{x}-b=\epsilon$，所以可以写出通过给定的x观测到特定y的<em>似然<em>（likelihood）：<br>$$<br>P(y \mid \mathbf{x})=\frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left(-\frac{1}{2 \sigma^{2}}\left(y-\mathbf{w}^{\top} \mathbf{x}-b\right)^{2}\right)<br>$$<br>然后根据极大似然估计法，参数w和b的最优值是使整个数据集的</em>似然<em>最大的值：<br>$$<br>P(\mathbf{y} \mid \mathbf{X})=\prod_{i=1}^{n} p\left(y^{(i)} \mid \mathbf{x}^{(i)}\right)<br>$$<br>根据极大似然估计法选择的估计量称为</em>极大似然估计量<em>。 通过最大化似然对数来简化使许多指数函数的乘积最大化的问题。 优化通常是说最小化而不是最大化，我们可以改为</em>最小化负对数似然</em>$-\log P(\mathbf{y} \mid \mathbf{X})$，由此得到：<br>$$<br>-\log P(\mathbf{y} \mid \mathbf{X})=\sum_{i=1}^{n} \frac{1}{2} \log \left(2 \pi \sigma^{2}\right)+\frac{1}{2 \sigma^{2}}\left(y^{(i)}-\mathbf{w}^{\top} \mathbf{x}^{(i)}-b\right)^{2}<br>$$<br>只需要假设 $\sigma$ 是某个固定常数就可以忽略第一项， 因为第一项不依赖于w和b，改变参数不会对负对数似然的大小造成影响。 现在第二项除了常数 $\frac{1}{\sigma^{2}}$ 外，其余部分和前面介绍的均方误差是一样的。 可以看到标准差作为系数也不影响结果的大小，也就是说上面式子的解并不依赖于 $\sigma$。 因此，在高斯噪声的假设下，最小化均方误差等价于对线性模型的极大似然估计。</p>
+<h3 id="1-4-从线性回归到深度网络"><a href="#1-4-从线性回归到深度网络" class="headerlink" title="1.4. 从线性回归到深度网络"></a>1.4. 从线性回归到深度网络</h3><p>用描述神经网络的方式来描述线性模型， 从而把线性模型看作一个神经网络。 首先，我们用“层”符号来重写这个模型。线性回归是单层神经网络（通常我们在计算层数时不考虑输入层），只有输入层和输出层构成，其中输入层有d个节点，输出层有1个节点。</p>
+<p>如输入为x1,…,xd， 因此输入层中的<em>输入数</em>（或称为<em>特征维度</em>，feature dimensionality）为d。 网络的输出为o1，因此输出层中的<em>输出数</em>是1。 需要注意的是，输入值都是已经给定的，并且只有一个<em>计算</em>神经元。 我们可以将线性回归模型视为仅由单个人工神经元（输出层的一个）组成的神经网络，或称为单层神经网络。<br><img src="/assets/post_img/article37/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.svg" alt="0x03pic1"><br>对于线性回归，每个输入都与每个输出（在本例中只有一个输出）相连， 我们将这种变换（图中的输出层） 称为<em>全连接层</em>（fully-connected layer）或称为<em>稠密层</em>（dense layer）。</p>
+<h3 id="1-5-线性回归的从零实现与框架实现"><a href="#1-5-线性回归的从零实现与框架实现" class="headerlink" title="1.5. 线性回归的从零实现与框架实现"></a>1.5. 线性回归的从零实现与框架实现</h3><p><strong>从零实现</strong>：从零开始实现包括数据流水线、模型、损失函数和小批量随机梯度下降优化器。 虽然现代的深度学习框架几乎可以自动化地进行所有这些工作，但从零开始实现可以确保你真正知道自己在做什么。 同时，了解更细致的工作原理将方便我们自定义模型、自定义层或自定义损失函数。 在这一部分中将只使用张量和自动求导。</p>
+<p><strong>框架实现</strong>：成熟的开源框架可以自动化基于梯度的学习算法中重复性的工作。除了张量和自动求导外，数据迭代器、损失函数、优化器和神经网络层很常用， 现代深度学习库为我们实现了这些组件。</p>
+<p>细节代码放在实践notebook中，关于框架实现中采用求和方式后如何修改学习率的问题还是没有答案，希望以后可以搞明白。</p>
+<h2 id="2-softmax回归"><a href="#2-softmax回归" class="headerlink" title="2. softmax回归"></a>2. softmax回归</h2><p>回归可以用于预测<em>多少</em>的问题。 比如预测房屋被售出价格，或者棒球队可能获得的胜场数，又或者患者住院的天数。<br>事实上，我们也对<em>分类</em>问题感兴趣：不是问“多少”，而是问“哪一个”：</p>
+<ul>
+<li>某个电子邮件是否属于垃圾邮件文件夹？</li>
+<li>某个图像描绘的是驴、狗、猫、还是鸡？</li>
+<li>某人接下来最有可能看哪部电影？</li>
+</ul>
+<p>通常，机器学习实践者用<em>分类</em>这个词来描述两个有微妙差别的问题： 1. 我们只对样本的“硬性”类别感兴趣，即属于哪个类别； 2. 我们希望得到“软性”类别，即得到属于每个类别的概率。 这两者的界限往往很模糊。其中的一个原因是：即使我们只关心硬类别，我们仍然使用软类别的模型。</p>
+<h3 id="2-1-分类问题"><a href="#2-1-分类问题" class="headerlink" title="2.1. 分类问题"></a>2.1. 分类问题</h3><p>从一个图像分类问题开始。 假设每次输入是一个的2X2灰度图像。灰度图像是每个像素只有一个采样颜色的图像。这类图像通常显示为从最暗黑色到最亮的白色的灰度，尽管理论上这个采样可以任何颜色的不同深浅，甚至可以是不同亮度上的不同颜色。（注意：与黑白图像不同）<br>我们可以用一个标量表示每个像素值，每个图像对应四个特征x1,x2,x3,x4。此外，假设每个图像属于类别“猫”，“鸡”和“狗”中的一个。</p>
+<p>接下来，我们要选择如何表示标签。 我们有两个明显的选择：最直接的想法是选择y∈{1,2,3}， 其中整数分别代表猫、鸡、狗。 这是在计算机上存储此类信息的有效方法。 如果类别间有一些自然顺序， 比如说我们试图预测{婴儿,儿童,青少年,青年人,中年人,老年人}， 那么将这个问题转变为回归问题，并且保留这种格式是有意义的。一般的分类问题并不与类别之间的自然顺序有关。</p>
+<p>表示分类数据的简单方法：<em>独热编码（one-hot encoding）</em>。<br>独热编码是一个向量，它的分量和类别一样多。 类别对应的分量设置为1，其他所有分量设置为0。 在我们的例子中，标签y将是一个三维向量， 其中(1,0,0)对应于“猫”、(0,1,0)对应于“鸡”、(0,0,1)对应于“狗”：<br>$$<br>y \in{(1,0,0),(0,1,0),(0,0,1)}<br>$$</p>
+<h3 id="2-2-网络架构"><a href="#2-2-网络架构" class="headerlink" title="2.2. 网络架构"></a>2.2. 网络架构</h3><p>为了估计所有可能类别的条件概率，我们需要一个有多个输出的模型，每个类别对应一个输出。 为了解决线性模型的分类问题，我们需要和输出一样多的<strong>仿射函数（affine function）</strong>。 每个输出对应于它自己的仿射函数。 在我们的例子中，由于我们有4个特征和3个可能的输出类别， 我们将需要12个标量来表示权重（带下标的）， 3个标量来表示偏置（带下标的）。 下面我们为每个输入计算三个未规范化的预测（logit）：o1,o2和o3。<br>$$<br>\begin{aligned}<br>&amp;o_{1}=x_{1} w_{11}+x_{2} w_{12}+x_{3} w_{13}+x_{4} w_{14}+b_{1} \<br>&amp;o_{2}=x_{1} w_{21}+x_{2} w_{22}+x_{3} w_{23}+x_{4} w_{24}+b_{2} \<br>&amp;o_{3}=x_{1} w_{31}+x_{2} w_{32}+x_{3} w_{33}+x_{4} w_{34}+b_{3}<br>\end{aligned}<br>$$<br>可以用下面的单层神经网络图来描述计算过程，与线性回归一样，softmax回归也是一个单层神经网络。 由于计算每个输出(o1,o2,o3)取决于所有输入(x1,x2,x3,x4)，所以softmax回归的输出层也是全连接层。<br><img src="/assets/post_img/article37/softmax%E7%BD%91%E7%BB%9C.png" alt="0x03pic2"></p>
+<p>模型通过向量形式表达为：$\mathbf{o}=\mathbf{W} \mathbf{x}+\mathbf{b}$<br>这是一种更适合数学和编写代码的形式。 到此，我们已经将所有权重放到一个3X4矩阵中。 对于给定数据样本的特征x， 我们的输出是由权重与输入特征进行矩阵-向量乘法再加上偏置b得到的。</p>
+<h3 id="2-3-全连接层的参数开销"><a href="#2-3-全连接层的参数开销" class="headerlink" title="2.3. 全连接层的参数开销"></a>2.3. 全连接层的参数开销</h3><p>深度学习中，全连接层无处不在。全连接层是“完全”连接的，可能有很多可学习的参数。 具体来说，对于任何具有d个输入和q个输出的全连接层， 参数开销为O(dq)，这个数字在实践中可能高得令人望而却步。 幸运的是，将d个输入转换为q个输出的成本可以减少到O$\left(\frac{d q}{n}\right)$， 其中超参数n可以由我们灵活指定，以在实际应用中平衡参数节约和模型有效性。</p>
+<h3 id="2-4-softmax运算"><a href="#2-4-softmax运算" class="headerlink" title="2.4. softmax运算"></a>2.4. softmax运算</h3><p>现在我们将优化参数以最大化观测数据的概率。 为了得到预测结果，我们将设置一个阈值，如选择具有最大概率的标签。<br><strong>我们希望模型的输出 $\hat{y}_{j}$ 可以视为属于类 $j$ 的概率</strong>， 然后选择具有最大输出值的类别argmax$\boldsymbol{}<em>{j} y</em>{j}$ 作为我们的预测。例如, 如果 $\hat{y}<em>{1} 、 \hat{y}</em>{2}$ 和 $\hat{y}_{3}$ 分别为 $0.1 、 0.8$ 和 $0.1$, 那么我们预测的类别是2，在我们的例子中代表“鸡”。</p>
+<p>然而我们不能将未规范化的预测o直接视作我们感兴趣的输出。因为将线性层的输出直接视为概率时存在一些问题： 一方面，我们没有限制这些输出数字的总和为1。 另一方面，根据输入的不同，它们可以为负值。<br>要将输出视为概率，我们必须保证在任何数据上的输出都是非负的且总和为1。 此外，我们需要一个训练目标，来鼓励模型精准地估计概率。 在分类器输出0.5的所有样本中，我们希望这些样本有一半实际上属于预测的类。 这个属性叫做校准（calibration）。</p>
+<p>softmax函数正是这样做的： softmax函数将未规范化的预测变换为非负并且总和为1，同时要求模型保持可导。 我们首先对每个未规范化的预测求幂（就是把预测作为e的指数），这样可以确保输出非负。 为了确保最终输出的总和为1，我们再对每个求幂后的结果除以它们的总和。如下式：<br>$$<br>\hat{\mathbf{y}}=\operatorname{softmax}(\mathbf{o}) \quad \text { 其中 } \quad \hat{y}<em>{j}=\frac{\exp \left(o</em>{j}\right)}{\sum_{k} \exp \left(o_{k}\right)}<br>$$<br>这里, 对于所有的 $j$ 总有 $0 \leq \hat{y}<em>{j} \leq 1</em>{\circ}$ 因此, $\hat{\mathbf{y}}$ 可以视为一个正确的概率分布。 softmax运算不会改变末规范化的预测o之间的顺序, 只会确定分配给每个类别的概率。因此，在预测过程中, 我们仍然可以用下式来选择最有可能的类别。<br>$$<br>\underset{j}{\operatorname{argmax}} \hat{y}<em>{j}=\underset{j}{\operatorname{argmax}} o</em>{j}<br>$$<br>softmax是一个非线性函数，但softmax回归的输出仍然由输入特征的仿射变换决定。 因此，softmax回归是一个线性模型（linear model）。</p>
+<h3 id="2-5-小批量样本的矢量化"><a href="#2-5-小批量样本的矢量化" class="headerlink" title="2.5. 小批量样本的矢量化"></a>2.5. 小批量样本的矢量化</h3><p>为了提高计算效率并且充分利用GPU，我们通常会针对小批量数据执行矢量计算。假设我们读取了一个批量的样本X, 其中特征维度 (输入数量) 为 $d$, 批量大小为 $n$。 此外, 假设我们在输出中有 $q$ 个类别。那么小批量特征为 $\mathrm{X} \in \mathbb{R}^{n \times d}$ ， 权重为 $\mathbf{W} \in \mathbb{R}^{d \times q}$ ，偏置为 $\mathbf{b} \in \mathbb{R}^{1 \times q}$ 。 softmax回归的矢量计算表达式为：<br>$$<br>\begin{aligned}<br>&amp;\mathbf{O}=\mathbf{X W}+\mathbf{b}, \<br>&amp;\hat{\mathbf{Y}}=\operatorname{softmax}(\mathbf{O}) .<br>\end{aligned}<br>$$<br>相对于一次处理一个样本, 小批量样本的矢量化加快了 $\mathbf{X}$ 和 $\mathbf{W}$ 的矩阵-向量乘法。由于 $\mathbf{X}$ 中的每一行代表一个数据样本, 那么softmax运算可以按行 (rowwise) 执行：对于 $\mathrm{O}$ 的每一行, 我们先对所有项进行幂运算, 然后通过求和对它们进行标准化（规范化，对应线性代数中的正交规范化比较好理解）。在上式中, $\mathbf{X W}+\mathbf{b}$ 的求和会使用<em>广播</em>（每行都加）, 小批量的末规范化预测 $\mathbf{O}$ 和输出概率 $\hat{\mathbf{Y}}$ 都是形状为 $n \times q$ 的矩阵。</p>
+<h3 id="2-6-损失函数"><a href="#2-6-损失函数" class="headerlink" title="2.6. 损失函数"></a>2.6. 损失函数</h3><p>损失函数用来度量预测的效果。使用与线性回归中相同的最大似然估计。</p>
+<h4 id="2-6-1-对数似然"><a href="#2-6-1-对数似然" class="headerlink" title="2.6.1. 对数似然"></a>2.6.1. 对数似然</h4><p>softmax函数给出了一个向量 $\hat{\mathbf{y}}$, 我们可以将其视为“对给定任意输入 $\mathbf{x}$ 的每个类的<strong>条件概率</strong>”。例如, $\hat{y}<em>{1}=$ $P(y=$ 猫 $\mid \mathbf{x})$ ，因为猫1鸡2狗3嘛。 假设整个数据集 ${\mathbf{X}, \mathbf{Y}}$ （也就是n个（特征，标签）对）具有 $n$ 个样本, 其中索引 $i$ 的样本由特征向量 $\mathbf{x}^{(i)}$ 和独热标签向量 $\mathbf{y}^{(i)}$ 组成。 我们可以将估计值与实际值进行比较：<br>$$<br>P(\mathbf{Y} \mid \mathbf{X})=\prod</em>{i=1}^{n} P\left(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)}\right)<br>$$<br>根据最大似然估计，我们最大化 $P(\mathbf{Y} \mid \mathbf{X})$ ，相当于最小化负对数似然：<br>$$<br>-\log P(\mathbf{Y} \mid \mathbf{X})=\sum_{i=1}^{n}-\log P\left(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)}\right)=\sum_{i=1}^{n} l\left(\mathbf{y}^{(i)}, \hat{\mathbf{y}}^{(i)}\right)<br>$$<br>其中, 对于任何标签 $\mathbf{y}$ 和模型预测 $\hat{\mathbf{y}}$ ，损失函数为：<br>$$<br>l(\mathbf{y}, \hat{\mathbf{y}})=-\sum_{j=1}^{q} \boldsymbol{y}<em>{j} \log \hat{y}</em>{j}<br>$$<br>上面式子中的损失函数 $l$ 被称为交叉熵损失（cross-entropy loss）。由于y是一个长度为q的独热编码向量， 所以除了一个项以外的所有项j都消失了。 由于所有 $\hat{y}_{j}$ 都是预测的概率，所以它们的对数永远不会大于0（因为预测概率小于1）。 因此，如果正确地预测实际标签，即如果实际标签 $P(\mathbf{y} \mid \mathbf{x})=1$， 则损失函数不能进一步最小化，虽然这往往是不可能的，因为数据集中可能存在标签噪声（比如某些样本可能被误标）， 或输入特征没有足够的信息来完美地对每一个样本分类。</p>
+<h4 id="2-6-2-softmax及其导数"><a href="#2-6-2-softmax及其导数" class="headerlink" title="2.6.2. softmax及其导数"></a>2.6.2. softmax及其导数</h4><p>将softmax函数代入到损失函数中：<br>$$<br>\begin{aligned}<br>l(\mathbf{y}, \hat{\mathbf{y}}) &amp;=-\sum_{j=1}^{q} y_{j} \log \frac{\exp \left(o_{j}\right)}{\sum_{k=1}^{q} \exp \left(o_{k}\right)} \<br>&amp;=\sum_{j=1}^{q} y_{j} \log \sum_{k=1}^{q} \exp \left(o_{k}\right)-\sum_{j=1}^{q} y_{j} o_{j} \<br>&amp;=\log \sum_{k=1}^{q} \exp \left(o_{k}\right)-\sum_{j=1}^{q} y_{j} o_{j}<br>\end{aligned}<br>$$<br>代入后的损失函数相对于任何末规范化的预测 $o_{j}$ 求导：<br>$$<br>\partial_{o_{j}} l(\mathbf{y}, \hat{\mathbf{y}})=\frac{\exp \left(o_{j}\right)}{\sum_{k=1}^{q} \exp \left(o_{k}\right)}-y_{j}=\operatorname{softmax}(\mathbf{o})<em>{j}-y</em>{j}<br>$$<br>可以看出，该导数是我们softmax模型分配的概率与实际发生的情况（由独热标签向量表示）之间的差异。 从这个意义上讲，这与我们在回归中看到的非常相似（哪里？）， 其中梯度是观测值y和估计值 $\hat{\mathbf{y}}$ 之间的差异。<br>这不是巧合，在任何指数族分布模型中，对数似然的梯度正是由此得出的。这使梯度计算在实践中变得容易很多。</p>
+<h4 id="2-6-3-交叉熵损失"><a href="#2-6-3-交叉熵损失" class="headerlink" title="2.6.3. 交叉熵损失"></a>2.6.3. 交叉熵损失</h4><p>如果考虑整个结果分布的情况，即观察到的不仅仅是一个结果。 对于标签y，我们可以使用与以前相同的表示形式。 唯一的区别是，我们现在用一个概率向量表示，如（0.1，0.2，0.7）， 而不是独热编码的向量，如（0，0，1）。<br>使用 $l(\mathbf{y}, \hat{\mathbf{y}})=-\sum_{j=1}^{q} y_{j} \log \hat{y}_{j}$来定义损失$l$，它是所有标签分布的预期损失值。 此损失称为交叉熵损失（cross-entropy loss），是分类问题最常用的损失之一。</p>
+<h3 id="2-7-信息论基础"><a href="#2-7-信息论基础" class="headerlink" title="2.7. 信息论基础"></a>2.7. 信息论基础</h3><p>信息论（information theory）涉及编码、解码、发送以及尽可能简洁地处理信息或数据。</p>
+<h4 id="2-7-1-熵"><a href="#2-7-1-熵" class="headerlink" title="2.7.1. 熵"></a>2.7.1. 熵</h4><p>信息论的核心思想是量化数据中的信息内容。 在信息论中，该数值被称为分布的熵（entropy）。可以通过以下方程得到：<br>$$<br>H[P]=\sum_{j}-P(j) \log P(j)<br>$$<br>信息论的基本定理之一指出，为了对从分布 p 中随机抽取的数据进行编码， 我们至少需要$H[P]$“纳特（nat）”对其进行编码。 “纳特”相当于比特（bit），但是对数底为$e$而不是2。因此，一个纳特约为1.44比特。</p>
+<h4 id="2-7-2-信息量"><a href="#2-7-2-信息量" class="headerlink" title="2.7.2. 信息量"></a>2.7.2. 信息量</h4><p>信息量是指信息多少的量度。信息量用 $\log \frac{1}{P(j)}即-\log P(j)$ 表示，在观察一个事件$j$时，并赋予它（主观）概率$P(j)$。<br>当我们赋予一个事件较低的概率时，该事件的信息量就更大。熵就是当分配的概率真正匹配数据生成过程时的信息量的期望。（这个地方比较晦涩）</p>
+<h4 id="2-7-3-重新审视交叉熵"><a href="#2-7-3-重新审视交叉熵" class="headerlink" title="2.7.3. 重新审视交叉熵"></a>2.7.3. 重新审视交叉熵</h4><p>熵 $H[P]$，交叉熵从P到Q，记为 $H(P,Q)$。可以把交叉熵想象为“主观概率为Q的观察者在看到根据概率P生成的数据时的预期‘惊讶’程度”。 当P=Q时，交叉熵达到最低。 在这种情况下，从P到Q的交叉熵是 $H(P, P)=H(P)$。<br>可以从两方面来考虑交叉熵分类目标： </p>
+<ol>
+<li>最大化观测数据的似然</li>
+<li>最小化传达标签所需的信息量。</li>
+</ol>
+<h3 id="2-8-模型预测和评估"><a href="#2-8-模型预测和评估" class="headerlink" title="2.8. 模型预测和评估"></a>2.8. 模型预测和评估</h3><p>在训练softmax回归模型后，给出任何样本特征，我们可以预测每个输出类别的概率。 通常我们使用预测概率最高的类别作为输出类别。 如果预测与实际类别（标签）一致，则预测是正确的。<br>在后续的实验中将使用<strong>精度（accuracy）</strong>来评估模型的性能。 精度等于正确预测数与预测总数之间的比率。</p>
+<h3 id="2-9-图像分类数据集"><a href="#2-9-图像分类数据集" class="headerlink" title="2.9. 图像分类数据集"></a>2.9. 图像分类数据集</h3><p>MNIST数据集（一个手写数字集）是图像分类中广泛使用的数据集之一，但作为基准数据集过于简单。因为很多算法在测试集上的性能已经达到 99.6%！一个算法即便在这个数据集上work在其他数据集上也很可能不怎么样。<br>Fashion-MNIST 是一个替代 MNIST 手写数字集的图像数据集。 它是由 Zalando（一家德国的时尚科技公司）旗下的研究部门提供。其涵盖了来自 10 种类别的共 7 万个不同商品的正面图片。Fashion-MNIST 的大小、格式和训练集/测试集划分与原始的 MNIST 完全一致。60000/10000 的训练测试数据划分，<em>通道</em>数为1，28x28（28像素）的灰度图片。<br>关于<em>通道（channels）</em>：描述一个像素点，如果是灰度，那么只需要一个数值来描述它，就是单通道。如果一个像素点，有RGB三种颜色来描述它，就是三通道。常用图片形式还有四通道的，即再加一个透明度。<br>该数据集样子大致如下（每个类别占三行）：<br><img src="/assets/post_img/article37/FasionMNIST.jpeg" alt="0x03pic3"><br>数据集的存储方式如下：<br><img src="/assets/post_img/article37/FasionMNIST%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F.jpeg" alt="0x03pic4"><br>其中样本标注如下，十个类别：<br><img src="/assets/post_img/article37/FasionMNIST%E6%A0%B7%E6%9C%AC%E6%A0%87%E6%B3%A8%E6%96%B9%E5%BC%8F.jpeg" alt="0x03pic5"></p>
+<p>深度学习框架中的内置函数可以将Fashion-MNIST数据集下载并读取到内存中。具体操作在本笔记对应实践中。</p>
+<h3 id="2-10-softmax回归的从零实现与框架实现"><a href="#2-10-softmax回归的从零实现与框架实现" class="headerlink" title="2.10. softmax回归的从零实现与框架实现"></a>2.10. softmax回归的从零实现与框架实现</h3><p><strong>从零实现</strong>：softmax回归也是重要的基础，因此应该知道实现softmax回归的细节，从零实现他。每个样本都将用固定长度的向量表示。 原始数据集中的每个样本都是28x28的图像。 在这里通过展平每个图像，把它们看作长度为784的向量，即暂时只把每个像素位置看作一个特征。引入的交叉熵损失函数可能是深度学习中最常见的损失函数，因为目前分类问题的数量远远超过回归问题的数量。</p>
+<p><strong>框架实现</strong>：通过深度学习框架的高级API也能更方便地实现softmax回归模型。 框架实现中继续使用Fashion-MNIST数据集，并保持批量大小为256。同时在softmax函数的实现上进行了优化（具体如何优化翻书看），解决了数值可能上、下溢出的问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/05/16/article37/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
   
     <article id="post-article36" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -375,7 +557,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">9.9k字</span>
+        <span class="post-count">10.5k字</span>
       </span>
     </span>
 
@@ -384,7 +566,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">37分</span>
+        <span class="post-count">39分</span>
       </span>
     </span>
 </div>
@@ -398,7 +580,259 @@
         <h1 id="数据操作及数学基础–《动手学深度学习》笔记0x02"><a href="#数据操作及数学基础–《动手学深度学习》笔记0x02" class="headerlink" title="数据操作及数学基础–《动手学深度学习》笔记0x02"></a>数据操作及数学基础–《动手学深度学习》笔记0x02</h1><h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>这一笔记对应预备知识章节，包括数据操作、数据预处理、线性代数、微积分、概率论等。其中很多知识在学数一的时候都更深入理解过了，但是现在发现忘的差不多了，哎～</p>
 <p>对应实践：<a target="_blank" rel="noopener" href="https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x02.ipynb">https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x02.ipynb</a></p>
 <p>在M1芯片的设备上使用miniforge安装pytorch：<code>conda install -c pytorch pytorch</code></p>
-        
+<h2 id="1-数据操作"><a href="#1-数据操作" class="headerlink" title="1. 数据操作"></a>1. 数据操作</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1. 概念"></a>1.1. 概念</h3><h4 id="1-1-1-张量（tensor）"><a href="#1-1-1-张量（tensor）" class="headerlink" title="1.1.1 张量（tensor）"></a>1.1.1 张量（tensor）</h4><p>即n维数组，无论使用哪个深度学习框架，它的<em>张量类</em>（在MXNet中为<code>ndarray</code>， 在PyTorch和TensorFlow中为<code>Tensor</code>）都与Numpy的<code>ndarray</code>类似。 但深度学习框架又比Numpy的<code>ndarray</code>多一些重要功能： 首先，GPU很好地支持加速计算，而NumPy仅支持CPU计算； 其次，张量类支持自动微分。 这些功能使得张量类更适合深度学习。</p>
+<p>张量表示由一个数值组成的数组，这个数组可能有多个维度。 具有一个轴的张量对应数学上的<em>向量</em>（vector）； 具有两个轴的张量对应数学上的<em>矩阵</em>（matrix）； 具有两个轴以上的张量没有特殊的数学名称。张量中的每个值都称为张量的<em>元素</em>（element）。</p>
+<h4 id="1-1-2-运算符"><a href="#1-1-2-运算符" class="headerlink" title="1.1.2. 运算符"></a>1.1.2. 运算符</h4><p>我们的兴趣不仅限于读取数据和写入数据。 我们想在这些数据上执行数学运算，其中最简单且最有用的操作是<em>按元素</em>（elementwise）运算。 它们将标准标量运算符应用于数组的<strong>每个元素</strong>。 对于将两个数组作为输入的函数，按元素运算将二元运算符应用于两个数组中的<strong>每对位置对应的元素</strong>。 我们可以基于任何从标量到标量的函数来创建按元素函数。</p>
+<p>对于任意具有相同形状的张量， 常见的标准算术运算符（<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>和<code>**</code>）都可以被升级为按元素运算。 我们可以在同一形状的任意两个张量上调用按元素操作。</p>
+<h4 id="1-1-3-广播机制"><a href="#1-1-3-广播机制" class="headerlink" title="1.1.3. 广播机制"></a>1.1.3. 广播机制</h4><p>在上面的部分中，我们看到了如何在相同形状的两个张量上执行按元素操作。 在某些情况下，即使形状不同，我们仍然可以通过调用<em>广播机制</em>（broadcasting mechanism）来执行按元素操作。 这种机制的工作方式如下：首先，通过适当复制元素来扩展一个或两个数组， 以便在转换之后，两个张量具有相同的形状。 其次，对生成的数组执行按元素操作。</p>
+<h4 id="1-1-4-索引和切片"><a href="#1-1-4-索引和切片" class="headerlink" title="1.1.4. 索引和切片"></a>1.1.4. 索引和切片</h4><p>就像在任何其他Python数组中一样，张量中的元素可以通过索引访问。 与任何Python数组一样：第一个元素的索引是0，最后一个元素索引是-1； 可以指定范围以包含第一个元素和最后一个之前的元素。例如：我们可以用[-1]选择最后一个元素，可以用[1:3]选择第二个和第三个元素。</p>
+<h4 id="1-1-5-内存变动"><a href="#1-1-5-内存变动" class="headerlink" title="1.1.5. 内存变动"></a>1.1.5. 内存变动</h4><p>运行一些操作可能会导致为新结果分配内存。 例如，如果我们用Y=X+Y，我们将取消引用Y指向的张量，而是指向新分配的内存处的张量。Python的id()函数给我们提供了内存中引用对象的确切地址。 运行Y=Y+X后，我们会发现id(Y)指向另一个位置。 这是因为Python首先计算Y+X，为结果分配新的内存，然后使Y指向内存中的这个新位置。</p>
+<p>我们不希望内存在不必要时发生重新分配的情况，原因有两个：首先，我们不想总是不必要地分配内存。 在机器学习中，我们可能有数百兆的参数，并且在一秒内多次更新所有参数。 通常情况下，我们希望原地执行这些更新。 其次，如果我们不原地更新，其他引用仍然会指向旧的内存位置， 这样我们的某些代码可能会无意中引用旧的参数。</p>
+<p>在这种情况下，我们可以使用切片表示法将操作的结果分配给先前分配的数组，例如<code>Y[:]=&lt;expression&gt;</code>。</p>
+<p>在节省内存开销方面，如果在后续计算中没有重复使用X， 我们也可以使用<code>X[:]=X+Y</code>或<code>X+=Y</code>来减少操作的内存开销。</p>
+<h4 id="1-1-6-对象转换"><a href="#1-1-6-对象转换" class="headerlink" title="1.1.6. 对象转换"></a>1.1.6. 对象转换</h4><p>将深度学习框架定义的张量转换为NumPy张量（ndarray）很容易，反之也同样容易。 注意torch张量和numpy数组将共享它们的底层内存，就地操作更改一个张量也会同时更改另一个张量。</p>
+<p>要将大小为1的张量转换为Python标量，可以调用item函数或Python的内置函数。</p>
+<h3 id="1-2-以PyTorch为例，列举常见操作"><a href="#1-2-以PyTorch为例，列举常见操作" class="headerlink" title="1.2. 以PyTorch为例，列举常见操作"></a>1.2. 以PyTorch为例，列举常见操作</h3><p>虽然它被称为PyTorch，但是代码中使用torch而不是pytorch。</p>
+<p><code>import torch</code></p>
+<p>首先，我们可以使用arange创建一个行向量x。这个行向量包含以0开始的前12个整数，它们默认创建为整数。也可指定创建类型为浮点数。例如，张量x中有 12 个元素。除非额外指定，新的张量将存储在内存中，并采用基于CPU的计算。</p>
+<p><code>x=torch.arange(12)</code></p>
+<p>可以通过张量的shape属性来访问张量（沿每个轴的长度）的<em>形状</em>。</p>
+<p><code>x.shape</code></p>
+<p>如果只想知道张量中元素的总数，即形状的所有元素乘积，可以检查它的大小（size）。 因为这里在处理的是一个向量，所以它的shape与它的size相同。</p>
+<p><code>x.numel()</code></p>
+<p>要想改变一个张量的形状而不改变元素数量和元素值，可以调用reshape函数。 例如，可以把张量x从形状为（12,）的行向量转换为形状为（3,4）的矩阵。 这个新的张量包含与转换前相同的值，但是它被看成一个3行4列的矩阵。 要重点说明一下，虽然张量的形状发生了改变，但其元素值并没有变。 注意，通过改变张量的形状，张量的大小（size）不会改变。我们可以通过-1来调用此自动计算出维度的功能。 即我们可以用<code>x.reshape(-1,4)</code>或<code>x.reshape(3,-1)</code>来取代<code>x.reshape(3,4)</code>。</p>
+<p><code>X=x.reshape(3,4)</code></p>
+<p>有时，我们希望使用全0、全1、其他常量，或者从特定分布中随机采样的数字来初始化矩阵。 我们可以创建一个形状为（2,3,4）的张量，其中所有元素都设置为0。<code>torch.ones((2,3,4))</code>则创建元素全为1的张量，但默认数据类型为float。</p>
+<pre><code>torch.zeros((2,3,4))
+
+#结果：
+tensor([[[0.,0.,0.,0.],
+         [0.,0.,0.,0.],
+         [0.,0.,0.,0.]],
+
+        [[0.,0.,0.,0.],
+         [0.,0.,0.,0.],
+         [0.,0.,0.,0.]]])</code></pre><p>有时我们想通过从某个特定的概率分布中随机采样来得到张量中每个元素的值。 例如，当我们构造数组来作为神经网络中的参数时，我们通常会随机初始化参数的值。 以下代码创建一个形状为（3,4）的张量。 其中的每个元素都从均值为0、标准差为1的标准高斯分布（正态分布）中随机采样。</p>
+<p><code>torch.randn(3,4)</code></p>
+<p>我们还可以通过提供包含数值的Python列表（或嵌套列表），来为所需张量中的每个元素赋予确定值。 在这里，最外层的列表对应于轴0，内层的列表对应于轴1。</p>
+<p><code>torch.tensor([[2,1,4,3],[1,2,3,4],[4,3,2,1]])</code></p>
+<p>在下面的例子中，我们使用逗号来表示一个具有5个元素的元组，其中每个元素都是按元素操作的结果。</p>
+<pre><code>x=torch.tensor([1.0,2,4,8])
+y=torch.tensor([2,2,2,2])
+x+y,x-y,x*y,x/y,x**y# **运算符是求幂运算
+#结果：
+(tensor([3.,4.,6.,10.]),
+tensor([-1.,0.,2.,6.]),
+tensor([2.,4.,8.,16.]),
+tensor([0.5000,1.0000,2.0000,4.0000]),
+tensor([1.,4.,16.,64.]))</code></pre><p>“按元素”方式可以应用更多的计算，包括像求幂这样的一元运算符。</p>
+<p><code>torch.exp(x)</code></p>
+<p>我们也可以把多个张量<em>连结</em>（concatenate）在一起， 把它们端对端地叠起来形成一个更大的张量。 我们只需要提供张量列表，并给出沿哪个轴连结。 下面的例子分别演示了当我们沿行（轴-0，形状的第一个元素） 和按列（轴-1，形状的第二个元素）连结两个矩阵时，会发生什么情况。 我们可以看到，第一个输出张量的轴-0长度（6）是两个输入张量轴-0长度的总和（3+3）； 第二个输出张量的轴-1长度（8）是两个输入张量轴-1长度的总和（4+4）。</p>
+<pre><code>X=torch.arange(12,dtype=torch.float32).reshape((3,4))
+Y=torch.tensor([[2.0,1,4,3],[1,2,3,4],[4,3,2,1]])
+torch.cat((X,Y),dim=0),torch.cat((X,Y),dim=1)
+#结果：
+(tensor([[0.,1.,2.,3.],[4.,5.,6.,7.],[8.,9.,10.,11.],[2.,1.,4.,3.],[1.,2.,3.,4.],[4.,3.,2.,1.]]),
+tensor([[0.,1.,2.,3.,2.,1.,4.,3.],[4.,5.,6.,7.,1.,2.,3.,4.],[8.,9.,10.,11.,4.,3.,2.,1.]]))</code></pre><p>有时，我们想通过<em>逻辑运算符</em>构建二元张量。 以<code>X==Y</code>为例： 对于每个位置，如果X和Y在该位置相等，则新张量中相应项的值为1。 这意味着逻辑语句X==Y在该位置处为真，否则该位置为0。</p>
+<pre><code>X==Y
+#结果：
+tensor([[False,True,False,True],[False,False,False,False],[False,False,False,False]])</code></pre><p>对张量中的所有元素进行求和，会产生一个单元素张量。</p>
+<pre><code>X.sum()
+#结果：
+tensor(66.)</code></pre><p>在大多数情况下，我们将沿着数组中长度为1的轴进行广播，如下例子：</p>
+<pre><code>a=torch.arange(3).reshape((3,1))
+b=torch.arange(2).reshape((1,2))
+a,b
+#结果：
+(tensor([[0],[1],[2]]),tensor([[0,1]]))</code></pre><p>由于a和b分别是3×1和1×2矩阵，如果让它们相加，它们的形状不匹配。 我们将两个矩阵<em>广播</em>为一个更大的3×2矩阵，如下所示：矩阵a将复制列， 矩阵b将复制行，然后再按元素相加。</p>
+<pre><code>a+b
+#结果：
+tensor([[0,1],[1,2],[2,3]])</code></pre><p>如下所示，我们可以用[-1]选择最后一个元素，可以用[1:3]选择第二个和第三个元素：</p>
+<p><code>X[-1],X[1:3]</code></p>
+<p>除读取外，我们还可以通过指定索引来将元素写入矩阵。</p>
+<p><code>X[1,2]=9</code></p>
+<p>如果我们想为多个元素赋值相同的值，我们只需要索引所有元素，然后为它们赋值。 例如，[0:2,:]访问第1行和第2行，其中“:”代表沿轴1（列）的所有元素。虽然我们讨论的是矩阵的索引，但这也适用于向量和超过2个维度的张量。</p>
+<p><code>X[0:2,:]=12</code></p>
+<p>将深度学习框架定义的张量转换为NumPy张量（ndarray）很容易，反之也同样容易。 torch张量和numpy数组将共享它们的底层内存，就地操作更改一个张量也会同时更改另一个张量。</p>
+<pre><code>A=X.numpy()
+B=torch.tensor(A)
+type(A),type(B)
+#结果：
+(numpy.ndarray,torch.Tensor)</code></pre><p>要将大小为1的张量转换为Python标量，我们可以调用<code>item</code>函数或Python的内置函数。</p>
+<pre><code>a=torch.tensor([3.5])
+a,a.item(),float(a),int(a)
+#结果：
+(tensor([3.5000]),3.5,3.5,3)</code></pre><h2 id="2-数据预处理"><a href="#2-数据预处理" class="headerlink" title="2. 数据预处理"></a>2. 数据预处理</h2><p>在Python中常用的数据分析工具中，我们通常使用pandas软件包。 像庞大的Python生态系统中的许多其他扩展包一样，pandas可以与张量兼容。 本节我们将简要介绍使用pandas预处理原始数据，并将原始数据转换为张量格式的步骤。</p>
+<h3 id="2-1-读取数据集"><a href="#2-1-读取数据集" class="headerlink" title="2.1. 读取数据集"></a>2.1. 读取数据集</h3><p>要从创建的CSV文件中加载原始数据集，我们导入pandas包并调用read_csv函数。</p>
+<pre><code>data=pd.read_csv(data_file)
+print(data)
+#结果：
+   NumRooms  Alley
+0   NaN      Pave
+1   2.0      NaN
+2   4.0      NaN
+3   NaN      NaN</code></pre><h3 id="2-2-处理缺失值"><a href="#2-2-处理缺失值" class="headerlink" title="2.2. 处理缺失值"></a>2.2. 处理缺失值</h3><p>注意，“NaN”项代表缺失值。 为了处理缺失的数据，典型的方法包括<em>插值法</em>和<em>删除法</em>， 其中插值法用一个替代值弥补缺失值，而删除法则直接忽略缺失值。 </p>
+<p>在对上面例子的处理中，我们将考虑插值法。通过位置索引iloc，我们将data分成inputs和outputs， 其中前者为data的前两列，而后者为data的最后一列。 对于inputs中缺少的数值，我们用同一列的均值替换“NaN”项。</p>
+<pre><code>inputs,outputs=data.iloc[:,0:2],data.iloc[:,2]
+inputs=inputs.fillna(inputs.mean())
+print(inputs)
+#结果：
+  NumRooms  Alley
+0   3.0      Pave
+1   2.0      NaN
+2   4.0      NaN
+3   3.0      NaN</code></pre><p>对于inputs中的类别值或离散值，我们将“NaN”视为一个类别。 由于“巷子类型”（“Alley”）列只接受两种类型的类别值“Pave”和“NaN”，pandas可以自动将此列转换为两列“Alley_Pave”和“Alley_nan”。 巷子类型为“Pave”的行会将“Alley_Pave”的值设置为1，“Alley_nan”的值设置为0。 缺少巷子类型的行会将“Alley_Pave”和“Alley_nan”分别设置为0和1。Pandas中的get_dummies方法主要用于对类别型特征做<strong>One-Hot</strong>编码。dummy_na参数默认为False，增加一列表示空缺值，如果为False就忽略空缺值。</p>
+<pre><code>inputs=pd.get_dummies(inputs,dummy_na=True)
+print(inputs)
+#结果：
+  NumRooms  Alley_Pave  Alley_nan
+0   3.0              1          0
+1   2.0              0          1
+2   4.0              0          1
+3   3.0              0          1</code></pre><h3 id="2-3-转换为张量"><a href="#2-3-转换为张量" class="headerlink" title="2.3. 转换为张量"></a>2.3. 转换为张量</h3><p>现在inputs和outputs中的所有条目都是数值类型，它们需要转换为张量格式进行下一步操作。</p>
+<pre><code>import torch
+X,y=torch.tensor(inputs.values),torch.tensor(outputs.values)</code></pre><h2 id="3-线性代数"><a href="#3-线性代数" class="headerlink" title="3. 线性代数"></a>3. 线性代数</h2><h3 id="3-1-基础概念"><a href="#3-1-基础概念" class="headerlink" title="3.1. 基础概念"></a>3.1. 基础概念</h3><p><strong>标量（scalar）</strong>：称仅包含一个数值的叫<em>标量</em>。标量由只有一个元素的张量表示时如<code>x=torch.tensor(3.0)</code>。</p>
+<p><strong>变量（variable）</strong>：符号（x、y等）称为<em>变量</em>，它们表示未知的标量值。</p>
+<p><strong>向量（vector）</strong>：可以将向量视为标量值组成的列表。 我们将这些标量值称为向量的<em>元素</em>（element）或<em>分量</em>（component）。向量的长度通常称为向量的<em>维度</em>。 当向量表示数据集中的样本时，它们的值具有一定的现实意义。例如，如果我们正在研究医院患者可能面临的心脏病发作风险，我们可能会用一个向量来表示每个患者， 其分量为最近的生命体征、胆固醇水平、每天运动时间等。我们通过一维张量处理向量，其长度任意，通过张量的索引来访问向量中任一元素。</p>
+<p><strong>维度（dimension）</strong>：<em>向量</em>或<em>轴</em>的维度被用来表示<em>向量</em>或<em>轴</em>的长度，即向量或轴的元素数量。 然而，张量的维度用来表示张量具有的轴数。 在这个意义上，张量的某个轴的维数就是这个轴的长度。</p>
+<p><strong>矩阵（matrix）</strong>：正如向量将标量从零阶推广到一阶，矩阵将向量从一阶推广到二阶，在代码中表示为具有两个轴的张量。当调用函数来实例化张量时， 我们可以通过指定两个分量m和n来创建一个形状为m×n的矩阵，如<code>A=torch.arange(20).reshape(5,4)</code>。在代码中访问矩阵的转置<code>A.T</code>。</p>
+<p><strong>张量（tensor）</strong>：在线性代数中指代数对象，为我们提供了描述具有任意数量轴的n维数组的通用方法。向量是一阶张量，矩阵是二阶张量。它们的索引机制与矩阵类似。</p>
+<p><strong>点积（dot product）</strong>：也就是内积，给定两个向量x,y∈Rd， 它们的<em>点积</em>（dot product）x⊤y（或⟨x,y⟩） 是相同位置的按元素乘积的和。点积在很多场合都很有用。 例如，给定一组由向量x∈Rd表示的值， 和一组由w∈Rd表示的权重。x中的值根据权重w的加权和， 可以表示为点积x⊤w。 当权重为非负数且和为1（即(∑i=1dwi=1)）时， 点积表示<em>加权平均</em>（weighted average）。 将两个向量规范化得到单位长度后，点积表示它们夹角的余弦。 在代码中使用<code>torch.dot(x,y)</code>表示，注意点积中只接收向量（1维）。</p>
+<p><strong>矩阵-向量积（matrix-vector product）</strong>：将矩阵看作一个列向量，其中每一个元素为一个行向量，则矩阵-向量积为将该列向量的每个元素替换为对应行向量与向量的点积。在代码中使用张量表示矩阵-向量积，我们使用mv函数，接收一个矩阵（2维）和一个向量（1维）。 当我们为矩阵<code>A</code>和向量<code>x</code>调用<code>torch.mv(A,x)</code>时，会执行矩阵-向量积。 注意，<code>A</code>的列维数（沿轴1的长度）必须与<code>x</code>的维数（其长度）相同。</p>
+<p><strong>矩阵乘法（matrix-matrix multiplication）</strong>：设A为n×k矩阵、B为k×m矩阵，可以将矩阵-矩阵乘法AB看作是简单地执行m次矩阵-向量积，并将结果拼接在一起，形成一个n×m矩阵。在代码中：<code>torch.mm(A,B)</code></p>
+<p><strong>表示法</strong>：在《动手学深度学习》中，标量变量由普通小写字母表示（例如，x、y和z），用R表示所有（连续）<em>实数</em>标量的空间，将向量记为粗体、小写的符号 （例如，x、y和z)，认为列向量是向量的默认方向，通常用粗体、大写字母来表示矩阵 （例如，X、Y和Z），张量用特殊字体的大写字母表示（例如，X、Y和Z）。</p>
+<h3 id="3-2-张量算法"><a href="#3-2-张量算法" class="headerlink" title="3.2. 张量算法"></a>3.2. 张量算法</h3><p>当我们开始处理图像时，张量将变得更加重要，图像以n维数组形式出现， 其中3个轴对应于高度、宽度，以及一个<em>通道</em>（channel）轴， 用于表示颜色通道（红色、绿色和蓝色）。</p>
+<p>给定具有相同形状的任意两个张量，任何按元素二元运算的结果都将是相同形状的张量。例如，将两个相同形状的矩阵相加，会在这两个矩阵上执行元素加法。</p>
+<pre><code>A=torch.arange(20,dtype=torch.float32).reshape(5,4)
+B=A.clone()# 通过分配新内存，将A的一个副本分配给B
+A, A+B</code></pre><p>两个矩阵的按元素乘法称为<em>Hadamard积</em>（Hadamard product）（数学符号⊙）。</p>
+<p><code>A*B</code></p>
+<p>将张量乘以或加上一个标量不会改变张量的形状，其中张量的每个元素都将与标量相加或相乘。</p>
+<p><code>A*2, A+2</code></p>
+<h3 id="3-3-降维"><a href="#3-3-降维" class="headerlink" title="3.3. 降维"></a>3.3. 降维</h3><p>我们可以对任意张量进行的一个有用的操作是计算其元素的和。 在数学表示法中，我们使用∑符号表示求和。在代码中，我们可以调用计算求和的函数<code>x.sum()</code>。</p>
+<p>默认情况下，调用求和函数会沿所有的轴<strong>降低张量的维度</strong>，使它变为一个标量。 我们还可以指定张量沿哪一个轴来通过求和降低维度。 以矩阵为例，为了通过求和所有行的元素来降维（轴0），我们可以在调用函数时指定axis=0。 由于输入矩阵沿0轴降维以生成输出向量，因此输入轴0的维数在输出形状中消失。</p>
+<pre><code>A_sum_axis0=A.sum(axis=0)
+A_sum_axis0,A_sum_axis0.shape
+#结果：
+(tensor([40.,45.,50.,55.]),torch.Size([4]))</code></pre><p>指定axis=1将通过汇总所有列的元素降维（轴1）。因此，输入轴1的维数在输出形状中消失。</p>
+<pre><code>A_sum_axis1=A.sum(axis=1)
+A_sum_axis1,A_sum_axis1.shape
+#结果：
+(tensor([6.,22.,38.,54.,70.]),torch.Size([5]))</code></pre><p>沿着行和列对矩阵求和，等价于对矩阵的所有元素进行求和。如<code>A.sum(axis=[0,1])</code>。</p>
+<p>一个与求和相关的量是<em>平均值</em>（mean或average）。 我们通过将总和除以元素总数来计算平均值。 在代码中，我们可以调用函数来计算任意形状张量的平均值。</p>
+<pre><code>A.mean(),A.sum()/A.numel() #两者等价</code></pre><p>同样，计算平均值的函数也可以沿指定轴降低张量的维度。</p>
+<pre><code>A.mean(axis=0),A.sum(axis=0)/A.shape[0]
+#结果：
+(tensor([8.,9.,10.,11.]),tensor([8.,9.,10.,11.]))</code></pre><h4 id="3-3-1-非降维求和"><a href="#3-3-1-非降维求和" class="headerlink" title="3.3.1. 非降维求和"></a>3.3.1. 非降维求和</h4><p>有时在调用函数来计算总和或均值时保持轴数不变会很有用。</p>
+<pre><code>sum_A=A.sum(axis=1,keepdims=True)
+sum_A
+#结果：
+tensor([[6.],[22.],[38.],[54.],[70.]])</code></pre><p>例如，由于<code>sum_A</code>在对每行进行求和后仍保持两个轴，我们可以通过广播将A除以<code>sum_A</code>。如：<code>A/sum_A</code></p>
+<p>如果我们想沿某个轴计算<code>A</code>元素的累积总和， 比如<code>axis=0</code>（按行计算），我们可以调用<code>cumsum</code>函数。 此函数不会沿任何轴降低输入张量的维度。</p>
+<pre><code>A.cumsum(axis=0)
+#原本A：
+tensor([[0.,1.,2.,3.],
+        [4.,5.,6.,7.],
+        [8.,9.,10.,11.],
+        [12.,13.,14.,15.],
+        [16.,17.,18.,19.]])
+#结果：
+tensor([[0.,1.,2.,3.],
+        [4.,6.,8.,10.],
+        [12.,15.,18.,21.],
+        [24.,28.,32.,36.],
+        [40.,45.,50.,55.]])</code></pre><h3 id="3-4-范数"><a href="#3-4-范数" class="headerlink" title="3.4 范数"></a>3.4 范数</h3><p>线性代数中最有用的一些运算符是<em>范数</em>（norm）。 非正式地说，一个向量的<em>范数</em>告诉我们一个向量有多大。 这里考虑的<em>大小</em>（size）概念不涉及维度，而是分量的大小。</p>
+<p>在线性代数中，向量范数是将向量映射到标量的函数f。 给定任意向量x，向量范数要满足一些属性。 第一个性质是如果我们按常数因子α缩放向量的所有元素， 其范数也会按相同常数因子的<em>绝对值</em>缩放。第二个性质是我们熟悉的三角不等式f(x+y)&lt;=f(x)+f(y)。第三个性质简单地说范数必须是非负的，这是有道理的。因为在大多数情况下，任何东西的最小的<em>大小</em>是0。 最后一个性质要求范数最小为0，当且仅当向量全由0组成。</p>
+<p>假设n维向量x中的元素是x1,…,xn，其L2<em>范数</em>是向量元素平方和的平方根。在代码中，我们可以按如下方式计算向量的L2范数。在深度学习中，我们更经常地使用L2范数的平方。</p>
+<pre><code>u=torch.tensor([3.0,-4.0])
+torch.norm(u)
+#结果：
+tensor(5.)</code></pre><p>L1范数，表示为向量元素的绝对值之和。与L2范数相比，L1范数受异常值的影响较小。 为了计算L1范数，我们将绝对值函数和按元素求和组合起来。</p>
+<pre><code>torch.abs(u).sum()
+#结果：
+tensor(7.)</code></pre><p>L2范数和L1范数都是更一般的Lp范数的特例。</p>
+<p>类似于向量的L2范数，矩阵X∈Rm×n的<em>Frobenius范数</em>（Frobenius norm）是矩阵元素平方和的平方根。Frobenius范数满足向量范数的所有性质，它就像是矩阵形向量的L2范数。 调用以下函数将计算矩阵的Frobenius范数。</p>
+<pre><code>torch.norm(torch.ones((4,9)))
+#结果：
+tensor(6.)</code></pre><p>在深度学习中，我们经常试图解决优化问题：<em>最大化</em>分配给观测数据的概率;<em>最小化</em>预测和真实观测之间的距离。 用向量表示物品（如单词、产品或新闻文章），以便最小化相似项目之间的距离，最大化不同项目之间的距离。 <strong>目标</strong>，或许是深度学习算法最重要的组成部分（除了数据），通常被表达为范数。</p>
+<h2 id="4-微积分和自动微分"><a href="#4-微积分和自动微分" class="headerlink" title="4. 微积分和自动微分"></a>4. 微积分和自动微分</h2><p>在深度学习中，我们“训练”模型，不断更新它们，使它们在看到越来越多的数据时变得越来越好。 通常情况下，变得更好意味着最小化一个<em>损失函数</em>（loss function）， 即一个衡量“我们的模型有多糟糕”这个问题的分数。 最终，我们真正关心的是生成一个模型，它能够在从未见过的数据上表现良好。 但“训练”模型只能将模型与我们实际能看到的数据相拟合。 因此，我们可以将拟合模型的任务分解为两个关键问题：</p>
+<ul>
+<li><em>优化</em>（optimization）：用模型拟合观测数据的过程；</li>
+<li><em>泛化</em>（generalization）：数学原理和实践者的智慧，能够指导我们生成出有效性超出用于训练的数据集本身的模型。</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li>微分和积分是微积分的两个分支，前者可以应用于深度学习中的优化问题。</li>
+<li>导数可以被解释为函数相对于其变量的瞬时变化率，它也是函数曲线的切线的斜率。</li>
+<li>梯度是一个向量，其分量是多变量函数相对于其所有变量的偏导数。</li>
+<li>链式法则使我们能够微分复合函数。</li>
+<li>深度学习框架可以自动计算导数：我们首先将梯度附加到想要对其计算偏导数的变量上。然后我们记录目标值的计算，执行它的反向传播函数，并访问得到的梯度。</li>
+</ul>
+<h3 id="4-1-导数、微分、偏导"><a href="#4-1-导数、微分、偏导" class="headerlink" title="4.1. 导数、微分、偏导"></a>4.1. 导数、微分、偏导</h3><p>我们首先讨论导数的计算，这是几乎所有深度学习优化算法的关键步骤。 在深度学习中，我们通常选择对于模型参数可微的损失函数。 简而言之，对于每个参数， 如果我们把这个参数<em>增加</em>或<em>减少</em>一个无穷小的量，我们可以知道损失会以多快的速度增加或减少。</p>
+<p>假设我们有一个函数f，其输入和输出都是标量。 导数定义不用多说，如果f′(a)存在，则称f在a处是<em>可微</em>（differentiable）的。如果f在一个区间内的每个数上都是可微的，则此函数在此区间中是可微的。可以将导数定义中的导数f′(x)解释为f(x)相对于x的<em>瞬时</em>（instantaneous）变化率。 所谓的瞬时变化率是基于x中的变化h，且h接近0。</p>
+<p>要了解微分，以及对函数微分的法则。例如Dx^n = nx^(n-1)，其中D为微分运算符。还要了解求偏导，这些都是基础。</p>
+<h3 id="4-2-梯度"><a href="#4-2-梯度" class="headerlink" title="4.2. 梯度"></a>4.2. 梯度</h3><p>我们可以连结一个多元函数对其所有变量的偏导数，以得到该函数的<em>梯度</em>（gradient）向量。 具体而言，设函数f:Rn→R的输入是一个n维向量x=[x1,x2,…,xn]⊤，并且输出是一个标量。 函数f(x)相对于x的梯度是一个包含n个偏导数的向量<br>$$<br>\nabla_{\mathbf{x}} f(\mathbf{x})=\left[\frac{\partial f(\mathbf{x})}{\partial x_{1}}, \frac{\partial f(\mathbf{x})}{\partial x_{2}}, \ldots, \frac{\partial f(\mathbf{x})}{\partial x_{n}}\right]^{\top}<br>$$<br>,其中∇xf(x)通常在没有歧义时被∇f(x)取代。梯度对于设计深度学习中的优化算法有很大用处。</p>
+<p>假设x为n维向量，在微分多元函数时经常使用以下规则:</p>
+<ul>
+<li>对于所有 $\mathbf{A} \in \mathbb{R}^{m \times n}$, 都有 $\nabla_{\mathbf{x}} \mathbf{A} \mathbf{x}=\mathbf{A}^{\top}$</li>
+<li>对于所有 $\mathbf{A} \in \mathbb{R}^{n \times m}$, 都有 $\nabla_{\mathbf{x}} \mathbf{x}^{\top} \mathbf{A}=\mathbf{A}$</li>
+<li>对于所有 $\mathbf{A} \in \mathbb{R}^{n \times n}$, 都有 $\nabla_{\mathbf{x}} \mathbf{x}^{\top} \mathbf{A} \mathbf{x}=\left(\mathbf{A}+\mathbf{A}^{\top}\right) \mathbf{x}$</li>
+<li>$\nabla_{\mathbf{x}}|\mathbf{x}|^{2}=\nabla_{\mathbf{x}} \mathbf{x}^{\top} \mathbf{x}=2 \mathbf{x}$</li>
+</ul>
+<p>同样，对于任何矩阵X，都有 $\nabla \mathbf{X}|\mathbf{X}|_{F}^{2}=2 \mathbf{X}$。</p>
+<h3 id="4-3-链式法则"><a href="#4-3-链式法则" class="headerlink" title="4.3. 链式法则"></a>4.3. 链式法则</h3><p>然而，上面方法可能很难找到梯度。 这是因为在深度学习中，多元函数通常是<em>复合</em>（composite）的， 所以我们可能没法应用上述任何规则来微分这些函数。 幸运的是，链式法则使我们能够微分复合函数。</p>
+<p>让我们先考虑单变量函数。假设函数y=f(u)和u=g(x)都是可微的，根据链式法则有<br>$$<br>\frac{d y}{d x}=\frac{d y}{d u} \frac{d u}{d x}<br>$$</p>
+<p>当处于函数具有任意数量的变量的情况下。假设可微分函数y有变量u1,u2,…,um，其中每个可微分函数ui都有变量x1,x2,…,xn。 注意，y是x1,x2，…,xn的函数。 对于任意i=1,2,…,n，链式法则给出：<br>$$<br>\frac{d y}{d x_{i}}=\frac{d y}{d u_{1}} \frac{d u_{1}}{d x_{i}}+\frac{d y}{d u_{2}} \frac{d u_{2}}{d x_{i}}+\cdots+\frac{d y}{d u_{m}} \frac{d u_{m}}{d x_{i}}<br>$$</p>
+<h3 id="4-4-自动微分"><a href="#4-4-自动微分" class="headerlink" title="4.4. 自动微分"></a>4.4. 自动微分</h3><p>求导是几乎所有深度学习优化算法的关键步骤。 虽然求导的计算很简单，只需要一些基本的微积分。 但对于复杂的模型，手工进行更新是一件很痛苦的事情（而且经常容易出错）。</p>
+<p>深度学习框架通过自动计算导数，即<em>自动微分</em>（automatic differentiation）来加快求导。 实际中，根据我们设计的模型，系统会构建一个<em>计算图</em>（computational graph）， 来跟踪计算是哪些数据通过哪些操作组合起来产生输出。 自动微分使系统能够随后反向传播梯度。 这里，<em>反向传播</em>（backpropagate）意味着跟踪整个计算图，填充关于每个参数的偏导数。设y为关于x的函数，调用<code>y.backward()</code>反向传播计算x的梯度<code>x.grad</code>。</p>
+<p>例如对于：$e=(a+b) *(b+1)$<br>可以得到计算图如下：<br><img src="/assets/post_img/article34/BP.png" alt="0x02pic1"></p>
+<p>反向传播参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Weary_PJ/article/details/105706318">https://blog.csdn.net/Weary_PJ/article/details/105706318</a></p>
+<h4 id="4-4-1-非标量变量的反向传播"><a href="#4-4-1-非标量变量的反向传播" class="headerlink" title="4.4.1. 非标量变量的反向传播"></a>4.4.1. 非标量变量的反向传播</h4><p>当y不是标量时，向量y关于向量x的导数的最自然解释是一个矩阵。 对于高阶和高维的y和x，求导的结果可以是一个高阶张量。</p>
+<p>然而，虽然这些更奇特的对象确实出现在高级机器学习中（包括深度学习中）， 但当我们调用向量的反向计算时，我们通常会试图计算一批训练样本中每个组成部分的损失函数的导数。 这里，我们的目的不是计算微分矩阵，而是单独计算批量中每个样本的偏导数之和。</p>
+<h4 id="4-4-2-分离计算"><a href="#4-4-2-分离计算" class="headerlink" title="4.4.2. 分离计算"></a>4.4.2. 分离计算</h4><p>有时，我们希望将某些计算移动到记录的计算图之外。 例如，假设y是作为x的函数计算的，而z则是作为y和x的函数计算的。 想象一下，我们想计算z关于x的梯度，但由于某种原因，我们希望将y视为一个常数， 并且只考虑到x在y被计算后发挥的作用。</p>
+<p>在这里，我们可以分离y来返回一个新变量u，该变量与y具有相同的值， 但丢弃计算图中如何计算y的任何信息。 换句话说，梯度不会向后流经u到x。</p>
+<p>为了实现自动微分，PyTorch跟踪所有涉及张量的操作，可能需要为其计算梯度（即require_grad为True）。 这些操作记录为有向图。在代码上，上述分离计算可以通过使用<strong>detach（）</strong>方法在张量上构造一个新视图，该张量声明为不需要梯度，即从进一步跟踪操作中将其排除在外，因此不记录涉及该视图的子图。即对应上述的情况，令<code>u=y.detach()</code>，使用<code>z=u*x</code>替代原本的<code>z=y*x</code>。</p>
+<h4 id="4-4-3-Python控制流的梯度计算"><a href="#4-4-3-Python控制流的梯度计算" class="headerlink" title="4.4.3. Python控制流的梯度计算"></a>4.4.3. Python控制流的梯度计算</h4><p>使用自动微分的一个好处是：即使构建函数的计算图需要通过Python控制流（例如，条件、循环或任意函数调用），我们仍然可以计算得到的变量的梯度。在下面的代码中，while循环的迭代次数和if语句的结果都取决于输入a的值。</p>
+<pre><code>def f(a):
+  b=a*2
+  while b.norm()&lt;1000:
+    b=b*2
+  if b.sum()&gt;0:
+    c=b
+  else:
+    c=100*b
+  return c
+# 计算梯度
+a=torch.randn(size=(),requires_grad=True)
+d=f(a)
+d.backward()</code></pre><p>我们现在可以分析上面定义的f函数。 请注意，它在其输入a中是分段线性的。 换言之，对于任何a，存在某个常量标量k，使得f(a)=k*a，其中k的值取决于输入a。 因此，我们可以用d/a验证梯度是否正确。<code>a.grad==d/a</code>结果为真。</p>
+<h2 id="5-概率"><a href="#5-概率" class="headerlink" title="5. 概率"></a>5. 概率</h2><p>简单地说，机器学习就是做出预测。</p>
+<p>根据病人的临床病史，我们可能想预测他们在下一年心脏病发作的<em>概率</em>。 在飞机喷气发动机的异常检测中，我们想要评估一组发动机读数为正常运行情况的概率有多大。 在强化学习中，我们希望智能体（agent）能在一个环境中智能地行动。 这意味着我们需要考虑在每种可行的行为下获得高奖励的概率。 当我们建立推荐系统时，我们也需要考虑概率。 例如，假设我们为一家大型在线书店工作，我们可能希望估计某些用户购买特定图书的概率。 为此，我们需要使用概率学。 概率是一种灵活的语言，用于说明我们的确定程度，并且它可以有效地应用于广泛的领域中。</p>
+<p>对于概率（probability）和统计（statistics）：概率是已知模型和参数，推数据。统计是已知数据，推模型和参数。</p>
+<h3 id="5-1-基本概率论"><a href="#5-1-基本概率论" class="headerlink" title="5.1. 基本概率论"></a>5.1. 基本概率论</h3><p>以掷骰子为例，想知道看到1的几率有多大，而不是看到另一个数字。 如果骰子是公平的，那么所有六个结果{1,…,6}都有相同的可能发生， 因此我们可以说1发生的概率为6分之1。</p>
+<p>然而现实生活中，对于我们从工厂收到的真实骰子，我们需要检查它是否有瑕疵。 检查骰子的唯一方法是多次投掷并记录结果。 对于每个骰子，我们将观察到{1,…,6}中的一个值。 对于每个值，一种自然的方法是将它出现的次数除以投掷的总次数， 即此<em>事件</em>（event）概率的<em>估计值</em>。<em>大数定律</em>（law of large numbers）告诉我们： 随着投掷次数的增加，这个估计值会越来越接近真实的潜在概率。</p>
+<p>在统计学中，我们把从概率分布中抽取样本的过程称为<em>抽样</em>（sampling）。 笼统来说，可以把<em>分布</em>（distribution）看作是对事件的概率分配， 稍后我们将给出的更正式定义。 将概率分配给一些离散选择的分布称为<em>多项分布</em>（multinomial distribution）。</p>
+<p>在代码中multinomial.Multinomial函数创建由 total_count 和 probs 或 logits（但不是两者）参数化的多项分布。 probs（概率）的最内层维度索引种类，所有其他维度索引批次。total_count表示总的实验次数。如：<code>multinomial.Multinomial(10,fair_probs).sample()</code>表示在fair_probs的概率下进行了10次实验得到的分布情况。在此基础上除10即可得到真实概率的估计。</p>
+<h4 id="5-1-1-概率论公理"><a href="#5-1-1-概率论公理" class="headerlink" title="5.1.1. 概率论公理"></a>5.1.1. 概率论公理</h4><p>在处理骰子掷出时，我们将集合S={1,2,3,4,5,6}称为<em>样本空间</em>（sample space）或<em>结果空间</em>（outcome space）， 其中每个元素都是<em>结果</em>（outcome）。<em>事件</em>（event）是一组给定样本空间的随机结果。 例如，“看到5”（{5}）和“看到奇数”（{1,3,5}）都是掷出骰子的有效事件。 注意，如果一个随机实验的结果在A中，则事件A已经发生。 也就是说，如果投掷出3点，因为3∈{1,3,5}，我们可以说，“看到奇数”的事件发生了。<em>概率</em>（probability）可以被认为是将集合映射到真实值的函数。</p>
+<p>性质：</p>
+<ul>
+<li>概率非负</li>
+<li>全样本空间概率为1</li>
+<li>对于<em>互斥</em>（mutually exclusive）事件（对于所有i≠j都有Ai∩Aj=∅）的任意一个可数序列A1,A2,…，序列中任意一个事件发生的概率等于它们各自发生的概率之和。</li>
+</ul>
+<h4 id="5-1-2-随机变量"><a href="#5-1-2-随机变量" class="headerlink" title="5.1.2. 随机变量"></a>5.1.2. 随机变量</h4><p>在我们掷骰子的随机实验中，我们引入了<em>随机变量</em>（random variable）的概念。 随机变量几乎可以是任何数量，并且它可以在随机实验的一组可能性中取一个值。 考虑一个随机变量X，其值在掷骰子的样本空间S={1,2,3,4,5,6}中。 我们可以将事件“看到一个5”表示为{X=5}或X=5， 其概率表示为P({X=5})或P(X=5)。 通过P(X=a)，我们区分了随机变量X和X可以采取的值（例如a）。</p>
+<p>然而，这可能会导致繁琐的表示。 为了简化符号，一方面，我们可以将P(X)表示为随机变量X上的<em>分布</em>（distribution）： 分布告诉我们X获得某一值的概率。 另一方面，我们可以简单用P(a)表示随机变量取值a的概率。 由于概率论中的事件是来自样本空间的一组结果，因此我们可以为随机变量指定值的可取范围。 例如，P(1≤X≤3)表示事件{1≤X≤3}， 即{X=1,2,or,3}的概率。 等价地，P(1≤X≤3)表示随机变量X从{1,2,3}中取值的概率。这一节主要讨论离散型随机变量，连续型不咋考虑。</p>
+<h3 id="5-2-处理多个随机变量"><a href="#5-2-处理多个随机变量" class="headerlink" title="5.2. 处理多个随机变量"></a>5.2. 处理多个随机变量</h3><p>例如图像包含数百万像素，因此有数百万个随机变量。 在许多情况下，图像会附带一个<em>标签</em>（label），标识图像中的对象。 我们也可以将标签视为一个随机变量。 我们甚至可以将所有元数据视为随机变量，例如位置、时间、光圈、焦距、ISO、对焦距离和相机类型。 所有这些都是联合发生的随机变量。 当我们处理多个随机变量时，会有若干个变量是我们感兴趣的。</p>
+<h4 id="5-2-1-一些基本概念"><a href="#5-2-1-一些基本概念" class="headerlink" title="5.2.1. 一些基本概念"></a>5.2.1. 一些基本概念</h4><p><strong>联合概率（joint probability）</strong>：$P(A=a, B=b)$，联合概率可以回答：A=a和B=b同时满足的概率是多少的问题，但对于任何a和b的取值，P(A=a,B=b)≤P(A=a)。</p>
+<p><strong>条件概率（conditional probability）</strong>：用P(B=b∣A=a)表示它，它是B=b的概率，前提是A=a已发生。</p>
+<p><strong>贝叶斯定理（Bayes’ theorem）</strong>：根据<em>乘法法则</em>（multiplication rule）可得到 $P(A, B)=P(B \mid A) P(A)$ 。根据对称性, 可得到 $P(A, B)=P(A \mid B) P(B)$ 。根据两式假设P(B)&gt;0，求解其中一个条件变量，我们得到：<br>$$<br>P(A \mid B)=\frac{P(B \mid A) P(A)}{P(B)}<br>$$<br>注意这里使用紧凑的表示法： 其中 $P(A, B)$ 是一个联合分布（joint distribution）, $P(A \mid B)$ 是一个条件分布 (conditional distribution)。这种分布可以在给定值 $A=a, B=b$ 上进行求值。</p>
+<p><strong>边际化（marginalization）</strong>：为了能进行事件概率求和，我们需要<em>加法法则</em>（sum rule）， 即B的概率相当于计算A的所有可能选择，并将所有选择的联合概率聚合在一起：<br>$$<br>P(B)=\sum_{A} P(A, B)<br>$$<br>这也称为<em>边际化</em>（marginalization）。边际化结果的概率或分布称为<em>边缘概率</em>（marginal probability） 或<em>边缘分布</em>（marginal distribution）。</p>
+<p><strong>依赖（dependence）与独立（independence）</strong>：如果两个随机变量A和B是独立的，意味着事件A的发生跟B事件的发生无关。 在这种情况下，通常将这一点表述为A⊥B。 根据贝叶斯定理，得到P(A∣B)=P(A)。 在所有其他情况下，我们称A和B依赖。 比如，两次连续抛出一个骰子的事件是相互独立的。 相比之下，灯开关的位置和房间的亮度并不是（因为可能存在灯泡坏掉、电源故障，或者开关故障）。两个随机变量是独立的，当且仅当两个随机变量的联合分布是其各自分布的乘积。</p>
+<p><strong>期望（expectation，或平均值（average））</strong>：均值。</p>
+<p><strong>方差（variance）</strong>：数据与平均数之差平方和的平均数，方差的平方根被称为<em>标准差</em>（standared deviation）。随机变量函数的方差衡量的是：当从该随机变量分布中采样不同值x时， 函数值偏离该函数的期望的程度。</p>
+<p><strong>似然函数（Likelihood Function）</strong>：似然也就是可能性。在统计中，似然函数和概率函数是两个不同的概念。<br>对于这个函数： $p(x \mid \theta)$ 输入有两个: $\mathrm{x}$ 表示某一个具体的数据; $\theta$ 表示模型的参数。<br>如果 $\theta$ 是已知确定的, $x$ 是变量, 这个函数叫做概率函数(probability function), 它描述对于不同的样本点 $x$, 其出现概率是多少。<br>如果 $x$ 是已知确定的, $\theta$ 是变量, 这个函数叫做似然函数(likelihood function), 它描述对于不同的模型参数, 出现 $x$ 这个样本点的概率是多少。</p>
+<p><strong>最大似然估计(Maximum Likelihood Estimation, MLE)</strong>：属于统计领域问题，利用已知的样本结果信息，反推最具有可能（最大概率）导致这些样本结果出现的模型参数值。其中似然即可能性。<br>极大似然估计中采样需满足一个重要的假设，就是所有的采样都是独立同分布的。<br>最大似然估计是怎么做的呢？个人理解：对于一个概率分布（或离散或连续），抽出一个具有n个值的采样（结果采样），确定一个似然函数：$\operatorname{lik}(\theta)=f_{D}\left(x_{1}, x_{2}, \ldots, x_{n} \mid \theta\right)$，在θ的所有取值上，使这个函数最大化。这个使可能性最大的值即被称为θ的最大似然估计。</p>
+
       
 
       
@@ -1067,107 +1501,6 @@
 
 
   
-    <article id="post-article27" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/article27/">Hexo博客个性化设置（yilia主题）</a>
-    </h1>
-  
-
-        
-        
-<a href="/2021/07/11/article27/" class="archive-article-date">
-  	<time datetime="2021-07-11T08:54:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.5k字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">6分</span>
-      </span>
-    </span>
-</div>
-          
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近依然在学习考研，祝自己能上岸吧，上岸后还有很多想做的事，学学Spring全家桶啥的，提升一下自己的技能库。最近发现李沐大神的动手学深度学习v2不错，茶余饭后看一看提升一下科研素质，以后发论文没准还是得靠这个，想用Java搞科研还没看出有什么门路。还准备每周在b站发俩做力扣的实战视频，水着玩儿也提高一下算法能力。说回正题，这个博文记录一下我在我的博客所做的一些个性化设置，持续更新～</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/article27/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
@@ -1295,15 +1628,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1311,7 +1640,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
+                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1319,15 +1648,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -15,11 +15,13 @@
 <meta property="og:site_name" content="silenceZheng66-BLOG">
 <meta property="og:description" content="数据操作及数学基础–《动手学深度学习》笔记0x020. 前言这一笔记对应预备知识章节，包括数据操作、数据预处理、线性代数、微积分、概率论等。其中很多知识在学数一的时候都更深入理解过了，但是现在发现忘的差不多了，哎～ 对应实践：https:&#x2F;&#x2F;github.com&#x2F;silenceZheng66&#x2F;deep_learning&#x2F;blob&#x2F;master&#x2F;d2l&#x2F;0x02.ipynb 在M1芯片的设备上使用m">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://silencezheng.top/assets/post_img/article34/BP.png">
 <meta property="article:published_time" content="2022-05-04T16:49:29.000Z">
-<meta property="article:modified_time" content="2022-05-13T15:46:39.178Z">
+<meta property="article:modified_time" content="2022-05-16T15:58:42.417Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article34/BP.png">
   
     <link rel="alternative" href="/atom.xml" title="silenceZheng66-BLOG" type="application/atom+xml">
   
@@ -67,7 +69,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 37
+			总文章数 38
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -185,7 +187,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">9.9k字</span>
+        <span class="post-count">10.5k字</span>
       </span>
     </span>
 
@@ -194,7 +196,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">37分</span>
+        <span class="post-count">39分</span>
       </span>
     </span>
 </div>
@@ -208,8 +210,6 @@
         <h1 id="数据操作及数学基础–《动手学深度学习》笔记0x02"><a href="#数据操作及数学基础–《动手学深度学习》笔记0x02" class="headerlink" title="数据操作及数学基础–《动手学深度学习》笔记0x02"></a>数据操作及数学基础–《动手学深度学习》笔记0x02</h1><h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>这一笔记对应预备知识章节，包括数据操作、数据预处理、线性代数、微积分、概率论等。其中很多知识在学数一的时候都更深入理解过了，但是现在发现忘的差不多了，哎～</p>
 <p>对应实践：<a target="_blank" rel="noopener" href="https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x02.ipynb">https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x02.ipynb</a></p>
 <p>在M1芯片的设备上使用miniforge安装pytorch：<code>conda install -c pytorch pytorch</code></p>
-<span id="more"></span>
-
 <h2 id="1-数据操作"><a href="#1-数据操作" class="headerlink" title="1. 数据操作"></a>1. 数据操作</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1. 概念"></a>1.1. 概念</h3><h4 id="1-1-1-张量（tensor）"><a href="#1-1-1-张量（tensor）" class="headerlink" title="1.1.1 张量（tensor）"></a>1.1.1 张量（tensor）</h4><p>即n维数组，无论使用哪个深度学习框架，它的<em>张量类</em>（在MXNet中为<code>ndarray</code>， 在PyTorch和TensorFlow中为<code>Tensor</code>）都与Numpy的<code>ndarray</code>类似。 但深度学习框架又比Numpy的<code>ndarray</code>多一些重要功能： 首先，GPU很好地支持加速计算，而NumPy仅支持CPU计算； 其次，张量类支持自动微分。 这些功能使得张量类更适合深度学习。</p>
 <p>张量表示由一个数值组成的数组，这个数组可能有多个维度。 具有一个轴的张量对应数学上的<em>向量</em>（vector）； 具有两个轴的张量对应数学上的<em>矩阵</em>（matrix）； 具有两个轴以上的张量没有特殊的数学名称。张量中的每个值都称为张量的<em>元素</em>（element）。</p>
 <h4 id="1-1-2-运算符"><a href="#1-1-2-运算符" class="headerlink" title="1.1.2. 运算符"></a>1.1.2. 运算符</h4><p>我们的兴趣不仅限于读取数据和写入数据。 我们想在这些数据上执行数学运算，其中最简单且最有用的操作是<em>按元素</em>（elementwise）运算。 它们将标准标量运算符应用于数组的<strong>每个元素</strong>。 对于将两个数组作为输入的函数，按元素运算将二元运算符应用于两个数组中的<strong>每对位置对应的元素</strong>。 我们可以基于任何从标量到标量的函数来创建按元素函数。</p>
@@ -263,7 +263,7 @@ Y=torch.tensor([[2.0,1,4,3],[1,2,3,4],[4,3,2,1]])
 torch.cat((X,Y),dim=0),torch.cat((X,Y),dim=1)
 #结果：
 (tensor([[0.,1.,2.,3.],[4.,5.,6.,7.],[8.,9.,10.,11.],[2.,1.,4.,3.],[1.,2.,3.,4.],[4.,3.,2.,1.]]),
-tensor([[0.,1.,2.,3.,2.,1.,4.,3.],[4.,5.,6.,7.,1.,2.,3.,4.],[8.,9.,10.,11.,4.,3.,2.,1.]]))</code></pre><p>有时，我们想通过<em>逻辑运算符</em>构建二元张量。 以X==Y为例： 对于每个位置，如果X和Y在该位置相等，则新张量中相应项的值为1。 这意味着逻辑语句X==Y在该位置处为真，否则该位置为0。</p>
+tensor([[0.,1.,2.,3.,2.,1.,4.,3.],[4.,5.,6.,7.,1.,2.,3.,4.],[8.,9.,10.,11.,4.,3.,2.,1.]]))</code></pre><p>有时，我们想通过<em>逻辑运算符</em>构建二元张量。 以<code>X==Y</code>为例： 对于每个位置，如果X和Y在该位置相等，则新张量中相应项的值为1。 这意味着逻辑语句X==Y在该位置处为真，否则该位置为0。</p>
 <pre><code>X==Y
 #结果：
 tensor([[False,True,False,True],[False,False,False,False],[False,False,False,False]])</code></pre><p>对张量中的所有元素进行求和，会产生一个单元素张量。</p>
@@ -399,23 +399,23 @@ tensor(6.)</code></pre><p>在深度学习中，我们经常试图解决优化问
 <li>深度学习框架可以自动计算导数：我们首先将梯度附加到想要对其计算偏导数的变量上。然后我们记录目标值的计算，执行它的反向传播函数，并访问得到的梯度。</li>
 </ul>
 <h3 id="4-1-导数、微分、偏导"><a href="#4-1-导数、微分、偏导" class="headerlink" title="4.1. 导数、微分、偏导"></a>4.1. 导数、微分、偏导</h3><p>我们首先讨论导数的计算，这是几乎所有深度学习优化算法的关键步骤。 在深度学习中，我们通常选择对于模型参数可微的损失函数。 简而言之，对于每个参数， 如果我们把这个参数<em>增加</em>或<em>减少</em>一个无穷小的量，我们可以知道损失会以多快的速度增加或减少。</p>
-<p>假设我们有一个函数f，其输入和输出都是标量。 导数定义不用多说：<br>$$<br>f^{\prime}(x)=\lim _{h \rightarrow 0} \frac{f(x+h)-f(x)}{h}<br>$$<br>如果f′(a)存在，则称f在a处是<em>可微</em>（differentiable）的。如果f在一个区间内的每个数上都是可微的，则此函数在此区间中是可微的。可以将导数定义中的导数f′(x)解释为f(x)相对于x的<em>瞬时</em>（instantaneous）变化率。 所谓的瞬时变化率是基于x中的变化h，且h接近0。</p>
-<p>要了解微分，以及对函数微分的法则。例如幂律（power rule）:<br>$$<br>D x^{n}=n x^{n-1}<br>$$<br>其中D为微分运算符。还要了解求偏导，这些都是基础。</p>
-<h3 id="4-2-梯度"><a href="#4-2-梯度" class="headerlink" title="4.2. 梯度"></a>4.2. 梯度</h3><p>我们可以连结一个多元函数对其所有变量的偏导数，以得到该函数的<em>梯度</em>（gradient）向量。 具体而言，设函数f:Rn→R的输入是一个n维向量x=[x1,x2,…,xn]⊤，并且输出是一个标量。 函数f(x)相对于x的梯度是一个包含n个偏导数的向量<code>∇xf(x)=[∂f(x)\∂x1,∂f(x)\∂x2,…,∂f(x)\∂xn]⊤</code>,其中∇xf(x)通常在没有歧义时被∇f(x)取代。梯度对于设计深度学习中的优化算法有很大用处。</p>
+<p>假设我们有一个函数f，其输入和输出都是标量。 导数定义不用多说，如果f′(a)存在，则称f在a处是<em>可微</em>（differentiable）的。如果f在一个区间内的每个数上都是可微的，则此函数在此区间中是可微的。可以将导数定义中的导数f′(x)解释为f(x)相对于x的<em>瞬时</em>（instantaneous）变化率。 所谓的瞬时变化率是基于x中的变化h，且h接近0。</p>
+<p>要了解微分，以及对函数微分的法则。例如Dx^n = nx^(n-1)，其中D为微分运算符。还要了解求偏导，这些都是基础。</p>
+<h3 id="4-2-梯度"><a href="#4-2-梯度" class="headerlink" title="4.2. 梯度"></a>4.2. 梯度</h3><p>我们可以连结一个多元函数对其所有变量的偏导数，以得到该函数的<em>梯度</em>（gradient）向量。 具体而言，设函数f:Rn→R的输入是一个n维向量x=[x1,x2,…,xn]⊤，并且输出是一个标量。 函数f(x)相对于x的梯度是一个包含n个偏导数的向量<br>$$<br>\nabla_{\mathbf{x}} f(\mathbf{x})=\left[\frac{\partial f(\mathbf{x})}{\partial x_{1}}, \frac{\partial f(\mathbf{x})}{\partial x_{2}}, \ldots, \frac{\partial f(\mathbf{x})}{\partial x_{n}}\right]^{\top}<br>$$<br>,其中∇xf(x)通常在没有歧义时被∇f(x)取代。梯度对于设计深度学习中的优化算法有很大用处。</p>
 <p>假设x为n维向量，在微分多元函数时经常使用以下规则:</p>
 <ul>
-<li>对于所有A∈Rm×n，都有∇xAx=A⊤</li>
-<li>对于所有A∈Rn×m，都有∇xx⊤A=A</li>
-<li>对于所有A∈Rn×n，都有∇xx⊤Ax=(A+A⊤)x</li>
-<li>∇x‖x‖2=∇xx⊤x=2x</li>
+<li>对于所有 $\mathbf{A} \in \mathbb{R}^{m \times n}$, 都有 $\nabla_{\mathbf{x}} \mathbf{A} \mathbf{x}=\mathbf{A}^{\top}$</li>
+<li>对于所有 $\mathbf{A} \in \mathbb{R}^{n \times m}$, 都有 $\nabla_{\mathbf{x}} \mathbf{x}^{\top} \mathbf{A}=\mathbf{A}$</li>
+<li>对于所有 $\mathbf{A} \in \mathbb{R}^{n \times n}$, 都有 $\nabla_{\mathbf{x}} \mathbf{x}^{\top} \mathbf{A} \mathbf{x}=\left(\mathbf{A}+\mathbf{A}^{\top}\right) \mathbf{x}$</li>
+<li>$\nabla_{\mathbf{x}}|\mathbf{x}|^{2}=\nabla_{\mathbf{x}} \mathbf{x}^{\top} \mathbf{x}=2 \mathbf{x}$</li>
 </ul>
-<p>同样，对于任何矩阵X，都有∇X‖X‖F2=2X。</p>
+<p>同样，对于任何矩阵X，都有 $\nabla \mathbf{X}|\mathbf{X}|_{F}^{2}=2 \mathbf{X}$。</p>
 <h3 id="4-3-链式法则"><a href="#4-3-链式法则" class="headerlink" title="4.3. 链式法则"></a>4.3. 链式法则</h3><p>然而，上面方法可能很难找到梯度。 这是因为在深度学习中，多元函数通常是<em>复合</em>（composite）的， 所以我们可能没法应用上述任何规则来微分这些函数。 幸运的是，链式法则使我们能够微分复合函数。</p>
-<p>让我们先考虑单变量函数。假设函数y=f(u)和u=g(x)都是可微的，根据链式法则有<code>dy\dx=(dy\du)(du\dx)</code></p>
-<p>现在让我们把注意力转向一个更一般的场景，即函数具有任意数量的变量的情况。</p>
-<p>假设可微分函数y有变量u1,u2,…,um，其中每个可微分函数ui都有变量x1,x2,…,xn。 注意，y是，x1,x2，…,xn的函数。 对于任意i=1,2,…,n，链式法则给出：<code>dy\dxi=(dy\du1)(du1\dxi)+(dy\du2)(du2\dxi)+⋯+(dy\dum)(dum\dxi)</code></p>
+<p>让我们先考虑单变量函数。假设函数y=f(u)和u=g(x)都是可微的，根据链式法则有<br>$$<br>\frac{d y}{d x}=\frac{d y}{d u} \frac{d u}{d x}<br>$$</p>
+<p>当处于函数具有任意数量的变量的情况下。假设可微分函数y有变量u1,u2,…,um，其中每个可微分函数ui都有变量x1,x2,…,xn。 注意，y是x1,x2，…,xn的函数。 对于任意i=1,2,…,n，链式法则给出：<br>$$<br>\frac{d y}{d x_{i}}=\frac{d y}{d u_{1}} \frac{d u_{1}}{d x_{i}}+\frac{d y}{d u_{2}} \frac{d u_{2}}{d x_{i}}+\cdots+\frac{d y}{d u_{m}} \frac{d u_{m}}{d x_{i}}<br>$$</p>
 <h3 id="4-4-自动微分"><a href="#4-4-自动微分" class="headerlink" title="4.4. 自动微分"></a>4.4. 自动微分</h3><p>求导是几乎所有深度学习优化算法的关键步骤。 虽然求导的计算很简单，只需要一些基本的微积分。 但对于复杂的模型，手工进行更新是一件很痛苦的事情（而且经常容易出错）。</p>
 <p>深度学习框架通过自动计算导数，即<em>自动微分</em>（automatic differentiation）来加快求导。 实际中，根据我们设计的模型，系统会构建一个<em>计算图</em>（computational graph）， 来跟踪计算是哪些数据通过哪些操作组合起来产生输出。 自动微分使系统能够随后反向传播梯度。 这里，<em>反向传播</em>（backpropagate）意味着跟踪整个计算图，填充关于每个参数的偏导数。设y为关于x的函数，调用<code>y.backward()</code>反向传播计算x的梯度<code>x.grad</code>。</p>
+<p>例如对于：$e=(a+b) *(b+1)$<br>可以得到计算图如下：<br><img src="/assets/post_img/article34/BP.png" alt="0x02pic1"></p>
 <p>反向传播参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Weary_PJ/article/details/105706318">https://blog.csdn.net/Weary_PJ/article/details/105706318</a></p>
 <h4 id="4-4-1-非标量变量的反向传播"><a href="#4-4-1-非标量变量的反向传播" class="headerlink" title="4.4.1. 非标量变量的反向传播"></a>4.4.1. 非标量变量的反向传播</h4><p>当y不是标量时，向量y关于向量x的导数的最自然解释是一个矩阵。 对于高阶和高维的y和x，求导的结果可以是一个高阶张量。</p>
 <p>然而，虽然这些更奇特的对象确实出现在高级机器学习中（包括深度学习中）， 但当我们调用向量的反向计算时，我们通常会试图计算一批训练样本中每个组成部分的损失函数的导数。 这里，我们的目的不是计算微分矩阵，而是单独计算批量中每个样本的偏导数之和。</p>
@@ -438,6 +438,7 @@ d=f(a)
 d.backward()</code></pre><p>我们现在可以分析上面定义的f函数。 请注意，它在其输入a中是分段线性的。 换言之，对于任何a，存在某个常量标量k，使得f(a)=k*a，其中k的值取决于输入a。 因此，我们可以用d/a验证梯度是否正确。<code>a.grad==d/a</code>结果为真。</p>
 <h2 id="5-概率"><a href="#5-概率" class="headerlink" title="5. 概率"></a>5. 概率</h2><p>简单地说，机器学习就是做出预测。</p>
 <p>根据病人的临床病史，我们可能想预测他们在下一年心脏病发作的<em>概率</em>。 在飞机喷气发动机的异常检测中，我们想要评估一组发动机读数为正常运行情况的概率有多大。 在强化学习中，我们希望智能体（agent）能在一个环境中智能地行动。 这意味着我们需要考虑在每种可行的行为下获得高奖励的概率。 当我们建立推荐系统时，我们也需要考虑概率。 例如，假设我们为一家大型在线书店工作，我们可能希望估计某些用户购买特定图书的概率。 为此，我们需要使用概率学。 概率是一种灵活的语言，用于说明我们的确定程度，并且它可以有效地应用于广泛的领域中。</p>
+<p>对于概率（probability）和统计（statistics）：概率是已知模型和参数，推数据。统计是已知数据，推模型和参数。</p>
 <h3 id="5-1-基本概率论"><a href="#5-1-基本概率论" class="headerlink" title="5.1. 基本概率论"></a>5.1. 基本概率论</h3><p>以掷骰子为例，想知道看到1的几率有多大，而不是看到另一个数字。 如果骰子是公平的，那么所有六个结果{1,…,6}都有相同的可能发生， 因此我们可以说1发生的概率为6分之1。</p>
 <p>然而现实生活中，对于我们从工厂收到的真实骰子，我们需要检查它是否有瑕疵。 检查骰子的唯一方法是多次投掷并记录结果。 对于每个骰子，我们将观察到{1,…,6}中的一个值。 对于每个值，一种自然的方法是将它出现的次数除以投掷的总次数， 即此<em>事件</em>（event）概率的<em>估计值</em>。<em>大数定律</em>（law of large numbers）告诉我们： 随着投掷次数的增加，这个估计值会越来越接近真实的潜在概率。</p>
 <p>在统计学中，我们把从概率分布中抽取样本的过程称为<em>抽样</em>（sampling）。 笼统来说，可以把<em>分布</em>（distribution）看作是对事件的概率分配， 稍后我们将给出的更正式定义。 将概率分配给一些离散选择的分布称为<em>多项分布</em>（multinomial distribution）。</p>
@@ -452,13 +453,15 @@ d.backward()</code></pre><p>我们现在可以分析上面定义的f函数。 �
 <h4 id="5-1-2-随机变量"><a href="#5-1-2-随机变量" class="headerlink" title="5.1.2. 随机变量"></a>5.1.2. 随机变量</h4><p>在我们掷骰子的随机实验中，我们引入了<em>随机变量</em>（random variable）的概念。 随机变量几乎可以是任何数量，并且它可以在随机实验的一组可能性中取一个值。 考虑一个随机变量X，其值在掷骰子的样本空间S={1,2,3,4,5,6}中。 我们可以将事件“看到一个5”表示为{X=5}或X=5， 其概率表示为P({X=5})或P(X=5)。 通过P(X=a)，我们区分了随机变量X和X可以采取的值（例如a）。</p>
 <p>然而，这可能会导致繁琐的表示。 为了简化符号，一方面，我们可以将P(X)表示为随机变量X上的<em>分布</em>（distribution）： 分布告诉我们X获得某一值的概率。 另一方面，我们可以简单用P(a)表示随机变量取值a的概率。 由于概率论中的事件是来自样本空间的一组结果，因此我们可以为随机变量指定值的可取范围。 例如，P(1≤X≤3)表示事件{1≤X≤3}， 即{X=1,2,or,3}的概率。 等价地，P(1≤X≤3)表示随机变量X从{1,2,3}中取值的概率。这一节主要讨论离散型随机变量，连续型不咋考虑。</p>
 <h3 id="5-2-处理多个随机变量"><a href="#5-2-处理多个随机变量" class="headerlink" title="5.2. 处理多个随机变量"></a>5.2. 处理多个随机变量</h3><p>例如图像包含数百万像素，因此有数百万个随机变量。 在许多情况下，图像会附带一个<em>标签</em>（label），标识图像中的对象。 我们也可以将标签视为一个随机变量。 我们甚至可以将所有元数据视为随机变量，例如位置、时间、光圈、焦距、ISO、对焦距离和相机类型。 所有这些都是联合发生的随机变量。 当我们处理多个随机变量时，会有若干个变量是我们感兴趣的。</p>
-<h4 id="5-2-1-一些基本概念"><a href="#5-2-1-一些基本概念" class="headerlink" title="5.2.1. 一些基本概念"></a>5.2.1. 一些基本概念</h4><p><strong>联合概率（joint probability）</strong>：联合概率可以回答：A=a和B=b同时满足的概率是多少的问题，但对于任何a和b的取值，P(A=a,B=b)≤P(A=a)。</p>
+<h4 id="5-2-1-一些基本概念"><a href="#5-2-1-一些基本概念" class="headerlink" title="5.2.1. 一些基本概念"></a>5.2.1. 一些基本概念</h4><p><strong>联合概率（joint probability）</strong>：$P(A=a, B=b)$，联合概率可以回答：A=a和B=b同时满足的概率是多少的问题，但对于任何a和b的取值，P(A=a,B=b)≤P(A=a)。</p>
 <p><strong>条件概率（conditional probability）</strong>：用P(B=b∣A=a)表示它，它是B=b的概率，前提是A=a已发生。</p>
-<p><strong>贝叶斯定理（Bayes’ theorem）</strong>：根据<em>乘法法则</em>（multiplication rule）可得到P(A,B)=P(B∣A)P(A)。 根据对称性，可得到P(A,B)=P(A∣B)P(B)。根据两式假设P(B)&gt;0，求解其中一个条件变量，我们得到P(A∣B)=P(B∣A)P(A)\P(B).</p>
-<p><strong>边际化（marginalization）</strong>：为了能进行事件概率求和，我们需要<em>加法法则</em>（sum rule）， 即B的概率相当于计算A的所有可能选择，并将所有选择的联合概率聚合在一起。这也称为<em>边际化</em>（marginalization）。边际化结果的概率或分布称为<em>边缘概率</em>（marginal probability） 或<em>边缘分布</em>（marginal distribution）。</p>
+<p><strong>贝叶斯定理（Bayes’ theorem）</strong>：根据<em>乘法法则</em>（multiplication rule）可得到 $P(A, B)=P(B \mid A) P(A)$ 。根据对称性, 可得到 $P(A, B)=P(A \mid B) P(B)$ 。根据两式假设P(B)&gt;0，求解其中一个条件变量，我们得到：<br>$$<br>P(A \mid B)=\frac{P(B \mid A) P(A)}{P(B)}<br>$$<br>注意这里使用紧凑的表示法： 其中 $P(A, B)$ 是一个联合分布（joint distribution）, $P(A \mid B)$ 是一个条件分布 (conditional distribution)。这种分布可以在给定值 $A=a, B=b$ 上进行求值。</p>
+<p><strong>边际化（marginalization）</strong>：为了能进行事件概率求和，我们需要<em>加法法则</em>（sum rule）， 即B的概率相当于计算A的所有可能选择，并将所有选择的联合概率聚合在一起：<br>$$<br>P(B)=\sum_{A} P(A, B)<br>$$<br>这也称为<em>边际化</em>（marginalization）。边际化结果的概率或分布称为<em>边缘概率</em>（marginal probability） 或<em>边缘分布</em>（marginal distribution）。</p>
 <p><strong>依赖（dependence）与独立（independence）</strong>：如果两个随机变量A和B是独立的，意味着事件A的发生跟B事件的发生无关。 在这种情况下，通常将这一点表述为A⊥B。 根据贝叶斯定理，得到P(A∣B)=P(A)。 在所有其他情况下，我们称A和B依赖。 比如，两次连续抛出一个骰子的事件是相互独立的。 相比之下，灯开关的位置和房间的亮度并不是（因为可能存在灯泡坏掉、电源故障，或者开关故障）。两个随机变量是独立的，当且仅当两个随机变量的联合分布是其各自分布的乘积。</p>
 <p><strong>期望（expectation，或平均值（average））</strong>：均值。</p>
 <p><strong>方差（variance）</strong>：数据与平均数之差平方和的平均数，方差的平方根被称为<em>标准差</em>（standared deviation）。随机变量函数的方差衡量的是：当从该随机变量分布中采样不同值x时， 函数值偏离该函数的期望的程度。</p>
+<p><strong>似然函数（Likelihood Function）</strong>：似然也就是可能性。在统计中，似然函数和概率函数是两个不同的概念。<br>对于这个函数： $p(x \mid \theta)$ 输入有两个: $\mathrm{x}$ 表示某一个具体的数据; $\theta$ 表示模型的参数。<br>如果 $\theta$ 是已知确定的, $x$ 是变量, 这个函数叫做概率函数(probability function), 它描述对于不同的样本点 $x$, 其出现概率是多少。<br>如果 $x$ 是已知确定的, $\theta$ 是变量, 这个函数叫做似然函数(likelihood function), 它描述对于不同的模型参数, 出现 $x$ 这个样本点的概率是多少。</p>
+<p><strong>最大似然估计(Maximum Likelihood Estimation, MLE)</strong>：属于统计领域问题，利用已知的样本结果信息，反推最具有可能（最大概率）导致这些样本结果出现的模型参数值。其中似然即可能性。<br>极大似然估计中采样需满足一个重要的假设，就是所有的采样都是独立同分布的。<br>最大似然估计是怎么做的呢？个人理解：对于一个概率分布（或离散或连续），抽出一个具有n个值的采样（结果采样），确定一个似然函数：$\operatorname{lik}(\theta)=f_{D}\left(x_{1}, x_{2}, \ldots, x_{n} \mid \theta\right)$，在θ的所有取值上，使这个函数最大化。这个使可能性最大的值即被称为θ的最大似然估计。</p>
 
       
 
@@ -774,15 +777,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -790,7 +789,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
+                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -798,15 +797,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
