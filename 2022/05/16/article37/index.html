@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://silencezheng.top">
   <title>线性神经网络--《动手学深度学习》笔记0x03 | silenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="线性神经网络–《动手学深度学习》笔记0x030. 前言从经典算法————线性神经网络开始，介绍神经网络的基础知识。 经典统计学习技术中的线性回归和softmax回归可以视为线性神经网络。 对应实践：https:&#x2F;&#x2F;github.com&#x2F;silenceZheng66&#x2F;deep_learning&#x2F;blob&#x2F;master&#x2F;d2l&#x2F;0x03.ipynb 0.1. 各章总结 机器学习模型中的关键要素是训练数">
+  <meta name="description" content="线性神经网络–《动手学深度学习》笔记0x030. 前言从经典算法————线性神经网络开始，介绍神经网络的基础知识。 经典统计学习技术中的线性回归和softmax回归可以视为线性神经网络。 对应实践：https:&#x2F;&#x2F;github.com&#x2F;silenceZheng66&#x2F;deep_learning&#x2F;blob&#x2F;master&#x2F;d2l&#x2F;0x03.ipynb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线性神经网络--《动手学深度学习》笔记0x03">
 <meta property="og:url" content="http://silencezheng.top/2022/05/16/article37/index.html">
 <meta property="og:site_name" content="silenceZheng66-BLOG">
-<meta property="og:description" content="线性神经网络–《动手学深度学习》笔记0x030. 前言从经典算法————线性神经网络开始，介绍神经网络的基础知识。 经典统计学习技术中的线性回归和softmax回归可以视为线性神经网络。 对应实践：https:&#x2F;&#x2F;github.com&#x2F;silenceZheng66&#x2F;deep_learning&#x2F;blob&#x2F;master&#x2F;d2l&#x2F;0x03.ipynb 0.1. 各章总结 机器学习模型中的关键要素是训练数">
+<meta property="og:description" content="线性神经网络–《动手学深度学习》笔记0x030. 前言从经典算法————线性神经网络开始，介绍神经网络的基础知识。 经典统计学习技术中的线性回归和softmax回归可以视为线性神经网络。 对应实践：https:&#x2F;&#x2F;github.com&#x2F;silenceZheng66&#x2F;deep_learning&#x2F;blob&#x2F;master&#x2F;d2l&#x2F;0x03.ipynb">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article37/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.svg">
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article37/softmax%E7%BD%91%E7%BB%9C.png">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article37/FasionMNIST%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F.jpeg">
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article37/FasionMNIST%E6%A0%B7%E6%9C%AC%E6%A0%87%E6%B3%A8%E6%96%B9%E5%BC%8F.jpeg">
 <meta property="article:published_time" content="2022-05-16T15:55:05.000Z">
-<meta property="article:modified_time" content="2022-05-16T16:30:38.436Z">
+<meta property="article:modified_time" content="2022-05-16T16:50:48.145Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -213,6 +213,7 @@
       
         <h1 id="线性神经网络–《动手学深度学习》笔记0x03"><a href="#线性神经网络–《动手学深度学习》笔记0x03" class="headerlink" title="线性神经网络–《动手学深度学习》笔记0x03"></a>线性神经网络–《动手学深度学习》笔记0x03</h1><h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>从经典算法————<em>线性</em>神经网络开始，介绍神经网络的基础知识。 经典统计学习技术中的线性回归和softmax回归可以视为线性神经网络。</p>
 <p>对应实践：<a target="_blank" rel="noopener" href="https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x03.ipynb">https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x03.ipynb</a></p>
+<span id="more"></span>
 <h3 id="0-1-各章总结"><a href="#0-1-各章总结" class="headerlink" title="0.1. 各章总结"></a>0.1. 各章总结</h3><ul>
 <li>机器学习模型中的关键要素是训练数据、损失函数、优化算法，还有模型本身。</li>
 <li>矢量化使数学表达上更简洁，同时运行的更快。</li>
@@ -276,7 +277,7 @@
 <h3 id="2-2-网络架构"><a href="#2-2-网络架构" class="headerlink" title="2.2. 网络架构"></a>2.2. 网络架构</h3><p>为了估计所有可能类别的条件概率，我们需要一个有多个输出的模型，每个类别对应一个输出。 为了解决线性模型的分类问题，我们需要和输出一样多的<strong>仿射函数（affine function）</strong>。 每个输出对应于它自己的仿射函数。 在我们的例子中，由于我们有4个特征和3个可能的输出类别， 我们将需要12个标量来表示权重（带下标的）， 3个标量来表示偏置（带下标的）。 下面我们为每个输入计算三个未规范化的预测（logit）：o1,o2和o3。<br>$$<br>\begin{aligned}<br>&amp;o_{1}=x_{1} w_{11}+x_{2} w_{12}+x_{3} w_{13}+x_{4} w_{14}+b_{1} \<br>&amp;o_{2}=x_{1} w_{21}+x_{2} w_{22}+x_{3} w_{23}+x_{4} w_{24}+b_{2} \<br>&amp;o_{3}=x_{1} w_{31}+x_{2} w_{32}+x_{3} w_{33}+x_{4} w_{34}+b_{3}<br>\end{aligned}<br>$$<br>可以用下面的单层神经网络图来描述计算过程，与线性回归一样，softmax回归也是一个单层神经网络。 由于计算每个输出(o1,o2,o3)取决于所有输入(x1,x2,x3,x4)，所以softmax回归的输出层也是全连接层。<br><img src="/assets/post_img/article37/softmax%E7%BD%91%E7%BB%9C.png" alt="0x03pic2"></p>
 <p>模型通过向量形式表达为：$\mathbf{o}=\mathbf{W} \mathbf{x}+\mathbf{b}$<br>这是一种更适合数学和编写代码的形式。 到此，我们已经将所有权重放到一个3X4矩阵中。 对于给定数据样本的特征x， 我们的输出是由权重与输入特征进行矩阵-向量乘法再加上偏置b得到的。</p>
 <h3 id="2-3-全连接层的参数开销"><a href="#2-3-全连接层的参数开销" class="headerlink" title="2.3. 全连接层的参数开销"></a>2.3. 全连接层的参数开销</h3><p>深度学习中，全连接层无处不在。全连接层是“完全”连接的，可能有很多可学习的参数。 具体来说，对于任何具有d个输入和q个输出的全连接层， 参数开销为O(dq)，这个数字在实践中可能高得令人望而却步。 幸运的是，将d个输入转换为q个输出的成本可以减少到O$\left(\frac{d q}{n}\right)$， 其中超参数n可以由我们灵活指定，以在实际应用中平衡参数节约和模型有效性。</p>
-<h3 id="2-4-softmax运算"><a href="#2-4-softmax运算" class="headerlink" title="2.4. softmax运算"></a>2.4. softmax运算</h3><p>现在我们将优化参数以最大化观测数据的概率。 为了得到预测结果，我们将设置一个阈值，如选择具有最大概率的标签。<br><strong>我们希望模型的输出 $\hat{y}_{j}$ 可以视为属于类 $j$ 的概率</strong>， 然后选择具有最大输出值的类别argmax$\boldsymbol{}<em>{j} y</em>{j}$ 作为我们的预测。例如, 如果 $\hat{y}<em>{1} 、 \hat{y}</em>{2}$ 和 $\hat{y}_{3}$ 分别为 $0.1 、 0.8$ 和 $0.1$, 那么我们预测的类别是2，在我们的例子中代表“鸡”。</p>
+<h3 id="2-4-softmax运算"><a href="#2-4-softmax运算" class="headerlink" title="2.4. softmax运算"></a>2.4. softmax运算</h3><p>现在我们将优化参数以最大化观测数据的概率。 为了得到预测结果，我们将设置一个阈值，如选择具有最大概率的标签。<br>我们希望模型的输出 $\hat{y}<em>{j}$ 可以视为属于类 $j$ 的概率， 然后选择具有最大输出值的类别argmax $\boldsymbol{}</em>{j} y_{j}$ 作为我们的预测。例如, 如果 $\hat{y}<em>{1}$ 、 $\hat{y}</em>{2}$ 和 $\hat{y}_{3}$ 分别为 $0.1$ 、 $0.8$ 和 $0.1$, 那么我们预测的类别是2，在我们的例子中代表“鸡”。</p>
 <p>然而我们不能将未规范化的预测o直接视作我们感兴趣的输出。因为将线性层的输出直接视为概率时存在一些问题： 一方面，我们没有限制这些输出数字的总和为1。 另一方面，根据输入的不同，它们可以为负值。<br>要将输出视为概率，我们必须保证在任何数据上的输出都是非负的且总和为1。 此外，我们需要一个训练目标，来鼓励模型精准地估计概率。 在分类器输出0.5的所有样本中，我们希望这些样本有一半实际上属于预测的类。 这个属性叫做校准（calibration）。</p>
 <p>softmax函数正是这样做的： softmax函数将未规范化的预测变换为非负并且总和为1，同时要求模型保持可导。 我们首先对每个未规范化的预测求幂（就是把预测作为e的指数），这样可以确保输出非负。 为了确保最终输出的总和为1，我们再对每个求幂后的结果除以它们的总和。如下式：<br>$$<br>\hat{\mathbf{y}}=\operatorname{softmax}(\mathbf{o}) \quad \text { 其中 } \quad \hat{y}<em>{j}=\frac{\exp \left(o</em>{j}\right)}{\sum_{k} \exp \left(o_{k}\right)}<br>$$<br>这里, 对于所有的 $j$ 总有 $0 \leq \hat{y}<em>{j} \leq 1</em>{\circ}$ 因此, $\hat{\mathbf{y}}$ 可以视为一个正确的概率分布。 softmax运算不会改变末规范化的预测o之间的顺序, 只会确定分配给每个类别的概率。因此，在预测过程中, 我们仍然可以用下式来选择最有可能的类别。<br>$$<br>\underset{j}{\operatorname{argmax}} \hat{y}<em>{j}=\underset{j}{\operatorname{argmax}} o</em>{j}<br>$$<br>softmax是一个非线性函数，但softmax回归的输出仍然由输入特征的仿射变换决定。 因此，softmax回归是一个线性模型（linear model）。</p>
 <h3 id="2-5-小批量样本的矢量化"><a href="#2-5-小批量样本的矢量化" class="headerlink" title="2.5. 小批量样本的矢量化"></a>2.5. 小批量样本的矢量化</h3><p>为了提高计算效率并且充分利用GPU，我们通常会针对小批量数据执行矢量计算。假设我们读取了一个批量的样本X, 其中特征维度 (输入数量) 为 $d$, 批量大小为 $n$。 此外, 假设我们在输出中有 $q$ 个类别。那么小批量特征为 $\mathrm{X} \in \mathbb{R}^{n \times d}$ ， 权重为 $\mathbf{W} \in \mathbb{R}^{d \times q}$ ，偏置为 $\mathbf{b} \in \mathbb{R}^{1 \times q}$ 。 softmax回归的矢量计算表达式为：<br>$$<br>\begin{aligned}<br>&amp;\mathbf{O}=\mathbf{X W}+\mathbf{b}, \<br>&amp;\hat{\mathbf{Y}}=\operatorname{softmax}(\mathbf{O}) .<br>\end{aligned}<br>$$<br>相对于一次处理一个样本, 小批量样本的矢量化加快了 $\mathbf{X}$ 和 $\mathbf{W}$ 的矩阵-向量乘法。由于 $\mathbf{X}$ 中的每一行代表一个数据样本, 那么softmax运算可以按行 (rowwise) 执行：对于 $\mathrm{O}$ 的每一行, 我们先对所有项进行幂运算, 然后通过求和对它们进行标准化（规范化，对应线性代数中的正交规范化比较好理解）。在上式中, $\mathbf{X W}+\mathbf{b}$ 的求和会使用<em>广播</em>（每行都加）, 小批量的末规范化预测 $\mathbf{O}$ 和输出概率 $\hat{\mathbf{Y}}$ 都是形状为 $n \times q$ 的矩阵。</p>
