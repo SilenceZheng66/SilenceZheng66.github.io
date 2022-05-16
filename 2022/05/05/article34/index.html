@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article34/BP.png">
 <meta property="article:published_time" content="2022-05-04T16:49:29.000Z">
-<meta property="article:modified_time" content="2022-05-16T15:58:42.417Z">
+<meta property="article:modified_time" content="2022-05-16T16:55:16.470Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -210,6 +210,7 @@
         <h1 id="数据操作及数学基础–《动手学深度学习》笔记0x02"><a href="#数据操作及数学基础–《动手学深度学习》笔记0x02" class="headerlink" title="数据操作及数学基础–《动手学深度学习》笔记0x02"></a>数据操作及数学基础–《动手学深度学习》笔记0x02</h1><h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>这一笔记对应预备知识章节，包括数据操作、数据预处理、线性代数、微积分、概率论等。其中很多知识在学数一的时候都更深入理解过了，但是现在发现忘的差不多了，哎～</p>
 <p>对应实践：<a target="_blank" rel="noopener" href="https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x02.ipynb">https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x02.ipynb</a></p>
 <p>在M1芯片的设备上使用miniforge安装pytorch：<code>conda install -c pytorch pytorch</code></p>
+<span id="more"></span>
 <h2 id="1-数据操作"><a href="#1-数据操作" class="headerlink" title="1. 数据操作"></a>1. 数据操作</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1. 概念"></a>1.1. 概念</h3><h4 id="1-1-1-张量（tensor）"><a href="#1-1-1-张量（tensor）" class="headerlink" title="1.1.1 张量（tensor）"></a>1.1.1 张量（tensor）</h4><p>即n维数组，无论使用哪个深度学习框架，它的<em>张量类</em>（在MXNet中为<code>ndarray</code>， 在PyTorch和TensorFlow中为<code>Tensor</code>）都与Numpy的<code>ndarray</code>类似。 但深度学习框架又比Numpy的<code>ndarray</code>多一些重要功能： 首先，GPU很好地支持加速计算，而NumPy仅支持CPU计算； 其次，张量类支持自动微分。 这些功能使得张量类更适合深度学习。</p>
 <p>张量表示由一个数值组成的数组，这个数组可能有多个维度。 具有一个轴的张量对应数学上的<em>向量</em>（vector）； 具有两个轴的张量对应数学上的<em>矩阵</em>（matrix）； 具有两个轴以上的张量没有特殊的数学名称。张量中的每个值都称为张量的<em>元素</em>（element）。</p>
 <h4 id="1-1-2-运算符"><a href="#1-1-2-运算符" class="headerlink" title="1.1.2. 运算符"></a>1.1.2. 运算符</h4><p>我们的兴趣不仅限于读取数据和写入数据。 我们想在这些数据上执行数学运算，其中最简单且最有用的操作是<em>按元素</em>（elementwise）运算。 它们将标准标量运算符应用于数组的<strong>每个元素</strong>。 对于将两个数组作为输入的函数，按元素运算将二元运算符应用于两个数组中的<strong>每对位置对应的元素</strong>。 我们可以基于任何从标量到标量的函数来创建按元素函数。</p>
@@ -793,11 +794,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -857,11 +858,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
