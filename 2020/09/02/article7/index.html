@@ -67,7 +67,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -205,9 +205,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>String和StringBuffer<br>做项目遇到了StringBuffer报Exception in thread “main” java.lang.NullPointerException错误，<br>查资料发现原来StringBuffer需要实例化后使用，记录一下。<br>以下内容收集自网络，有部分修改。</p>
-<span id="more"></span>
-
+        <p>String和StringBuffer<br>做项目遇到了StringBuffer报Exception in thread “main” java.lang.NullPointerException错误，<br>查资料发现原来StringBuffer需要实例化后使用，记录一下。<br>以下内容收集自网络，有部分修改。<br><span id="more"></span></p>
 <p>StringBuffer类和String一样，也用来代表字符串，只是由于StringBuffer的内部实现方式和String不同，所以StringBuffer在进行字符串处理时，不生成新的对象，在内存使用上要优于String类。</p>
 <p>所以在实际使用时，如果经常需要对一个字符串进行修改，例如插入、删除等操作，使用StringBuffer要更加适合一些。</p>
 <p>在StringBuffer类中存在很多和String类一样的方法，这些方法在功能上和String类中的功能是完全一样的。</p>
@@ -219,74 +217,89 @@
 <p>StringBuffer s = new StringBuffer();</p>
 <p>这样初始化出的StringBuffer对象是一个空的对象。<br>而我使用的方法是：StringBuffer s = null;<br>这样就会报错。</p>
 <p>如果需要创建带有内容的StringBuffer对象，则可以使用：</p>
-<pre><code>StringBuffer s = new StringBuffer(“abc”);</code></pre><p>这样初始化出的StringBuffer对象的内容就是字符串”abc”。</p>
+<pre><code>     StringBuffer s = new StringBuffer(“abc”);
+</code></pre><p>这样初始化出的StringBuffer对象的内容就是字符串”abc”。</p>
 <p>需要注意的是，StringBuffer和String属于不同的类型，也不能直接进行强制类型转换，下面的代码都是<font color=red>错误</font>的：</p>
-<pre><code>StringBuffer s = “abc”;               //赋值类型不匹配
+<pre><code>     StringBuffer s = “abc”;               //赋值类型不匹配
 
-StringBuffer s = (StringBuffer)”abc”;    //不存在继承关系，无法进行强转</code></pre><p>StringBuffer对象和String对象之间的互转的代码如下：</p>
-<pre><code>String s = “abc”;
+     StringBuffer s = (StringBuffer)”abc”;    //不存在继承关系，无法进行强转
+</code></pre><p>StringBuffer对象和String对象之间的互转的代码如下：</p>
+<pre><code>     String s = “abc”;
 
-StringBuffer sb1 = new StringBuffer(“123”);
+     StringBuffer sb1 = new StringBuffer(“123”);
 
-StringBuffer sb2 = new StringBuffer(s);   //String转换为StringBuffer
+     StringBuffer sb2 = new StringBuffer(s);   //String转换为StringBuffer
 
-String s1 = sb1.toString();              //StringBuffer转换为String</code></pre><p>2、StringBuffer的常用方法</p>
+     String s1 = sb1.toString();              //StringBuffer转换为String
+</code></pre><p>2、StringBuffer的常用方法</p>
 <p>StringBuffer类中的方法主要偏重于对于字符串的变化，例如追加、插入和删除等，这个也是StringBuffer和String类的主要区别。</p>
 <p>a、append方法</p>
-<pre><code>public StringBuffer append(boolean b)</code></pre><p>该方法的作用是追加内容到当前StringBuffer对象的末尾，类似于字符串的连接。调用该方法以后，StringBuffer对象的内容也发生改变，例如：</p>
-<pre><code>         StringBuffer sb = new StringBuffer(“abc”);
+<pre><code>     public StringBuffer append(boolean b)
+</code></pre><p>该方法的作用是追加内容到当前StringBuffer对象的末尾，类似于字符串的连接。调用该方法以后，StringBuffer对象的内容也发生改变，例如：</p>
+<pre><code>              StringBuffer sb = new StringBuffer(“abc”);
 
-          sb.append(true);
+               sb.append(true);
 
-则对象sb的值将变成”abctrue”。</code></pre><p>使用该方法进行字符串的连接，将比String更加节约内容，例如应用于数据库SQL语句的连接，例如：</p>
-<pre><code>          StringBuffer sb = new StringBuffer();
+     则对象sb的值将变成”abctrue”。
+</code></pre><p>使用该方法进行字符串的连接，将比String更加节约内容，例如应用于数据库SQL语句的连接，例如：</p>
+<pre><code>               StringBuffer sb = new StringBuffer();
 
-          String user = “test”;
+               String user = “test”;
 
-          String pwd = “123”;
+               String pwd = “123”;
 
-          sb.append(“select * from userInfo where username=“)
+               sb.append(“select * from userInfo where username=“)
 
-           .append(user)
+                .append(user)
 
-           .append(“ and pwd=”)
+                .append(“ and pwd=”)
 
-           .append(pwd);
+                .append(pwd);
 
-这样对象sb的值就是字符串“select * from userInfo where username=test and pwd=123”。</code></pre><p>b、deleteCharAt方法</p>
-<pre><code>public StringBuffer deleteCharAt(int index)</code></pre><p>该方法的作用是删除指定位置的字符，然后将剩余的内容形成新的字符串。例如：</p>
-<pre><code>StringBuffer sb = new StringBuffer(“Test”);
+     这样对象sb的值就是字符串“select * from userInfo where username=test and pwd=123”。
+</code></pre><p>b、deleteCharAt方法</p>
+<pre><code>     public StringBuffer deleteCharAt(int index)
+</code></pre><p>该方法的作用是删除指定位置的字符，然后将剩余的内容形成新的字符串。例如：</p>
+<pre><code>     StringBuffer sb = new StringBuffer(“Test”);
 
-sb. deleteCharAt(1);</code></pre><p>该代码的作用删除字符串对象sb中索引值为1的字符，也就是删除第二个字符，剩余的内容组成一个新的字符串。所以对象sb的值变为”Tst”。</p>
+     sb. deleteCharAt(1);
+</code></pre><p>该代码的作用删除字符串对象sb中索引值为1的字符，也就是删除第二个字符，剩余的内容组成一个新的字符串。所以对象sb的值变为”Tst”。</p>
 <p>还存在一个功能类似的delete方法：</p>
-<pre><code>public StringBuffer delete(int start,int end)</code></pre><p>该方法的作用是删除指定区间以内的所有字符，包含start，不包含end索引值的区间。例如：</p>
-<pre><code>StringBuffer sb = new StringBuffer(“TestString”);
+<pre><code>     public StringBuffer delete(int start,int end)
+</code></pre><p>该方法的作用是删除指定区间以内的所有字符，包含start，不包含end索引值的区间。例如：</p>
+<pre><code>     StringBuffer sb = new StringBuffer(“TestString”);
 
-sb. delete (1,4);</code></pre><p>该代码的作用是删除索引值1(包括)到索引值4(不包括)之间的所有字符，剩余的字符形成新的字符串。则对象sb的值是”TString”。</p>
+     sb. delete (1,4);
+</code></pre><p>该代码的作用是删除索引值1(包括)到索引值4(不包括)之间的所有字符，剩余的字符形成新的字符串。则对象sb的值是”TString”。</p>
 <p>c、insert方法</p>
-<pre><code> public StringBuffer insert(int offset, boolean b)
+<pre><code>    public StringBuffer insert(int offset, boolean b)
 
-该方法的作用是在StringBuffer对象中插入内容，然后形成新的字符串。例如：
+   该方法的作用是在StringBuffer对象中插入内容，然后形成新的字符串。例如：
 
-           StringBuffer sb = new StringBuffer(“TestString”);
+              StringBuffer sb = new StringBuffer(“TestString”);
 
-           sb.insert(4,false);</code></pre><p>该示例代码的作用是在对象sb的索引值4的位置插入false值，形成新的字符串，则执行以后对象sb的值是”TestfalseString”。</p>
+              sb.insert(4,false);
+</code></pre><p>该示例代码的作用是在对象sb的索引值4的位置插入false值，形成新的字符串，则执行以后对象sb的值是”TestfalseString”。</p>
 <p>d、reverse方法</p>
-<pre><code>public StringBuffer reverse()</code></pre><p>该方法的作用是将StringBuffer对象中的内容反转，然后形成新的字符串。例如：</p>
-<pre><code>StringBuffer sb = new StringBuffer(“abc”);
+<pre><code>    public StringBuffer reverse()
+</code></pre><p>该方法的作用是将StringBuffer对象中的内容反转，然后形成新的字符串。例如：</p>
+<pre><code>     StringBuffer sb = new StringBuffer(“abc”);
 
-sb.reverse();</code></pre><p>经过反转以后，对象sb中的内容将变为”cba”。</p>
+     sb.reverse();
+</code></pre><p>经过反转以后，对象sb中的内容将变为”cba”。</p>
 <p>e、setCharAt方法</p>
-<pre><code>public void setCharAt(int index, char ch)
+<pre><code>                        public void setCharAt(int index, char ch)
 
-该方法的作用是修改对象中索引值为index位置的字符为新的字符ch。例如：
+                        该方法的作用是修改对象中索引值为index位置的字符为新的字符ch。例如：
 
-         StringBuffer sb = new StringBuffer(“abc”);
+                                 StringBuffer sb = new StringBuffer(“abc”);
 
-         sb.setCharAt(1,’D’);
+                                 sb.setCharAt(1,’D’);
 
-则对象sb的值将变成”aDc”。</code></pre><p>f、trimToSize方法</p>
-<pre><code>public void trimToSize()</code></pre><p>该方法的作用是将StringBuffer对象的中存储空间缩小到和字符串长度一样的长度，减少空间的浪费。</p>
+                        则对象sb的值将变成”aDc”。
+</code></pre><p>f、trimToSize方法</p>
+<pre><code>     public void trimToSize()
+</code></pre><p>该方法的作用是将StringBuffer对象的中存储空间缩小到和字符串长度一样的长度，减少空间的浪费。</p>
 <p>总之，在实际使用时，String和StringBuffer各有优势和不足，可以根据具体的使用环境，选择对应的类型进行使用。</p>
 
       
@@ -606,19 +619,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,11 +683,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Tag: Maven | silenceZheng66-BLOG</title>
+  <title>Hexo博客更换Markdown解释器 | silenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="silenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/tags/Maven/index.html">
+  <meta name="description" content="前言最近在学习深度学习，总是需要在博客中添加一些公式，就选择使用LaTex来添加，结果发现使用hexo默认的hexo-renderer-marked解释器问题很多，还没有办法修改（网上没找到），索性更换一个解释器，记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客更换Markdown解释器">
+<meta property="og:url" content="http://silencezheng.top/2022/05/17/article38/index.html">
 <meta property="og:site_name" content="silenceZheng66-BLOG">
+<meta property="og:description" content="前言最近在学习深度学习，总是需要在博客中添加一些公式，就选择使用LaTex来添加，结果发现使用hexo默认的hexo-renderer-marked解释器问题很多，还没有办法修改（网上没找到），索性更换一个解释器，记录一下。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://silencezheng.top/assets/post_img/article38/下划线错误.jpg">
+<meta property="og:image" content="http://silencezheng.top/assets/post_img/article38/双反斜杠换行错误.jpg">
+<meta property="article:published_time" content="2022-05-17T05:04:36.000Z">
+<meta property="article:modified_time" content="2022-05-17T05:11:56.050Z">
 <meta property="article:author" content="silenceZheng66">
+<meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article38/下划线错误.jpg">
   
     <link rel="alternative" href="/atom.xml" title="silenceZheng66-BLOG" type="application/atom+xml">
   
@@ -151,113 +159,236 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article38" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/10/05/article18/" class="archive-article-date">
-  	<time datetime="2020-10-05T08:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/05/article18/">Maven学习日记-02</a>
+    <h1 class="article-title" itemprop="name">
+      Hexo博客更换Markdown解释器
     </h1>
   
 
-        <div class="article-info info-on-right">
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/05/17/article38/" class="archive-article-date">
+  	<time datetime="2022-05-17T05:04:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-17</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">361字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">1分</span>
+      </span>
+    </span>
+</div>
           
+        <!-- 添加完成 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在学习深度学习，总是需要在博客中添加一些公式，就选择使用LaTex来添加，结果发现使用hexo默认的hexo-renderer-marked解释器问题很多，还没有办法修改（网上没找到），索性更换一个解释器，记录一下。<br><span id="more"></span></p>
+<h1 id="选择解释器"><a href="#选择解释器" class="headerlink" title="选择解释器"></a>选择解释器</h1><p>选择 hexo-renderer-kramed，原因无他，只是找到了一篇通过修改 hexo-renderer-kramed使hexo对公式的支持达到不错效果的文章，照葫芦画瓢抄起来～<br>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44441126/article/details/119745642">https://blog.csdn.net/weixin_44441126/article/details/119745642</a></p>
+<h1 id="卸载、安装"><a href="#卸载、安装" class="headerlink" title="卸载、安装"></a>卸载、安装</h1><p><code>npm uninstall hexo-renderer-marked --save</code> 卸载默认解释器<br><code>npm install hexo-renderer-kramed --save</code> 安装新的～</p>
+<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><h2 id="问题1：下划线-被转义为斜体而非LaTeX下标"><a href="#问题1：下划线-被转义为斜体而非LaTeX下标" class="headerlink" title="问题1：下划线_被转义为斜体而非LaTeX下标"></a>问题1：下划线_被转义为斜体而非LaTeX下标</h2><p>如图：<br><img src="/assets/post_img/article38/下划线错误.jpg" alt=""><br>Markdown本身的语法是支持*和_都被转义为斜体的，所以我们需要取消掉kramed对_的转义。</p>
+<p>打开本地hexo文件夹下的/node_modules/kramed/lib/rules/inline.js，找到第20行如下代码：<br><code>em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</code></p>
+<p>把正则中对下划线匹配的部分去掉，修改后如下：<br><code>em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</code></p>
+<p>这样修改以后斜体就只能用*了，不过足够的～</p>
+<h2 id="问题2-反斜杠-被转义为-而非LaTeX换行"><a href="#问题2-反斜杠-被转义为-而非LaTeX换行" class="headerlink" title="问题2:反斜杠\\被转义为\而非LaTeX换行"></a>问题2:反斜杠\\被转义为\而非LaTeX换行</h2><p>如图：<br><img src="/assets/post_img/article38/双反斜杠换行错误.jpg" alt=""></p>
+<p>当公式中出现\\表示换行时，会被kramed渲染为\，导致公式显示异常。<br>找到inline.js中第11行如下代码：<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^<span class="symbol">\\</span>([<span class="symbol">\\</span>`*<span class="symbol">\[</span><span class="symbol">\]</span>()#$+<span class="symbol">\-</span>.!_&gt;])/,</span><br></pre></td></tr></table></figure><br>修改如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,`</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Idea</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/05/17/article38/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/09/09/article11/" class="archive-article-date">
-  	<time datetime="2020-09-09T06:03:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/16/article37/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">线性神经网络--《动手学深度学习》笔记0x03</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/09/article11/">Maven学习日记-01</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
 
+  
+
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'silenceZheng66.github.io',
+  	owner: 'silenceZheng66',
+  	admin: ['silenceZheng66'],
+  	id: 'Tue May 17 2022 13:04:36 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -292,9 +423,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

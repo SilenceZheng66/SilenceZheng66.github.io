@@ -71,7 +71,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -209,9 +209,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前前后后折腾Maven也两三天了，初步想法是将我的javaweb项目转用Maven进行管理，<br>在转移的过程中遇到许多问题，记录一下以备后用~<br>IDE：idea 2020.1.1<br>Maven：apache-maven-3.6.3</p>
-<span id="more"></span>
-<p>补充一个问题零：警告：No archetype found in remote catalog. Defaulting to internal catalog.</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前前后后折腾Maven也两三天了，初步想法是将我的javaweb项目转用Maven进行管理，<br>在转移的过程中遇到许多问题，记录一下以备后用~<br>IDE：idea 2020.1.1<br>Maven：apache-maven-3.6.3<br><span id="more"></span><br>补充一个问题零：警告：No archetype found in remote catalog. Defaulting to internal catalog.</p>
 <p>解决方案：在maven的VM Options加上-DarchetypeCatalog=internal参数。</p>
 <p>问题一：用webapp骨架建立Maven项目会导致结构不全</p>
 <p>实测可知，创建后无java，resources和test目录。需要手动创建目录，并右键-&gt;Mark as选择目录类型。<br>解决的话可以不使用骨架直接创建项目，缺点是没有webapp目录，需要自己手动添加，添加方法是在项目<br>结构中添加Web Module。</p>
@@ -229,14 +227,16 @@
         &lt;scope&gt;system&lt;/scope&gt; &lt;!--作用域--&gt;
         &lt;systemPath&gt;$&#123;basedir&#125;\src\lib\ldapjdk.jar&lt;/systemPath&gt; &lt;!--项目根目录下的lib文件夹下--&gt;
     &lt;/dependency&gt; 
-&lt;/dependencies&gt;</code></pre><p>问题三：为什么Maven web项目连接不上数据库？<br>这是折磨我最长时间的一个问题，原本畅通运行的javaweb项目用Maven管理后无论如何都连接不到本地<br>的数据库，层层排查后发现确实是Connection值为null的原因，但是怎么解决真是废了一番功夫。下面<br>来详细讲一下idea中Maven管理web项目如何连接数据库：</p>
+&lt;/dependencies&gt;
+</code></pre><p>问题三：为什么Maven web项目连接不上数据库？<br>这是折磨我最长时间的一个问题，原本畅通运行的javaweb项目用Maven管理后无论如何都连接不到本地<br>的数据库，层层排查后发现确实是Connection值为null的原因，但是怎么解决真是废了一番功夫。下面<br>来详细讲一下idea中Maven管理web项目如何连接数据库：</p>
 <p>1.常规操作，先添加依赖。</p>
-<pre><code>&lt;dependency&gt;
-    &lt;groupId&gt;mysql&lt;/groupId&gt;
-    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-    &lt;version&gt;8.0.20&lt;/version&gt;
-    &lt;scope&gt;runtime&lt;/scope&gt;
-&lt;/dependency&gt;</code></pre><p>做完这一步，普通的项目已经可以找到数据库了，而Web项目不行。</p>
+<pre><code>    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;version&gt;8.0.20&lt;/version&gt;
+        &lt;scope&gt;runtime&lt;/scope&gt;
+    &lt;/dependency&gt;
+</code></pre><p>做完这一步，普通的项目已经可以找到数据库了，而Web项目不行。</p>
 <p>2.原因分析</p>
 <p>常规的tomcat部署方式是直接部署到${TOMCAT_HOME}/webapps下<br>但是idea用的tomcat部署不是常规的部署方式：</p>
 <p>CATALINA_HOME是Tomcat的安装目录，CATALINA_BASE是Tomcat的工作目录。如果我们想要运行<br>Tomcat的多个实例，但是不想安装多个Tomcat软件副本。那么我们可以配置多个工作目录，每个运<br>行实例独占一个工作目录，但是共享同一个安装目录 Tomcat每个运行实例需要使用自己的conf、logs、temp、webapps、work和shared目录，<br>因此CATALINA_BASE就 指向这些目录。 而其他目录主要包括了Tomcat的二进制文件和脚本，CATALINA_HOME就指向这些目录。<br> 在这里没有加载mysql-connector-java包，因此会报错。</p>
@@ -251,7 +251,8 @@
         &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
         &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
     &lt;/properties&gt;
-&lt;/project&gt;</code></pre><p>方法二</p>
+&lt;/project&gt;
+</code></pre><p>方法二</p>
 <pre><code>&lt;project&gt;
     &lt;build&gt;
     &lt;plugins&gt;
@@ -266,7 +267,8 @@
         &lt;/plugin&gt;
     &lt;/plugins&gt;
     &lt;/build&gt;
-&lt;/project&gt;</code></pre><p>问题五：Maven创建webapp骨架无法使用@WebServlet来实现注解配置</p>
+&lt;/project&gt;
+</code></pre><p>问题五：Maven创建webapp骨架无法使用@WebServlet来实现注解配置</p>
 <p>这个是之前用骨架创建项目的一个问题，解决方案如下：<br>将web.xml修改成如下配置：</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
@@ -275,21 +277,24 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;
   version=&quot;4.0&quot;
   metadata-complete=&quot;false&quot;&gt;
-&lt;/web-app&gt;</code></pre><p>注意一定要将matadata-complete属性改为”false”这样创建的web工程才是web-4.0</p>
+&lt;/web-app&gt;
+</code></pre><p>注意一定要将matadata-complete属性改为”false”这样创建的web工程才是web-4.0</p>
 <p>然后POM导入servlet3.0以上的依赖就行了。注意provided。</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
   &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
   &lt;version&gt;3.1.0&lt;/version&gt;
   &lt;scope&gt;provided&lt;/scope&gt;
-&lt;/dependency&gt;</code></pre><p>问题六：java.lang.NoClassDefFoundError: com.sun.mail.util.MailLogger</p>
+&lt;/dependency&gt;
+</code></pre><p>问题六：java.lang.NoClassDefFoundError: com.sun.mail.util.MailLogger</p>
 <p>使用java.mail报错java.lang.NoClassDefFoundError: com.sun.mail.util.MailLogger，</p>
 <p>参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/16807758/java-lang-noclassdeffounderror-com-sun-mail-util-maillogger-for-junit-test-case，更换依赖为：">https://stackoverflow.com/questions/16807758/java-lang-noclassdeffounderror-com-sun-mail-util-maillogger-for-junit-test-case，更换依赖为：</a></p>
 <pre><code>&lt;dependency&gt;
     &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
     &lt;artifactId&gt;javax.mail&lt;/artifactId&gt;
     &lt;version&gt;1.6.0&lt;/version&gt;
-&lt;/dependency&gt;</code></pre><p>仍然报错，突然想起mysql连接器的窘境，添加到weblib，于是解决了。。。</p>
+&lt;/dependency&gt;
+</code></pre><p>仍然报错，突然想起mysql连接器的窘境，添加到weblib，于是解决了。。。</p>
 <p>到这里，我的web项目已经转移成功了。舒服~</p>
 
       
@@ -613,19 +618,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,11 +682,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -71,7 +71,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -209,9 +209,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天想给我的yilia博客配置一下评论系统，左选右选选择了不会被墙又不像国内评论插件浮夸的gitment，<br>一切都配置好了给我报Object ProgressEvent错误，经调查发现作者服务器到期了，但是作者公开了<br>该部分的源码，可以供使用者搭一个服务器来运行，但对于我这种轻度博客用户来说，自己制作属实<br>有些繁琐，使用其他人搭建好的服务器又不知何日会不能使用，总没什么安全感，于是采用gitalk来<br>实现评论功能。gitalk使用虽然简单，但中途还是遇到一些弯路，所以写一篇博文来记录一下。<br>本文参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuurick/p/10713673.html">https://www.cnblogs.com/liuurick/p/10713673.html</a> ，在其基础上解决了一些常见错误。<br>以下是实现步骤：</p>
-<span id="more"></span>
-<p>一、在GitHub注册OAuth application</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天想给我的yilia博客配置一下评论系统，左选右选选择了不会被墙又不像国内评论插件浮夸的gitment，<br>一切都配置好了给我报Object ProgressEvent错误，经调查发现作者服务器到期了，但是作者公开了<br>该部分的源码，可以供使用者搭一个服务器来运行，但对于我这种轻度博客用户来说，自己制作属实<br>有些繁琐，使用其他人搭建好的服务器又不知何日会不能使用，总没什么安全感，于是采用gitalk来<br>实现评论功能。gitalk使用虽然简单，但中途还是遇到一些弯路，所以写一篇博文来记录一下。<br>本文参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuurick/p/10713673.html">https://www.cnblogs.com/liuurick/p/10713673.html</a> ，在其基础上解决了一些常见错误。<br>以下是实现步骤：<br><span id="more"></span><br>一、在GitHub注册OAuth application</p>
 <p>注册网址：<a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">https://github.com/settings/applications/new</a></p>
 <p><img src="/assets/post_img/article8/OAU.png" alt="OAuth"></p>
 <ul>
@@ -224,21 +222,17 @@
 <p>二、在layout/_partial/post目录下新增gitalk.ejs文件</p>
 <p>代码如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;gitalk-container&quot;</span> <span class="attr">style</span>=<span class="string">&quot;padding: 0px 30px 0px 30px;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">if</span>(&lt;%=theme.gitalk.enable%&gt;)&#123;</span></span><br><span class="line"><span class="javascript">	<span class="keyword">var</span> gitalk = <span class="keyword">new</span> Gitalk(&#123;</span></span><br><span class="line"><span class="javascript">  	<span class="attr">clientID</span>: <span class="string">&#x27;&lt;%=theme.gitalk.ClientID%&gt;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  	<span class="attr">clientSecret</span>: <span class="string">&#x27;&lt;%=theme.gitalk.ClientSecret%&gt;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  	<span class="attr">repo</span>: <span class="string">&#x27;&lt;%=theme.gitalk.repo%&gt;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  	<span class="attr">owner</span>: <span class="string">&#x27;&lt;%=theme.gitalk.githubID%&gt;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  	<span class="attr">admin</span>: [<span class="string">&#x27;&lt;%=theme.gitalk.adminUser%&gt;&#x27;</span>],</span></span><br><span class="line"><span class="javascript">  	<span class="attr">id</span>: <span class="string">&#x27;&lt;%= page.date %&gt;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  	<span class="attr">distractionFreeMode</span>: <span class="string">&#x27;&lt;%=theme.gitalk.distractionFreeMode%&gt;&#x27;</span></span></span><br><span class="line"><span class="javascript">&#125;)</span></span><br><span class="line"><span class="javascript">gitalk.render(<span class="string">&#x27;gitalk-container&#x27;</span>) </span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>三、修改source-src/css/目录下comment.scss文件</p>
 <p>在原来的基础上增加了#gitalk-container，</p>
 <p>代码如下：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#disqus_thread</span>, <span class="selector-class">.duoshuo</span>, <span class="selector-class">.cloud-tie-wrapper</span>, <span class="selector-id">#SOHUCS</span>, <span class="selector-id">#gitment-ctn</span>, <span class="selector-id">#gitalk-container</span> &#123;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">0</span> <span class="number">30px</span> <span class="meta">!important</span>;</span><br><span class="line">	<span class="attribute">min-height</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#SOHUCS</span> &#123;</span><br><span class="line">	<span class="selector-id">#SOHU_MAIN</span> <span class="selector-class">.module-cmt-list</span> <span class="selector-class">.block-cont-gw</span> &#123;</span><br><span class="line">		<span class="attribute">border-bottom</span>: <span class="number">1px</span> dashed <span class="number">#c8c8c8</span> <span class="meta">!important</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>四、在layout/_partial目录下的article.ejs文件内新增gitalk相关的配置代码：</p>
 <p>代码如下：</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="meta">%</span> <span class="keyword">if</span><span class="comment">(theme.gitalk.enable)</span>&#123; <span class="meta">%</span>&gt;</span><br><span class="line">  &lt;<span class="meta">%</span>- partial<span class="comment">(&#x27;post/gitalk&#x27;, &#123;</span></span><br><span class="line"><span class="comment">      key: post.slug,</span></span><br><span class="line"><span class="comment">      title: post.title,</span></span><br><span class="line"><span class="comment">      url: config.url+url_for(post.path)</span></span><br><span class="line">    &#125;) <span class="meta">%</span>&gt;</span><br><span class="line">  &lt;<span class="meta">%</span> &#125; <span class="meta">%</span>&gt;</span><br></pre></td></tr></table></figure>
-
 <p>这里注意要把这段代码插到原本gitment位置的上方。</p>
 <p>五、在yilia主题配置文件(_config.yml)中新增gitalk相关的配置：</p>
 <p>代码如下：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gitalk:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment">#是否开启</span></span><br><span class="line">  <span class="attr">githubID:</span> <span class="string">abcd</span> <span class="comment">#你的Github用户名</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">abcd.github.io</span> <span class="comment">#Github仓库名称</span></span><br><span class="line">  <span class="attr">ClientID:</span> <span class="string">d59609200a63b0eexxxx</span> <span class="comment">#创建的Application ClientID</span></span><br><span class="line">  <span class="attr">ClientSecret:</span> <span class="string">d5eb433efa8075a46a3c6ec2744212acdbxxxxx</span> <span class="comment">#创建的Application ClientSecret</span></span><br><span class="line">  <span class="attr">adminUser:</span> <span class="string">abcd</span> <span class="comment"># 评论初始化账户(GitHub ID)</span></span><br><span class="line">  <span class="attr">distractionFreeMode:</span> <span class="literal">true</span> <span class="comment"># 是否开启分心自由模式 也就是免打扰</span></span><br></pre></td></tr></table></figure>
-
 <p>记得把gitment的配置注释掉</p>
 <p>之后理论上hexo clean+hexo g+hexo d就可以使用了。</p>
 <p>但是我在配置完后出现了issue找不到的问题，</p>
@@ -576,19 +570,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,11 +634,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -68,7 +68,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -206,197 +206,213 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看完了struts2，看的一知半解，再看spring，虽然博文写的很不错，但也只是模糊的概念，<br>于是产生了一个疑问，为什么要学习框架？为什么Java有如此众多的框架？找到了令我满意<br>的答案，下面全文拷贝于网络，可谓是学习框架前的真正第一课。<br>原答案链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/25654738/answer/31302541">https://www.zhihu.com/question/25654738/answer/31302541</a></p>
-<span id="more"></span>
-<p>归纳题主的问题：这个世界上有各种各样的框架，设计这些五花八门框架的初衷到底是什么？我们该不该学习框架，该如何学习使用这些框架？回答题主的问题：一、首先，到底什么是框架？想要回答这个问题，我们要慢慢来。①首先从DRY原则开始说起Don’t Repeat Yourself，不要重复你的代码。DRY原则的重要性怎么提都不过分，很多人说编程是种机械性的工作，而有很多程序员也自嘲为码农，意为编程成了一种没有技术含量的体力性工作。如果不想沦为这个境界，首先需要的就是将DRY原则融入你的血液，在今后的编码工作中加以运用。<br>1）最初级的DRY：语法级别</p>
-<pre><code>System.out.println(1);
-System.out.println(2);
-……
-System.out.println(10);</code></pre><p>我想只要学过基础语法，都会采用下面的形式。</p>
-<pre><code>for (int i = 1; i &lt;= 10; i++) &#123;
-    System.out.println(i);
-&#125;</code></pre><p>如果发现有任何人采用上面一种形式的编码形式，那么不用怀疑，他对于编程绝对还没有入门。我们当然会选择省力的做法，这种做法不但省力，还会有利于我们后续修改或扩展这组代码，如：</p>
-<pre><code>for (int i = 1; i &lt;= 10; i++) &#123;
-    System.out.println(i * 2 + 1);
-&#125;</code></pre><p>我们进行这样的修改，只需要修改一处，而上面的形式却需要修改10处，当然会更麻烦且更容易出错，所以请记住能不重复就不重复。2）进阶的DRY原则：方法级别当我们经常写一些重复性代码时，我们就要注意看能否将其抽取出来成为一个方法，如：</p>
-<pre><code>try &#123;
-    Thread.sleep(1000);
-&#125; catch (InterruptedException e) &#123;
-    e.printStackTrace();
-&#125;</code></pre><p>让我们将其抽取到一个方法 threadSleep() 中，这样我们只需要调用 threadSleep() 就可以实现原来的功能，不但所需敲击的代码更少，而且代码看起来更加清楚明白。而为了增加这个方法的复用性，我们还可以将其中固定的数字抽取成为参数，如：</p>
-<pre><code>private static void threadSleep(int millis) &#123;
-    try &#123;
-        Thread.sleep(millis);
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看完了struts2，看的一知半解，再看spring，虽然博文写的很不错，但也只是模糊的概念，<br>于是产生了一个疑问，为什么要学习框架？为什么Java有如此众多的框架？找到了令我满意<br>的答案，下面全文拷贝于网络，可谓是学习框架前的真正第一课。<br>原答案链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/25654738/answer/31302541">https://www.zhihu.com/question/25654738/answer/31302541</a><br><span id="more"></span><br>归纳题主的问题：这个世界上有各种各样的框架，设计这些五花八门框架的初衷到底是什么？我们该不该学习框架，该如何学习使用这些框架？回答题主的问题：一、首先，到底什么是框架？想要回答这个问题，我们要慢慢来。①首先从DRY原则开始说起Don’t Repeat Yourself，不要重复你的代码。DRY原则的重要性怎么提都不过分，很多人说编程是种机械性的工作，而有很多程序员也自嘲为码农，意为编程成了一种没有技术含量的体力性工作。如果不想沦为这个境界，首先需要的就是将DRY原则融入你的血液，在今后的编码工作中加以运用。<br>1）最初级的DRY：语法级别</p>
+<pre><code>    System.out.println(1);
+    System.out.println(2);
+    ……
+    System.out.println(10);
+</code></pre><p>我想只要学过基础语法，都会采用下面的形式。</p>
+<pre><code>    for (int i = 1; i &lt;= 10; i++) &#123;
+        System.out.println(i);
+    &#125;
+</code></pre><p>如果发现有任何人采用上面一种形式的编码形式，那么不用怀疑，他对于编程绝对还没有入门。我们当然会选择省力的做法，这种做法不但省力，还会有利于我们后续修改或扩展这组代码，如：</p>
+<pre><code>    for (int i = 1; i &lt;= 10; i++) &#123;
+        System.out.println(i * 2 + 1);
+    &#125;
+</code></pre><p>我们进行这样的修改，只需要修改一处，而上面的形式却需要修改10处，当然会更麻烦且更容易出错，所以请记住能不重复就不重复。2）进阶的DRY原则：方法级别当我们经常写一些重复性代码时，我们就要注意看能否将其抽取出来成为一个方法，如：</p>
+<pre><code>    try &#123;
+        Thread.sleep(1000);
     &#125; catch (InterruptedException e) &#123;
         e.printStackTrace();
     &#125;
-&#125;</code></pre><p>这样我们就可以利用这个方法实现不同时间的sleep了。要注意提高代码的复用性也是实践DRY原则的一个重要方法，在后面我们也可以看到框架为了提高所谓的灵活性进行的一些设计，如在适当的位置增加扩展点。3）继续进阶的DRY原则：类型级别现在我们看一个类</p>
-<pre><code>public class Person &#123;
-    private String name;
-    private int age;
-    // Setter &amp; Getter ...
-&#125;</code></pre><p>我们新建一些Person类实例，并进行一些操作：</p>
-<pre><code>Person person = new Person();
-person.setName(&quot;jack&quot;);
-person.setAge(18);
-Person person2 = new Person();
-person2.setName(&quot;rose&quot;);
-person2.setAge(17);
-.....
-System.out.printf(&quot;Name: %s, Age:%d\n&quot;, person.getName(), person.getAge());
-System.out.printf(&quot;Name: %s, Age:%d\n&quot;, person2.getName(), person2.getAge());
-.....</code></pre><p>观察这些代码，其实有很大的DRY改造空间，首先可以添加一个构造方法</p>
-<pre><code>public Person(String name, int age) &#123;
-    this.name = name;
-    this.age = age;
-&#125;</code></pre><p>其次，可以添加一个toString()方法</p>
-<pre><code>public String toString() &#123;
-    return String.format(&quot;Name: %s, Age: %d&quot;, name, age);
-&#125;</code></pre><p>这样的话，上面的代码就可以改成下面的形式。</p>
-<pre><code>Person person = new Person(&quot;jack&quot;, 18);
-Person person2 = new Person(&quot;rose&quot;, 17);
-......
-System.out.println(person.toString());
-System.out.println(person2.toString());
-......</code></pre><p>4）继续继续进阶的DRY原则：多个类组合级别上面的代码我们其实还是有改善空间，就是利用容器类</p>
-<pre><code>List&lt;Person&gt; list = new ArrayList&lt;&gt;();
-list.add(new Person(&quot;jack&quot;, 18));
-list.add(new Person(&quot;rose&quot;, 17));
-......
-list.forEach(p -&gt; System.out.println(p));</code></pre><p>这里利用JDK8的Stream API以及Lambda表达式输出，其实可以进一步简化为 </p>
-<pre><code>list.forEach(System.out::println);</code></pre><p>这里我们可以看到，基本上我们写代码只写有变化的代码，而尽量不写机械性重复性的代码，其实后面我们就会知道，这就叫专注于业务逻辑，所谓业务逻辑就是你这个项目中，与别的项目都不一样的地方，必须由你亲自去编写实现的部分。其实容器类很大程度上也是为了帮助我们编写代码而被设计出来的，首先让我们不必为每一个对象起名字（省去了person,person2,…等变量）<br>，然后又为批量操作提供了可能性。像是这样一系列有用的类组合起来可以称之为类库。常用的类库有Commons-Lang包等，为我们提供了一大批实用方法，我之所以提到类库，也是因为框架其实也是一种特殊的类库，但是却与一般的类库有着本质的不同。②设计模式，更高层级的DRY应用上面我讲到了DRY原则的几个层次，一般情况下大家也早就这样使用了，属于入门之后很容易自己<br>就想到得一些层次。但是设计模式不一样，设计模式是经过长时间编码之后，经过系统性的总结所提出的针对某一类问题的最佳解决方案，又称之为最佳实践。而在小规模的编码工作中，其实并不需要什么设计模式，只有大型程序才有设计模式发挥的空间，所以我们需要借助一些特定领域有足够规模的问题来了解一下设计模式存在的必要性。<br>1）连接数据库，进行一些操作，并安全释放数据库连接。</p>
-<pre><code>public static boolean updatePassword(String username, String password, String newpassword) &#123;
-    Connection conn = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    boolean success = false;
-    try &#123;
-        conn = beginTransaction();
-        stmt = conn.prepareStatement(&quot;select id, password from user where username = ?&quot;);
-        stmt.setString(1, username);
-        rs = stmt.executeQuery();
-        if (rs.next()) &#123;
-            if (rs.getString(&quot;password&quot;).equals(password)) &#123;
-                PreparedStatement stmt2 = null;
-                try &#123;
-                    stmt2 = conn.prepareStatement(&quot;update user set password = ? where id = ?&quot;);
-                    stmt2.setString(1, newpassword);
-                    stmt2.setLong(2, rs.getLong(&quot;id&quot;));
-                    success = stmt2.executeUpdate() &gt; 0;
-                &#125; finally &#123;
-                    safeClose(stmt2);
-                &#125;
-            &#125;
+</code></pre><p>让我们将其抽取到一个方法 threadSleep() 中，这样我们只需要调用 threadSleep() 就可以实现原来的功能，不但所需敲击的代码更少，而且代码看起来更加清楚明白。而为了增加这个方法的复用性，我们还可以将其中固定的数字抽取成为参数，如：</p>
+<pre><code>    private static void threadSleep(int millis) &#123;
+        try &#123;
+            Thread.sleep(millis);
+        &#125; catch (InterruptedException e) &#123;
+            e.printStackTrace();
         &#125;
-        commitTransaction(conn);
-        return success;
-    &#125; catch (SQLException e) &#123;
-        rollbackTransaction(conn);
-        throw new RuntimeException(e);
-    &#125; finally &#123;
-        safeClose(rs);
-        safeClose(stmt);
-        safeClose(conn);
     &#125;
-&#125;</code></pre><p>上面是一个简单的数据库事务，虽然只有一个查询和一个更新，但是想要将其继续简化却并不容易，虽然其中有关于业务逻辑的部分只是少量几行代码，但是初始化，异常，提交，回滚操作让我们很难抽取出一个合适的方法来。虽然我们已经抽取出了 begin,commit,rollback,safeClose等方法，但是仍嫌繁琐。我们发现之所以我们难以抽取方法，主要是因为流程，因为里面牵扯到流程控制，<br>而流程控制一般是由我们程序员来控制的，所以也就必然需要我们手动编码来完成。难道真的就不能继续简化了吗？这就是需要设计模式的时候了。<br>2）应用设计模式「模板方法模式」</p>
-<pre><code>public static boolean updatePassword(String username, String password, String newpassword) &#123;
-    return connection(conn -&gt; statement(conn, &quot;select id, password from user where username = ?&quot;, stmt -&gt; &#123;
-        stmt.setString(1, username);
-        return resultSet(stmt, rs -&gt; &#123;
+</code></pre><p>这样我们就可以利用这个方法实现不同时间的sleep了。要注意提高代码的复用性也是实践DRY原则的一个重要方法，在后面我们也可以看到框架为了提高所谓的灵活性进行的一些设计，如在适当的位置增加扩展点。3）继续进阶的DRY原则：类型级别现在我们看一个类</p>
+<pre><code>    public class Person &#123;
+        private String name;
+        private int age;
+        // Setter &amp; Getter ...
+    &#125;
+</code></pre><p>我们新建一些Person类实例，并进行一些操作：</p>
+<pre><code>    Person person = new Person();
+    person.setName(&quot;jack&quot;);
+    person.setAge(18);
+    Person person2 = new Person();
+    person2.setName(&quot;rose&quot;);
+    person2.setAge(17);
+    .....
+    System.out.printf(&quot;Name: %s, Age:%d\n&quot;, person.getName(), person.getAge());
+    System.out.printf(&quot;Name: %s, Age:%d\n&quot;, person2.getName(), person2.getAge());
+    .....
+</code></pre><p>观察这些代码，其实有很大的DRY改造空间，首先可以添加一个构造方法</p>
+<pre><code>    public Person(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+</code></pre><p>其次，可以添加一个toString()方法</p>
+<pre><code>    public String toString() &#123;
+        return String.format(&quot;Name: %s, Age: %d&quot;, name, age);
+    &#125;
+</code></pre><p>这样的话，上面的代码就可以改成下面的形式。</p>
+<pre><code>    Person person = new Person(&quot;jack&quot;, 18);
+    Person person2 = new Person(&quot;rose&quot;, 17);
+    ......
+    System.out.println(person.toString());
+    System.out.println(person2.toString());
+    ......
+</code></pre><p>4）继续继续进阶的DRY原则：多个类组合级别上面的代码我们其实还是有改善空间，就是利用容器类</p>
+<pre><code>    List&lt;Person&gt; list = new ArrayList&lt;&gt;();
+    list.add(new Person(&quot;jack&quot;, 18));
+    list.add(new Person(&quot;rose&quot;, 17));
+    ......
+    list.forEach(p -&gt; System.out.println(p));
+</code></pre><p>这里利用JDK8的Stream API以及Lambda表达式输出，其实可以进一步简化为 </p>
+<pre><code>    list.forEach(System.out::println);
+</code></pre><p>这里我们可以看到，基本上我们写代码只写有变化的代码，而尽量不写机械性重复性的代码，其实后面我们就会知道，这就叫专注于业务逻辑，所谓业务逻辑就是你这个项目中，与别的项目都不一样的地方，必须由你亲自去编写实现的部分。其实容器类很大程度上也是为了帮助我们编写代码而被设计出来的，首先让我们不必为每一个对象起名字（省去了person,person2,…等变量）<br>，然后又为批量操作提供了可能性。像是这样一系列有用的类组合起来可以称之为类库。常用的类库有Commons-Lang包等，为我们提供了一大批实用方法，我之所以提到类库，也是因为框架其实也是一种特殊的类库，但是却与一般的类库有着本质的不同。②设计模式，更高层级的DRY应用上面我讲到了DRY原则的几个层次，一般情况下大家也早就这样使用了，属于入门之后很容易自己<br>就想到得一些层次。但是设计模式不一样，设计模式是经过长时间编码之后，经过系统性的总结所提出的针对某一类问题的最佳解决方案，又称之为最佳实践。而在小规模的编码工作中，其实并不需要什么设计模式，只有大型程序才有设计模式发挥的空间，所以我们需要借助一些特定领域有足够规模的问题来了解一下设计模式存在的必要性。<br>1）连接数据库，进行一些操作，并安全释放数据库连接。</p>
+<pre><code>    public static boolean updatePassword(String username, String password, String newpassword) &#123;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean success = false;
+        try &#123;
+            conn = beginTransaction();
+            stmt = conn.prepareStatement(&quot;select id, password from user where username = ?&quot;);
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
             if (rs.next()) &#123;
                 if (rs.getString(&quot;password&quot;).equals(password)) &#123;
-                    long id = rs.getLong(&quot;id&quot;);
-                    return statement(conn, &quot;update user set password = ? where id = ?&quot;, stmt2 -&gt; &#123;
+                    PreparedStatement stmt2 = null;
+                    try &#123;
+                        stmt2 = conn.prepareStatement(&quot;update user set password = ? where id = ?&quot;);
                         stmt2.setString(1, newpassword);
-                        stmt2.setLong(2, id);
-                        return stmt2.executeUpdate() == 1;
-                    &#125;);
+                        stmt2.setLong(2, rs.getLong(&quot;id&quot;));
+                        success = stmt2.executeUpdate() &gt; 0;
+                    &#125; finally &#123;
+                        safeClose(stmt2);
+                    &#125;
                 &#125;
             &#125;
-            return false;
-        &#125;);
-    &#125;));
-&#125;</code></pre><p>可以看到，所有的conn,stmt,rs的开启和关闭，事务的提交和回滚都不用自己手动编写代码进行操作了，之所以可以达到这个效果，就是因为使用了模板方法设计模式，核心就是通过回调方法传递想对资源进行的操作，然后将控制权交给另一个方法，让这个方法掌握流程控制，然后适当的时候回调我们的代码（也就是我们自己写的业务逻辑相关的代码）。<br>这是需要额外写的几个方法</p>
-<pre><code>public interface ConnectionCallback&lt;T&gt; &#123;
-    T doConnection(Connection conn) throws SQLException;
-&#125;
-public interface StatementCallback&lt;T&gt; &#123;
-    T doStatement(PreparedStatement stmt) throws SQLException;
-&#125;
-public interface ResultSetCallback&lt;T&gt; &#123;
-    T doResultSet(ResultSet rs) throws SQLException;
-&#125;
-public static &lt;T&gt; T connection(ConnectionCallback&lt;T&gt; callback) &#123;
-    Connection conn = null;
-    T result = null;
-    try &#123;
-        conn = beginTransaction();
-        result = callback.doConnection(conn);
-        commitTransaction(conn);
-    &#125; catch (SQLException e) &#123;
-        rollbackTransaction(conn);
-        throw new RuntimeException(e);
-    &#125; finally &#123;
-        safeClose(conn);
+            commitTransaction(conn);
+            return success;
+        &#125; catch (SQLException e) &#123;
+            rollbackTransaction(conn);
+            throw new RuntimeException(e);
+        &#125; finally &#123;
+            safeClose(rs);
+            safeClose(stmt);
+            safeClose(conn);
+        &#125;
     &#125;
-    return result;
-&#125;
-public static &lt;T&gt; T statement(Connection conn, String sql, StatementCallback&lt;T&gt; callback) throws SQLException &#123;
-    PreparedStatement stmt = null;
-    T result = null;
-    try &#123;
-        stmt = conn.prepareStatement(sql);
-        result = callback.doStatement(stmt);
-    &#125; finally &#123;
-        safeClose(stmt);
+</code></pre><p>上面是一个简单的数据库事务，虽然只有一个查询和一个更新，但是想要将其继续简化却并不容易，虽然其中有关于业务逻辑的部分只是少量几行代码，但是初始化，异常，提交，回滚操作让我们很难抽取出一个合适的方法来。虽然我们已经抽取出了 begin,commit,rollback,safeClose等方法，但是仍嫌繁琐。我们发现之所以我们难以抽取方法，主要是因为流程，因为里面牵扯到流程控制，<br>而流程控制一般是由我们程序员来控制的，所以也就必然需要我们手动编码来完成。难道真的就不能继续简化了吗？这就是需要设计模式的时候了。<br>2）应用设计模式「模板方法模式」</p>
+<pre><code>    public static boolean updatePassword(String username, String password, String newpassword) &#123;
+        return connection(conn -&gt; statement(conn, &quot;select id, password from user where username = ?&quot;, stmt -&gt; &#123;
+            stmt.setString(1, username);
+            return resultSet(stmt, rs -&gt; &#123;
+                if (rs.next()) &#123;
+                    if (rs.getString(&quot;password&quot;).equals(password)) &#123;
+                        long id = rs.getLong(&quot;id&quot;);
+                        return statement(conn, &quot;update user set password = ? where id = ?&quot;, stmt2 -&gt; &#123;
+                            stmt2.setString(1, newpassword);
+                            stmt2.setLong(2, id);
+                            return stmt2.executeUpdate() == 1;
+                        &#125;);
+                    &#125;
+                &#125;
+                return false;
+            &#125;);
+        &#125;));
     &#125;
-    return result;
-&#125;
-public static &lt;T&gt; T resultSet(PreparedStatement stmt, ResultSetCallback&lt;T&gt; callback) throws SQLException &#123;
-    ResultSet rs = null;
-    T result = null;
-    try &#123;
-        rs = stmt.executeQuery();
-        result = callback.doResultSet(rs);
-    &#125; finally &#123;
-        safeClose(rs);
+</code></pre><p>可以看到，所有的conn,stmt,rs的开启和关闭，事务的提交和回滚都不用自己手动编写代码进行操作了，之所以可以达到这个效果，就是因为使用了模板方法设计模式，核心就是通过回调方法传递想对资源进行的操作，然后将控制权交给另一个方法，让这个方法掌握流程控制，然后适当的时候回调我们的代码（也就是我们自己写的业务逻辑相关的代码）。<br>这是需要额外写的几个方法</p>
+<pre><code>    public interface ConnectionCallback&lt;T&gt; &#123;
+        T doConnection(Connection conn) throws SQLException;
     &#125;
-    return result;
-&#125;</code></pre><p>你们可能会疑惑，这些代码加上我们写的业务逻辑的代码，比原来的代码还要长，有什么必要使用这个设计模式。这正是我前面已经指出的一个问题，那就是要你的程序规模足够大才有必要应用设计模式，试想如果你有上百个乃至上千个数据库操作方法需要写，<br>那么是不是写这几个额外的方法，就不算什么了呢。其实这正是DRY原则在更高层次上的应用，即结合设计模式来达到更高层次的代码复用效果，进而应用DRY原则。而想要在这个层次继续向上攀升，那就必须是结合众多设计模式以及一些高层架构设计，能够帮助我们实现这一目的的就是框架。<br>3）框架，是设计模式的集大成者，是DRY原则的最高应用先让我们来看一下，使用框架会是什么样的一种体验？这里以Hibernate + Spring声明式事务为例</p>
-<pre><code>@Transactional
-public boolean updatePassword(String username, String password, String newpassword) &#123;
-    User user = (User) session().createQuery(&quot;from User where username = :username&quot;)
-            .setString(&quot;username&quot;, username)
-            .uniqueResult();
-    if (user != null &amp;&amp; user.getPassword().equals(password)) &#123;
-        user.setPassword(newpassword);
-        return true;
+    public interface StatementCallback&lt;T&gt; &#123;
+        T doStatement(PreparedStatement stmt) throws SQLException;
     &#125;
-    return false;
-&#125;</code></pre><p>可以发现令人惊讶的简洁，而且代码逻辑异常清晰，完全不需要考虑conn,stmt,rs等资源的释放，以及事务的提交和回滚，但是这些事情其实框架已经默默的帮我们做到了。这才叫真正的专注于业务逻辑，尽最大可能的只写与业务逻辑有关的代码。当然这些框架的效果虽然神奇，其实只要细细<br>探究其内部原理，是完全可以理解并掌握的。二、那么问题就来了，框架到底是什么？要不要学，怎么学？上面我说过了，框架其实就是一个或一组特殊的类库，特殊在什么地方？特殊在控制权转移！框架与一般类库不同的地方是，我们调用类库，而框架调用我们。也就是说框架掌握整个程序<br>的控制权，我们必须一定程度上把程序流程的控制权交给框架，这样框架才能更好的帮助我们。下面以JavaWeb开发为例再进行一些说明，并顺便简单介绍一下JavaWeb的一些脉络。①静态网页时代本来网站都是一个个静态HTML组成的，或许这些网页还是用Dreamweaver写的，但是这样的静态页面<br>显然不能满足我们，很快我们就迎来了动态网页的时代。<br>②Servlet时代如果熟悉HTTP协议的话，我们就知道其实访问网页的过程不过是一次TCP连接罢了。浏览器发起TCP连接到服务器，服务器接受请求，然后返回HTML代码作为响应。那么我们完全可以等到接受到请求之后，再动态生成HTML代码返回给客户端。Servlet就是这么做的，其主要代码不过是<br>利用out.write()一点一点的输出HTML代码罢了。当然我们可以在其中掺杂一点动态的东西，如返回当前的时间。</p>
-<pre><code>out.write(&quot;&lt;!DOCTYPE html&gt;\r\n&quot;);
-out.write(&quot;&lt;html&gt;\r\n&quot;);
-out.write(&quot;&lt;head&gt;\r\n&quot;);
-out.write(&quot;&lt;title&gt;Index Page&lt;/title&gt;\r\n&quot;);
-out.write(&quot;&lt;/head&gt;\r\n&quot;);
-out.write(&quot;&lt;body&gt;\r\n&quot;);
-out.write(&quot;Hello, &quot; + new Date() + &quot;\r\n&quot;);
-out.write(&quot;&lt;/body&gt;\r\n&quot;);
-out.write(&quot;&lt;/html&gt;\r\n&quot;);</code></pre><p>③ JSP包打天下的时代纯粹的Servlet很是丑陋，给前端程序员理解和修改这样的代码带来了很多困难。因此JSP技术被发明了出来，原理也不复杂，就是不直接写Servlet，而是先写好JSP文件，再由服务器将JSP文件编译成Servlet。而JSP中是以常见的HTML标签为主，这样前端程序员就能方便的修改这些代码了。</p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Index Page&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-Hello, &lt;%=new Date()%&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>PS：由只使用 Servlet到使用JSP，虽然是一个简单的变化，但这迎合了前后端专业分工的大趋势，让前段人员只需要懂得HTML/CSS/JavaScrip代码就可以开始工作，而不需要学习Servlet那枯燥无味的用法，因此借着JSP技术的东风，JavaWeb技术迅速的扩展开来了。④ Servlet + JSP 时代随着JSP技术的发展，<br>用它写成的网站也越来越大，业务逻辑也越来越复杂。开发人员渐渐发现整个网站渐渐的再次变成了一团乱麻，不仅仅是JSP中夹杂了大量的Java代码，页面之间的耦合关系也越来越紧密。即便是要修改一个简单的按钮文本，或者是引入一段静态的内容，也需要打开越来越庞大的JSP页面，艰难到找到需要修改<br>的部分，有时还不仅仅是一处，这种修改是有很大的风险的，完全有可能引入新的错误。这时候开发者渐渐意识到，仅仅使用JSP是不行的，JSP承担了太多的责任。这时人们又想起了Servlet，Servlet中主要使用Java代码，处理业务逻辑非常轻松。如果JSP只使用HTML代码，而将业务逻辑的代码转移到Servlet中，<br>就可以大大的减轻JSP的负担，并且让前后端分工更加明确。<br>⑤MVC模式时代在Servlet + JSP模式的基础上，Java阵营进一步发展出了一种适合JavaWeb应用的设计模式，MVC设计模式，即将程序分为显示层(Viewer），控制层(Controller)，模型层(Model)。<br>一次典型的访问是这样的流程：</p>
+    public interface ResultSetCallback&lt;T&gt; &#123;
+        T doResultSet(ResultSet rs) throws SQLException;
+    &#125;
+    public static &lt;T&gt; T connection(ConnectionCallback&lt;T&gt; callback) &#123;
+        Connection conn = null;
+        T result = null;
+        try &#123;
+            conn = beginTransaction();
+            result = callback.doConnection(conn);
+            commitTransaction(conn);
+        &#125; catch (SQLException e) &#123;
+            rollbackTransaction(conn);
+            throw new RuntimeException(e);
+        &#125; finally &#123;
+            safeClose(conn);
+        &#125;
+        return result;
+    &#125;
+    public static &lt;T&gt; T statement(Connection conn, String sql, StatementCallback&lt;T&gt; callback) throws SQLException &#123;
+        PreparedStatement stmt = null;
+        T result = null;
+        try &#123;
+            stmt = conn.prepareStatement(sql);
+            result = callback.doStatement(stmt);
+        &#125; finally &#123;
+            safeClose(stmt);
+        &#125;
+        return result;
+    &#125;
+    public static &lt;T&gt; T resultSet(PreparedStatement stmt, ResultSetCallback&lt;T&gt; callback) throws SQLException &#123;
+        ResultSet rs = null;
+        T result = null;
+        try &#123;
+            rs = stmt.executeQuery();
+            result = callback.doResultSet(rs);
+        &#125; finally &#123;
+            safeClose(rs);
+        &#125;
+        return result;
+    &#125;
+</code></pre><p>你们可能会疑惑，这些代码加上我们写的业务逻辑的代码，比原来的代码还要长，有什么必要使用这个设计模式。这正是我前面已经指出的一个问题，那就是要你的程序规模足够大才有必要应用设计模式，试想如果你有上百个乃至上千个数据库操作方法需要写，<br>那么是不是写这几个额外的方法，就不算什么了呢。其实这正是DRY原则在更高层次上的应用，即结合设计模式来达到更高层次的代码复用效果，进而应用DRY原则。而想要在这个层次继续向上攀升，那就必须是结合众多设计模式以及一些高层架构设计，能够帮助我们实现这一目的的就是框架。<br>3）框架，是设计模式的集大成者，是DRY原则的最高应用先让我们来看一下，使用框架会是什么样的一种体验？这里以Hibernate + Spring声明式事务为例</p>
+<pre><code>    @Transactional
+    public boolean updatePassword(String username, String password, String newpassword) &#123;
+        User user = (User) session().createQuery(&quot;from User where username = :username&quot;)
+                .setString(&quot;username&quot;, username)
+                .uniqueResult();
+        if (user != null &amp;&amp; user.getPassword().equals(password)) &#123;
+            user.setPassword(newpassword);
+            return true;
+        &#125;
+        return false;
+    &#125;
+</code></pre><p>可以发现令人惊讶的简洁，而且代码逻辑异常清晰，完全不需要考虑conn,stmt,rs等资源的释放，以及事务的提交和回滚，但是这些事情其实框架已经默默的帮我们做到了。这才叫真正的专注于业务逻辑，尽最大可能的只写与业务逻辑有关的代码。当然这些框架的效果虽然神奇，其实只要细细<br>探究其内部原理，是完全可以理解并掌握的。二、那么问题就来了，框架到底是什么？要不要学，怎么学？上面我说过了，框架其实就是一个或一组特殊的类库，特殊在什么地方？特殊在控制权转移！框架与一般类库不同的地方是，我们调用类库，而框架调用我们。也就是说框架掌握整个程序<br>的控制权，我们必须一定程度上把程序流程的控制权交给框架，这样框架才能更好的帮助我们。下面以JavaWeb开发为例再进行一些说明，并顺便简单介绍一下JavaWeb的一些脉络。①静态网页时代本来网站都是一个个静态HTML组成的，或许这些网页还是用Dreamweaver写的，但是这样的静态页面<br>显然不能满足我们，很快我们就迎来了动态网页的时代。<br>②Servlet时代如果熟悉HTTP协议的话，我们就知道其实访问网页的过程不过是一次TCP连接罢了。浏览器发起TCP连接到服务器，服务器接受请求，然后返回HTML代码作为响应。那么我们完全可以等到接受到请求之后，再动态生成HTML代码返回给客户端。Servlet就是这么做的，其主要代码不过是<br>利用out.write()一点一点的输出HTML代码罢了。当然我们可以在其中掺杂一点动态的东西，如返回当前的时间。</p>
+<pre><code>    out.write(&quot;&lt;!DOCTYPE html&gt;\r\n&quot;);
+    out.write(&quot;&lt;html&gt;\r\n&quot;);
+    out.write(&quot;&lt;head&gt;\r\n&quot;);
+    out.write(&quot;&lt;title&gt;Index Page&lt;/title&gt;\r\n&quot;);
+    out.write(&quot;&lt;/head&gt;\r\n&quot;);
+    out.write(&quot;&lt;body&gt;\r\n&quot;);
+    out.write(&quot;Hello, &quot; + new Date() + &quot;\r\n&quot;);
+    out.write(&quot;&lt;/body&gt;\r\n&quot;);
+    out.write(&quot;&lt;/html&gt;\r\n&quot;);
+</code></pre><p>③ JSP包打天下的时代纯粹的Servlet很是丑陋，给前端程序员理解和修改这样的代码带来了很多困难。因此JSP技术被发明了出来，原理也不复杂，就是不直接写Servlet，而是先写好JSP文件，再由服务器将JSP文件编译成Servlet。而JSP中是以常见的HTML标签为主，这样前端程序员就能方便的修改这些代码了。</p>
+<pre><code>    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;title&gt;Index Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    Hello, &lt;%=new Date()%&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+</code></pre><p>PS：由只使用 Servlet到使用JSP，虽然是一个简单的变化，但这迎合了前后端专业分工的大趋势，让前段人员只需要懂得HTML/CSS/JavaScrip代码就可以开始工作，而不需要学习Servlet那枯燥无味的用法，因此借着JSP技术的东风，JavaWeb技术迅速的扩展开来了。④ Servlet + JSP 时代随着JSP技术的发展，<br>用它写成的网站也越来越大，业务逻辑也越来越复杂。开发人员渐渐发现整个网站渐渐的再次变成了一团乱麻，不仅仅是JSP中夹杂了大量的Java代码，页面之间的耦合关系也越来越紧密。即便是要修改一个简单的按钮文本，或者是引入一段静态的内容，也需要打开越来越庞大的JSP页面，艰难到找到需要修改<br>的部分，有时还不仅仅是一处，这种修改是有很大的风险的，完全有可能引入新的错误。这时候开发者渐渐意识到，仅仅使用JSP是不行的，JSP承担了太多的责任。这时人们又想起了Servlet，Servlet中主要使用Java代码，处理业务逻辑非常轻松。如果JSP只使用HTML代码，而将业务逻辑的代码转移到Servlet中，<br>就可以大大的减轻JSP的负担，并且让前后端分工更加明确。<br>⑤MVC模式时代在Servlet + JSP模式的基础上，Java阵营进一步发展出了一种适合JavaWeb应用的设计模式，MVC设计模式，即将程序分为显示层(Viewer），控制层(Controller)，模型层(Model)。<br>一次典型的访问是这样的流程：</p>
 <ol>
 <li>用户输入网址或点击链接或提交表单，浏览器发起请求</li>
-<li>–&gt; 通过互联网，通过HTTP协议 –&gt;</li>
+<li>—&gt; 通过互联网，通过HTTP协议 —&gt;</li>
 <li>Tomcat接受到HTTP请求，生成HttpServletRequest对象，根据Web.xml的配置，调用开发者编写的HttpServlet，HttpServlet根据请求内容，调用JavaBean获取数据，JavaBean从数据库获取数据，返回HttpServlet，HttpServlet将数据转发给JSP，JSP负责将数据渲染为HTML，由Tomcat负责将HTML转化为HTTP响应，返回客户端。</li>
-<li>–&gt; 通过互联网，通过HTTP协议 –&gt;</li>
+<li>—&gt; 通过互联网，通过HTTP协议 —&gt;</li>
 <li>客户端浏览器接收到HTTP响应，浏览器将HTML渲染为页面，并运行其中可能存在的JavaScript进一步调整界面。<br>整个流程必须由开发者精确设计才能运作流畅，其中客户端HTML和JavaScript属于前端设计，服务器运行的其他内容属于后端设计。虽然符合J2EE规范的Tomcat等应用服务器已经帮我们实现了最复杂的一块，即HTTP协议部分，还给我们提供了JSP这个模板引擎，以及自定义<br>标签等手段。但是在控制层，在模型层，J2EE能给我们的帮助少之甚少。</li>
 </ol>
 <p>就拿用户提交一个表单为例，而我们在Servlet中获取参数为例，虽然不用我们解析HTTP报文，应该已经是要谢天谢地了，但是我们要做的事情仍然很多，分析一下：</p>
@@ -751,19 +767,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -815,11 +831,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

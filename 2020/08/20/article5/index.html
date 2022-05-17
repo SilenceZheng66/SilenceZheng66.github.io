@@ -67,7 +67,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -205,15 +205,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>大晚上删数据库学到的- =。<br>Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.<br>To disable safe mode, toggle the option in Preferences -&gt; SQL Editor and reconnect.<br>mysql在执行删除更新语句时报这种错误，是因为在mysql在safe-updates模式中，如果where后跟的条件不是主键id，那么就会出现这种错误。<br>解决方式有两种</p>
-<span id="more"></span>
-<pre><code>1、
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">SET SQL_SAFE_UPDATES</span> = 0;</span><br></pre></td></tr></table></figure>
-执行该命令更改mysql数据库模式。
+        <p>大晚上删数据库学到的- =。<br>Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.<br>To disable safe mode, toggle the option in Preferences -&gt; SQL Editor and reconnect.<br>mysql在执行删除更新语句时报这种错误，是因为在mysql在safe-updates模式中，如果where后跟的条件不是主键id，那么就会出现这种错误。<br>解决方式有两种<br><span id="more"></span><br>     1、<br>     <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">SET SQL_SAFE_UPDATES</span> = 0;</span><br></pre></td></tr></table></figure><br>     执行该命令更改mysql数据库模式。</p>
+<pre><code> 2、在where判断条件中跟上主键id    例如：
 
-2、在where判断条件中跟上主键id    例如：
-
-<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> dbname.tbname <span class="keyword">where</span> UserName=<span class="string">&#x27;zhangsan&#x27;</span> <span class="keyword">and</span> ID&gt;=<span class="number">0</span>;</span><br></pre></td></tr></table></figure></code></pre><p>PS：发这篇还顺便发现了个问题，hexo博客title中不能含有英文冒号！</p>
+ <figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> dbname.tbname <span class="keyword">where</span> UserName=<span class="string">&#x27;zhangsan&#x27;</span> <span class="keyword">and</span> ID&gt;=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+</code></pre><p>PS：发这篇还顺便发现了个问题，hexo博客title中不能含有英文冒号！</p>
 
       
 
@@ -532,19 +528,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,11 +592,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

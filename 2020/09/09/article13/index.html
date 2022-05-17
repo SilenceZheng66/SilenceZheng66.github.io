@@ -71,7 +71,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -209,16 +209,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我认为讲的很详细的对RequestDispatcher的解释，记录一下。<br>转自：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/35d9e05d5989">https://www.jianshu.com/p/35d9e05d5989</a>  （翻译）<br>英文原博：<a target="_blank" rel="noopener" href="https://www.javatpoint.com/requestdispatcher-in-servlet">https://www.javatpoint.com/requestdispatcher-in-servlet</a><br>下面是简单总结：</p>
-<span id="more"></span>
-<p>请求调度器 接口 提供调度request到另一个资源（servlet/jsp/html）的功能。<br>该接口也可以用incloude方法包含另一个资源（servlet/jsp/html）的内容。它是servlet协作的一种方式。<br>在RequestDispatcher接口中定义了两种方法： forward和include</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我认为讲的很详细的对RequestDispatcher的解释，记录一下。<br>转自：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/35d9e05d5989">https://www.jianshu.com/p/35d9e05d5989</a>  （翻译）<br>英文原博：<a target="_blank" rel="noopener" href="https://www.javatpoint.com/requestdispatcher-in-servlet">https://www.javatpoint.com/requestdispatcher-in-servlet</a><br>下面是简单总结：<br><span id="more"></span><br>请求调度器 接口 提供调度request到另一个资源（servlet/jsp/html）的功能。<br>该接口也可以用incloude方法包含另一个资源（servlet/jsp/html）的内容。它是servlet协作的一种方式。<br>在RequestDispatcher接口中定义了两种方法： forward和include</p>
 <p><strong>forward</strong><br>如下图所示，servlet2的response发送给客户端。而servlet1的response不会显示给用户。</p>
 <p><img src="/assets/post_img/article13/forward.png" alt="forward"></p>
 <p>ServletRequest接口的getRequestDispatcher（）方法返回RequestDispatcher的对象。句法：</p>
 <p><code>public RequestDispatcher getRequestDispatcher(String resource);</code>  </p>
 <p>例子:</p>
 <pre><code>RequestDispatcher requestDispatcher = request.getRequestDispatcher(&quot;/sessionLoginDemo/login.jsp&quot;);//得到转发器
-requestDispatcher.forward(request, response);//转发（调度）请求给/sessionLoginDemo/login.jsp 并由login.jsp发送response给客户端。</code></pre><p><strong>include</strong><br>如下图所示，servlet2的response包含在（正在发送给客户端的）servlet1的response包中。</p>
+requestDispatcher.forward(request, response);//转发（调度）请求给/sessionLoginDemo/login.jsp 并由login.jsp发送response给客户端。
+</code></pre><p><strong>include</strong><br>如下图所示，servlet2的response包含在（正在发送给客户端的）servlet1的response包中。</p>
 <p><img src="/assets/post_img/article13/include.png" alt="include"></p>
 
       
@@ -542,19 +541,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,11 +605,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

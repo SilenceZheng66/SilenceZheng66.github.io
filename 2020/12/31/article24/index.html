@@ -67,7 +67,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -211,27 +211,21 @@
 <p>语法： enumerate(sequence, [start=0])</p>
 <p>参数： </p>
 <ul>
-<li>sequence – 一个序列、迭代器或其他支持迭代对象。</li>
-<li>start – 下标起始位置。<br>该方法返回枚举对象。</li>
+<li>sequence — 一个序列、迭代器或其他支持迭代对象。</li>
+<li>start — 下标起始位置。<br>该方法返回枚举对象。</li>
 </ul>
-<p>实例：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;seq = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>]</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> i, <span class="keyword">element</span> <span class="keyword">in</span> enumerate(seq):</span><br><span class="line">...     print i, <span class="keyword">element</span></span><br><span class="line">... </span><br><span class="line"><span class="number">0</span> <span class="literal">one</span></span><br><span class="line"><span class="number">1</span> <span class="literal">two</span></span><br><span class="line"><span class="number">2</span> <span class="literal">three</span></span><br></pre></td></tr></table></figure>
-
+<p>实例：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;seq = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>]</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> i, <span class="keyword">element</span> <span class="keyword">in</span> enumerate(seq):</span><br><span class="line">...     print i, <span class="keyword">element</span></span><br><span class="line">... </span><br><span class="line"><span class="number">0</span> <span class="literal">one</span></span><br><span class="line"><span class="number">1</span> <span class="literal">two</span></span><br><span class="line"><span class="number">2</span> <span class="literal">three</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>ord()</strong><br>ord() 函数是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对于Unicode对象）的配对函数，它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值，如果所给的 Unicode 字符超出了你的 Python 定义范围，则会引发一个 TypeError 的异常。</p>
 <p>语法： ord(c)</p>
 <p>返回值是对应的十进制整数。</p>
-<p>实例：</p>
-<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="function"><span class="title"><span class="built_in">ord</span></span>(<span class="string">&#x27;a&#x27;</span>)</span></span><br><span class="line"><span class="number">97</span></span><br><span class="line">&gt;&gt;&gt; <span class="function"><span class="title"><span class="built_in">ord</span></span>(<span class="string">&#x27;b&#x27;</span>)</span></span><br><span class="line"><span class="number">98</span></span><br><span class="line">&gt;&gt;&gt; <span class="function"><span class="title"><span class="built_in">ord</span></span>(<span class="string">&#x27;c&#x27;</span>)</span></span><br><span class="line"><span class="number">99</span></span><br></pre></td></tr></table></figure>
-
+<p>实例：<br><figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="function"><span class="title"><span class="built_in">ord</span></span>(<span class="string">&#x27;a&#x27;</span>)</span></span><br><span class="line"><span class="number">97</span></span><br><span class="line">&gt;&gt;&gt; <span class="function"><span class="title"><span class="built_in">ord</span></span>(<span class="string">&#x27;b&#x27;</span>)</span></span><br><span class="line"><span class="number">98</span></span><br><span class="line">&gt;&gt;&gt; <span class="function"><span class="title"><span class="built_in">ord</span></span>(<span class="string">&#x27;c&#x27;</span>)</span></span><br><span class="line"><span class="number">99</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>shuffle()</strong><br>shuffle() 方法将序列的所有元素随机排序。</p>
 <p>语法(注意：shuffle()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法)：<br>import random<br>random.shuffle (lst )</p>
 <p>参数： </p>
 <ul>
-<li>lst – 可以是一个列表。<br>该方法没有返回值。</li>
+<li>lst — 可以是一个列表。<br>该方法没有返回值。</li>
 </ul>
-<p>实例：</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">list = [<span class="number">20</span>, <span class="number">16</span>, <span class="number">10</span>, <span class="number">5</span>]</span><br><span class="line">random.<span class="built_in">shuffle</span>(list)</span><br><span class="line">print <span class="string">&quot;随机排序列表 : &quot;</span>,  list</span><br><span class="line"></span><br><span class="line">random.<span class="built_in">shuffle</span>(list)</span><br><span class="line">print <span class="string">&quot;随机排序列表 : &quot;</span>,  list</span><br><span class="line"></span><br><span class="line">输出结果为：</span><br><span class="line">随机排序列表 :  [<span class="number">16</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">20</span>]</span><br><span class="line">随机排序列表 :  [<span class="number">16</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">10</span>]</span><br></pre></td></tr></table></figure>
-
+<p>实例：<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">list = [<span class="number">20</span>, <span class="number">16</span>, <span class="number">10</span>, <span class="number">5</span>]</span><br><span class="line">random.<span class="built_in">shuffle</span>(list)</span><br><span class="line">print <span class="string">&quot;随机排序列表 : &quot;</span>,  list</span><br><span class="line"></span><br><span class="line">random.<span class="built_in">shuffle</span>(list)</span><br><span class="line">print <span class="string">&quot;随机排序列表 : &quot;</span>,  list</span><br><span class="line"></span><br><span class="line">输出结果为：</span><br><span class="line">随机排序列表 :  [<span class="number">16</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">20</span>]</span><br><span class="line">随机排序列表 :  [<span class="number">16</span>, <span class="number">5</span>, <span class="number">20</span>, <span class="number">10</span>]</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -550,19 +544,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,11 +608,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

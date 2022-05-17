@@ -69,7 +69,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -207,26 +207,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天用swing写了一个小项目，发现idea编写swing项目比起eclipse来说也是方便了不少，<br>以前只觉得javafx牛逼，现在发现swing也还不错，有了idea内置的可视化编辑加持，对于<br>写个小图形界面十分好用。下面做简单分享。</p>
-<span id="more"></span>
-<p>快速创建swing项目：</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天用swing写了一个小项目，发现idea编写swing项目比起eclipse来说也是方便了不少，<br>以前只觉得javafx牛逼，现在发现swing也还不错，有了idea内置的可视化编辑加持，对于<br>写个小图形界面十分好用。下面做简单分享。<br><span id="more"></span><br>快速创建swing项目：</p>
 <ol>
 <li>new-&gt;Swing-&gt;GUI Form,打开form文件，会得到设计界面，左边为属性栏，<br>中间是界面呈现，右边是组件栏。</li>
 <li>fieldname为组件在代码中的id，text为显示内容，align属性设置布局方式。</li>
 <li>设计完成后在类中alt+insert选择FormMain可以生成main函数，但是建议另创建一个函数<br>存储该代码，在需要时调用。并且在idea中创建的swing项目会跟有一个.form文件，我个人理解<br>是用来存储界面样式，这样的项目在eclipse中是不能运行的，我尝试过添加form.rt的jar包进eclipse中<br>也并不能解决问题，所以idea编辑的swing项目还是不要到其他ide中运行比较好。</li>
 </ol>
-<p>为组件添加事件：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">close.addMouseListener(<span class="keyword">new</span> <span class="function"><span class="title">MouseAdapter</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="keyword">public</span> <span class="built_in">void</span> <span class="function"><span class="title">mouseClicked</span>(<span class="params">MouseEvent e</span>)</span> &#123;</span><br><span class="line">              jna.close();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>控制swing窗口大小和弹出位置：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">frame</span>.setSize(<span class="number">600</span>,<span class="number">500</span>);</span><br><span class="line"><span class="attribute">frame</span>.setPreferredSize(new Dimension(<span class="number">600</span>,<span class="number">500</span>));</span><br></pre></td></tr></table></figure>
-
-<p>窗口跳转方式：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">if</span> (isSuper==true)&#123;</span><br><span class="line">		<span class="comment">//跳转</span></span><br><span class="line">		<span class="selector-tag">frame</span><span class="selector-class">.dispose</span>();</span><br><span class="line">		<span class="selector-tag">new</span> <span class="selector-tag">superview</span>()<span class="selector-class">.back</span>();</span><br><span class="line">                   &#125;</span><br><span class="line">			</span><br></pre></td></tr></table></figure>
-
-<p>JList更新数据（用ArrayList list来维护数据）：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">back.get<span class="constructor">ShowList()</span>.set<span class="constructor">ListData(<span class="params">list</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>要使list可滚动可以将其放入滚动面板中。</p>
+<p>为组件添加事件：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">close.addMouseListener(<span class="keyword">new</span> <span class="function"><span class="title">MouseAdapter</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="keyword">public</span> <span class="built_in">void</span> <span class="function"><span class="title">mouseClicked</span>(<span class="params">MouseEvent e</span>)</span> &#123;</span><br><span class="line">              jna.close();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>控制swing窗口大小和弹出位置：<br><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">frame</span>.setSize(<span class="number">600</span>,<span class="number">500</span>);</span><br><span class="line"><span class="attribute">frame</span>.setPreferredSize(new Dimension(<span class="number">600</span>,<span class="number">500</span>));</span><br></pre></td></tr></table></figure></p>
+<p>窗口跳转方式：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">if</span> (isSuper==true)&#123;</span><br><span class="line">		<span class="comment">//跳转</span></span><br><span class="line">		<span class="selector-tag">frame</span><span class="selector-class">.dispose</span>();</span><br><span class="line">		<span class="selector-tag">new</span> <span class="selector-tag">superview</span>()<span class="selector-class">.back</span>();</span><br><span class="line">                   &#125;</span><br><span class="line">			</span><br></pre></td></tr></table></figure></p>
+<p>JList更新数据（用ArrayList list来维护数据）：<br><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">back.get<span class="constructor">ShowList()</span>.set<span class="constructor">ListData(<span class="params">list</span>)</span>;</span><br></pre></td></tr></table></figure><br>要使list可滚动可以将其放入滚动面板中。</p>
 <h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>关于javafx还是swing的问题<br>javafx比较新，Oracle2008年才推出的，功能比较强大，并且持续更新。swing是比较老的GUI框架，已经停止更新了。<br>但javafx的问题可能在于参考文档较少，使用的人也不多。虽然运行速度稍快，但swing下功夫也可以做出好看的界面，<br>如JB。所以我认为时下来说，swing并不算过时。</p>
 
       
@@ -554,19 +544,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,11 +608,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

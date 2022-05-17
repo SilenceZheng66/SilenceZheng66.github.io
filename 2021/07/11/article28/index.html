@@ -70,7 +70,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -208,8 +208,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>发个库存，前一阵在Mac上捣鼓PHP，不想用MAMP，就自己搭了一下，凑活能用吧～<br>本文的目的是实现类WAMP集成环境的配置效果。</p>
-<span id="more"></span>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>发个库存，前一阵在Mac上捣鼓PHP，不想用MAMP，就自己搭了一下，凑活能用吧～<br>本文的目的是实现类WAMP集成环境的配置效果。<br><span id="more"></span></p>
 <h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><ol>
 <li>下载MySQL社区版，下载地址：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/。">https://dev.mysql.com/downloads/mysql/。</a></li>
 <li>点击安装，会让你设置密码，或提供一个随机密码，如果提供随机密码一定要记住。</li>
@@ -230,8 +229,8 @@
 </ol>
 <h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><ol>
 <li>Mac有自带PHP，这里演示使用homebrew下载新版本PHP配置。</li>
-<li>brew install <a href="mailto:php@7.4">php@7.4</a>下载7.4版本的PHP。</li>
-<li>brew services start <a href="mailto:php@7.4">php@7.4</a>启动PHP服务。</li>
+<li>brew install php@7.4下载7.4版本的PHP。</li>
+<li>brew services start php@7.4启动PHP服务。</li>
 <li>打开.bash_profile配置文件，添加 export PATH=”/opt/homebrew/opt/php@7.4/bin/:$PATH”将刚下的PHP加入环境变量。（这里的意思就是在PATH前加入该路径，:是Mac中环境变量的分隔符，和windows中;等同。）</li>
 <li>打开zsh配置文件.zshrc，加入source ~/.bash_profile，使其刷新环境。</li>
 <li>source ～/.zshrc，输入php -v检查是否安装成功。</li>
@@ -566,19 +565,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -630,11 +629,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

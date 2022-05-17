@@ -69,7 +69,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -207,18 +207,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天尝试idea的MAVEN管理的时候发生了奇怪的事，在本来普通javaweb项目结构中运行畅通的项目放到<br>MAVEN中连报两次java.lang.NullPointerException，于是进行了一番研究，其实就是当一个对象<br>的值为空时，没有判断为空的情况。idea给出的自动解决办法并不好，于是记录下来以备后用。<br>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44543508/article/details/94589868">https://blog.csdn.net/qq_44543508/article/details/94589868</a></p>
-<span id="more"></span>
-<p>首先下面是报此错误的常见原因：</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天尝试idea的MAVEN管理的时候发生了奇怪的事，在本来普通javaweb项目结构中运行畅通的项目放到<br>MAVEN中连报两次java.lang.NullPointerException，于是进行了一番研究，其实就是当一个对象<br>的值为空时，没有判断为空的情况。idea给出的自动解决办法并不好，于是记录下来以备后用。<br>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44543508/article/details/94589868">https://blog.csdn.net/qq_44543508/article/details/94589868</a><br><span id="more"></span><br>首先下面是报此错误的常见原因：</p>
 <p>1、字符串变量未初始化</p>
 <p>2、接口类型的对象没有用具体的类初始化，比如：</p>
 <pre><code>Map map // 会报错
-Map map = new Map(); //则不会报错了</code></pre><p>3、当一个对象的值为空时，没有判断为空的情况。</p>
+Map map = new Map(); //则不会报错了
+</code></pre><p>3、当一个对象的值为空时，没有判断为空的情况。</p>
 <p>4、字符串与文字的比较，文字可以是一个字符串或Enum的元素，如下会出现异常</p>
 <pre><code>String str = null;
 if（str.equals（“Test”））&#123;
 //这里的代码将不会被触发，因为会抛出java.lang.NullPointerException异常。
-&#125;</code></pre><p>5、优先使用String.valueOf（）方法代替toString（）<br>当程序代码需要对象的字符串表示形式时，请避免使用该对象的toString方法。如果你的对象的引用等于null，<br>NullPointerException则会抛出，使用静态String.valueOf方法，该方法不会抛出任何异常并打印”null”</p>
+&#125;
+</code></pre><p>5、优先使用String.valueOf（）方法代替toString（）<br>当程序代码需要对象的字符串表示形式时，请避免使用该对象的toString方法。如果你的对象的引用等于null，<br>NullPointerException则会抛出，使用静态String.valueOf方法，该方法不会抛出任何异常并打印”null”</p>
 <p>6、class被声明了类型， 默认 class = null; 这样在调用class中方法的时候系统只能给你个空指针异常， 给其实例化就好了：class = new Class();</p>
 <p>7、返回null，方法的返回值不要定义成为一般的类型，而是用数组。这样如果想要返回null的时候就能避免许多不必要的NullPointerException</p>
 <p>我遇到的情况属于3、当一个对象的值为空时，没有判断为空的情况。<br>下面来看实例。</p>
@@ -231,7 +231,8 @@ while (rs.next())&#123;
 &#125;
 System.out.println(stuClass);
 return stuClass;
-&#125;</code></pre><p>这是我一开始写的代码，其中rs只是声明并未赋值，故在rs.next处报错了.<br>idea给出的快速解决办法是加入 <code>assert rs!=null</code>,但因为assert只适合调试并不适合写入<br>业务逻辑,所以我不想使用assert来解决这一报错.(关于为什么assert不适合写入业务逻辑请自行搜索”assert陷阱”)</p>
+&#125;
+</code></pre><p>这是我一开始写的代码，其中rs只是声明并未赋值，故在rs.next处报错了.<br>idea给出的快速解决办法是加入 <code>assert rs!=null</code>,但因为assert只适合调试并不适合写入<br>业务逻辑,所以我不想使用assert来解决这一报错.(关于为什么assert不适合写入业务逻辑请自行搜索”assert陷阱”)</p>
 <p>于是我将代码改成下面这样:</p>
 <pre><code>if(rs!=null)&#123;
         while (rs.next())&#123;
@@ -241,7 +242,8 @@ return stuClass;
     &#125;else &#123;
         System.out.println(&quot;null error!&quot;);
     &#125;
-    return stuClass;&#125;</code></pre><p>再运行,无报错显示.</p>
+    return stuClass;&#125;
+</code></pre><p>再运行,无报错显示.</p>
 <p>然后插一个图结束这篇吧~<br><img src="/assets/post_img/article10/exception.png" alt="EXCEPTION"></p>
 
       
@@ -561,19 +563,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,11 +627,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

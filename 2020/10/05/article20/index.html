@@ -67,7 +67,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -205,9 +205,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近做了下Linux上的网络诊断，Ubantu和CentOS用了一下，<br>感觉还是Ubantu更好用些，下面写点简单命令行操作用来给自己记录一下。</p>
-<span id="more"></span>
-<p><strong>复制</strong><br>cp–该命令的功能是将给出的文件或目录拷贝到另一文件或目录中。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近做了下Linux上的网络诊断，Ubantu和CentOS用了一下，<br>感觉还是Ubantu更好用些，下面写点简单命令行操作用来给自己记录一下。<br><span id="more"></span><br><strong>复制</strong><br>cp—该命令的功能是将给出的文件或目录拷贝到另一文件或目录中。</p>
 <p>语法： cp [选项] 源文件或目录 目标文件或目录<br>说明：该命令把指定的源文件复制到目标文件或把多个源文件复制到目标目录中。</p>
 <p>该命令的各选项含义如下：</p>
 <ul>
@@ -220,13 +218,13 @@
 <li>-l 不作拷贝，只是链接文件。</li>
 </ul>
 <p>为防止用户在不经意的情况下用cp命令破坏另一个文件，如用户指定的目标文件名已存在，用cp命令拷贝文件后，这个文件就会被新源文件覆盖，<br>因此，建议用户在使用cp命令拷贝文件时，最好使用i选项。</p>
-<p><strong>新建文件</strong><br>touch–在当前工作目录底下新建一个文件</p>
+<p><strong>新建文件</strong><br>touch—在当前工作目录底下新建一个文件</p>
 <p>语法：touch 文件名.后缀</p>
-<p><strong>删除</strong><br>rm–删除文件和文件夹</p>
+<p><strong>删除</strong><br>rm—删除文件和文件夹</p>
 <p>语法：rm [选项] 文件名或文件夹名</p>
 <p>该命令的各选项含义如下：</p>
 <ul>
-<li>-f、–force    强力删除，不要求确认</li>
+<li>-f、—force    强力删除，不要求确认</li>
 <li>-i        每删除一个文件或进入一个子目录都要求确认</li>
 <li>-I        在删除超过三个文件或者递归删除前要求确认</li>
 <li>-r、-R    递归删除子目录</li>
@@ -234,8 +232,16 @@
 <li>-v、-verbose    显示删除结果</li>
 </ul>
 <p>下面删除文件夹的例子加深理解：<br>1 删除文件夹的内容包括文件夹：<br>rm -rf 文件夹的名字       （-r 是 循环的意思， f是不询问的意思）</p>
-<p>2 删除文件夹的内容不包括文件夹：<br>rm -rf  文件夹的名字/*      (后面加上/*表示删除内容不删除文件夹)</p>
-<p><strong>ls输出的文件和目录颜色含义（默认）</strong><br><font color=#000000 size=5 face="黑体">白色</font>：表示普通文件<br><font color=#0000FF size=5 face="黑体">蓝色</font>：表示目录<br><font color=#228B22 size=5 face="黑体">绿色</font>：表示可读执行文件<br><font color=#FF4500 size=5 face="黑体">红色</font>：表示压缩文件<br><font color=#AFEEEE size=5 face="黑体">浅蓝色</font>：链接文件<br><font color=#DC143C size=5 face="黑体">红色闪烁</font>：表示链接的文件有问题<br><font color=#FFFF00 size=5 face="黑体">黄色</font>：表示设备文件<br><font color=grey size=5 face="黑体">灰色</font>：表示其他文件</p>
+<p>2 删除文件夹的内容不包括文件夹：<br>rm -rf  文件夹的名字/<em>      (后面加上/</em>表示删除内容不删除文件夹)</p>
+<p><strong>ls输出的文件和目录颜色含义（默认）</strong></p>
+<p><font color=#000000 size=5 face="黑体">白色</font>：表示普通文件</p>
+<p><font color=#0000FF size=5 face="黑体">蓝色</font>：表示目录</p>
+<p><font color=#228B22 size=5 face="黑体">绿色</font>：表示可读执行文件</p>
+<p><font color=#FF4500 size=5 face="黑体">红色</font>：表示压缩文件</p>
+<p><font color=#AFEEEE size=5 face="黑体">浅蓝色</font>：链接文件</p>
+<p><font color=#DC143C size=5 face="黑体">红色闪烁</font>：表示链接的文件有问题</p>
+<p><font color=#FFFF00 size=5 face="黑体">黄色</font>：表示设备文件</p>
+<p><font color=grey size=5 face="黑体">灰色</font>：表示其他文件</p>
 <p>这个颜色可以在配置文件中修改。</p>
 
       
@@ -555,19 +561,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,11 +625,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

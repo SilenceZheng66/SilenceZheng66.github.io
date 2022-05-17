@@ -67,7 +67,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -205,15 +205,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Mysql导入正常编码文件的方法就不赘述了，今天主要说一说Mysql导入中文csv的解决办法，折腾了一下午终于解决了。<br>需要使用到的工具有：Notepad++，Mysql8.0<br>这次实践的经验是：Windows记事本真是垃圾。<br>后附关于utf8和utf8mb4编码的二三事。</p>
-<span id="more"></span>
-<p>1.错误尝试汇总</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Mysql导入正常编码文件的方法就不赘述了，今天主要说一说Mysql导入中文csv的解决办法，折腾了一下午终于解决了。<br>需要使用到的工具有：Notepad++，Mysql8.0<br>这次实践的经验是：Windows记事本真是垃圾。<br>后附关于utf8和utf8mb4编码的二三事。<br><span id="more"></span><br>1.错误尝试汇总</p>
 <p>之前一直使用windows自带的记事本改编码格式，但是这次导入csv文件时怎么都会报错，1300和1366都会出现，就发现可能是编码格式没有改过来导致的。</p>
 <p>测试一：<br>创建Charset为国标2312的表，然后导入gb2312的csv文件，这样做正常情况下可以成功，但遇到生僻字时就会发生报错，故舍弃。<br>测试二：<br>创建utf8mb4的表，用windows记事本更改编码格式为utf8后进行导入，报错，查询各种资料后仍无结果，就开始考虑是不是编码格式没变过去的原因，<br>因为utf8也可以表示中文。</p>
 <p>2.正确解决办法</p>
-<p>下载notepad++（虽然这个软件的作者是个湾湾而且辱华，用起来有点膈应，但是因为没找到合适替代就先暂时使用了。),使用notepad++更改编码格式为utf8，</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> data infile <span class="string">&#x27;C:/ProgramData/MySQL/MySQL Server 8.0/Data/db2.csv&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">into</span> <span class="keyword">table</span> tb2 <span class="type">char</span> <span class="keyword">set</span> utf8mb4</span><br><span class="line"></span><br><span class="line">fields terminated <span class="keyword">by</span> <span class="string">&#x27;,&#x27;</span> optionally enclosed <span class="keyword">by</span> <span class="string">&#x27;&quot;&#x27;</span> escaped <span class="keyword">by</span> <span class="string">&#x27;&quot;&#x27;</span></span><br><span class="line"></span><br><span class="line">lines terminated <span class="keyword">by</span> <span class="string">&#x27;\r\n&#x27;</span></span><br><span class="line">ignore <span class="number">1</span> lines;</span><br></pre></td></tr></table></figure>
-<p>用以上SQL代码导入csv到tb2即可。</p>
+<p>下载notepad++（虽然这个软件的作者是个湾湾而且辱华，用起来有点膈应，但是因为没找到合适替代就先暂时使用了。),使用notepad++更改编码格式为utf8，<br><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> data infile <span class="string">&#x27;C:/ProgramData/MySQL/MySQL Server 8.0/Data/db2.csv&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">into</span> <span class="keyword">table</span> tb2 <span class="type">char</span> <span class="keyword">set</span> utf8mb4</span><br><span class="line"></span><br><span class="line">fields terminated <span class="keyword">by</span> <span class="string">&#x27;,&#x27;</span> optionally enclosed <span class="keyword">by</span> <span class="string">&#x27;&quot;&#x27;</span> escaped <span class="keyword">by</span> <span class="string">&#x27;&quot;&#x27;</span></span><br><span class="line"></span><br><span class="line">lines terminated <span class="keyword">by</span> <span class="string">&#x27;\r\n&#x27;</span></span><br><span class="line">ignore <span class="number">1</span> lines;</span><br></pre></td></tr></table></figure><br>用以上SQL代码导入csv到tb2即可。</p>
 <p>3.关于utf8和utf8mb4的一些资料，供初学者参考。</p>
 <p>UTF8:<br>Unicode为万国码，目的是为了可以在一篇文章中同时出现多种不同国家的文字，且不管使用什么设备，在哪个国家，都能让其正确显示文字。<br>UTF-8编码中的汉字，由3~4个字节表示，大部分为3个字节。基本汉字的编码范围为4E00-9FA5，如4E00转换为二进制为01001110 00000000，从后往前套模板发现最少需要三个字节。<br>Unicode标准里，汉字被整成了CJK概念，中日韩统一表意文字，简体字和繁体字被弄到了一块，如“国”和“國”编码分别为56FD和570B，两个编码挨得非常近。<br>MySQL在5.5.3之后增加了这个utf8mb4的编码，mb4就是most bytes 4的意思，专门用来兼容四字节的unicode。好在utf8mb4是utf8的超集，除了将编码改为utf8mb4外不需要做其他转换。当然，为了节省空间，一般情况下使用utf8也就够了。</p>
 <p>UTF8和UTF8mb4:<br>既然utf8能够存下大部分中文汉字,那为什么还要使用utf8mb4呢? 原来mysql支持的 utf8 编码最大字符长度为 3 字节，如果遇到 4 字节的宽字符就会插入异常了。三个字节的 UTF-8 最大能编码的 Unicode 字符是 0xffff，也就是 Unicode 中的基本多文种平面(BMP)。也就是说，任何不在基本多文本平面的 Unicode字符，都无法使用 Mysql 的 utf8 字符集存储。包括 Emoji 表情(Emoji 是一种特殊的 Unicode 编码，常见于 ios 和 android 手机上)，和很多不常用的汉字，以及任何新增的 Unicode 字符等等。</p>
@@ -535,19 +531,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -599,11 +595,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

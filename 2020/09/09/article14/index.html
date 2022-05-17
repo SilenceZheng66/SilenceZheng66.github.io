@@ -68,7 +68,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -206,9 +206,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这几天开始学习web框架了，发现很多术语和缩写自己竟然完全不知道，<br>想到很多刚入门的人学起来应该也是这种感觉，就写一篇记录一下，<br>方便大家使用。</p>
-<span id="more"></span>
-<p><strong>Javabean</strong><br>JavaBean是一个遵循特定写法的Java类，它通常具有如下特点：</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这几天开始学习web框架了，发现很多术语和缩写自己竟然完全不知道，<br>想到很多刚入门的人学起来应该也是这种感觉，就写一篇记录一下，<br>方便大家使用。<br><span id="more"></span><br><strong>Javabean</strong><br>JavaBean是一个遵循特定写法的Java类，它通常具有如下特点：</p>
 <ul>
 <li>这个Java类必须具有一个无参的构造函数</li>
 <li>属性必须私有化。</li>
@@ -233,18 +231,14 @@
 <p>在面向对象设计过程中，有一些”套路”用于解决特定问题称为模式。<br>DAO 模式提供了访问关系型数据库系统所需操作的接口，将数据访问和业务逻辑分离对上层提供面向对象的数据访问接口。</p>
 <p>从以上 DAO 模式使用可以看出，DAO 模式的优势就在于它实现了两次隔离。</p>
 <ol>
-<li><p>隔离了数据访问代码和业务逻辑代码。业务逻辑代码直接调用DAO方法即可，完全感觉不到数据库表的存在。分工明确，数据访问层代码变化不影响业务逻辑代码,这符合单一职能原则，降低了藕合性，提高了可复用性。</p>
-</li>
+<li>隔离了数据访问代码和业务逻辑代码。业务逻辑代码直接调用DAO方法即可，完全感觉不到数据库表的存在。分工明确，数据访问层代码变化不影响业务逻辑代码,这符合单一职能原则，降低了藕合性，提高了可复用性。</li>
 <li><p>隔离了不同数据库实现。采用面向接口编程，如果底层数据库变化，如由 MySQL 变成 Oracle 只要增加 DAO 接口的新实现类即可，原有 MySQ 实现不用修改。这符合 “开-闭” 原则。该原则降低了代码的藕合性，提高了代码扩展性和系统的可移植性。<br>一个典型的DAO 模式主要由以下几部分组成。</p>
 </li>
 <li><p>DAO接口： 把对数据库的所有操作定义成抽象方法，可以提供多种实现。</p>
 </li>
-<li><p>DAO 实现类： 针对不同数据库给出DAO接口定义方法的具体实现。</p>
-</li>
-<li><p>实体类：用于存放与传输对象数据。</p>
-</li>
-<li><p>数据库连接和关闭工具类： 避免了数据库连接和关闭代码的重复使用，方便修改。</p>
-</li>
+<li>DAO 实现类： 针对不同数据库给出DAO接口定义方法的具体实现。</li>
+<li>实体类：用于存放与传输对象数据。</li>
+<li>数据库连接和关闭工具类： 避免了数据库连接和关闭代码的重复使用，方便修改。</li>
 </ol>
 <p>下面放一个例子：<br>DAO 接口:</p>
 <pre><code>public interface PetDao &#123;
@@ -252,7 +246,8 @@
      * 查询所有宠物
      */
     List&lt;Pet&gt; findAllPets() throws Exception;
-&#125;</code></pre><p>DAO 实现类:</p>
+&#125;
+</code></pre><p>DAO 实现类:</p>
 <pre><code>public class PetDaoImpl extends BaseDao implements PetDao &#123;
     /**
      * 查询所有宠物
@@ -279,7 +274,8 @@
         BaseDao.closeAll(conn, stmt, rs);
         return petList;
     &#125;
-&#125;</code></pre><p>宠物实体类(里面get/set方法就不列出了)：</p>
+&#125;
+</code></pre><p>宠物实体类(里面get/set方法就不列出了)：</p>
 <pre><code>public class Pet &#123;
     private Integer id;    
     private Integer ownerId;    //主人ID
@@ -289,7 +285,8 @@
     private int health;    //健康值
     private int love;    //爱心值
     private Date birthday;    //生日
-&#125;</code></pre><p>连接数据库：</p>
+&#125;
+</code></pre><p>连接数据库：</p>
 <pre><code>public class BaseDao &#123;
     private static String driver=&quot;com.mysql.jdbc.Driver&quot;;
     private static String url=&quot;jdbc:mysql://127.0.0.1:3306/epet&quot;;
@@ -345,7 +342,8 @@
         return 0;
     &#125;
 
-&#125;</code></pre>
+&#125;
+</code></pre>
       
 
       
@@ -667,19 +665,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -731,11 +729,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">

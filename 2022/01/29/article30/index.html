@@ -68,7 +68,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 38
+			总文章数 39
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -216,20 +216,12 @@
 <li>使用 Spring MVC 提供 Web 内容</li>
 <li>保护 Web 应用程序，确认用户 </li>
 </ul>
-<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/">https://docs.spring.io/spring-boot/docs/current/reference/html/</a></p>
-<span id="more"></span>
-
-
-
-
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>先从各种guide入手，先对Spring程序结构体系有一个宏观了解，再结合文档进行精细化学习，文档地址（2.6.2版本）：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/">https://docs.spring.io/spring-boot/docs/current/reference/html/</a><br><span id="more"></span></p>
 <h2 id="第一个demo"><a href="#第一个demo" class="headerlink" title="第一个demo"></a>第一个demo</h2><p><a target="_blank" rel="noopener" href="https://spring.io/quickstart">https://spring.io/quickstart</a></p>
 <ol>
 <li>@SpringBootApplication、@RestController、@GetMapping</li>
 <li>本地配置tomcat要开权限，不然idea不能启动tomcat</li>
 <li>代码示例：<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@SpringBootApplication</span></span><br><span class="line"><span class="variable">@RestController</span></span><br><span class="line">public class DemoApplication &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">public</span> <span class="selector-tag">static</span> <span class="selector-tag">void</span> <span class="selector-tag">main</span>(String[] args) &#123;</span><br><span class="line">		<span class="selector-tag">SpringApplication</span><span class="selector-class">.run</span>(DemoApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@<span class="selector-tag">GetMapping</span>(<span class="string">&quot;/hello&quot;</span>)</span><br><span class="line">	<span class="selector-tag">public</span> <span class="selector-tag">String</span> <span class="selector-tag">hello</span>(<span class="variable">@RequestParam</span>(value = <span class="string">&quot;name&quot;</span>, defaultValue = <span class="string">&quot;World&quot;</span>) String name) &#123;</span><br><span class="line">		<span class="selector-tag">return</span> <span class="selector-tag">String</span><span class="selector-class">.format</span>(<span class="string">&quot;Hello %s!&quot;</span>, name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ol>
 <h2 id="构建RESTful风格的服务"><a href="#构建RESTful风格的服务" class="headerlink" title="构建RESTful风格的服务"></a>构建RESTful风格的服务</h2><p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/rest-service/#initial">https://spring.io/guides/gs/rest-service/#initial</a></p>
@@ -282,7 +274,7 @@
 <blockquote>
 <p>${user.name}表示“获取用户的变量，并调用其getName()方法”<br>通过标签中的th:text属性来填充该标签的一段内容，意思是$表达式只能写在th标签内部,不然不会生效,使用th:text标签的值替换div标签里面的值,至于div里面的原有的值只是为了给前端开发时做展示用的.这样的话很好的做到了前后端分离.意味着div标签中的内容会被表达式${session.book}的值所替代，无论模板中它的内容是什么，之所以在模板中“多此一举“地填充它的内容，完全是为了它能够作为原型在浏览器中直接显示出来。<br>访问spring-mvc中model的属性，语法格式为“${}”，如${user.id}可以获取model里的user对象的id属性<br>为了模板更加易用，Thymeleaf还提供了一系列Utility对象（内置于Context中），可以通过#直接访问。例如${ #dates.format(dateVar, ‘dd/MMM/yyyy HH:mm’)} 使用java.util.Date的功能方法类</p>
 </blockquote>
-<ol start="8">
+<ol>
 <li>结果是智能允许名为user密码为password的用户登录</li>
 </ol>
 
@@ -607,19 +599,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
+                <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -671,11 +663,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
