@@ -16,7 +16,7 @@
 <meta property="og:description" content="Elastic Search7.x学习笔记 前言 入门 深入  1. 前言：先从官方入门视频、官方文档和一些入门博客入手学习。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-13T07:41:30.000Z">
-<meta property="article:modified_time" content="2022-04-12T05:32:49.369Z">
+<meta property="article:modified_time" content="2022-05-18T13:42:11.126Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="ElasticSearch">
 <meta name="twitter:card" content="summary">
@@ -185,7 +185,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">9.1k字</span>
+        <span class="post-count">11.5k字</span>
       </span>
     </span>
 
@@ -194,7 +194,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">36分</span>
+        <span class="post-count">46分</span>
       </span>
     </span>
 </div>
@@ -468,8 +468,107 @@ docker rm kib01-test
 <p>如果9200或者改成其他端口的ES暴露在公网，一旦被扫到，集群及数据会受到灾难式影响。</p>
 <h4 id="3-2-1-X-Pack"><a href="#3-2-1-X-Pack" class="headerlink" title="3.2.1. X-Pack"></a>3.2.1. X-Pack</h4><h5 id="3-2-1-1-啥是X-Pack"><a href="#3-2-1-1-啥是X-Pack" class="headerlink" title="3.2.1.1. 啥是X-Pack"></a>3.2.1.1. 啥是X-Pack</h5><p>X-Pack是Elastic Stack扩展功能，提供安全性，警报，监视，报告，机器学习和许多其他功能。 ES7.0+之后，默认情况下，当安装Elasticsearch时，会安装X-Pack，无需单独再安装（也就是内置了）。自6.8以及7.1+版本之后，基础级安全永久免费。</p>
 <p>基础级安全包括：加密通信、基于角色的访问控制、文件和原生身份验证、Kibana功能控制、Kibana Spaces和API密钥管理。</p>
-<h5 id="3-2-1-2-如何配置X-Pack"><a href="#3-2-1-2-如何配置X-Pack" class="headerlink" title="3.2.1.2. 如何配置X-Pack"></a>3.2.1.2. 如何配置X-Pack</h5><p>默认情况下，拥有安全免费许可证时，Elasticsearch安全功能被禁用。 要启用安全功能，需要设置xpack.security.enabled为true。</p>
+<p>安全等级有：Minimal、Basic和Basic+TLS for REST，基础级指Basic。</p>
+<p>Basic security比Minimal security多了节点间的TLS（加密通信和身份验证）。</p>
+<h5 id="3-2-1-2-如何配置X-Pack（基础级安全）"><a href="#3-2-1-2-如何配置X-Pack（基础级安全）" class="headerlink" title="3.2.1.2. 如何配置X-Pack（基础级安全）"></a>3.2.1.2. 如何配置X-Pack（基础级安全）</h5><p>默认情况下，拥有安全免费许可证时，Elasticsearch安全功能被禁用。 要启用安全功能，需要先在es主配置文件中添加<code>xpack.security.enabled: true</code>。生产模式下若进行此配置则必须完成Basic security的所有配置，否则集群无法启动。</p>
+<p><strong>一、为内建用户创建密码</strong></p>
+<p>在Minimal和Basic下，只需要为elastic和kibana_system用户创建密码。</p>
+<p>1、在集群的每个节点上启动Elasticsearch</p>
+<p>2、<code>./bin/elasticsearch-setup-passwords interactive</code> 为每个用户创建密码，注意该命令可以在集群的任一节点上运行，但一个集群只能运行一次。interactive换成auto会自动生成密码，该命令只能运行一次！</p>
+<p><strong>二、使用用户名和密码登录Kibana</strong></p>
+<p>当安全特性被启动后，用户必须通过合法的用户名和密码才能登录Kibana。刚刚配置好的内建用户kibana_system用于配置Kibana的某些后台任务，但并不能作为个人用户登录Kibana界面。要想登录Kibana界面需要使用超级用户”elastic”。</p>
+<p>1、在kibana.yml中添入<code>elasticsearch.username: &quot;kibana_system&quot;</code></p>
+<p>2、<code>./bin/kibana-keystore create</code> 创建Kibana密钥库（keystone）</p>
+<p>3、<code>./bin/kibana-keystore add elasticsearch.password</code> 输入之前定义的密码</p>
+<p>4、重启Kibana</p>
+<p>5、使用”elastic”超级用户登录Kibana界面</p>
+<p><strong>三、配置节点间传输层安全（TLS）</strong></p>
+<p>在集群中有多个节点时，必须配置节点间的传输层安全！否则处于生产模式下的Elasticsearch集群不会被启动。该安全应用包含了节点间的通信加密和身份验证。</p>
+<p>（画外音，教程中出现传输层协议特指ES用于节点间交互的协议，transport用于区分http端口和节点间通信端口transport port，虽然TLS和transport port都出现了transport一词，但表示不同含义，我们在将TLS应用到http port和transport port）</p>
+<p><strong>四、将TLS应用到节点间加密通信</strong></p>
+<p>节点间的通信被transport模块处理，为了保护集群必须确保节点间通信的加密和验证工作正常，即互相的TLS。节点间通信使用证书确定身份，推荐做法是集群选择一个信任的CA，当新节点要加入集群时需要提供该CA的签名的证书。使用elasticsearch-certutil工具为集群生成CA。</p>
+<p>1、<code>./bin/elasticsearch-certutil ca</code>使用工具，提示后选择默认文件名”elastic-stack-ca.p12”，这个文件包含生成CA的公共证书和它为每个节点签名的私钥。</p>
+<p>2、为生成的CA选择一个密码，可以为空（非生产）。</p>
+<p>3、在同一个节点上运行<code>./bin/elasticsearch-certutil cert --ca elastic-stack-ca.p12</code> 该命令使用刚才生成的CA为集群上的节点们生成一个证书和一把私钥。</p>
+<p>4、 提示后首先输入CA的密码，然后为节点证书选择一个密码并使用默认文件名”elastic-certificates.p12”，这个文件包含了节点证书、节点私钥和CA证书。</p>
+<p>5、最后在集群的所有节点上，在elasticsearch的config目录中放入刚才生成的节点证书文件”elastic-certificates.p12”，他们都是相同的。</p>
+<p>以上步骤为生成CA和证书，下面开始布置加密节点间通信。由于Elasticseach会定期（默认5s）监视一些配置文件（包括CA和证书），所以不用停止集群就可以进行下列步骤。</p>
+<p>1、打开ES主配置文件，对所有集群中的节点配置统一的集群名称cluster.name，并对各个节点配置各自的节点名称node.name</p>
+<p>2、在所有节点的主配置文件下加入以下配置（由于默认证书文件名一致）</p>
+<pre><code>xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.verification_mode: certificate 
+xpack.security.transport.ssl.client_authentication: required
+xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
+xpack.security.transport.ssl.truststore.path: elastic-certificates.p12
+</code></pre><p>3、如果在创建节点证书（elastic-certificates.p12）时设定了密码，则进行以下两项配置将证书密码加入Elasticsearch密钥库（keystore），在所有节点上。</p>
+<p><code>./bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password</code></p>
+<p><code>./bin/elasticsearch-keystore add xpack.security.transport.ssl.truststore.secure_password</code></p>
+<p>4、重启整个集群，确保每个节点的ES都进行了重启，否则可能无法通信。</p>
+<p><strong>五、将TLS应用到HTTP层</strong></p>
+<p>之前已经将TLS在传输层进行了应用，现在要应用到HTTP层。分为两个部分，为Elasticsearch加密HTTP客户端通信和为Kibana加密HTTP客户端通信，Kibana部分包括浏览器与Kibana间的通信加密与Kibana与Elasticsearch间的通信加密。</p>
+<p>1、 停止各节点服务，在任一节点上ESHOME运行<code>./bin/elasticsearch-certutil http</code>。该命令生成一个zip压缩文件，其中包含用于 Elasticsearch 和 Kibana 的证书和密钥。每个文件夹都包含一个README.txt 解释如何使用这些文件。详细步骤如下：</p>
+<ol>
+<li>当询问您是否要生成 CSR 时，请输入n。</li>
+<li>当询问您是否要使用现有 CA 时，输入y。</li>
+<li>输入您的 CA 的路径。elastic-stack-ca.p12这是您为集群生成的文件的绝对路径。</li>
+<li>输入您的 CA 的密码。</li>
+<li>输入证书的到期值，您可以输入年、月或日的有效期。例如，输入90D表示90 天。</li>
+<li>当询问您是否要为每个节点生成一个证书时，输入y。节点的名称，如ESNODE-001等。每个证书都有自己的私钥，并针对特定的主机名或 IP 地址颁发。</li>
+<li>出现提示时，输入集群中第一个节点的名称，即生成节点证书（”elastic-certificates.p12”）时使用的节点名称。</li>
+<li>输入连接到您的第一个节点的所有主机名，这些主机名将作为 DNS 名称添加到证书的Subject Alternative Name（主题备用名称 SAN) 字段中。列出需要通过 HTTPS 连接到集群的每个主机名和变体。主机名如ZMC-MacBook-Air.local。</li>
+<li>输入客户端可用于连接到您的节点的 IP 地址，通常为本机地址。然后会有新增证书选项，选择确认为节点二创建。总之集群中的节点都需要有这些证书。</li>
+</ol>
+<p>2、为每个节点生成证书后，在出现提示时输入您的私钥密码，可以为空。</p>
+<p>3、解压生成的elasticsearch-ssl-http.zip文件。此压缩文件包含 Elasticsearch 和 Kibana 的目录。如果对多个节点创建了证书，那么elasticsearch目录下会根据节点名分为若干个子目录。</p>
+<pre><code>/elasticsearch
+|_ README.txt
+|_ http.p12
+|_ sample-elasticsearch.yml 
 
+/kibana
+|_ README.txt
+|_ elasticsearch-ca.pem
+|_ sample-kibana.yml
+</code></pre><p>4、在集群的每个节点上进行操作，复制<strong>对应的</strong>http.p12文件到ESHOME下config文件夹中，然后修改主配置文件，增加如下配置。注意一定要对应节点的文件。</p>
+<pre><code>xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.keystore.path: http.p12
+</code></pre><p>最后<code>./bin/elasticsearch-keystore add xpack.security.http.ssl.keystore.secure_password</code>添加之前设置的私钥密码到elasticsearch密钥库。</p>
+<p>5、启动ES，Elasticsearch加密HTTP客户端通信配置完毕。此时Kibana将无法使用，需要进行进一步加密配置。</p>
+<p>下面配置Kibana加密部分。</p>
+<p>1、第一部分创建的zip文件中包含elasticsearch-ca.pem文件，使用该文件配置Kibana使其信任HTTP 层的 Elasticsearch CA。复制该文件到Kibana的config目录下。</p>
+<p>2、在kibana.yml下增加并修改配置如下，指定认证文件目录，并提供Elasticsearch集群特定的HTTPS URL。目录可以用相对的，如config/.pem。</p>
+<pre><code>elasticsearch.ssl.certificateAuthorities: $KBN_PATH_CONF/elasticsearch-ca.pem
+elasticsearch.hosts: https://&lt;your_elasticsearch_host&gt;:9200
+</code></pre><p>3、重启Kibana使配置生效。如果配置了Elastic monitoring在集群上，也可以将监控功能加密（即通过HTTPS方式）。至此Kibana至ES加密配置完成，Kibana可以正常工作，但从浏览器访问时仍然是http连接。</p>
+<p>4、要对浏览器到Kibana间通信进行加密，首先需要为Kibana创建服务器证书和私钥。回到Elasticsearch目录下输入命令，</p>
+<p><code>./bin/elasticsearch-certutil csr -name kibana-server -dns example.com,www.example.com</code> 这个CSR中包含普通名称kibana-server和两个SAN，example.com和www.example.com。</p>
+<p>5、CSR即Certificate Signing Request，证书签名请求，它包含 CA 用于生成和签署安全证书的信息。上述命令生成一个名为csr-bundle.zip的压缩文件，目录如下。</p>
+<pre><code>/kibana-server
+|_ kibana-server.csr
+|_ kibana-server.key
+</code></pre><p>6、解压csr-bundle.zip文件，获取未签名的安全证书kibana-server.csr和未加密的私钥kibana-server.key。</p>
+<p>7、将kibana-server.csr证书签名请求发送给您的内部 CA 或受信任的 CA 进行签名以获得签名证书。签名文件可以是不同的格式，例如crt文件，即kibana-server.crt。这里可以选择使用openssl进行签名，<code>openssl  x509 -req -days 1800 -in kibana-server.csr -signkey kibana-server.key -out kibana-server.crt</code></p>
+<p>8、打开kibana.yml增加以下配置。同样，目录可以用相对的。</p>
+<pre><code>server.ssl.certificate: $KBN_PATH_CONF/kibana-server.crt
+server.ssl.key: $KBN_PATH_CONF/kibana-server.key
+server.ssl.enabled: true
+</code></pre><p>9、启动Kibana完成配置，配置完成后，则必须通过https连接Kibana。</p>
+<p><strong>六、配置Logstash适应HTTPS</strong></p>
+<p><code>bin/elasticsearch-certutil cert --ca elastic-stack-ca.p12 --ip 192.168.0.123 --name LOGSTASH-001</code></p>
+<p>复制证书到Logstash服务器。由于logstash不能使用PKCS#12类型的证书，运行命令<code>openssl pkcs12 -in LOGSTASH-001.p12 -clcerts -nokeys -chain -out ca.pem</code>转换证书格式。</p>
+<p>logstash.yml增加配置如下：</p>
+<pre><code>xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch.username: elastic
+xpack.monitoring.elasticsearch.password: weblog
+xpack.monitoring.elasticsearch.hosts: [&quot;https://192.168.0.xxx:9200&quot;]
+xpack.monitoring.elasticsearch.ssl.certificate_authority: &quot;/etc/logstash/ca.pem&quot;
+xpack.monitoring.elasticsearch.ssl.verification_mode: certificate
+xpack.monitoring.elasticsearch.sniffing: false
+</code></pre><p>Conf文件输出插件增加配置如下，并把http修改为https。</p>
+<pre><code>cacert =&gt; &quot;/etc/logstash/ca.pem&quot;
+ssl =&gt; true
+ssl_certificate_verification =&gt; false
+</code></pre>
       
 
       
