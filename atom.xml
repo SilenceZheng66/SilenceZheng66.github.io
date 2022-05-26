@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-05-22T13:37:48.246Z</updated>
+  <updated>2022-05-26T05:52:47.996Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaFX环境配置--MacOS</title>
+    <link href="http://silencezheng.top/2022/05/26/article40/"/>
+    <id>http://silencezheng.top/2022/05/26/article40/</id>
+    <published>2022-05-26T05:47:36.000Z</published>
+    <updated>2022-05-26T05:52:47.996Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>换了MacBook后想打开一下以前写的JavaFX程序，发现我的jdk1.8没有自带这个SDK（据说有打包的jdk），所以需要重新下载并在IDEA里配置，记录一下。<br><span id="more"></span></p><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>这里有ARM架构的SDK（Software Development Kit）<br><a href="https://gluonhq.com/products/javafx/">https://gluonhq.com/products/javafx/</a><br>我下载了18版本。</p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>到IDEA项目结构-&gt;Library中添加解压出来的sdk中的lib文件夹。</p><p>然后到运行配置里添加VM Options：<br><code>--module-path &quot;/xxx/javafx-sdk-18.0.1/lib&quot; --add-modules javafx.controls,javafx.fxml</code></p><p>理论上就可以运行了，但是因为我的Java版本是8，不知道是否因为版本不适配，会报错版本问题。所以我又配置了OpenJDK17（已经适配Arm平台了）。然后就可以运行了～</p><p><a href="https://www.oracle.com/java/technologies/downloads/#java17">OpenJDK17</a></p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>但是我运行成功后，原本程序的功能还是实现不了，Debug了一下发现定位在<code>System.getenv(&quot;COMPUTERNAME&quot;)</code>，原本的程序是在Windows平台写的，是不是MacOS没有这个环境变量呢？</p><p>在Terminal中输入<code>export</code>查看所有的环境变量，发现似乎应该在MacOS中可以使用<strong>HOME</strong>，为当前用户的根目录。修改后解决～</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;换了MacBook后想打开一下以前写的JavaFX程序，发现我的jdk1.8没有自带这个SDK（据说有打包的jdk），所以需要重新下载并在IDEA里配置，记录一下。&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
+    
+    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Markdown博客编写工具选择</title>
@@ -415,25 +436,6 @@
     <category term="Javascript" scheme="http://silencezheng.top/tags/Javascript/"/>
     
     <category term="Chrome" scheme="http://silencezheng.top/tags/Chrome/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux常用操作汇总</title>
-    <link href="http://silencezheng.top/2020/10/05/article20/"/>
-    <id>http://silencezheng.top/2020/10/05/article20/</id>
-    <published>2020-10-05T12:08:24.000Z</published>
-    <updated>2020-10-05T12:37:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近做了下Linux上的网络诊断，Ubantu和CentOS用了一下，<br>感觉还是Ubantu更好用些，下面写点简单命令行操作用来给自己记录一下。<br><span id="more"></span><br><strong>复制</strong><br>cp—该命令的功能是将给出的文件或目录拷贝到另一文件或目录中。</p><p>语法： cp [选项] 源文件或目录 目标文件或目录<br>说明：该命令把指定的源文件复制到目标文件或把多个源文件复制到目标目录中。</p><p>该命令的各选项含义如下：</p><ul><li>-a 该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR选项的组合。</li><li>-d 拷贝时保留链接。</li><li>-f 删除已经存在的目标文件而不提示。</li><li>-i 和f选项相反，在覆盖目标文件之前将给出提示要求用户确认。回答y时目标文件将被覆盖，是交互式拷贝。</li><li>-p 此时cp除复制源文件的内容外，还将把其修改时间和访问权限也复制到新文件中。</li><li>-r 若给出的源文件是一目录文件，此时cp将递归复制该目录下所有的子目录和文件。此时目标文件必须为一个目录名。</li><li>-l 不作拷贝，只是链接文件。</li></ul><p>为防止用户在不经意的情况下用cp命令破坏另一个文件，如用户指定的目标文件名已存在，用cp命令拷贝文件后，这个文件就会被新源文件覆盖，<br>因此，建议用户在使用cp命令拷贝文件时，最好使用i选项。</p><p><strong>新建文件</strong><br>touch—在当前工作目录底下新建一个文件</p><p>语法：touch 文件名.后缀</p><p><strong>删除</strong><br>rm—删除文件和文件夹</p><p>语法：rm [选项] 文件名或文件夹名</p><p>该命令的各选项含义如下：</p><ul><li>-f、—force    强力删除，不要求确认</li><li>-i        每删除一个文件或进入一个子目录都要求确认</li><li>-I        在删除超过三个文件或者递归删除前要求确认</li><li>-r、-R    递归删除子目录</li><li>-d、-dir    删除空目录</li><li>-v、-verbose    显示删除结果</li></ul><p>下面删除文件夹的例子加深理解：<br>1 删除文件夹的内容包括文件夹：<br>rm -rf 文件夹的名字       （-r 是 循环的意思， f是不询问的意思）</p><p>2 删除文件夹的内容不包括文件夹：<br>rm -rf  文件夹的名字/<em>      (后面加上/</em>表示删除内容不删除文件夹)</p><p><strong>ls输出的文件和目录颜色含义（默认）</strong></p><p><font color=#000000 size=5 face="黑体">白色</font>：表示普通文件</p><p><font color=#0000FF size=5 face="黑体">蓝色</font>：表示目录</p><p><font color=#228B22 size=5 face="黑体">绿色</font>：表示可读执行文件</p><p><font color=#FF4500 size=5 face="黑体">红色</font>：表示压缩文件</p><p><font color=#AFEEEE size=5 face="黑体">浅蓝色</font>：链接文件</p><p><font color=#DC143C size=5 face="黑体">红色闪烁</font>：表示链接的文件有问题</p><p><font color=#FFFF00 size=5 face="黑体">黄色</font>：表示设备文件</p><p><font color=grey size=5 face="黑体">灰色</font>：表示其他文件</p><p>这个颜色可以在配置文件中修改。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;最近做了下Linux上的网络诊断，Ubantu和CentOS用了一下，&lt;br&gt;感觉还是Ubantu更好用些，下面写点简单命令行操作用来给自己记录一下。&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="Linux" scheme="http://silencezheng.top/tags/Linux/"/>
     
   </entry>
   
