@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://silencezheng.top/2022/06/18/article45/</loc>
+    
+    <lastmod>2022-06-18</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://silencezheng.top/2022/06/16/article44/</loc>
     
     <lastmod>2022-06-18</lastmod>
@@ -509,6 +516,13 @@
   
   <url>
     <loc>http://silencezheng.top/tags/%E6%AC%A2%E8%BF%8E/</loc>
+    <lastmod>2022-06-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://silencezheng.top/tags/Git/</loc>
     <lastmod>2022-06-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
