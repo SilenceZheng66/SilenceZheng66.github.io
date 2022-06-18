@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article44/dropout.svg">
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article44/sigmoid_gradient.svg">
 <meta property="article:published_time" content="2022-06-16T07:03:39.000Z">
-<meta property="article:modified_time" content="2022-06-16T07:07:34.905Z">
+<meta property="article:modified_time" content="2022-06-18T07:00:39.691Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -230,7 +230,7 @@
 <li>在同一训练代码实现中，不同的参数集可以有不同的更新行为。</li>
 <li>暂退法在前向传播过程中，计算每一内部层的同时丢弃一些神经元。</li>
 <li>暂退法可以避免过拟合，它通常与控制权重向量的维数和大小结合使用的。</li>
-<li>暂退法将活性值(h)替换为具有期望值(h)的随机变量。</li>
+<li>暂退法将活性值$h$替换为具有期望值$h$的随机变量。</li>
 <li>暂退法仅在训练期间使用。</li>
 <li>前向传播在神经网络定义的计算图中按顺序计算和存储中间变量，它的顺序是从输入层到输出层。</li>
 <li>反向传播按相反的顺序（从输出层到输入层）计算和存储神经网络的中间变量和参数的梯度。</li>
@@ -362,7 +362,7 @@ y = 0.05 + \sum_{i = 1}^d 0.01 x_i + \epsilon \text{ where } \epsilon \sim \math
 <p>在标准暂退法正则化中，通过按保留（未丢弃）的节点的分数进行规范化来消除每一层的偏差。 换言之，每个中间活性值$h$以暂退概率$p$由随机变量$h’$替换，如下所示：</p>
 <script type="math/tex; mode=display">
 \begin{split}\begin{aligned} h' = \begin{cases} 0 & \text{ 概率为 } p \\ \frac{h}{1-p} & \text{ 其他情况} \end{cases} \end{aligned}\end{split}</script><p>根据此模型的设计，其期望值保持不变，即$E[h’] = h$。</p>
-<h3 id="4-3-暂退法实践"><a href="#4-3-暂退法实践" class="headerlink" title="4.3. 暂退法实践"></a>4.3. 暂退法实践</h3><p>下图为dropout前后的多层感知机，在左图中，删除了(h_2)和(h_5)， 因此输出的计算不再依赖于(h_2)或(h_5)，并且它们各自的梯度在执行反向传播时也会消失。 这样，输出层的计算不能过度依赖于(h_1, \ldots, h_5)的任何一个元素。<br><img src="/assets/post_img/article44/dropout.svg" alt="暂退法"><br>通常在测试时不使用暂退法（训练时用）。 给定一个训练好的模型和一个新的样本，我们不会丢弃任何节点，因此不需要标准化。 然而也有一些例外：一些研究人员在测试时使用暂退法， 用于估计神经网络预测的“不确定性”： 如果通过许多不同的暂退法遮盖后得到的预测结果都是一致的，那么我们可以说网络发挥更稳定。</p>
+<h3 id="4-3-暂退法实践"><a href="#4-3-暂退法实践" class="headerlink" title="4.3. 暂退法实践"></a>4.3. 暂退法实践</h3><p>下图为dropout前后的多层感知机，在左图中，删除了$h_2$和$h_5$， 因此输出的计算不再依赖于$h_2$或$h_5$，并且它们各自的梯度在执行反向传播时也会消失。 这样，输出层的计算不能过度依赖于$h_1, \ldots, h_5$的任何一个元素。<br><img src="/assets/post_img/article44/dropout.svg" alt="暂退法"><br>通常在测试时不使用暂退法（训练时用）。 给定一个训练好的模型和一个新的样本，我们不会丢弃任何节点，因此不需要标准化。 然而也有一些例外：一些研究人员在测试时使用暂退法， 用于估计神经网络预测的“不确定性”： 如果通过许多不同的暂退法遮盖后得到的预测结果都是一致的，那么我们可以说网络发挥更稳定。</p>
 <h3 id="4-4-暂退法的实现"><a href="#4-4-暂退法的实现" class="headerlink" title="4.4. 暂退法的实现"></a>4.4. 暂退法的实现</h3><p>从零实现和框架实现具体见<a target="_blank" rel="noopener" href="https://github.com/silenceZheng66/deep_learning/blob/master/d2l/0x04.ipynb">对应实践</a>,几个可以注意的点如下：</p>
 <ul>
 <li>在靠近输入层的地方设置较低的暂退概率。</li>
@@ -409,18 +409,18 @@ U\left(-\sqrt{\frac{6}{n_{\text {in }}+n_{\text {out }}}}, \sqrt{\frac{6}{n_{\te
 <p>有时标签偏移和协变量偏移假设可以同时成立。在这些情况下，使用基于标签偏移假设的方法通常是有利的。这是因为这些方法倾向于包含看起来像标签 (低维) 的对象, 而不是像输入（高维）的对象。</p>
 <h4 id="7-1-3-概念偏移（concept-shift）"><a href="#7-1-3-概念偏移（concept-shift）" class="headerlink" title="7.1.3. 概念偏移（concept shift）"></a>7.1.3. 概念偏移（concept shift）</h4><p>当标签的定义发生变化时，就会出现这种问题。精神疾病的诊断标准、所谓的时髦、以及工作头衔等等，都是概念偏移的日常映射。</p>
 <h3 id="7-2-分布偏移纠正"><a href="#7-2-分布偏移纠正" class="headerlink" title="7.2. 分布偏移纠正"></a>7.2. 分布偏移纠正</h3><p>许多情况下训练分布与测试分布是不同的，有时这对模型没什么影响，有时则需要运用一些手段去应对这种偏移。</p>
-<h4 id="7-2-1-经验风险与实际风险"><a href="#7-2-1-经验风险与实际风险" class="headerlink" title="7.2.1. 经验风险与实际风险"></a>7.2.1. 经验风险与实际风险</h4><p>在模型的训练期间，训练数据 $\left{\left(\mathbf{x}_{1}, y_{1}\right), \ldots,\left(\mathbf{x}_{n}, y_{n}\right)\right}$ 的特征和相关的标签经过迭代，在每一个小批量之后更新模型 $f$ 的参数。为了简单起见，我们先不考虑正则化，此时极大地降低了训练损失（即经验风险最小化）：</p>
+<h4 id="7-2-1-经验风险与实际风险"><a href="#7-2-1-经验风险与实际风险" class="headerlink" title="7.2.1. 经验风险与实际风险"></a>7.2.1. 经验风险与实际风险</h4><p>在模型的训练期间，训练数据 ${(\mathbf{x}_1, y_1), \ldots, (\mathbf{x}_n, y_n)}$  的特征和相关的标签经过迭代，在每一个小批量之后更新模型 $f$ 的参数。为了简单起见，我们先不考虑正则化，此时极大地降低了训练损失（即经验风险最小化）：</p>
 <script type="math/tex; mode=display">
 \underset{f}{\operatorname{minimize}} \frac{1}{n} \sum_{i=1}^{n} l\left(f\left(\mathbf{x}_{i}\right), y_{i}\right),</script><p>其中 $l$ 是损失函数, 用来度量给定标签 $y_{i}$, 预测 $f\left(\mathbf{x}_{i}\right)$ 的 “糟糕程度”。 统计学家称上式中的这一项 $l\left(f\left(\mathbf{x}_{i}\right), y_{i}\right)$ 为经验风险。 经验风险 (empirical risk) 是为了近似真实风险（true risk）。</p>
 <p>真实风险是整个训练数据上的平均损失, 即从其真实分布 $p(\mathbf{x}, y)$ 中抽取的所有数据的总体损失的期望值：</p>
 <script type="math/tex; mode=display">
 E_{p(\mathbf{x}, y)}[l(f(\mathbf{x}), y)]=\iint l(f(\mathbf{x}), y) p(\mathbf{x}, y) d \mathbf{x} d y</script><p>然而在实践中通常无法获得总体数据。因此, 经验风险最小化是一种实用的机器学习策略，希望能近似最小化真实风险。</p>
-<h4 id="7-2-2-协变量偏移纠正"><a href="#7-2-2-协变量偏移纠正" class="headerlink" title="7.2.2. 协变量偏移纠正"></a>7.2.2. 协变量偏移纠正</h4><p><a target="_blank" rel="noopener" href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html#subsec-covariate-shift-correction">下面三种纠正原理</a>暂时放一下，详细看还是得多读几遍书。<br>给出完整的协变量偏移纠正算法，假设我们有一个训练集 $\left{\left(\mathbf{x}_{1}, y_{1}\right), \ldots,\left(\mathbf{x}_{n}, y_{n}\right)\right}$ 和一个未标记的测试集 $\left{\mathbf{u}_{1}, \ldots, \mathbf{u}_{m}\right}_{\circ}$ 对于协变量偏移，我们假设 $1 \leq i \leq n$ 的 $\mathbf{x}_{i}$ 来自某个源分布 $q(\mathbf{x})$, $\mathbf{u}_{i}$ 来自目标分布 $p(\mathbf{x})$。以下是纠正协变量偏移的典型算法：</p>
+<h4 id="7-2-2-协变量偏移纠正"><a href="#7-2-2-协变量偏移纠正" class="headerlink" title="7.2.2. 协变量偏移纠正"></a>7.2.2. 协变量偏移纠正</h4><p><a target="_blank" rel="noopener" href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html#subsec-covariate-shift-correction">下面三种纠正原理</a>暂时放一下，详细看还是得多读几遍书。<br>给出完整的协变量偏移纠正算法，假设我们有一个训练集 ${(\mathbf{x}_1, y_1), \ldots, (\mathbf{x}_n, y_n)}$ 和一个未标记的测试集 ${\mathbf{u}_1, \ldots, \mathbf{u}_m}$ 对于协变量偏移，我们假设 $1 \leq i \leq n$ 的 $\mathbf{x}_{i}$ 来自某个源分布 $q(\mathbf{x})$, $\mathbf{u}_{i}$ 来自目标分布 $p(\mathbf{x})$。以下是纠正协变量偏移的典型算法：</p>
 <ol>
-<li>生成一个二元分类训练集： $\left{\left(\mathbf{x}_{1},-1\right), \ldots,\left(\mathbf{x}_{n},-1\right),\left(\mathbf{u}_{1}, 1\right), \ldots,\left(\mathbf{u}_{m}, 1\right)\right}$ 。</li>
+<li>生成一个二元分类训练集： ${(\mathbf{x}_1, -1), \ldots, (\mathbf{x}_n, -1), (\mathbf{u}_1, 1), \ldots, (\mathbf{u}_m, 1)}$ 。</li>
 <li>用对数几率回归训练二元分类器得到函数 $h_{\circ}$</li>
 <li>使用 $\beta_{i}=\exp \left(h\left(\mathbf{x}_{i}\right)\right)$ 或更好的 $\beta_{i}=\min \left(\exp \left(h\left(\mathbf{x}_{i}\right)\right), c\right)$ (c为常量）对训练数据进行加权。</li>
-<li>使用权重 $\beta_{i}$ 进行”加权经验风险最小化“中 $\left{\left(\mathbf{x}_{1}, y_{1}\right), \ldots,\left(\mathbf{x}_{n}, y_{n}\right)\right}$ 的训练。</li>
+<li>使用权重 $\beta_{i}$ 进行”加权经验风险最小化“中 ${(\mathbf{x}_1, y_1), \ldots, (\mathbf{x}_n, y_n)}$ 的训练。</li>
 </ol>
 <p>上述算法依赖于一个重要的假设：需要目标分布(例如, 测试分布)中的每个数据样本在训练时出现的概率非零。如果找到 $p(\mathbf{x})&gt;0$ 但 $q(\mathbf{x})=0$ 的点，那么相应的重要性权重会是无穷大（因为 $\beta_{i} \stackrel{\operatorname{def}}{=} \frac{p\left(\mathbf{x}_{i}\right)}{q\left(\mathbf{x}_{i}\right)}$）。</p>
 <p>加权经验风险最小化:</p>
@@ -434,7 +434,7 @@ E_{p(\mathbf{x}, y)}[l(f(\mathbf{x}), y)]=\iint l(f(\mathbf{x}), y) p(\mathbf{x}
 <li>聚类问题：根据数据样本上抽取出的特征，让样本抱抱团(相近/相关的样本在一团内)。</li>
 </ol>
 <p>在机器学习模拟学习的方法上，有许多分类，如批量学习、强化学习等等，目前就是在讨论这方面（这些学习问题）的类别有哪些。</p>
-<h4 id="7-3-1-批量学习（batch-learning）"><a href="#7-3-1-批量学习（batch-learning）" class="headerlink" title="7.3.1. 批量学习（batch learning）"></a>7.3.1. 批量学习（batch learning）</h4><p>在批量学习中, 我们可以访问一组训练特征和标签 $\left{\left(\mathbf{x}_{1}, y_{1}\right), \ldots,\left(\mathbf{x}_{n}, y_{n}\right)\right}$, 使用这些特性和标签训练 $f(\mathbf{x})$ 。 然后部署此模型来对来自同一分布的新数据 $(\mathbf{x}, y)$ 进行评分。 例如, 我们可以根据猫和狗的大量图片训练一个猫检测器。 一旦我们训练了它, 就把它作为智能猫门计算视觉系统的一部分, 来控制只允许猫进入该门。 然后这个系统会被安装在客户家中, 基本再也不会更新。</p>
+<h4 id="7-3-1-批量学习（batch-learning）"><a href="#7-3-1-批量学习（batch-learning）" class="headerlink" title="7.3.1. 批量学习（batch learning）"></a>7.3.1. 批量学习（batch learning）</h4><p>在批量学习中, 我们可以访问一组训练特征和标签 ${(\mathbf{x}_1, y_1), \ldots, (\mathbf{x}_n, y_n)}$, 使用这些特性和标签训练 $f(\mathbf{x})$ 。 然后部署此模型来对来自同一分布的新数据 $(\mathbf{x}, y)$ 进行评分。 例如, 我们可以根据猫和狗的大量图片训练一个猫检测器。 一旦我们训练了它, 就把它作为智能猫门计算视觉系统的一部分, 来控制只允许猫进入该门。 然后这个系统会被安装在客户家中, 基本再也不会更新。</p>
 <h4 id="7-3-2-在线学习（online-learning）"><a href="#7-3-2-在线学习（online-learning）" class="headerlink" title="7.3.2. 在线学习（online learning）"></a>7.3.2. 在线学习（online learning）</h4><p>“在线”逐个学习数据$\left(\mathbf{x}_{i}, y_{i}\right)$。我们首先观测到$\mathbf{x}_{i}$，然后得出一个估计值 $f\left(\mathbf{x}_{i}\right)$, 当完成估计后，我们才观测到 $y_{i}$。然后根据模型的决定（估计）, 给予模型奖励或惩罚。<br>例如, 我们预测明天的股票价格来根据这个预测进行交易。在一天结束时, 我们会评估模型的预测是否盈利。<br>在线学习的循环如下，这样看起来就清晰易懂了：</p>
 <script type="math/tex; mode=display">
 \text { model } f_{t} \longrightarrow \text { data } \mathbf{x}_{t} \longrightarrow \text { estimate } f_{t}\left(\mathbf{x}_{t}\right) \longrightarrow \text { observation } y_{t} \longrightarrow \operatorname{loss} l\left(y_{t}, f_{t}\left(\mathbf{x}_{t}\right)\right) \longrightarrow \operatorname{model} f_{t+1}</script><h4 id="7-3-3-老虎机（bandits）"><a href="#7-3-3-老虎机（bandits）" class="headerlink" title="7.3.3. 老虎机（bandits）"></a>7.3.3. 老虎机（bandits）</h4><p>在一个老虎机问题中，只有有限数量的手臂可以拉动。 也就是说我们可以采取的行动是有限的。 老虎机问题是一个相较于上述问题更简单的情景，可以获得更强的最优性理论保证。 这个问题经常被视为一个单独的学习问题的情景。</p>
@@ -446,7 +446,7 @@ E_{p(\mathbf{x}, y)}[l(f(\mathbf{x}), y)]=\iint l(f(\mathbf{x}), y) p(\mathbf{x}
 <h4 id="7-3-5-强化学习（reinforcement-learning）"><a href="#7-3-5-强化学习（reinforcement-learning）" class="headerlink" title="7.3.5. 强化学习（reinforcement learning）"></a>7.3.5. 强化学习（reinforcement learning）</h4><p>强化学习强调如何基于环境而行动，以取得最大化的预期利益。 国际象棋、围棋、西洋双陆棋或星际争霸都是强化学习的应用实例，如果在游戏中采取某种策略可以取得较高的得分，那么就进一步「强化」这种策略，以期继续取得较好的结果。</p>
 <h4 id="7-3-6-基于应用环境选择学习方法"><a href="#7-3-6-基于应用环境选择学习方法" class="headerlink" title="7.3.6. 基于应用环境选择学习方法"></a>7.3.6. 基于应用环境选择学习方法</h4><p>上述不同情况之间的一个关键区别是： 在静止环境中可能一直有效的相同策略，在环境能够改变的情况下可能不会始终有效。<br>环境变化的速度和方式在很大程度上决定了我们可以采用的算法类型。 例如，如果我们知道事情只会缓慢地变化，就可以迫使任何估计也只能缓慢地发生改变。 如果我们知道环境可能会瞬间发生变化，但这种变化非常罕见，我们就可以在使用算法时考虑到这一点。<br>当一个数据科学家试图解决的问题会随着时间的推移而发生变化时这些类型的知识至关重要。</p>
 <h3 id="7-4-机器学习中的公平、责任和透明度"><a href="#7-4-机器学习中的公平、责任和透明度" class="headerlink" title="7.4. 机器学习中的公平、责任和透明度"></a>7.4. 机器学习中的公平、责任和透明度</h3><p>当部署机器学习系统时，你不仅仅是在优化一个预测模型，通常是在提供一个会被用来（部分或完全）进行自动化决策的工具。 这些技术系统可能会通过其进行的决定而影响到每个人的生活。<br>从 预测 到 决策 的飞跃不仅提出了新的技术问题， 而且还提出了一系列必须仔细考虑的伦理问题。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>Kaggle房价预测比赛的实践，放到下一篇笔记中吧。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>Kaggle房价预测比赛的实践，放到下一篇笔记中吧。<br>还遇到了kramed渲染不了公式中大括号的问题，先将就，等我学了JS回来再修复。<br>还发现了链接图片的原理，前面加斜杠是表示在域名下一级。</p>
 
       
 
@@ -753,10 +753,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
@@ -769,11 +765,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Idea</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -781,15 +785,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Chrome</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -801,19 +801,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Swing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">Chrome</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -821,7 +813,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Apache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -845,15 +845,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Gitalk</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">欢迎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
             
             <div class="clearfix"></div>
