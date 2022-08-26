@@ -6,23 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Markdown博客编写工具选择 | silenceZheng66-BLOG</title>
+  <title>什么是Mixin | silenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言关于我编写Markdown格式博客的工具选择。先说设备，我现在使用的是M1的MacBook Air。最初使用的是Sublime Text，一个很经典的开源文本编辑器，缺点就是如果不订阅的话保存几次就会弹出广告，故舍弃。然后使用的就是Effie，这是一个国产的笔记软件，十分的简洁，用于编写普通的文本和代码是很好的，直到我需要在笔记中加入公式…遂也舍弃了。然后就是VSCode了，只需要使用几个简单">
+  <meta name="description" content="前言在开发程序的过程中，尤其是在使用各个成熟的工具时，经常会接触到Mixin的概念。初见时完全不理解是什么含义，在网上查找了一些资料，总结一下，如有错误请评论指正。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Markdown博客编写工具选择">
-<meta property="og:url" content="http://silencezheng.top/2022/05/22/article39/index.html">
+<meta property="og:title" content="什么是Mixin">
+<meta property="og:url" content="http://silencezheng.top/2022/08/26/article56/index.html">
 <meta property="og:site_name" content="silenceZheng66-BLOG">
-<meta property="og:description" content="前言关于我编写Markdown格式博客的工具选择。先说设备，我现在使用的是M1的MacBook Air。最初使用的是Sublime Text，一个很经典的开源文本编辑器，缺点就是如果不订阅的话保存几次就会弹出广告，故舍弃。然后使用的就是Effie，这是一个国产的笔记软件，十分的简洁，用于编写普通的文本和代码是很好的，直到我需要在笔记中加入公式…遂也舍弃了。然后就是VSCode了，只需要使用几个简单">
+<meta property="og:description" content="前言在开发程序的过程中，尤其是在使用各个成熟的工具时，经常会接触到Mixin的概念。初见时完全不理解是什么含义，在网上查找了一些资料，总结一下，如有错误请评论指正。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article39/总览.jpg">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article39/toc.jpg">
-<meta property="article:published_time" content="2022-05-22T13:34:31.000Z">
-<meta property="article:modified_time" content="2022-06-19T11:24:25.641Z">
+<meta property="article:published_time" content="2022-08-26T10:30:40.000Z">
+<meta property="article:modified_time" content="2022-08-26T10:32:25.266Z">
 <meta property="article:author" content="silenceZheng66">
-<meta property="article:tag" content="VSCode">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="编程思想">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article39/总览.jpg">
   
     <link rel="alternative" href="/atom.xml" title="silenceZheng66-BLOG" type="application/atom+xml">
   
@@ -159,14 +157,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-article39" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-article56" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Markdown博客编写工具选择
+      什么是Mixin
     </h1>
   
 
@@ -177,8 +175,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2022/05/22/article39/" class="archive-article-date">
-  	<time datetime="2022-05-22T13:34:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-22</time>
+<a href="/2022/08/26/article56/" class="archive-article-date">
+  	<time datetime="2022-08-26T10:30:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-26</time>
 </a>
         <!-- 需要添加的位置 -->
         <!-- 开始添加字数统计-->
@@ -188,7 +186,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">744字</span>
+        <span class="post-count">1.2k字</span>
       </span>
     </span>
 
@@ -197,7 +195,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">2分</span>
+        <span class="post-count">4分</span>
       </span>
     </span>
 </div>
@@ -208,27 +206,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于我编写Markdown格式博客的工具选择。先说设备，我现在使用的是M1的MacBook Air。<br>最初使用的是Sublime Text，一个很经典的开源文本编辑器，缺点就是如果不订阅的话保存几次就会弹出广告，故舍弃。<br>然后使用的就是Effie，这是一个国产的笔记软件，十分的简洁，用于编写普通的文本和代码是很好的，直到我需要在笔记中加入公式…遂也舍弃了。<br>然后就是VSCode了，只需要使用几个简单的插件就可以满足我当前的博客编辑需求，公式、无限插图、多层文件夹（当然了）等等，给大家简单分享一下。<br><span id="more"></span></p>
-<h2 id="工具及插件"><a href="#工具及插件" class="headerlink" title="工具及插件"></a>工具及插件</h2><p>工具：Visual Studio Code（神器！）<br>插件：</p>
-<ol>
-<li>yzhang.markdown-all-in-one</li>
-<li>shd101wyy.markdown-preview-enhanced</li>
-</ol>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>我的博客是用Hexo搭建的，解释器换用了包含LaTex的公式的Kramed。<br>首先展示一下编辑时的效果：<br><img src="/assets/post_img/article39/总览.jpg" alt="all"></p>
-<p>左侧就是工作区了，这里是Markdown的真实样貌，右边就是预览插件的效果，由于使用了插件2所以可以使用目录进行快速跳转，对于写长文的帮助很大（Effie缺少这个功能）。如图：<br><img src="/assets/post_img/article39/toc.jpg" alt="toc"></p>
-<p>那么插件1能为我们提供什么帮助呢？对我来说，是一个Effie的”低配版“。<br>最常用的应该就是<strong>粗体</strong>、<em>斜体</em>的快捷键，分别是<code>cmd+b</code>和<code>cmd+i</code>，与Effie相同。</p>
-<p>但是对于代码行和代码块似乎没有对应的快捷键，这一点对我来说是不方便的，以后可能会设置一下。</p>
-<p>数学公式方面，插件提供<code>cmd+m</code>可以直接打两个dollar号出来，比较方便。</p>
-<p>预览方面，通常在点开一个Markdown文件时会自动在右侧开启预览，但如果不小心关闭掉了，可以通过<code>cmd+k + v</code>开启，注意这里要先输入<code>cmd+k</code>～</p>
-<p>再下面就是一些高级的功能了，比如：自动生成目录。</p>
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#工具及插件">工具及插件</a></li>
-<li><a href="#使用">使用</a></li>
-</ul>
-<p>这个似乎没有默认的快捷键，需要使用<code>shift+cmd+p</code>调出命令面板，然后搜索目录就可以找到了，对了，我的VSCode安装了中文插件，所以大多事情可以用中文完成，我认为VSCode的中文插件比其他我用过的IDE都要好，至少用起来不别扭。</p>
-<p>关于插件1就说这么多，再说说插件2，预览时默认使用的是白色背景，对于我这种夜猫子，简直太不友好了。所以需要更换一个深色的。具体就是在插件的设置面板更换Preview Theme为一个你喜欢的主题，我使用的是atom dark。</p>
-<p>以上就是关于我如何编辑Markdown格式博客的全部内容了，如果以后有其他更有用的插件，再继续分享～。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在开发程序的过程中，尤其是在使用各个成熟的工具时，经常会接触到<strong>Mixin</strong>的概念。初见时完全不理解是什么含义，在网上查找了一些资料，总结一下，如有错误请评论指正。<br><span id="more"></span></p>
+<h2 id="什么是Mixin？"><a href="#什么是Mixin？" class="headerlink" title="什么是Mixin？"></a>什么是Mixin？</h2><p>Mixin即“混入”，也可以是MixIn（和迷信区分开）或Mix-in，在笔者当前的理解来看，Mixin的根本目的有三：解耦、灵活、简单。</p>
+<p>从Python的角度看，Mixin和多继承是密不可分的。在讲述Mixin的逻辑前，先来明确两个主体：A类 和 B类，我们假定A类为<em>Mixin类</em>，B类为<em>需要使用A功能的类</em>。</p>
+<p>注意这里说的多继承与多重继承还有些许区别，强调广度而不是深度。</p>
+<p>设计Mixin类的目的首先是为需要功能的类（如B类）提供功能，获得功能的方法就是继承。例如在程序设计中需要设计C类时，先考虑通过多继承来组合多个Mixin类来实现C类的功能，而不是依赖传统的多重继承。这样做有很多好处，例如使类的组织结构扁平化，抛弃了多重继承链的复杂性，以及减少子类功能冗余等等。</p>
+<p>在Vue中同样使用了Mixin的思想，官方的说法是这样的：</p>
+<blockquote>
+<p>Mixin（混入）提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。</p>
+</blockquote>
+<p>通俗来讲，Mixin有些像组件的组件，将组件的公共逻辑或者配置提取出来，哪个组件需要用到时，直接将提取的这部分混入到组件内部。</p>
+<p>不难看出，虽然在不同的语言中实现的方式略有不同，但Mixin的基本思想是一致的，Mixin类本质上是一种功能抽象。</p>
+<h2 id="Mixin规范"><a href="#Mixin规范" class="headerlink" title="Mixin规范"></a>Mixin规范</h2><p>基于以上Mixin类的概念，可以发现Mixin类实际上还要遵守一些“隐性”规范，说“隐性”是因为Mixin并不是Python中的一种关键字，很多要求是语义上允许的，但当我们决定使用Mixin时，不得不去思考如何构建一个成功的Mixin模式，于是产生了这些规范。</p>
+<p>引用一个很好的说法：</p>
+<blockquote>
+<p>从某种程度上来说，继承强调 I am，Mixin 强调 I can。</p>
+</blockquote>
+<p>这句话简单明了的说明了Mixin与传统继承的区别：Mixin类直接包含功能的默认实现，虽然使用继承的方式引入，但真正做到开箱即用。</p>
+<p>笔者认为需要再次强调明确一下“继承”（指含义上的继承，并非语义上的继承）和“引入”的概念，假设有两种类：Mixin类和普通类，那么普通类继承普通类是“继承”，普通类继承Mixin类是“引入”，Mixin类继承Mixin类是“继承”，Mixin类继承普通类是不被允许的。</p>
+<p>Mixin类需具备的特征（”隐性“要求）：<br>1、不能单独产生实例，只能作为“功能模块”被其他可产生实例的类引入，因为Mixin类是抽象类。<br>2、不能继承普通类，只能继承其他Mixin类。<br>3、能独立实现功能，仅写出方法内容和方法所需的变量名。<br>4、普通类引入Mixin类时，不覆盖所继承Mixin的属性和方法，不需要调用super()去取Mixin中的方法。<br>5、可被同时继承的Mixin类之间没有重复的方法或属性，因此不用关心继承的顺序，强调隔离性。</p>
+<p>之所以称上述特征为”隐性“要求，还是因为语义上对这些规范都没有明令禁止，但这些特征却实际上是Mixin奏效的灵魂所在。</p>
+<p>举一个Mixin类的例子（取自Flask-Login）：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserMixin</span>:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    This provides default implementations for the methods </span></span><br><span class="line"><span class="string">    that Flask-Login expects user objects to have.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Python 3 implicitly set __hash__ to None if we override __eq__</span></span><br><span class="line">    <span class="comment"># We set it back to its default implementation</span></span><br><span class="line">    __hash__ = <span class="built_in">object</span>.__hash__</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_active</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_authenticated</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.is_active</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_anonymous</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_id</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">str</span>(self.<span class="built_in">id</span>)</span><br><span class="line">        <span class="keyword">except</span> AttributeError:</span><br><span class="line">            <span class="keyword">raise</span> NotImplementedError(<span class="string">&quot;No `id` attribute - override `get_id`&quot;</span>) <span class="keyword">from</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Checks the equality of two `UserMixin` objects using `get_id`.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(other, UserMixin):</span><br><span class="line">            <span class="keyword">return</span> self.get_id() == other.get_id()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NotImplemented</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__ne__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Checks the inequality of two `UserMixin` objects using `get_id`.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        equal = self.__eq__(other)</span><br><span class="line">        <span class="keyword">if</span> equal <span class="keyword">is</span> <span class="literal">NotImplemented</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NotImplemented</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> equal</span><br></pre></td></tr></table></figure></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>关于Mixin，网络上也是众说纷纭，相关的内容有组合模式（Composite Pattern），Duck Typing等等，但笔者认为仅依靠上述解释已经可以初步理解 Mixin的含义 及 Mixin的使用目的。</p>
 
       
 
@@ -273,7 +272,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">VSCode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程思想</a>
         		</li>
       		
 		</ul>
@@ -329,7 +332,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/05/22/article39/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/08/26/article56/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -343,18 +346,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/05/26/article40/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JavaFX环境配置--MacOS
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/05/17/article38/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hexo博客更换Markdown解释器</div>
+    <a href="/2022/08/16/article55/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">远程调试代码的几种方式</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -401,7 +395,7 @@ if(true){
   	repo: 'silenceZheng66.github.io',
   	owner: 'silenceZheng66',
   	admin: ['silenceZheng66'],
-  	id: 'Sun May 22 2022 21:34:31 GMT+0800',
+  	id: 'Fri Aug 26 2022 18:30:40 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
