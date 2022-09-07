@@ -17,8 +17,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article38/下划线错误.jpg">
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article38/双反斜杠换行错误.jpg">
+<meta property="og:image" content="http://silencezheng.top/assets/post_img/article38/括号错误.png">
 <meta property="article:published_time" content="2022-05-17T05:04:36.000Z">
-<meta property="article:modified_time" content="2022-05-17T05:11:56.050Z">
+<meta property="article:modified_time" content="2022-09-07T15:17:26.078Z">
 <meta property="article:author" content="silenceZheng66">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
@@ -70,7 +71,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 58
+			总文章数 59
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -188,7 +189,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">361字</span>
+        <span class="post-count">577字</span>
       </span>
     </span>
 
@@ -197,7 +198,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">2分</span>
       </span>
     </span>
 </div>
@@ -217,6 +218,8 @@
 <p>这样修改以后斜体就只能用*了，不过足够的～</p>
 <h2 id="问题2-反斜杠-被转义为-而非LaTeX换行"><a href="#问题2-反斜杠-被转义为-而非LaTeX换行" class="headerlink" title="问题2:反斜杠\\被转义为\而非LaTeX换行"></a>问题2:反斜杠\\被转义为\而非LaTeX换行</h2><p>如图：<br><img src="/assets/post_img/article38/双反斜杠换行错误.jpg" alt=""></p>
 <p>当公式中出现\\表示换行时，会被kramed渲染为\，导致公式显示异常。<br>找到inline.js中第11行如下代码：<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^<span class="symbol">\\</span>([<span class="symbol">\\</span>`*<span class="symbol">\[</span><span class="symbol">\]</span>()#$+<span class="symbol">\-</span>.!_&gt;])/,</span><br></pre></td></tr></table></figure><br>修改如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,`</span><br></pre></td></tr></table></figure></p>
+<h2 id="问题3-公式中花括号无法渲染"><a href="#问题3-公式中花括号无法渲染" class="headerlink" title="问题3:公式中花括号无法渲染"></a>问题3:公式中花括号无法渲染</h2><p>如图：<br><img src="/assets/post_img/article38/括号错误.png" alt=""><br>本来我写的代码是：<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">\l</span>eft<span class="symbol">\&#123;</span><span class="symbol">\l</span>eft(<span class="symbol">\m</span>athbf&#123;x&#125;_&#123;1&#125;, y_&#123;1&#125;<span class="symbol">\r</span>ight), <span class="symbol">\l</span>dots,<span class="symbol">\l</span>eft(<span class="symbol">\m</span>athbf&#123;x&#125;_&#123;n&#125;, y_&#123;n&#125;<span class="symbol">\r</span>ight)<span class="symbol">\r</span>ight<span class="symbol">\&#125;</span></span><br></pre></td></tr></table></figure><br>后来去看了下原文的代码，是：<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">\&#123;</span>(<span class="symbol">\m</span>athbf&#123;x&#125;_1, y_1), <span class="symbol">\l</span>dots, (<span class="symbol">\m</span>athbf&#123;x&#125;_n, y_n)<span class="symbol">\&#125;</span></span><br></pre></td></tr></table></figure><br>但更换后，左右两个花括号还是不能正常显示，这就很费解了。查了一下<a target="_blank" rel="noopener" href="https://blog.csdn.net/ajacker/article/details/80301378">Mathjax语法</a>，发现原文代码没有问题，所以总结一下问题就是使用的Markdown渲染引擎无法渲染行内公式中的转义花括号。</p>
+<p>这个问题就先搁置一下，解决的话估计需要读一下kramed的源码，由于目前我的JS水平实在太差，等我先学习了语法再来修改这个BUG～（22.06.18）</p>
 
       
 
