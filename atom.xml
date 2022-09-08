@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-09-07T15:20:50.097Z</updated>
+  <updated>2022-09-08T11:02:14.025Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>smartmontools安装使用</title>
+    <link href="http://silencezheng.top/2022/09/08/article59/"/>
+    <id>http://silencezheng.top/2022/09/08/article59/</id>
+    <published>2022-09-08T10:58:22.000Z</published>
+    <updated>2022-09-08T11:02:14.025Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>介绍安装和使用磁盘监控工具smartmontools，以Mac为例。<br><span id="more"></span><br>smartmontools软件包包含两个实用程序（<code>smartctl</code> 和 <code>smartd</code>），使用内置在大多数现代 ATA/SATA、SCSI/SAS 和 NVMe 磁盘中的自我监控、分析和报告技术系统 (SMART) 来控制和监控存储系统。在许多情况下，这些工具将提供磁盘降级和故障的高级警告。 Smartmontools 最初源自 Linux smartsuite 包，实际上支持 ATA/SATA、SCSI/SAS 和 NVMe 磁盘以及 SCSI/SAS 磁带设备。它应该可以在任何现代 Linux、FreeBSD、NetBSD、OpenBSD、Darwin (macOS)、Solaris、Windows、Cygwin、OS/2、eComStation 或 QNX 系统上运行。 Smartmontools 也可以从许多不同的 Live CD/DVD 之一运行。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>brew install smartmontools</code></p><h2 id="检查硬盘"><a href="#检查硬盘" class="headerlink" title="检查硬盘"></a>检查硬盘</h2><p>方式一（通用）：<br>1、打开磁盘工具，找到设备名，如<code>disk3s1s1</code><br>2、<code>smartctl -a disk3s3s1</code></p><p>方式二（仅内置）：<br><code>smartctl -a disk0</code></p><h2 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h2><p><strong>ID1：Critical Warning警告状态</strong><br>RAW数值显示0为正常无警告，1为过热警告，2为闪存介质引起的内部错误导致可靠性降级，3为闪存进入只读状态，4为增强型断电保护功能失效（只针对有该特性的固态硬盘）。</p><p>正常情况下ID1的RAW属性值应为0，当显示为1时代表NVMe固态硬盘已经过热，需要改善散热条件或降低工作负载。属性值为2时应考虑返修或更换新硬盘，当属性值为3时硬盘已经进入只读状态，无法正常工作，应抓紧时间备份其中的数据。家用固态硬盘通常不会配备增强型断电保护（完整断电保护），所以通常该项目不会显示为4。</p><p><strong>ID2：Temperature当前温度（十进制显示）</strong></p><p><strong>ID3：Available Spare可用冗余空间（百分比显示）</strong><br>指示当前固态硬盘可用于替换坏块的保留备用块占出厂备用块总数量的百分比。该数值从出厂时的100%随使用过程降低，直至到零。ID3归零之前就有可能产生不可预料的故障，所以不要等到该项目彻底归零才考虑更换新硬盘。</p><p><strong>ID4：Available Spare Threshold备用空间阈值</strong><br>与ID3相关，当ID3的数值低于ID4所定义的阈值之后，固态硬盘被认为达到极限状态，此时系统可能会发出可靠性警告。该项数值由厂商定义，通常为10%或0%。</p><p><strong>ID5：Percentage Used已使用的写入耐久度（百分比显示）</strong><br>该项显示已产生的写入量占厂商定义总写入寿命的百分比。该项数值为动态显示，计算结果与写入量及固态硬盘的TBW总写入量指标有关。新盘状态下该项目为0%。</p><p><strong>ID6：Data Units Read读取扇区计数（1000）</strong><br>该项数值乘以1000后即为读取的扇区（512Byte）数量统计。</p><p><strong>ID7：Data Units Write写入扇区计数（1000）</strong><br>该项数值乘以1000后即为写入的扇区（512Byte）数量统计。</p><p><strong>ID8：Host Read Commands读取命令计数</strong><br>硬盘生命周期内累计接收到的读取命令数量统计。</p><p><strong>ID9：Host Write Commands写入命令计数</strong><br>硬盘生命周期内累计接收到的写入命令数量统计。</p><p><strong>ID10：Controller Busy Time主控繁忙时间计数</strong><br>该项统计的是主控忙于处理IO命令的时间总和（单位：分钟）。当IO队列有未完成的命令时，主控即处于“忙”的状态。</p><p><strong>ID11：Power Cycles通电次数</strong></p><p><strong>ID12：Power On Hours通电时间</strong></p><p><strong>ID13：Unsafe Shut downs不安全关机次数（异常断电计数）</strong></p><p><strong>ID14：Media and Data Integrity Errors闪存和数据完整性错误</strong></p><p>主控检测到未恢复的数据完整性错误的次数。正常情况下主控不应检测到数据完整性错误（纠错应该在此之前完成），当有不可校正的ECC、CRC校验失败或者LBA标签不匹配错误发生时，该数值会增加。正常情况下ID14应保持为零。</p><p><strong>ID15：Number of Error Information Log Entries错误日志条目计数</strong></p><p>控制器使用期限内，发生的错误信息日志条目的数量统计。正常情况该项目应为零。<br>有时该条目下会有<code>Read 1 entries from Error Information Log failed: GetLogPage failed: system=0x38, sub=0x0, code=745</code>之类的信息提示。</p><p><strong>以下项目</strong>为非标准项，并非所有NVMe SSD都支持显示。<br><strong>ID16：Warning Composite Temperature Time过热警告时间</strong><br><strong>ID17：Critical Composite Temerature Time过热临界温度时间</strong><br><strong>ID18-25：Temperature Sensor X：多个温度传感器（若存在）的读数</strong></p><p>参考：<a href="https://blog.csdn.net/qq_24343177/article/details/122521952">https://blog.csdn.net/qq_24343177/article/details/122521952</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;介绍安装和使用磁盘监控工具smartmontools，以Mac为例。&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
+    
+  </entry>
   
   <entry>
     <title>现代循环神经网络--《动手学深度学习》笔记0x0A</title>
@@ -404,25 +423,6 @@
     <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
     
     <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Markdown博客编写工具选择</title>
-    <link href="http://silencezheng.top/2022/05/22/article39/"/>
-    <id>http://silencezheng.top/2022/05/22/article39/</id>
-    <published>2022-05-22T13:34:31.000Z</published>
-    <updated>2022-06-19T11:24:25.641Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于我编写Markdown格式博客的工具选择。先说设备，我现在使用的是M1的MacBook Air。<br>最初使用的是Sublime Text，一个很经典的开源文本编辑器，缺点就是如果不订阅的话保存几次就会弹出广告，故舍弃。<br>然后使用的就是Effie，这是一个国产的笔记软件，十分的简洁，用于编写普通的文本和代码是很好的，直到我需要在笔记中加入公式…遂也舍弃了。<br>然后就是VSCode了，只需要使用几个简单的插件就可以满足我当前的博客编辑需求，公式、无限插图、多层文件夹（当然了）等等，给大家简单分享一下。<br><span id="more"></span></p><h2 id="工具及插件"><a href="#工具及插件" class="headerlink" title="工具及插件"></a>工具及插件</h2><p>工具：Visual Studio Code（神器！）<br>插件：</p><ol><li>yzhang.markdown-all-in-one</li><li>shd101wyy.markdown-preview-enhanced</li></ol><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>我的博客是用Hexo搭建的，解释器换用了包含LaTex的公式的Kramed。<br>首先展示一下编辑时的效果：<br><img src="/assets/post_img/article39/总览.jpg" alt="all"></p><p>左侧就是工作区了，这里是Markdown的真实样貌，右边就是预览插件的效果，由于使用了插件2所以可以使用目录进行快速跳转，对于写长文的帮助很大（Effie缺少这个功能）。如图：<br><img src="/assets/post_img/article39/toc.jpg" alt="toc"></p><p>那么插件1能为我们提供什么帮助呢？对我来说，是一个Effie的”低配版“。<br>最常用的应该就是<strong>粗体</strong>、<em>斜体</em>的快捷键，分别是<code>cmd+b</code>和<code>cmd+i</code>，与Effie相同。</p><p>但是对于代码行和代码块似乎没有对应的快捷键，这一点对我来说是不方便的，以后可能会设置一下。</p><p>数学公式方面，插件提供<code>cmd+m</code>可以直接打两个dollar号出来，比较方便。</p><p>预览方面，通常在点开一个Markdown文件时会自动在右侧开启预览，但如果不小心关闭掉了，可以通过<code>cmd+k + v</code>开启，注意这里要先输入<code>cmd+k</code>～</p><p>再下面就是一些高级的功能了，比如：自动生成目录。</p><ul><li><a href="#前言">前言</a></li><li><a href="#工具及插件">工具及插件</a></li><li><a href="#使用">使用</a></li></ul><p>这个似乎没有默认的快捷键，需要使用<code>shift+cmd+p</code>调出命令面板，然后搜索目录就可以找到了，对了，我的VSCode安装了中文插件，所以大多事情可以用中文完成，我认为VSCode的中文插件比其他我用过的IDE都要好，至少用起来不别扭。</p><p>关于插件1就说这么多，再说说插件2，预览时默认使用的是白色背景，对于我这种夜猫子，简直太不友好了。所以需要更换一个深色的。具体就是在插件的设置面板更换Preview Theme为一个你喜欢的主题，我使用的是atom dark。</p><p>以上就是关于我如何编辑Markdown格式博客的全部内容了，如果以后有其他更有用的插件，再继续分享～。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;关于我编写Markdown格式博客的工具选择。先说设备，我现在使用的是M1的MacBook Air。&lt;br&gt;最初使用的是Sublime Text，一个很经典的开源文本编辑器，缺点就是如果不订阅的话保存几次就会弹出广告，故舍弃。&lt;br&gt;然后使用的就是Effie，这是一个国产的笔记软件，十分的简洁，用于编写普通的文本和代码是很好的，直到我需要在笔记中加入公式…遂也舍弃了。&lt;br&gt;然后就是VSCode了，只需要使用几个简单的插件就可以满足我当前的博客编辑需求，公式、无限插图、多层文件夹（当然了）等等，给大家简单分享一下。&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="VSCode" scheme="http://silencezheng.top/tags/VSCode/"/>
     
   </entry>
   
