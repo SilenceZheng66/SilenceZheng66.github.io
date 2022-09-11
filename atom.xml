@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-09-08T11:02:14.025Z</updated>
+  <updated>2022-09-11T09:02:35.535Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>普通人的反向传播理解</title>
+    <link href="http://silencezheng.top/2022/09/11/article60/"/>
+    <id>http://silencezheng.top/2022/09/11/article60/</id>
+    <published>2022-09-11T08:14:14.000Z</published>
+    <updated>2022-09-11T09:02:35.535Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一个普通人尝试理解反向传播…从上至下阅读吧，看看有什么收获。<br><span id="more"></span> </p><p>先说结论：<strong>反向传播用于快速计算神经网络中节点的梯度</strong></p><h2 id="导数（Derivative）"><a href="#导数（Derivative）" class="headerlink" title="导数（Derivative）"></a>导数（Derivative）</h2><p>对函数$f: \mathbb{R} \rightarrow \mathbb{R}$，其输入和输出都是标量。 如果$f$的导数存在，这个极限被定义为：</p><script type="math/tex; mode=display">f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}.</script><p>如果$f’(a)$存在，则称$f$在$a$处是<strong>可微</strong>（differentiable）的。 如果$f$在一个区间的每一个点上都是可微的，那么该函数在此区间上可微。导数$f’(x)$可以解释为$f(x)$相对于$x$的瞬时（instantaneous）变化率，该变化率基于变化$h$，$h$趋近于$0$。</p><h2 id="微分（Differential）"><a href="#微分（Differential）" class="headerlink" title="微分（Differential）"></a>微分（Differential）</h2><p>给定$y = f(x)$，其中$x$和$y$分别是函数$f$的自变量和因变量，则以下表达式等价：</p><script type="math/tex; mode=display">f'(x) = y' = \frac{dy}{dx} = \frac{df}{dx} = \frac{d}{dx} f(x) = Df(x) = D_x f(x),</script><p>其中符号$\frac{d}{dx}$和$D$是微分运算符。可以使用以下规则来对常见函数求微分：</p><ul><li>$DC = 0$（$C$为常数）</li><li>$Dx^n = nx^{n-1}$（n为任意实数）</li><li>$De^x = e^x$</li><li>$D\ln(x) = 1/x$</li></ul><p>假设函数$f$和$g$可微，$C$为常数，则有如下法则：</p><p>1、 $\frac{d}{dx} [Cf(x)] = C \frac{d}{dx} f(x)$</p><p>2、 $\frac{d}{dx} [f(x) + g(x)] = \frac{d}{dx} f(x) + \frac{d}{dx} g(x)$</p><p>3、 $\frac{d}{dx} [f(x)g(x)] = f(x) \frac{d}{dx} [g(x)] + g(x) \frac{d}{dx} [f(x)]$</p><p>4、 $\frac{d}{dx} \left[\frac{f(x)}{g(x)}\right] = \frac{g(x) \frac{d}{dx} [f(x)] - f(x) \frac{d}{dx} [g(x)]}{[g(x)]^2}$</p><p>这些法则可以便于计算由常见函数组成的函数的微分，注意，<em>复合函数无法通过这些法则微分</em>。</p><h2 id="偏导数（Partial-derivative）"><a href="#偏导数（Partial-derivative）" class="headerlink" title="偏导数（Partial derivative）"></a>偏导数（Partial derivative）</h2><p>就是将微分推广到多元函数，这个应该懂得都懂。</p><p>设$y = f(x_1, x_2, \ldots, x_n)$为具有$n$个变量的函数，$y$关于$x_i$的偏导数为：</p><script type="math/tex; mode=display">\frac{\partial y}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, \ldots, x_{i-1}, x_i+h, x_{i+1}, \ldots, x_n) - f(x_1, \ldots, x_i, \ldots, x_n)}{h}.</script><p>计算时，将$x_1, \ldots, x_{i-1}, x_{i+1}, \ldots, x_n$看作常数，直接计算$y$关于$x_i$的导数即可。</p><p>同时也有以下等价表示：</p><script type="math/tex; mode=display">\frac{\partial y}{\partial x_i} = \frac{\partial f}{\partial x_i} = f_{x_i} = f_i = D_i f = D_{x_i} f.</script><h2 id="梯度（Gradient）"><a href="#梯度（Gradient）" class="headerlink" title="梯度（Gradient）"></a>梯度（Gradient）</h2><p><strong>梯度</strong>向量是连结一个多元函数对其所有变量的偏导数后得到的。</p><p>设函数$f:\mathbb{R}^n\rightarrow\mathbb{R}$的输入是一个$n$维向量$\mathbf{x}=[x_1,x_2,\ldots,x_n]^\top$，且输出是一个标量。则函数$f(\mathbf{x})$相对于$x$的梯度为：</p><script type="math/tex; mode=display">\nabla_{\mathbf{x}} f(\mathbf{x}) = \bigg[\frac{\partial f(\mathbf{x})}{\partial x_1}, \frac{\partial f(\mathbf{x})}{\partial x_2}, \ldots, \frac{\partial f(\mathbf{x})}{\partial x_n}\bigg]^\top</script><p>$\nabla_{\mathbf{x}} f(\mathbf{x})$在没有歧义的时候可以被$\nabla f(\mathbf{x})$替换。</p><p>继续假设$x$为$n$维向量，在微分多元函数时有如下法则（注意n和m的位置）：</p><p>1、对所有$\mathbf{A} \in \mathbb{R}^{m \times n}$，有$\nabla_{\mathbf{x}} \mathbf{A} \mathbf{x} = \mathbf{A}^\top$ （用于转置矩阵）</p><p>2、 对所有$\mathbf{A} \in \mathbb{R}^{n \times m}$，有$\nabla_{\mathbf{x}} \mathbf{x}^\top \mathbf{A} = \mathbf{A}$ （抵消）</p><p>3、对所有$\mathbf{A} \in \mathbb{R}^{n \times n}$，有$\nabla_{\mathbf{x}} \mathbf{x}^\top \mathbf{A} \mathbf{x} = (\mathbf{A} + \mathbf{A}^\top)\mathbf{x}$ （方阵）</p><p>4、$\nabla_{\mathbf{x}} |\mathbf{x} |^2 = \nabla_{\mathbf{x}} \mathbf{x}^\top \mathbf{x} = 2\mathbf{x}$ （函数相对于向量$x$的梯度乘以向量$x$范数的平方等于$2x$）</p><p>接第四条，对于任何矩阵$\mathbf{X}$，都有$\nabla_{\mathbf{X}} |\mathbf{X} |_F^2 = 2\mathbf{X}$。</p><h2 id="链式法则（Chain-rule）"><a href="#链式法则（Chain-rule）" class="headerlink" title="链式法则（Chain rule）"></a>链式法则（Chain rule）</h2><p>计算梯度的关键是对多元函数求导，但深度学习中多元函数通常是<em>复合</em>（composite）的，即无法通过常见函数微分法则求导。</p><p><strong>链式法则可以帮助我们对复合多元函数求导。</strong></p><p>设可微分函数$y$有变量$u_1, u_2, \ldots, u_m$，其中每个可微分函数$u_i$都有变量$x_1, x_2, \ldots, x_n$，$y$是$x_1, x_2, \ldots, x_n$的函数。对于任意$i = 1, 2, \ldots, n$，链式法则给出：</p><script type="math/tex; mode=display">\frac{dy}{dx_i} = \frac{dy}{du_1} \frac{du_1}{dx_i} + \frac{dy}{du_2} \frac{du_2}{dx_i} + \cdots + \frac{dy}{du_m} \frac{du_m}{dx_i}</script><h2 id="反向传播（Back-Propagation）"><a href="#反向传播（Back-Propagation）" class="headerlink" title="反向传播（Back Propagation）"></a>反向传播（Back Propagation）</h2><p>现在，依据上方的基础知识，我们已经知道<strong>深度学习优化算法的关键在于梯度，梯度的关键在于求导，而这个导数通常不好求，需要链式法则的参与。</strong></p><p><strong>反向传播提供了一种基于链式法则快速计算任一偏导数的方法</strong>。在深度学习框架中，框架根据我们的模型构建<strong>计算图</strong>（computational graph），计算图用于跟踪数据、操作和组合顺序，正向传播（即由输入到输出进行计算）后框架通过<strong>自动微分</strong>（automatic differentiation）反向传播梯度，跟踪整个计算图，填充关于每个参数的偏导数。</p><p>在此我不准备罗列一堆复杂的数学公式来推导<strong>反向传播</strong>的计算细节（我也不会），而是想基于应用的角度，简单的理解一下反向传播。</p><p>设有一函数$y=2\mathbf{u} + 5$，其中$u = 3\mathbf{x}^{\top}\mathbf{x}$，$y$是关于$x$的函数。</p><p>下面我们来求$y$对$x$的梯度，求梯度本质上就是求偏导。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="comment"># requires_grad为x申请存放梯度的内存</span></span><br><span class="line">x = torch.arange(<span class="number">4.0</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># x的转置乘x == x和x的点积</span></span><br><span class="line">u = <span class="number">3</span> * torch.dot(x, x)</span><br><span class="line"><span class="built_in">print</span>(u)</span><br><span class="line"></span><br><span class="line">y = <span class="number">2</span> * u + <span class="number">5</span></span><br><span class="line"><span class="built_in">print</span>(y)</span><br><span class="line"><span class="built_in">print</span>(x.grad)</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">tensor([<span class="number">0.</span>, <span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>], requires_grad=<span class="literal">True</span>)</span><br><span class="line">tensor(<span class="number">42.</span>, grad_fn=&lt;MulBackward0&gt;)</span><br><span class="line">tensor(<span class="number">89.</span>, grad_fn=&lt;AddBackward0&gt;)</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></table></figure><p>到这里$x$还没有梯度，因为还没有进行反向传播，下面来计算梯度。 原式$y$对$u$的导数为$2$，$u$对$x$的导数为$6x$，根据链式法则，$y$对$x$的导数为$12x$。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">y.backward()</span><br><span class="line"><span class="built_in">print</span>(x.grad)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">12</span> * x == x.grad)</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">tensor([ <span class="number">0.</span>, <span class="number">12.</span>, <span class="number">24.</span>, <span class="number">36.</span>])</span><br><span class="line">tensor([<span class="literal">True</span>, <span class="literal">True</span>, <span class="literal">True</span>, <span class="literal">True</span>])</span><br></pre></td></tr></table></figure><p>验证得，梯度计算正确。 这里存在一个问题，为什么不去展示中间变量$u$的梯度呢？因为出于节省内存（显存）的考虑，pytorch在反向传播的过程中只保留了计算图中的叶子结点的梯度值，而未保留中间节点的梯度。但的确可以通过一些手段获取中间变量的梯度，只是没必要，这里也不做演示了。</p><h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><p>[1]<a href="https://zh-v2.d2l.ai/chapter_preliminaries/calculus.html">https://zh-v2.d2l.ai/chapter_preliminaries/calculus.html</a><br>[2]<a href="https://blog.csdn.net/Weary_PJ/article/details/105706318">https://blog.csdn.net/Weary_PJ/article/details/105706318</a><br>[3]<a href="https://blog.csdn.net/weixin_41799019/article/details/117353078">https://blog.csdn.net/weixin_41799019/article/details/117353078</a><br>[4]<a href="https://blog.csdn.net/xierhacker/article/details/53431207">https://blog.csdn.net/xierhacker/article/details/53431207</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;一个普通人尝试理解反向传播…从上至下阅读吧，看看有什么收获。&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://silencezheng.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="机器学习" scheme="http://silencezheng.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>smartmontools安装使用</title>
@@ -405,27 +426,6 @@
     
     
     <category term="计算机网络" scheme="http://silencezheng.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JavaFX环境配置--MacOS</title>
-    <link href="http://silencezheng.top/2022/05/26/article40/"/>
-    <id>http://silencezheng.top/2022/05/26/article40/</id>
-    <published>2022-05-26T05:47:36.000Z</published>
-    <updated>2022-05-26T05:52:47.996Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>换了MacBook后想打开一下以前写的JavaFX程序，发现我的jdk1.8没有自带这个SDK（据说有打包的jdk），所以需要重新下载并在IDEA里配置，记录一下。<br><span id="more"></span></p><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>这里有ARM架构的SDK（Software Development Kit）<br><a href="https://gluonhq.com/products/javafx/">https://gluonhq.com/products/javafx/</a><br>我下载了18版本。</p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>到IDEA项目结构-&gt;Library中添加解压出来的sdk中的lib文件夹。</p><p>然后到运行配置里添加VM Options：<br><code>--module-path &quot;/xxx/javafx-sdk-18.0.1/lib&quot; --add-modules javafx.controls,javafx.fxml</code></p><p>理论上就可以运行了，但是因为我的Java版本是8，不知道是否因为版本不适配，会报错版本问题。所以我又配置了OpenJDK17（已经适配Arm平台了）。然后就可以运行了～</p><p><a href="https://www.oracle.com/java/technologies/downloads/#java17">OpenJDK17</a></p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>但是我运行成功后，原本程序的功能还是实现不了，Debug了一下发现定位在<code>System.getenv(&quot;COMPUTERNAME&quot;)</code>，原本的程序是在Windows平台写的，是不是MacOS没有这个环境变量呢？</p><p>在Terminal中输入<code>export</code>查看所有的环境变量，发现似乎应该在MacOS中可以使用<strong>HOME</strong>，为当前用户的根目录。修改后解决～</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;换了MacBook后想打开一下以前写的JavaFX程序，发现我的jdk1.8没有自带这个SDK（据说有打包的jdk），所以需要重新下载并在IDEA里配置，记录一下。&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
-    
-    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
     
   </entry>
   
