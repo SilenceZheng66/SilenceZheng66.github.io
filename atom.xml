@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-09-11T09:02:35.535Z</updated>
+  <updated>2022-09-12T13:08:39.711Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PycharmCV2无法自动提示解决</title>
+    <link href="http://silencezheng.top/2022/09/12/article61/"/>
+    <id>http://silencezheng.top/2022/09/12/article61/</id>
+    <published>2022-09-12T13:06:15.000Z</published>
+    <updated>2022-09-12T13:08:39.711Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>M1芯片 MacBook 上 <strong>Pycharm无法对cv2自动代码提示</strong> 问题解决。</p><span id="more"></span><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>1、找到环境中<code>/Users/YOURNAME/miniforge3/envs/YOURENV/lib/python3.9/site-packages/cv2</code></p><p>2、复制<code>cv2.abi3.so</code>文件，放置到上一级目录中。</p><p>3、最终效果：<code>/Users/YOURNAME/miniforge3/envs/YOURENV/lib/python3.9/site-packages/cv2.abi3.so</code></p><p>4、Boom，解决。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;M1芯片 MacBook 上 &lt;strong&gt;Pycharm无法对cv2自动代码提示&lt;/strong&gt; 问题解决。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
+    
+    <category term="Pycharm" scheme="http://silencezheng.top/tags/Pycharm/"/>
+    
+  </entry>
   
   <entry>
     <title>普通人的反向传播理解</title>
@@ -403,29 +424,6 @@
     
     
     <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TLS过程简单了解</title>
-    <link href="http://silencezheng.top/2022/05/26/article41/"/>
-    <id>http://silencezheng.top/2022/05/26/article41/</id>
-    <published>2022-05-26T15:12:50.000Z</published>
-    <updated>2022-05-26T15:15:03.601Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>答辩前夕，补习一下计算机网络知识，因为在部署ELK的过程中频繁的使用到了私钥、证书、签名等等，有必要梳理一下TLS的相关知识。本文参考了谢希仁第八版计算机网络教材，只做简单理解，深入学习还是要仔细啃书。<br>场景有如下几个：</p><ol><li>Elasticsearch节点间通信加密</li><li>Elasticsearch的HTTP通信加密</li><li>Kibana与浏览器间HTTP通信加密<span id="more"></span></li></ol><h2 id="1-什么是TLS？"><a href="#1-什么是TLS？" class="headerlink" title="1. 什么是TLS？"></a>1. 什么是TLS？</h2><p>TLS即Transport Layer Security，传输层安全协议。学过计算机网络的同学都知道，我们常用的网络模型有五层，自底向上依次为物理层、数据链路层、网络层、传输层、应用层。 而TLS事实上是属于传输层与应用层之间的一个安全协议。</p><p>TLS由SSL发展而来，但并不兼容，其优势在于与高层的应用层协议（如HTTP、FTP等）无耦合，应用层协议能透明地运行在TLS协议之上，由TLS协议进行 创建加密通道所需的 协商和认证。应用层协议传送的数据在通过TLS协议时都会被加密，从而保证通信的私密性</p><p>TLS是针对TCP进行加密的，所以任何在TCP基础上运行的应用程序程序都可以使用TLS进行加密。最常用的就是HTTP协议，HTTP在不使用传输层安全协议的时候就直接使用TCP连接，而使用了传输层安全协议后，链接前方就会显示<code>https://</code>的字样。</p><p>目前TLS的最新版本为TLS1.3，在2020年1.0和1.1均已被废弃掉了，现在能够使用的传输层安全协议只有TLS1.2和TLS1.3。</p><h2 id="2-那么TLS是如何工作的"><a href="#2-那么TLS是如何工作的" class="headerlink" title="2. 那么TLS是如何工作的"></a>2. 那么TLS是如何工作的</h2><p>谈论这个之前，我们需要了解一些基本的概念。</p><h3 id="2-1-鉴别、密钥、密码体制"><a href="#2-1-鉴别、密钥、密码体制" class="headerlink" title="2.1. 鉴别、密钥、密码体制"></a>2.1. 鉴别、密钥、密码体制</h3><p>对于安全的计算机网络，<strong>端点鉴别</strong>是一个必不可少的特性，即网络能够鉴别信息的发送方和接收方的真实身份。TLS具有双向鉴别的功能，即客户端可以鉴别服务器，服务器也可以鉴别客户端，但大多数情况下只使用前者（在HTTP中体现为浏览器鉴别服务器）。</p><p><strong>密钥</strong>是数据加密模型中的重要组成部分，通常密钥的形式为一个字符串（比特串），一般来说，一段信息（明文）需要通过加密算法和加密密钥进行加密操作，变成一段密文，接受方通过解密算法和解密密钥求解出原本的信息。</p><p>在这个过程中，产生了两种密码体制，即<strong>对称密码体制</strong>和<strong>公钥密码体制</strong>，这个概念很好理解，对称密码体制中加密密钥==解密密钥，而公钥密码体制中两者不同。本文主要研究公钥密码体制。</p><h3 id="2-2-公钥密码体制"><a href="#2-2-公钥密码体制" class="headerlink" title="2.2. 公钥密码体制"></a>2.2. 公钥密码体制</h3><p>公钥密码体制源于两个需求，一是对称密码体制中密钥分配不便，二是应用中对电子信息的 <strong>数字签名</strong> 需求。数字签名可以绑定信息与某个特定的人。</p><p>公钥密码体制中，存在两种密钥，即<strong>公钥（Public Key）</strong>和<strong>私钥（Secret Key）</strong>。其中公钥为加密密钥，对大众公开；而私钥则为解密密钥，需要保密，公钥与私钥是成对出现的。另外，加密算法与解密算法也都是公开的。</p><p>这种密码体制的通信可以是多对一的<strong>单向保密通信</strong>，即不同人持有公钥对信息加密后发送给同一接收方，但只有持有对应私钥的接收方才能获取其中的信息。</p><h3 id="2-3-用数字签名进行鉴别"><a href="#2-3-用数字签名进行鉴别" class="headerlink" title="2.3. 用数字签名进行鉴别"></a>2.3. 用数字签名进行鉴别</h3><p>数字签名的原理可以用公钥密码体制原理的逆向过程来思考，但该方式并不准确，如下：<br>当某人需要发送进行数字签名的信息时，使用自己的私钥对该信息进行了D运算，得到了一个不可读的密文，并将密文发送给接收方。接收方在收到密文后，使用对应的公钥进行E运算（核实签名），解出了原本的信息，同时证明了该信息来自特定的发送方，因为私钥只有该发送方持有。<br>注意在这个过程中，任何人都可以通过公钥解密出此人的信息，因此数字签名只对信息进行了签名，并没有加密。实现数字签名安全性的关键在于确定没有其他人能够持有发送方的私钥。</p><h3 id="2-4-那公钥是如何分配的？什么是证书签名？"><a href="#2-4-那公钥是如何分配的？什么是证书签名？" class="headerlink" title="2.4. 那公钥是如何分配的？什么是证书签名？"></a>2.4. 那公钥是如何分配的？什么是证书签名？</h3><p>说了这么多，密钥如何分配的问题还没有解决，这在实现公钥密码体制中十分重要，有必要详细的说一说。</p><p>公钥的分配过程中，最最关键的名词就是<strong>CA</strong>和<strong>公钥证书</strong>了。首先，当前流行的办法是找一个通信双方都信任的第三方机构来给拥有公钥的实体颁发一个具有数字签名的数字证书，该证书是公钥与其对应实体进行绑定的证明。这个颁发公钥证书的机构即CA（Certification Authority），通常由政府或知名公司出资建立。</p><p>每个公钥证书中都写有公钥及其拥有者的标识信息，同时包含颁发的CA自己的数字签名。但这个最终的公钥证书在形成前有一个被签名的过程，即公钥的拥有方首先将公钥与自己进行绑定，形成一个未认证的证书，CA将该证书与自己签名放在一起（中间进行一些运算）最终形成公钥证书。这个过程即为证书“签名”的过程。</p><p>当然，任何东西想要扩散起来，离不开标准化，数字证书的格式也是如此。ITU-T制定了<strong>X.509</strong>协议标准，现在的版本是 X.509V3，该标准又称为互联网<strong>公钥基础结构PKI</strong>。具体来说，该标准提出了把多级认证中心连接起来构成树状的认证系统，最高一级的认证中心为<strong>Root CA</strong>，根CA向下的所有链接称为<strong>信任链</strong>，表示这些CA都是可信的。</p><p>现代的操作系统厂商已经把许多主流CA的根证书内置到了操作系统中，这些根证书有CA们的公钥和并且使用CA的私钥进行了自签名。用户只要打开浏览器就可以查到这些根证书，并利用公钥对各网站服务器的证书进行验证。</p><h3 id="2-5-行了，TLS是啥来着？"><a href="#2-5-行了，TLS是啥来着？" class="headerlink" title="2.5. 行了，TLS是啥来着？"></a>2.5. 行了，TLS是啥来着？</h3><p>扯了一圈别的概念，这一节主要还是为了解释TLS是如何工作的…下面来看。<br>前面说到了，TLS的单向鉴别是客户端（浏览器）鉴别服务器，也就是浏览器A要确定服务器B是可信的，这就需要两个前提，一是服务器B需要有一个证书证明自己，二是浏览器A能有办法通过证书证明B是安全的。下面我们假设B已经拥有了由可靠CA颁发的证书。</p><p>首先，执行TLS的前提是TCP连接建立完成，我们假设A和B的连接已经建立。<br>TLS主要分为两个阶段，<strong>握手阶段</strong>和<strong>会话阶段</strong>。在不同的阶段，TLS使用不同的协议：握手协议和记录协议。本文中主要关注握手阶段，会话阶段读者可以自行查阅。</p><p>协商加密算法：<br>1、A向B发送自己选定的加密算法以及密钥交换算法<br>2、B从中确认自己支持的<strong>算法C</strong>，并把证书发送给A<br>服务器鉴别：<br>3、A用B证书中CA的对应公钥（这里的公钥是A本身带有的，不是B证书中包含的）对证书进行鉴别<br>生成主密钥：<br>4、A按照C生成主密钥<br>5、A用B的公钥对主密钥加密并发送给B<br>6、B用私钥解密出相同的主密钥</p><p>上述步骤完成后，A和B拥有了相同的主密钥，可以进行数据会话。但这样会有些不安全，故A和B会各自将主密钥分割成4个不同的密钥：<br>7、A生成对话密钥<br>8、B生成对话密钥</p><p>这样以后，双方各自持有4个密钥。注意这4个密钥也是相同的，分别为A发送数据使用的会话密钥、A发送数据使用的MAC密钥、B发送数据使用的会话密钥和B的MAC密钥。会话密钥也采用对称的形式是因为对称密钥的运行速度快得多。</p><h2 id="3-验证"><a href="#3-验证" class="headerlink" title="3. 验证"></a>3. 验证</h2><p>回到开头所提到的三个场景，都是我在部署ELK过程中使用加密的案例，我们来一一验证，看他们是否是TLS。首先要明确Elasticsearch节点间通信与HTTP通信使用不同的端口，故事实上属于应用层的两个应用。</p><h3 id="3-1-Elasticsearch节点间通信加密"><a href="#3-1-Elasticsearch节点间通信加密" class="headerlink" title="3.1. Elasticsearch节点间通信加密"></a>3.1. Elasticsearch节点间通信加密</h3><p>在这一过程中，大致步骤如下：<br>1、使用工具生成”elastic-stack-ca.p12”，这个文件包含生成CA的公共证书和它为每个节点签名的私钥<br>2、使用刚才生成的CA为集群上的节点们生成一个证书和一把私钥，得到“elastic-certificates.p12”，这个文件包含了节点证书、节点私钥和CA证书。然后在所有节点上放入“elastic-certificates.p12”。</p><p>让我们把这个过程与TLS对应起来，第一步事实上是主节点形成CA的过程，第二步使用CA颁发了证书，该证书存在于所有非主节点上。这样以来，主节点相当于浏览器A，而非主节点相当于服务器B，在通信时，主节点会验证其余节点的证书是否是由自己的CA签名的，这样一来就完成了鉴别，所以是TLS。</p><h3 id="3-2-Elasticsearch的HTTP通信加密（对Kibana和Logstash）"><a href="#3-2-Elasticsearch的HTTP通信加密（对Kibana和Logstash）" class="headerlink" title="3.2. Elasticsearch的HTTP通信加密（对Kibana和Logstash）"></a>3.2. Elasticsearch的HTTP通信加密（对Kibana和Logstash）</h3><p>大致流程如下：<br>1、运行命令利用”elastic-stack-ca.p12”生成一个zip压缩文件，其中包含用于 Elasticsearch 和 Kibana 的证书和私钥。“http.p12”文件为Elasticsearch使用的证书及密钥，“elasticsearch-ca.pem”为Kibana使用的。<br>2、将“http.p12”部署到所有ELasticsearch节点中。<br>3、将“elasticsearch-ca.pem”部署到Kibana中，并修改指向链接为<code>https://</code>格式。<br>4、使用工具利用”elastic-stack-ca.p12”为Logstash节点生成证书，部署到Logstash节点中。</p><p>不难看出，这部分使用的是TLS加密HTTP，从<code>https://</code>就可以看出了，依然是利用第一步产生的CA为各E、L、K节点签名证书，发放私钥。</p><h3 id="3-3-Kibana与浏览器间HTTP通信加密"><a href="#3-3-Kibana与浏览器间HTTP通信加密" class="headerlink" title="3.3. Kibana与浏览器间HTTP通信加密"></a>3.3. Kibana与浏览器间HTTP通信加密</h3><p>不用说就知道了，HTTP加密！标准的TLS！但这里存在另一个有趣的问题，Elasticsearch产生的CA固然可以为其他需要与之通信的程序们签名证书，但浏览器并不认识他，所以，该找谁签名呢？</p><p>先说大致过程：<br>1、使用工具为Kibana创建服务器证书和私钥，产生了两个文件：“kibana-server.csr”和私钥“kibana-server.key”，前者的后缀即证书签名请求，可以知道该文件需要CA签名后才能够使用。<br>2、使用OpenSSL为证书签名，得到签名后的公钥证书。部署公钥证书和私钥到Kibana。</p><p>可以看出，在这一部分中，Kibana作为服务器B的角色出现，他需要寻找一个浏览器A可信任的CA为其签名后才能够与浏览器A（其实是用户们）进行安全通信，这里我因为方便使用到了OpenSSL，但其实这个签名在浏览器眼中是不安全的。</p><p>OpenSSL是一个强大的安全套接字层密码库，Apache使用它加密HTTPS，OpenSSH使用它加密SSH，但它同时还是一个多用途的、跨平台的密码工具。</p><h2 id="4-结语"><a href="#4-结语" class="headerlink" title="4. 结语"></a>4. 结语</h2><p>从头梳理了一下TLS的流程，感觉理解加深了许多，文章写了有两个多小时了吧，希望对想了解TLS的人有一些帮助，文中部分参考了百度百科，嗯就这样。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0. 前言&quot;&gt;&lt;/a&gt;0. 前言&lt;/h2&gt;&lt;p&gt;答辩前夕，补习一下计算机网络知识，因为在部署ELK的过程中频繁的使用到了私钥、证书、签名等等，有必要梳理一下TLS的相关知识。本文参考了谢希仁第八版计算机网络教材，只做简单理解，深入学习还是要仔细啃书。&lt;br&gt;场景有如下几个：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Elasticsearch节点间通信加密&lt;/li&gt;
-&lt;li&gt;Elasticsearch的HTTP通信加密&lt;/li&gt;
-&lt;li&gt;Kibana与浏览器间HTTP通信加密</summary>
-    
-    
-    
-    
-    <category term="计算机网络" scheme="http://silencezheng.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
