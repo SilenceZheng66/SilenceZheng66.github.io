@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>silenceZheng66-BLOG</title>
+  <title>SilenceZheng66-BLOG</title>
   
   <subtitle>log</subtitle>
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>http://silencezheng.top/</id>
   
   <author>
-    <name>silenceZheng66</name>
+    <name>SilenceZheng66</name>
     
   </author>
   
