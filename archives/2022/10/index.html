@@ -6,23 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>servlet和servlet-mapping的作用 | SilenceZheng66-BLOG</title>
+  <title>Archives: 2022/10 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言简书一篇博文看到的，讲的很好记录一下原博链接：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;6dadc489969a">
-<meta property="og:type" content="article">
-<meta property="og:title" content="servlet和servlet-mapping的作用">
-<meta property="og:url" content="http://silencezheng.top/2020/08/06/article4/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="SilenceZheng66-BLOG">
+<meta property="og:url" content="http://silencezheng.top/archives/2022/10/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
-<meta property="og:description" content="前言简书一篇博文看到的，讲的很好记录一下原博链接：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;6dadc489969a">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article4/servlet.png">
-<meta property="article:published_time" content="2020-08-05T21:06:29.000Z">
-<meta property="article:modified_time" content="2020-09-09T14:08:46.000Z">
 <meta property="article:author" content="SilenceZheng66">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="Servlet">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article4/servlet.png">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
   
@@ -159,244 +151,62 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-article4" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      servlet和servlet-mapping的作用
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2022/10/01/article66/" class="archive-article-date">
+  	<time datetime="2022-10-01T12:52:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-01</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/10/01/article66/">各种“监督”学习区分</a>
     </h1>
   
 
-        
-        
-        <!-- 不蒜子统计 -->
-        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
-              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
-        </span>
-
-<a href="/2020/08/06/article4/" class="archive-article-date">
-  	<time datetime="2020-08-05T21:06:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-06</time>
-</a>
-        <!-- 需要添加的位置 -->
-        <!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">243字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
+        <div class="article-info info-on-right">
           
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>简书一篇博文看到的，讲的很好记录一下<br>原博链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6dadc489969a">https://www.jianshu.com/p/6dadc489969a</a><br><span id="more"></span><br>某个工程的web.xml文件片段如下：<br><img src="/assets/post_img/article4/servlet.png" alt="web.xml"></p>
-<p>访问顺序为1—&gt;2—&gt;3—&gt;4，其中2和3的值必须相同。</p>
-<p>url-pattern 标签中的值是要在浏览器地址栏中输入的 url，可以自己命名，这个 url 访问名为 servlet-name 中值的 servlet，两个 servlet-name 标签的值必须相同，因为通过 servlet 标签中的 servlet-name 标签映射到 servlet-class 标签中的值，最终访问 servlet-class 标签中的 class。<br>还有，web.xml 的 / 表示的是<a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a> + 工程名<br>而.jsp页面的action，加了/表示绝对路径<a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a> ，没有加 / 表示的是相对路径</p>
-<p>也就是说：<br>servlet和servlet-mapping都含有<servlet-name>&lt;/servlet-name&gt;<br>主要原因是想通过servlet-name作为纽带，将servlet-class和url-pattern构成联系，从而使URL映射到类servlet-class所指定的类中！</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/wxpay.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2020/08/06/article4/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/08/20/article5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Error Code：1175. You are using safe update mode and you tried to update a table without a WHERE
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/07/27/article3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Python零基础操作MySQL傻瓜教程</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
+    
 
-  
-
-       <div id="gitalk-container"></div>
-       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-
-if(true){
-	var gitalk = new Gitalk({
-  	clientID: '2d9a43bfd209a625ed82',
-  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
-  	repo: 'SilenceZheng66.github.io',
-  	owner: 'SilenceZheng66',
-  	admin: ['SilenceZheng66'],
-  	id: 'Thu Aug 06 2020 05:06:29 GMT+0800',
-  	distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
-  
-
-  
 
           </div>
         </div>
@@ -431,8 +241,8 @@ gitalk.render('gitalk-container')
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

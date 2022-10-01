@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>servlet和servlet-mapping的作用 | SilenceZheng66-BLOG</title>
+  <title>各种“监督”学习区分 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言简书一篇博文看到的，讲的很好记录一下原博链接：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;6dadc489969a">
+  <meta name="description" content="前言区分一下各种含“监督”的学习，包括无监督、弱监督、半监督、监督、自监督。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="servlet和servlet-mapping的作用">
-<meta property="og:url" content="http://silencezheng.top/2020/08/06/article4/index.html">
+<meta property="og:title" content="各种“监督”学习区分">
+<meta property="og:url" content="http://silencezheng.top/2022/10/01/article66/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
-<meta property="og:description" content="前言简书一篇博文看到的，讲的很好记录一下原博链接：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;6dadc489969a">
+<meta property="og:description" content="前言区分一下各种含“监督”的学习，包括无监督、弱监督、半监督、监督、自监督。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article4/servlet.png">
-<meta property="article:published_time" content="2020-08-05T21:06:29.000Z">
-<meta property="article:modified_time" content="2020-09-09T14:08:46.000Z">
+<meta property="article:published_time" content="2022-10-01T12:52:54.000Z">
+<meta property="article:modified_time" content="2022-10-01T12:53:12.630Z">
 <meta property="article:author" content="SilenceZheng66">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="Servlet">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article4/servlet.png">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
   
@@ -159,14 +156,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-article4" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-article66" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      servlet和servlet-mapping的作用
+      各种“监督”学习区分
     </h1>
   
 
@@ -177,8 +174,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/08/06/article4/" class="archive-article-date">
-  	<time datetime="2020-08-05T21:06:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-06</time>
+<a href="/2022/10/01/article66/" class="archive-article-date">
+  	<time datetime="2022-10-01T12:52:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-01</time>
 </a>
         <!-- 需要添加的位置 -->
         <!-- 开始添加字数统计-->
@@ -188,7 +185,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">243字</span>
+        <span class="post-count">1.2k字</span>
       </span>
     </span>
 
@@ -197,7 +194,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">3分</span>
       </span>
     </span>
 </div>
@@ -208,10 +205,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>简书一篇博文看到的，讲的很好记录一下<br>原博链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6dadc489969a">https://www.jianshu.com/p/6dadc489969a</a><br><span id="more"></span><br>某个工程的web.xml文件片段如下：<br><img src="/assets/post_img/article4/servlet.png" alt="web.xml"></p>
-<p>访问顺序为1—&gt;2—&gt;3—&gt;4，其中2和3的值必须相同。</p>
-<p>url-pattern 标签中的值是要在浏览器地址栏中输入的 url，可以自己命名，这个 url 访问名为 servlet-name 中值的 servlet，两个 servlet-name 标签的值必须相同，因为通过 servlet 标签中的 servlet-name 标签映射到 servlet-class 标签中的值，最终访问 servlet-class 标签中的 class。<br>还有，web.xml 的 / 表示的是<a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a> + 工程名<br>而.jsp页面的action，加了/表示绝对路径<a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a> ，没有加 / 表示的是相对路径</p>
-<p>也就是说：<br>servlet和servlet-mapping都含有<servlet-name>&lt;/servlet-name&gt;<br>主要原因是想通过servlet-name作为纽带，将servlet-class和url-pattern构成联系，从而使URL映射到类servlet-class所指定的类中！</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>区分一下各种含“监督”的学习，包括无监督、弱监督、半监督、监督、自监督。<br><span id="more"></span></p>
+<h2 id="无监督学习-unsupervised-learning"><a href="#无监督学习-unsupervised-learning" class="headerlink" title="无监督学习(unsupervised learning)"></a>无监督学习(unsupervised learning)</h2><blockquote>
+<p>无监督学习是机器学习的一种方法，没有给定事先标记过的训练示例，自动对输入的资料进行分类或分群。无监督学习的主要运用包含：聚类分析（cluster analysis）、关系规则（association rule）、维度缩减（dimensionality reduce）。</p>
+</blockquote>
+<p>可以根据特点来认识无监督学习：</p>
+<ol>
+<li>无监督学习是没有明确目的的训练方式，你无法提前知道结果是什么。</li>
+<li>无监督学习<strong>不需要给数据打标签</strong>。</li>
+<li>无监督学习几乎无法量化效果如何。</li>
+</ol>
+<p>无监督学习是一种机器学习的训练方式，它本质上是一个统计手段，在没有标签的数据里可以发现潜在的一些结构的一种训练方式。</p>
+<p>无监督学习的应用，比如对用户行为进行分类，筛选异常行为用户等等。</p>
+<h2 id="监督学习-supervised-learning"><a href="#监督学习-supervised-learning" class="headerlink" title="监督学习(supervised learning)"></a>监督学习(supervised learning)</h2><p>已知数据和其一一对应的标签，训练一个智能算法，将输入数据映射到标签的过程。监督学习是最常见的学习问题之一，例如给定一组猪的图片，并作图像级标注分类为猪，用监督学习训练一个算法可以判断新输入的图片是否是猪。</p>
+<p>与无监督学习相比：</p>
+<ol>
+<li>监督学习有明确的训练目的</li>
+<li>监督学习的训练数据必须有标签</li>
+<li>监督学习可以量化效果</li>
+</ol>
+<h2 id="弱监督学习-weakly-supervised-learning"><a href="#弱监督学习-weakly-supervised-learning" class="headerlink" title="弱监督学习(weakly supervised learning)"></a>弱监督学习(weakly supervised learning)</h2><p>已知数据和其一一对应的<strong>弱标签</strong>，训练一个智能算法，将输入数据映射到一组更强的标签的过程。</p>
+<p><strong>标签的强弱指的是标签蕴含的信息量的多少</strong>，比如相对于分割的标签来说，分类的标签就是弱标签。再比如对于弱监督目标检测，就是数据只有图像级标注，比如图片的分类，要求算法获取目标边界框的学习任务。</p>
+<h2 id="半监督学习-semi-supervised-learning"><a href="#半监督学习-semi-supervised-learning" class="headerlink" title="半监督学习(semi-supervised learning)"></a>半监督学习(semi-supervised learning)</h2><p>已知数据和部分数据一一对应的标签，有一部分数据的标签未知，训练一个智能算法，学习已知标签和未知标签的数据，将输入数据映射到标签的过程。半监督通常是一个数据的标注非常困难，比如说医院的检查结果，医生也需要一段时间来判断健康与否，可能只有几组数据知道是健康还是非健康，其他的只有数据不知道是不是健康。那么通过有监督学习和无监督的结合的半监督学习就在这里发挥作用了。</p>
+<p>总之，是在数据标注困难的情况下，<strong>使用少量标注数据和其他未标注数据进行学习</strong>的训练方式。</p>
+<h2 id="自监督学习-self-supervised-learning"><a href="#自监督学习-self-supervised-learning" class="headerlink" title="自监督学习(self-supervised learning)"></a>自监督学习(self-supervised learning)</h2><p>基于监督学习当前的主要瓶颈是 标签生成和标注 的现状，人们提出了一个问题：</p>
+<blockquote>
+<p>我们是否可以通过特定的方式设计任务，即可以从现有图像中生成几乎无限的标签，并以此来学习特征表示？</p>
+</blockquote>
+<p>这道出了自监督学习的理想状态，我们希望同时拥有监督学习的明确性和无监督学习的自由性，<strong>理想的自监督学习能够在给定的无标注数据中自动生成我们需要的标签，并根据该标签和数据进行监督学习。</strong></p>
+<p>自监督学习的核心是<strong>如何给输入数据自动生成标签</strong>。之前的很多工作都是围绕这个核心展开的。一般的套路是：首先提出一个新的自动打标签的<strong>辅助任务</strong>（pretext task），用辅助任务自动生成标签，然后做实验、测性能、发文章。每年都有新的辅助任务被提出来，自监督学习的性能也在不断提高，有的甚至已经接近监督学习的性能。总体上说，或者是提出一种完全新的辅助任务，或者是把多个旧的辅助任务组合到一起作为一个“新”的辅助任务。</p>
+<p>自监督学习的应用，有图像着色、图像超分辨率、图像修补等等，其学习到的特征表示通常可以用于下游任务。</p>
 
       
 
@@ -256,11 +279,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		
 		</ul>
@@ -316,7 +335,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2020/08/06/article4/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/10/01/article66/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -330,18 +349,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/08/20/article5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Error Code：1175. You are using safe update mode and you tried to update a table without a WHERE
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/07/27/article3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Python零基础操作MySQL傻瓜教程</div>
+    <a href="/2022/09/29/article65/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">什么是语义分割、实例分割、全景分割</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -388,7 +398,7 @@ if(true){
   	repo: 'SilenceZheng66.github.io',
   	owner: 'SilenceZheng66',
   	admin: ['SilenceZheng66'],
-  	id: 'Thu Aug 06 2020 05:06:29 GMT+0800',
+  	id: 'Sat Oct 01 2022 20:52:54 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 

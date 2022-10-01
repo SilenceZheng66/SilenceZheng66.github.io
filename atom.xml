@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-09-29T13:20:47.640Z</updated>
+  <updated>2022-10-01T12:53:12.630Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>各种“监督”学习区分</title>
+    <link href="http://silencezheng.top/2022/10/01/article66/"/>
+    <id>http://silencezheng.top/2022/10/01/article66/</id>
+    <published>2022-10-01T12:52:54.000Z</published>
+    <updated>2022-10-01T12:53:12.630Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>区分一下各种含“监督”的学习，包括无监督、弱监督、半监督、监督、自监督。<br><span id="more"></span></p><h2 id="无监督学习-unsupervised-learning"><a href="#无监督学习-unsupervised-learning" class="headerlink" title="无监督学习(unsupervised learning)"></a>无监督学习(unsupervised learning)</h2><blockquote><p>无监督学习是机器学习的一种方法，没有给定事先标记过的训练示例，自动对输入的资料进行分类或分群。无监督学习的主要运用包含：聚类分析（cluster analysis）、关系规则（association rule）、维度缩减（dimensionality reduce）。</p></blockquote><p>可以根据特点来认识无监督学习：</p><ol><li>无监督学习是没有明确目的的训练方式，你无法提前知道结果是什么。</li><li>无监督学习<strong>不需要给数据打标签</strong>。</li><li>无监督学习几乎无法量化效果如何。</li></ol><p>无监督学习是一种机器学习的训练方式，它本质上是一个统计手段，在没有标签的数据里可以发现潜在的一些结构的一种训练方式。</p><p>无监督学习的应用，比如对用户行为进行分类，筛选异常行为用户等等。</p><h2 id="监督学习-supervised-learning"><a href="#监督学习-supervised-learning" class="headerlink" title="监督学习(supervised learning)"></a>监督学习(supervised learning)</h2><p>已知数据和其一一对应的标签，训练一个智能算法，将输入数据映射到标签的过程。监督学习是最常见的学习问题之一，例如给定一组猪的图片，并作图像级标注分类为猪，用监督学习训练一个算法可以判断新输入的图片是否是猪。</p><p>与无监督学习相比：</p><ol><li>监督学习有明确的训练目的</li><li>监督学习的训练数据必须有标签</li><li>监督学习可以量化效果</li></ol><h2 id="弱监督学习-weakly-supervised-learning"><a href="#弱监督学习-weakly-supervised-learning" class="headerlink" title="弱监督学习(weakly supervised learning)"></a>弱监督学习(weakly supervised learning)</h2><p>已知数据和其一一对应的<strong>弱标签</strong>，训练一个智能算法，将输入数据映射到一组更强的标签的过程。</p><p><strong>标签的强弱指的是标签蕴含的信息量的多少</strong>，比如相对于分割的标签来说，分类的标签就是弱标签。再比如对于弱监督目标检测，就是数据只有图像级标注，比如图片的分类，要求算法获取目标边界框的学习任务。</p><h2 id="半监督学习-semi-supervised-learning"><a href="#半监督学习-semi-supervised-learning" class="headerlink" title="半监督学习(semi-supervised learning)"></a>半监督学习(semi-supervised learning)</h2><p>已知数据和部分数据一一对应的标签，有一部分数据的标签未知，训练一个智能算法，学习已知标签和未知标签的数据，将输入数据映射到标签的过程。半监督通常是一个数据的标注非常困难，比如说医院的检查结果，医生也需要一段时间来判断健康与否，可能只有几组数据知道是健康还是非健康，其他的只有数据不知道是不是健康。那么通过有监督学习和无监督的结合的半监督学习就在这里发挥作用了。</p><p>总之，是在数据标注困难的情况下，<strong>使用少量标注数据和其他未标注数据进行学习</strong>的训练方式。</p><h2 id="自监督学习-self-supervised-learning"><a href="#自监督学习-self-supervised-learning" class="headerlink" title="自监督学习(self-supervised learning)"></a>自监督学习(self-supervised learning)</h2><p>基于监督学习当前的主要瓶颈是 标签生成和标注 的现状，人们提出了一个问题：</p><blockquote><p>我们是否可以通过特定的方式设计任务，即可以从现有图像中生成几乎无限的标签，并以此来学习特征表示？</p></blockquote><p>这道出了自监督学习的理想状态，我们希望同时拥有监督学习的明确性和无监督学习的自由性，<strong>理想的自监督学习能够在给定的无标注数据中自动生成我们需要的标签，并根据该标签和数据进行监督学习。</strong></p><p>自监督学习的核心是<strong>如何给输入数据自动生成标签</strong>。之前的很多工作都是围绕这个核心展开的。一般的套路是：首先提出一个新的自动打标签的<strong>辅助任务</strong>（pretext task），用辅助任务自动生成标签，然后做实验、测性能、发文章。每年都有新的辅助任务被提出来，自监督学习的性能也在不断提高，有的甚至已经接近监督学习的性能。总体上说，或者是提出一种完全新的辅助任务，或者是把多个旧的辅助任务组合到一起作为一个“新”的辅助任务。</p><p>自监督学习的应用，有图像着色、图像超分辨率、图像修补等等，其学习到的特征表示通常可以用于下游任务。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;区分一下各种含“监督”的学习，包括无监督、弱监督、半监督、监督、自监督。&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="机器学习" scheme="http://silencezheng.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>什么是语义分割、实例分割、全景分割</title>
@@ -407,25 +426,6 @@
     
     
     <category term="编程思想" scheme="http://silencezheng.top/tags/%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VSCode代码段使用</title>
-    <link href="http://silencezheng.top/2022/06/19/article46/"/>
-    <id>http://silencezheng.top/2022/06/19/article46/</id>
-    <published>2022-06-19T11:18:38.000Z</published>
-    <updated>2022-06-19T11:29:04.238Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>越用VSCode越有一种轻便感，麻雀虽小，五脏俱全，又有微软在做背书，同步设置什么的也很方便，要是国产也能有这样的好工具就好了。<br>之前在编写博客时，总觉得代码块、标题的输入有些麻烦，偶然发现可以使用代码段功能来解决这一问题，遂记录一下。<br><span id="more"></span></p><h2 id="代码段功能"><a href="#代码段功能" class="headerlink" title="代码段功能"></a>代码段功能</h2><p>VSCode提供的代码段功能，主要是通过输入预先设置好的“前缀”字符，触发输出对应的代码段。</p><p>该功能具有三种作用域：</p><ol><li>全局（global），该类代码段被存放在软件内部的文件中，不会随着项目的关闭而失效。在创建后除非手动删除该代码段文件，否则它会一直存在。</li><li>文件夹（folder），该类代码段被存放在选定目录下<code>.vscode</code>隐藏文件夹中，这个代码段只适用于当前文件夹。</li><li>文件类型（file type），该类代码段与全局作用域代码段类似，被存放在软件内部的文件中。但这类代码段只适用于用户指定的文件类型，严格的匹配文件后缀。</li></ol><p>三类代码段文件的书写格式是一致的，给个简单的例子如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;Add a Markdown code block&quot;</span>:&#123;</span><br><span class="line"><span class="attr">&quot;scope&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"><span class="attr">&quot;prefix&quot;</span>: <span class="string">&quot;amcb&quot;</span>,</span><br><span class="line"><span class="attr">&quot;body&quot;</span>: [</span><br><span class="line"><span class="string">&quot;```&quot;</span>,</span><br><span class="line"><span class="string">&quot;$1&quot;</span>,</span><br><span class="line"><span class="string">&quot;```&quot;</span></span><br><span class="line">],</span><br><span class="line"><span class="attr">&quot;description&quot;</span>: <span class="string">&quot;Add a Markdown code block&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>所有的代码段都书写在<code>xx.code-snippets</code>文件中的花括号内，每一个代码段包含四个属性：<br><strong>scope</strong>：作用文件类型，多种类型之间用逗号隔开。如果值为空，或不写该属性，默认所有类型文件都支持该代码段。同时该属性仅支持全局和文件夹作用域，因为文件类型作用域代码段本身已经指定了该属性。<br><strong>prefix</strong>： 触发代码段的“前缀”字符。<br><strong>body</strong>：代码段主体内容，格式为<em>字符串</em>数组，也就是说每行代码都需要用引号括起。<br><strong>description</strong>：代码块的描述，输入“前缀”时会有提示。</p><p>除此之外，在代码段主体的书写上还有一些规则：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、每个字符串元素就代表一行，在单行内可以使用\r或者使用\<span class="keyword">n</span>换行。</span><br><span class="line">2、行内不能使用<span class="keyword">tab</span>键缩进，只能使用空格或者\t缩进。</span><br><span class="line">3、用<span class="variable">$1</span>表示敲击回车或者<span class="keyword">tab</span>键一次后光标定位的位置。<span class="variable">$2</span>，<span class="variable">$3</span>，<span class="variable">$4</span>，...同理。</span><br></pre></td></tr></table></figure></p><h2 id="利用代码段功能方便Markdown博客编写"><a href="#利用代码段功能方便Markdown博客编写" class="headerlink" title="利用代码段功能方便Markdown博客编写"></a>利用代码段功能方便Markdown博客编写</h2><p>了解这个功能后，就可以应用它来帮助在VSCode中编写Markdown格式的博客。</p><p>我通常习惯在一个固定的工作区编写我的博客，所以新建一个“文件夹域”的代码段文件，如下：<br><img src="/assets/post_img/article46/md文章增强.png" alt="wzzq"></p><p>书写代码段：<br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">   <span class="string">&quot;Add a Markdown code block&quot;</span>:&#123;</span><br><span class="line"><span class="string">&quot;scope&quot;</span>: <span class="string">&quot;markdown&quot;</span>,</span><br><span class="line"><span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;amcb&quot;</span>,</span><br><span class="line"><span class="string">&quot;body&quot;</span>: [</span><br><span class="line"><span class="string">&quot;``<span class="subst">`<span class="string">&quot;,</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">&quot;</span><span class="number">$1</span><span class="string">&quot;,</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">&quot;</span></span>```&quot;</span></span><br><span class="line">],</span><br><span class="line"><span class="string">&quot;description&quot;</span>: <span class="string">&quot;Add a Markdown code block&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>这时在.md文件中还不能直接使用，因为VSCode默认没有开启quickSuggestions。</p><p>打开当前工作区的<code>settings.json</code>，添加如下配置：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;<span class="selector-attr">[markdown]</span>&quot;:&#123;</span><br><span class="line">    <span class="string">&quot;editor.quickSuggestions&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;other&quot;</span>: <span class="string">&quot;on&quot;</span>,</span><br><span class="line">        <span class="string">&quot;comments&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">        <span class="string">&quot;strings&quot;</span>: <span class="string">&quot;off&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这样以后，虽然代码段是有提示了:<br><img src="/assets/post_img/article46/amcb.png" alt="amcb"><br>可是还有很多不必要的提示，比如前文中出现的语句也会被加入到提示中来，有些麻烦：<br><img src="/assets/post_img/article46/麻烦.png" alt="trouble"></p><p>于是我到VSCode<a href="https://code.visualstudio.com/docs/getstarted/settings#_languagespecific-editor-settings">官方文档</a>中寻找，看看有没有什么办法，发现这其实是因为”editor.quickSuggestions”这个设置的属性粒度不够细致造成的，它将文件的内容区分为字符串、注释和其他，也就是说只要我启用了其他，那么文件中非注释和非字符串的内容都会被提示，我的个人建议是增加一个snippets属性，将该属性从other中划分出来，就可以完美的解决我的需求😄。</p><p>顺便一提VSCode有两种设置方式，用户设置和工作区（Workplace）设置，前者应用于全局，后者存在于项目根目录的<code>.vscode</code>默认文件夹内，可以对当前项目覆盖用户设置（优先级更高）。<br><img src="/assets/post_img/article46/vsc设置.png" alt="setting"><br>关于更多设置优先级相关，<a href="https://code.visualstudio.com/docs/getstarted/settings#_settings-precedence">官网</a>有更详细的解释。所以之前做的配置实际上是覆盖了用户配置。</p><p>最终还是选择了这种配置：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> on、off、onlySnippets</span><br><span class="line"><span class="string">&quot;editor.tabCompletion&quot;</span>: <span class="string">&quot;onlySnippets&quot;</span></span><br></pre></td></tr></table></figure><br>即：使用tab自动补全，但仅对于代码段使用。<br>这样虽然不会有输入建议提示，但胜在简洁，只需要把代码段的前缀设置的相对短，并记住即可，基本上我常用的也就是Markdown代码块和标题，用于填补Markdown All in One插件的缺点。</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>后续可能给VSCode提个issue，建议一下关于粒度划分问题。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;越用VSCode越有一种轻便感，麻雀虽小，五脏俱全，又有微软在做背书，同步设置什么的也很方便，要是国产也能有这样的好工具就好了。&lt;br&gt;之前在编写博客时，总觉得代码块、标题的输入有些麻烦，偶然发现可以使用代码段功能来解决这一问题，遂记录一下。&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="VSCode" scheme="http://silencezheng.top/tags/VSCode/"/>
     
   </entry>
   
