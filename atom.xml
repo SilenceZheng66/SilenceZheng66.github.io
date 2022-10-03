@@ -59,7 +59,7 @@
     <link href="http://silencezheng.top/2022/09/28/article64/"/>
     <id>http://silencezheng.top/2022/09/28/article64/</id>
     <published>2022-09-28T10:09:13.000Z</published>
-    <updated>2022-09-28T10:10:12.900Z</updated>
+    <updated>2022-10-03T03:07:52.462Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如题，需求MacOS版本12+，主要参考<a href="https://developer.apple.com/metal/tensorflow-plugin/">官方教程</a>。<br><span id="more"></span></p><h2 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h2><p>有一个conda环境，进入。</p><h2 id="安装TensorFlow"><a href="#安装TensorFlow" class="headerlink" title="安装TensorFlow"></a>安装TensorFlow</h2><h3 id="1-安装TensorFlow依赖"><a href="#1-安装TensorFlow依赖" class="headerlink" title="1. 安装TensorFlow依赖"></a>1. 安装TensorFlow依赖</h3><p><code>conda install -c apple tensorflow-deps</code></p><h3 id="2-安装TensorFlow"><a href="#2-安装TensorFlow" class="headerlink" title="2. 安装TensorFlow"></a>2. 安装TensorFlow</h3><p><code>python -m pip install tensorflow-macos</code></p><h3 id="3-安装tensorflow-metal插件"><a href="#3-安装tensorflow-metal插件" class="headerlink" title="3. 安装tensorflow-metal插件"></a>3. 安装tensorflow-metal插件</h3><p><code>python -m pip install tensorflow-metal</code></p><h3 id="4-安装keras"><a href="#4-安装keras" class="headerlink" title="4. 安装keras"></a>4. 安装keras</h3><p><code>python -m pip install keras</code></p>]]></content>
     
@@ -70,8 +70,6 @@
     
     
     <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
-    
-    <category term="TensorFlow" scheme="http://silencezheng.top/tags/TensorFlow/"/>
     
   </entry>
   
