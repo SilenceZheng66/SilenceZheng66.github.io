@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-10-06T01:47:02.633Z</updated>
+  <updated>2022-10-06T08:23:51.710Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>复活Google翻译</title>
+    <link href="http://silencezheng.top/2022/10/06/article68/"/>
+    <id>http://silencezheng.top/2022/10/06/article68/</id>
+    <published>2022-10-06T08:21:31.000Z</published>
+    <updated>2022-10-06T08:23:51.710Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>9月末，谷歌旗下网页翻译工具谷歌翻译停止了中国区服务，现在访问<code>translate.google.cn</code>网页会指向谷歌香港站，此做法与此前谷歌搜索、谷歌地图等功能退出中国大陆时一致。</p><p>也就是说，Chrome的内置翻译也不能正常使用了。好在目前可以通过修改host文件的方式复活谷歌翻译。<br><span id="more"></span></p><h2 id="找可用IP"><a href="#找可用IP" class="headerlink" title="找可用IP"></a>找可用IP</h2><p>打开：<a href="https://ping.chinaz.com/translate.google.cn">https://ping.chinaz.com/translate.google.cn</a></p><p>随便找一个IP就行，如果想再精细一点，可以找到距离自己物理位置较近的同网络运营商的IP地址。</p><h2 id="修改host文件"><a href="#修改host文件" class="headerlink" title="修改host文件"></a>修改host文件</h2><p>把如下内容增加到host文件中，其中IP就是第一步找的IP，可以多填几个，省的后面IP不能用了再加。<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">220.181.174.98</span> translate.googleapis.com</span><br></pre></td></tr></table></figure></p><p>对于Windows，该文件的目录通常为<code>C:\Windows\System32\drivers\etc\hosts</code>；</p><p>对于MacOS，为<code>/private/etc/hosts</code>；</p><p>对于Linux，为<code>/etc/hosts</code>；</p><p>Android和ios也有对应方式，没啥用就不写了，详细可以看<a href="https://pangniao.net/google-translate.html">这里</a>。</p><p>修改完了source一下就可以使用了，如果不行就重启浏览器。</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>这个方法就是通过关联可用IP和翻译API的域名使翻译服务可用，如果没有可用IP了这个办法就行不通了。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;9月末，谷歌旗下网页翻译工具谷歌翻译停止了中国区服务，现在访问&lt;code&gt;translate.google.cn&lt;/code&gt;网页会指向谷歌香港站，此做法与此前谷歌搜索、谷歌地图等功能退出中国大陆时一致。&lt;/p&gt;
+&lt;p&gt;也就是说，Chrome的内置翻译也不能正常使用了。好在目前可以通过修改host文件的方式复活谷歌翻译。&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="Chrome" scheme="http://silencezheng.top/tags/Chrome/"/>
+    
+  </entry>
   
   <entry>
     <title>高斯滤波与双边滤波</title>
@@ -402,27 +422,6 @@
     <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
     
     <category term="Idea" scheme="http://silencezheng.top/tags/Idea/"/>
-    
-    <category term="Swing" scheme="http://silencezheng.top/tags/Swing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swing事件响应三种方式</title>
-    <link href="http://silencezheng.top/2022/06/26/article48/"/>
-    <id>http://silencezheng.top/2022/06/26/article48/</id>
-    <published>2022-06-26T08:30:14.000Z</published>
-    <updated>2022-06-26T08:31:37.446Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>简单总结Swing开发中对组件添加事件响应的三种方法。<br>参考：<a href="https://blog.csdn.net/moridehuixiang/article/details/45394577">https://blog.csdn.net/moridehuixiang/article/details/45394577</a><br><span id="more"></span></p><h2 id="事件响应"><a href="#事件响应" class="headerlink" title="事件响应"></a>事件响应</h2><p>在Swing中,事件响应是通过监听器对象来处理事件的方式实行的,这种方式被称为事件委托模型。</p><p>以JButton举例,它内部有一个名为listenerList的链表,在点击按钮时,会产生一个ActionEvent事件,此后内部会依次调用位于listenerList中的每一个实现ActionListener接口的类的实例的actionPerformed方法,这就是事件响应的过程。</p><p>当调用JButton的addActionListener方法时, 外部实现了ActionListene接口的类的实例的指针就被放入了listenerList中,当按钮点击事件产生时,这个实例的actionPerformed方法就会被调用,从而按钮的点击事件处理就被委托到了该实例中进行处理。</p><h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>实现ActionListener接口的三种方式如下：<br>1.实现一个ActionListener接口的子类,再把按钮的事件响应委托给这个子类的实例处理.这种方式并不常用。</p><p>2.让界面类（通常是继承了JFrame）实现ActionListener接口,再把事件响应委托给界面类。这种方式适合于处理一些短小简单或要求内聚的事件响应。</p><p>3.用匿名类实现ActionListener接口,再把事件委托给这个匿名类的实例，这种方式是Swing事件处理的主流。</p><h2 id="方法一：创建一个实现了ActionListener接口的子类"><a href="#方法一：创建一个实现了ActionListener接口的子类" class="headerlink" title="方法一：创建一个实现了ActionListener接口的子类"></a>方法一：创建一个实现了ActionListener接口的子类</h2><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ButtonActionListener</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">ActionListener</span></span></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">    <span class="keyword">String</span> buttonText=((JButton)e.getSource()).getText();</span><br><span class="line">    System.out.println(<span class="string">&quot;你按下了&quot;</span> + buttonText);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">button.addActionListener(<span class="keyword">new</span> <span class="type">ButtonActionListener</span>());</span><br></pre></td></tr></table></figure><h2 id="方法二：整个窗体类实现ActionListener接口"><a href="#方法二：整个窗体类实现ActionListener接口" class="headerlink" title="方法二：整个窗体类实现ActionListener接口"></a>方法二：整个窗体类实现ActionListener接口</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">MyWindow</span> <span class="keyword">extends</span> <span class="title">JFrame</span> <span class="title">implements</span> <span class="title">ActionListener</span></span>&#123;</span><br><span class="line">  public <span class="type">MyFrame</span>() &#123;</span><br><span class="line">    button.addActionListener(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public void actionPerformed(<span class="type">ActionEvent</span> e) &#123;</span><br><span class="line">    <span class="keyword">if</span>(e.getSource()==button)&#123;</span><br><span class="line">      <span class="type">System</span>.out.println(<span class="string">&quot;你按下了&quot;</span> + button.getText());</span><br><span class="line">    &#125;   </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="方法三：匿名类方式添加"><a href="#方法三：匿名类方式添加" class="headerlink" title="方法三：匿名类方式添加"></a>方法三：匿名类方式添加</h2><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">button.add<span class="constructor">ActionListener(<span class="params">new</span> ActionListener()</span> &#123;</span><br><span class="line">      public void action<span class="constructor">Performed(ActionEvent <span class="params">e</span>)</span> &#123;</span><br><span class="line">        <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(<span class="string">&quot;你按下了&quot;</span> + button.get<span class="constructor">Text()</span>);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;简单总结Swing开发中对组件添加事件响应的三种方法。&lt;br&gt;参考：&lt;a href=&quot;https://blog.csdn.net/moridehuixiang/article/details/45394577&quot;&gt;https://blog.csdn.net/moridehuixiang/article/details/45394577&lt;/a&gt;&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
     
     <category term="Swing" scheme="http://silencezheng.top/tags/Swing/"/>
     
