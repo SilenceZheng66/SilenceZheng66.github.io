@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Archives | SilenceZheng66-BLOG</title>
+  <title>语义分割常用评价指标 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/archives/page/8/index.html">
+  <meta name="description" content="前言关于语义分割领域的常用评价指标进行一些个人解读，欢迎批评指正。 本来是想连目标检测的一起说了的，但是关于AP的一些东西始终有疑问，留着后面搞懂了再写一篇吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语义分割常用评价指标">
+<meta property="og:url" content="http://silencezheng.top/2022/10/23/article71/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言关于语义分割领域的常用评价指标进行一些个人解读，欢迎批评指正。 本来是想连目标检测的一起说了的，但是关于AP的一些东西始终有疑问，留着后面搞懂了再写一篇吧。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://silencezheng.top/assets/post_img/article71/confusion-matrix-2classes.jpeg">
+<meta property="og:image" content="http://silencezheng.top/assets/post_img/article71/IoU.png">
+<meta property="article:published_time" content="2022-10-22T16:26:05.000Z">
+<meta property="article:modified_time" content="2022-10-22T16:33:20.039Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article71/confusion-matrix-2classes.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
   
@@ -151,105 +160,282 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article71" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/07/17/article1/" class="archive-article-date">
-  	<time datetime="2020-07-17T09:51:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/17/article1/">Windows快速建立hexo博客指南</a>
+    <h1 class="article-title" itemprop="name">
+      语义分割常用评价指标
     </h1>
   
 
-        <div class="article-info info-on-right">
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/10/23/article71/" class="archive-article-date">
+  	<time datetime="2022-10-22T16:26:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-23</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.3k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">8分</span>
+      </span>
+    </span>
+</div>
           
+        <!-- 添加完成 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于语义分割领域的常用评价指标进行一些个人解读，欢迎批评指正。</p>
+<p>本来是想连目标检测的一起说了的，但是关于AP的一些东西始终有疑问，留着后面搞懂了再写一篇吧。<br><span id="more"></span></p>
+<h2 id="前置理解"><a href="#前置理解" class="headerlink" title="前置理解"></a>前置理解</h2><p>在解读这些评价指标之前，需要对深度学习方法有一个基础认识。</p>
+<p>首先，评价指标，是指测试阶段将预测结果与真实值进行比对得到的量化结论。<strong>评价指标（Metric）和损失函数（Loss）有联系也有区别</strong>，目前在我个人理解来说，评价指标是以实用的角度评价模型，只关心模型的结果，而损失函数是从数学的角度收敛模型，但损失往往应该与一个你最关心的评价指标相对应，通过收敛损失能够达到向指标增大的方向靠拢。并且，损失应该是容易优化的，很多时候它们对模型参数可微，甚至是凸的。下面引[10]中的例子做说明。</p>
+<blockquote>
+<p>假设某同学备战高考，他给自己定下了一个奋斗的方向，即每周要把自己的各科总成绩提高5分；经过多年的准备，终于在高考中取得了好成绩（710分，总分750），被北大录取。<br>分析该例子，该同学“每周要把自己的各科总成绩提高5分”这个指导原则相当于目标函数，在这个指导原则的指引下，想必该同学的总分会越来越高，即模型被训练的越来越好。<br>最终，该同学高考成绩优异，相当于模型的测试效果良好，至于用从哪个角度评价这名同学，可以用其高考总分与750分的差距来衡量，也可以用其被录取的大学的水平来衡量，这就如同模型的评估指标是多种多样的，比如分类问题中的准确率、召回率等。<br>当然，模型的评估指标多样，模型的损失函数也是多样的；该例中，该同学可以将“每周要把自己的各科总成绩提高5分”作为指导原则，也可将“每周比之前多学2个知识点”作为指导原则。<br>另外，如果该同学将“每周模拟高考总分与750分的差距”同时作为指导原则与评价角度，则类似于线性回归模型将“MSE均方误差”同时作为损失函数与评估指标。<br>该例中，备考的“指导原则”相当于“损失函数”，“评价角度”相当于“评估指标”，该同学相当于一个机器学习模型。</p>
+</blockquote>
+<p>其次，在多分类任务中，通常包含$n$个类别，而对于某一样本的最终预测只能是$n$个类别中的一个。但是，算法对一个样本的类别预测通常以置信度的形式表示，最终选择置信度最高的类别作为预测输出。</p>
+<p>最后，多分类任务对于每个类来看，可以看作是一个二分类问题，以样本对于该类别预测是否正确作为区分。</p>
+<h2 id="混淆矩阵（Confusion-Matrix）"><a href="#混淆矩阵（Confusion-Matrix）" class="headerlink" title="混淆矩阵（Confusion Matrix）"></a>混淆矩阵（Confusion Matrix）</h2><p>混淆矩阵用于直观的显示模型预测结果的情形。 混淆矩阵中的横纵轴都是类别，对于$p_{ij}$（横坐标为$i$,纵坐标为$j$处的值），其含义为属于类别$i$并被预测为类别$j$的<strong>样本数量</strong>（在语义分割中通常样本等同于像素）。也就是说，每个位置的<strong>横坐标表示模型的预测，纵坐标表示真实标签</strong>。</p>
+<p>对于二分类问题，混淆矩阵可以表示如下：</p>
+<p><img src="/assets/post_img/article71/confusion-matrix-2classes.jpeg" alt="cm2"></p>
+<p>若令其中$1$表示正类，$0$表示负类，则可以定义如下四个量：</p>
+<ul>
+<li>TP(True Positive)：将正样本预测为正类的数量，即图中的$a$。</li>
+<li>FN(False Negative)：将正样本预测为负类的数量，即图中的$b$。</li>
+<li>FP(False Positive)：将负样本预测为正类的数量，即图中的$c$。</li>
+<li>TN(True Negative)：将负样本预测为负类的数量，即图中的$d$。</li>
+</ul>
+<p>对于多分类问题，只是把该矩阵由$2 \times 2$变化为$n \times n$，其中$n$表示类别数量。</p>
+<p>从混淆矩阵中我们可以获得一些基础信息，如：</p>
+<ul>
+<li>$i$行的和$\sum^n_{j=1}p_{ij}$表示数据集中属于类别$i$的样本个数</li>
+<li>$j$列的和$\sum^n_{i=1}p_{ij}$表示模型预测中属于类别$j$的样本个数</li>
+<li>矩阵中所有元素的和$\sum^n_{i=1}\sum^n_{j=1}p_{ij}$表示图像中的总样本个数</li>
+<li>…</li>
+</ul>
+<h2 id="精确率（Precision）和召回率（Recall）"><a href="#精确率（Precision）和召回率（Recall）" class="headerlink" title="精确率（Precision）和召回率（Recall）"></a>精确率（Precision）和召回率（Recall）</h2><p>这两个指标都是<strong>针对某一类别</strong>而言的，是分类任务的常用评价指标。</p>
+<p>精确率又称查准率，含义是对于模型预测中属于类别$j$的样本，预测结果正确的比例。例如对于二分类问题，正类的精确率$Precision_{positive} = \frac{TP}{TP+FP} = \frac{a}{a+c}$。</p>
+<p>召回率又称查全率，如果说精准率是站在预测的角度看问题，那么召回率就是站在现实的角度看问题，其含义是对于数据集中属于类别$i$的样本，被正确预测的比例。例如对于二分类问题，负类的召回率$Recall_{negative} = \frac{TN}{FP+TN} = \frac{d}{c+d}$。</p>
+<h2 id="准确率（Accuracy）"><a href="#准确率（Accuracy）" class="headerlink" title="准确率（Accuracy）"></a>准确率（Accuracy）</h2><p>准确率需要和精确率区别开，准确率是站在预测的整体角度看问题，其含义是预测正确的样本占所有样本的比例。例如对于二分类问题，预测的准确率$Accuracy_{predict} = \frac{TP+TN}{TP+FN+FP+TN} = \frac{a+d}{a+b+c+d}$。可以看出，准确率其实就是混淆矩阵对角线元素和与所有元素和的比值。</p>
+<h2 id="F1指标（F1-Score）和F-Beta指标（F-Beta-Score）"><a href="#F1指标（F1-Score）和F-Beta指标（F-Beta-Score）" class="headerlink" title="F1指标（F1 Score）和F-Beta指标（F-Beta Score）"></a>F1指标（F1 Score）和F-Beta指标（F-Beta Score）</h2><p>单独用精确率或召回率有时不能很好的评估模型，例如在二分类问题中，模型选择对所有样本预测为正类，此时所有正类样本都被“准确”的预测了，正类召回率为$1$，但模型实际上很差。</p>
+<p>F1指标就是用来平衡精确率和召回率的重要程度的度量指标，它被定义为两者的<strong>调和平均值</strong>，表示二者重要程度一致。F1指标的计算公式如下：</p>
+<script type="math/tex; mode=display">
+F_1 = 2 \times \frac{precision \cdot recall}{precision + recall}</script><p>调和平均值的一个重要特性就是如果两者极度不平衡，调和平均值会很小，只有当两者都较高时，调和平均才会比较高。</p>
+<p>而F-Beta指标则是更一般的形式，他的计算方式如下：</p>
+<script type="math/tex; mode=display">
+F_{\beta} = (1+\beta^2) \cdot \frac{precision \cdot recall}{(\beta^2 \cdot precision) + recall}</script><p>其中参数$\beta$决定了精确率和召回率的重要程度比值，当$\beta&gt;1$时召回率比重更大，当$\beta&lt;1$时精确率比重更大。</p>
+<h2 id="特异性（Specificity）和敏感性（Sensitivity）"><a href="#特异性（Specificity）和敏感性（Sensitivity）" class="headerlink" title="特异性（Specificity）和敏感性（Sensitivity）"></a>特异性（Specificity）和敏感性（Sensitivity）</h2><p>关于这两个指标，似乎是仅针对于二分类问题而言的，这里只谈一些个人理解。</p>
+<p>还是参照二分类的混淆矩阵，特异性实际上指的就是负类的召回率$Recall_{negative}$，而敏感性则指的是正类的召回率$Recall_{positive}$，看了网上许多解释，都是聚焦在医疗领域，把患病作为正类，健康作为负类，说什么敏感性越高，漏诊概率越低；特异性越高，确诊概率越高。</p>
+<p>个人理解，实际上就是召回率在特定情况下的应用吧。</p>
+<h2 id="交并比（Intersection-over-Union，IoU）和平均交并比（mIoU）"><a href="#交并比（Intersection-over-Union，IoU）和平均交并比（mIoU）" class="headerlink" title="交并比（Intersection over Union，IoU）和平均交并比（mIoU）"></a>交并比（Intersection over Union，IoU）和平均交并比（mIoU）</h2><p>给定两个区域$A$和$B$，IoU就是两区域的交集与两区域并集的比值：</p>
+<script type="math/tex; mode=display">
+IoU = \frac{A \cap B}{A \cup B}</script><p><img src="/assets/post_img/article71/IoU.png" alt="iou"></p>
+<p>在分类任务中，可以对某一类别的预测结果和真实标签求IoU，例如对于二分类求正类的IoU如下：</p>
+<script type="math/tex; mode=display">
+IoU_{positive} = \frac{TP}{TP+FP+FN} = \frac{a}{a+b+c}</script><p>也就是说，混淆矩阵中$i$行和$i$列的交集比上它们的并集。</p>
+<p><strong>平均交并比</strong>（mean IoU）就是对每一个类别求IoU，再求和求平均得到的值。</p>
+<p>对于目标检测，IoU还有一个重要的应用，就是判断预测框与真实框的贴合程度，两部分重合面积越大，则IoU值越大。IoU是一个比较严格的评价指标，当两区域稍微有偏差时，IoU值也可能变得相当小，于是通常认为IoU大于$0.5$时就获得了一个比较不错的预测框。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/111234566">https://zhuanlan.zhihu.com/p/111234566</a><br>[2]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101566089">https://zhuanlan.zhihu.com/p/101566089</a><br>[3]<a target="_blank" rel="noopener" href="https://blog.csdn.net/h1yupyp/article/details/80842172">https://blog.csdn.net/h1yupyp/article/details/80842172</a><br>[4]<a target="_blank" rel="noopener" href="https://blog.csdn.net/lhxez6868/article/details/108150777">https://blog.csdn.net/lhxez6868/article/details/108150777</a><br>[5]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/371819054">https://zhuanlan.zhihu.com/p/371819054</a><br>[6]<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/22d947ffb71e">https://www.jianshu.com/p/22d947ffb71e</a><br>[7]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/372402161">https://zhuanlan.zhihu.com/p/372402161</a><br>[8]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/373658488">https://zhuanlan.zhihu.com/p/373658488</a><br>[9]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/373032887">https://zhuanlan.zhihu.com/p/373032887</a><br>[10]<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pythonfl/p/13705143.html">https://www.cnblogs.com/pythonfl/p/13705143.html</a></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于<a href="https://silencezheng.top/">silencezheng.top</a>。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/07/17/hello/" class="archive-article-date">
-  	<time datetime="2020-07-17T05:18:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/17/hello/">欢迎浏览silenceZheng66的博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
+      		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">欢迎</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/10/23/article71/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2022/10/19/article70/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">M1 Mac weasyprint安装使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/7/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><span class="page-number current">8</span>
-    </nav>
   
 
+  
+
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Sun Oct 23 2022 00:26:05 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -284,8 +470,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
