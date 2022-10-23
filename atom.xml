@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-10-22T16:33:20.039Z</updated>
+  <updated>2022-10-23T16:52:21.268Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>目标检测常用评价指标</title>
+    <link href="http://silencezheng.top/2022/10/24/article72/"/>
+    <id>http://silencezheng.top/2022/10/24/article72/</id>
+    <published>2022-10-23T16:50:28.000Z</published>
+    <updated>2022-10-23T16:52:21.268Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于目标检测领域的常用评价指标进行一些个人解读，欢迎批评指正。</p><p>评价指标系列第二篇～上一次说了语义分割的内容，这次来搞目标检测，看了十余篇内容后终于搞明白些了，记录一下。本文说的内容比较浅，一方面是笔者水平实在菜鸡，另一方面写文的主要目的是让不了解目标检测的人读完能上手去做，而不用查三十个资料后再开始，就像博客的Slogan一样，“帮你在学习技术的路上节约半小时”。<br><span id="more"></span></p><h2 id="前置理解"><a href="#前置理解" class="headerlink" title="前置理解"></a>前置理解</h2><p>上一篇中，介绍了混淆矩阵和一些语义分割常用评价指标，例如P、R、IoU，这些在目标检测中都会用到，但是相对于语义分割来说，更加抽象一些。</p><p>目标检测对我个人来说是一个相对陌生的领域，所以本文准备先从目标检测的一般过程说起。首先，目标检测中的基本单元是框，我把Ground Truth称为<strong>真实框</strong>（标签），把Prediction称为<strong>预测框</strong>。框中的内容可能是<strong>目标</strong>（需要），也可能是<strong>背景</strong>（不需要）。</p><p>对于目标检测来说，模型需要完成的任务有两个，一是产生目标的预测框，二是对框内目标的类别进行预测，这又称为<strong>回归分支</strong>（连续）和<strong>分类分支</strong>（离散）。模型的预测输出通常如下所示（假设三分类，<strong>实际上不同模型的输出格式也不尽相同的</strong>。）：</p><script type="math/tex; mode=display">\mathrm{y}=\left[\begin{array}{l}\mathrm{p}_{\mathrm{c}} \\\mathrm{b}_{\mathrm{x}} \\\mathrm{b}_{\mathrm{y}} \\\mathrm{b}_{\mathrm{w}} \\\mathrm{b}_{\mathrm{h}} \\\mathrm{C}_1 \\\mathrm{C}_2 \\\mathrm{C}_3\end{array}\right], \mathrm{y}_{\text {true }}=\left[\begin{array}{c}1 \\40 \\45 \\80 \\60 \\0 \\1 \\0\end{array}\right], \mathrm{y}_{\text {pred }}=\left[\begin{array}{c}0.88 \\41 \\46 \\82 \\59 \\0.01 \\0.95 \\0.04\end{array}\right]</script><p>其中, $\mathrm{p}_{\mathrm{c}}$ 为预测结果的置信度（Confidence），表达预测框内包含目标的概率。$\mathrm{b}_{\mathrm{x}}, \mathrm{b}_{\mathrm{y}}, \mathrm{b}_{\mathrm{w}}, \mathrm{b}_{\mathrm{h}}$ 分别为预测框左上点$x$坐标和$y$坐标以及预测框的宽度、长度，也可以是预测框的左上、右下两点的$x$坐标和$y$坐标，表达的意思是相同的。 $\mathrm{C}_1, \mathrm{C}_2, \mathrm{C}_3$ 为目标属于某个类别的概率。</p><p>真实框和预测框的数量可能是不对等的，这是目标检测与语义分割的一大区别。现在我准备把这些内容再简化，归类为三个信息，<strong>目标置信度</strong>、<strong>定位信息</strong>和<strong>分类置信度</strong>，这里面有些事情需要讲清楚。</p><p>第一，<strong>分类置信度</strong>可能有互斥和不互斥两种，取决于是否使用了softmax计算，本文中，默认分类置信度是互斥的，也就是说当模型输出了一个预测框，框内“目标”的类别就固定了（不论是否真的存在目标）。</p><p>第二，预测框与真实框的贴合程度可以由<strong>定位信息</strong>计算IoU表示，上次提到了。</p><p>以上，前置理解完毕，可以开始进行模型评估了。</p><h2 id="重返混淆矩阵"><a href="#重返混淆矩阵" class="headerlink" title="重返混淆矩阵"></a>重返混淆矩阵</h2><p>从我们现有的信息来看，我们只有两个数值：<strong>目标置信度</strong>和<strong>定位信息</strong>。定位信息可以求IoU，但它依然是数值。基于mAP是目标检测中热门的评估指标的现状，我们希望能够继续用混淆矩阵来对预测框进行分类。众所周知，对数值分类的最简单方式就是在集合中画一条界限，将数值集分为两块，这条界限我们称为<strong>阈值</strong>。</p><p>我们有两个数值，自然产生了两个阈值，即<strong>置信度阈值</strong>和<strong>IoU阈值</strong>。显然，前者能把预测分成里面大概率是目标的框和里面大概率是背景的框，后者则把预测分成了很像某个目标的框和与某个目标不沾边的框。好了，现在我们来说混淆矩阵的事。</p><p>由于预测框类别已经固定，目标置信度和定位信息就是用来确定这框里面到底有没有目标，两个阈值用来判断一件事，这不就是二分类吗？没错，目标检测中我们还是用二分类，和之前多分类按照每个类别来看依然是二分类问题一样。</p><p>那现在事情就变得简单了，只需要搞懂如何区别正负就可以了，这是由目标置信度和定位信息共同决定的。下面给出方法，首先我们假设测试集有$N$张图片，我们从中取出一张图片$Img_n$，取该图片中属于类别$C_1$的目标的真实框和预测为类别$C_1$的预测框作为待分类集合。</p><ul><li>TP：与某一真实框的IoU值大于IoU阈值，且目标置信度大于置信度阈值的预测框数量。每个真实框仅能匹配一个预测框，这意味这TP的最大值为真实框的数量。</li><li>FN：漏检测的真实框数量。</li><li>FP：目标置信度大于置信度阈值但不满足TP条件的预测框数量。</li><li>TN：不考虑，因为Negative的样本想画可以画无数个，没有价值。</li></ul><p>初次看到这个判断方法多少还是有点懵，笔者解释一下，首先我们希望预测结果对每个目标至多只有一个预测框，这导致了即便有多个符合双阈值要求的预测框，对同一目标也只能<strong>选择一个置信度最高的预测框作为TP</strong>，其余重复预测框（虽然满足置信度要求）都进入FP。这样以后，能进入TP的目标也被确定了，剩下的真实框自然就成为了FN。</p><h2 id="准确率-召回率曲线（Precision-Recall-Curve）"><a href="#准确率-召回率曲线（Precision-Recall-Curve）" class="headerlink" title="准确率-召回率曲线（Precision-Recall Curve）"></a>准确率-召回率曲线（Precision-Recall Curve）</h2><p>先回顾一下Precision和Recall的计算方式，这里就只考虑Positive了：</p><script type="math/tex; mode=display">Precision = \frac{TP}{TP+FP} \\Recall = \frac{TP}{TP+FN}</script><p>由上面的分析可以看出，双阈值会影响P和R，通过调整阈值，就可以获得多个$(R,P)$对，通常我们通过指定IoU阈值（不小于0.5），调整置信度阈值的方式获得P-R曲线。事实上，精确率和召回率是一对由置信度阈值控制的冲突的变量，如果想要精准率提高，召回率则会下降，如果要召回率提高，精准率则会下降。当置信度阈值下降时，Recall单调上升，Precision总体呈下降趋势，这也很好理解，查的更全但是查的不准。</p><p><img src="/assets/post_img/article72/p-r.webp" alt="pr"></p><p>需要注意的是，在计算P-R曲线的过程中，置信度阈值的调整方式通常是对所有预测框按置信度降序排序，依次将置信度阈值设为某一预测框的置信度。并且<strong>P-R曲线的计算是以全测试集为域，按类别划分的</strong>，也就是说，计算类别$C_1$的P-R曲线时，预测框的基数为$C_1$在所有图片中的预测框数量之和，$100$个预测框可以计算$100$组$(R,P)$。另外，由于FP也需要满足置信度大于阈值的条件，<strong>参与整个P-R计算的预测框数量应该是持续增加的，最终达到$C_1$在所有图片中的预测框数量之和</strong>。（这里主要的意思就是粗体的地方，前面的原因可以有很多，主要就是需要按照前面定义的规则计算。）</p><p>更重要的是，<strong>TP、FP和FN却需要在单张图片的范围内按类别计算，再以图片为单位求和构成总TP、FP和FN值，进而求得类别在数据集上的一个$(R,P)$</strong>。</p><h2 id="AP（Average-Precision）"><a href="#AP（Average-Precision）" class="headerlink" title="AP（Average Precision）"></a>AP（Average Precision）</h2><p>经历了前面曲折艰难的分析，终于能够接近AP了。首先从字面上看，平均精确度，很容易联想到一种计算方式（笔者就这么干过）：对数据集中的每张图片单独计算Precision，然后求平均值，这不就是AP吗？实际上这是不对的，错误出在了对于Precision的理解上，Precision是一个<strong>Rate</strong>，我们现在的目的是评估模型<strong>对类别</strong>的检测效果，一个类别的查准率是建立在全数据集的样本之上的，显然，上述计算无法准确的表达这一内涵。</p><p>如果有读者想不明白这一点，我可以再举一个例子来验证，例如有三堆球摆在我们面前，其中两堆相同，都由$3$个白球和$1$个红球构成，另外一堆由$1$个红球和$1$个白球构成，我希望得到这些球中的红球率。如果按照上述理解，我们可以分别计算三堆中的红球率，得到$\frac{1}{4},\frac{1}{4},\frac{1}{2}$，再求它们的算数平均值得到$\frac{1}{3}$。而实际上呢，红球率是$\frac{3}{10}$，因为红球率是指以球为基本单位的红球比率（也不知道我解释清楚没）。</p><p>总之，Precision就是这样一个指标，要计算类别的AP，就要先获得P-R曲线。得到P-R曲线后，AP的计算方式就有很多了，根据不同的流行数据集，有几种常见的方式，罗列如下：</p><ul><li><p>按照VOC2007的方法，是先平滑曲线，对于每个点取其右边最大的P值，连成直线，然后等间距取11个点的最大P值，AP就是这11个Precision的平均值。</p></li><li><p>VOC2012，还是先按07的方法平滑曲线，然后计算PR曲线下面积作为AP值，因为本身P和R就是Rate，构成的正方形区域面积就是1，求曲线积分就完事了。</p></li><li><p>COCO数据集，设定多个IoU阈值（0.5至0.95，0.05为步长），在每一个IoU阈值下都有某一类别的AP值，然后求所有IOU阈值下的平均AP，以该平均AP值作为最终的某类别的AP值。</p></li></ul><p>总的来说，就是一个精度越来越高的过程。</p><h2 id="mAP（mean-Average-Precision）"><a href="#mAP（mean-Average-Precision）" class="headerlink" title="mAP（mean Average Precision）"></a>mAP（mean Average Precision）</h2><p>mAP和速度是最常用的目标检测模型评价指标，mAP顾名思义就是对所有分类的AP再求平均值。</p><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]<a href="https://blog.csdn.net/yegeli/article/details/109861867">https://blog.csdn.net/yegeli/article/details/109861867</a><br>[2]<a href="https://zhuanlan.zhihu.com/p/70306015">https://zhuanlan.zhihu.com/p/70306015</a><br>[3]<a href="https://www.jianshu.com/p/86b8208f634f">https://www.jianshu.com/p/86b8208f634f</a><br>[4]<a href="https://zhuanlan.zhihu.com/p/94597205">https://zhuanlan.zhihu.com/p/94597205</a><br>[5]<a href="https://zhuanlan.zhihu.com/p/101566089">https://zhuanlan.zhihu.com/p/101566089</a><br>[6]<a href="https://www.jianshu.com/p/fd9b1e89f983">https://www.jianshu.com/p/fd9b1e89f983</a></p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于<a href="https://silencezheng.top/">silencezheng.top</a>。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;关于目标检测领域的常用评价指标进行一些个人解读，欢迎批评指正。&lt;/p&gt;
+&lt;p&gt;评价指标系列第二篇～上一次说了语义分割的内容，这次来搞目标检测，看了十余篇内容后终于搞明白些了，记录一下。本文说的内容比较浅，一方面是笔者水平实在菜鸡，另一方面写文的主要目的是让不了解目标检测的人读完能上手去做，而不用查三十个资料后再开始，就像博客的Slogan一样，“帮你在学习技术的路上节约半小时”。&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://silencezheng.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="计算机视觉" scheme="http://silencezheng.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+  </entry>
   
   <entry>
     <title>语义分割常用评价指标</title>
@@ -396,33 +418,6 @@
     
     
     <category term="深度学习" scheme="http://silencezheng.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python机器学习库简介</title>
-    <link href="http://silencezheng.top/2022/07/28/article52/"/>
-    <id>http://silencezheng.top/2022/07/28/article52/</id>
-    <published>2022-07-28T14:09:25.000Z</published>
-    <updated>2022-07-28T14:15:47.372Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学深度学习也有一段时间了，想着同时也需要看一看机器学习的算法，对机器学习的基础有一个全面些的了解，过程中发现对个别机器学习库的了解不多，写个博客简单总结一下。</p><p>主要介绍的库有：</p><ul><li>pandas</li><li>numpy</li><li>scipy</li><li>sklearn<span id="more"></span><h2 id="NumPy"><a href="#NumPy" class="headerlink" title="NumPy"></a>NumPy</h2>NumPy是使用Python进行科学计算的基础软件包。以纯数学的矩阵计算为基础。<br>核心功能包括：</li><li>功能强大的N维数组对象。</li><li>精密广播功能函数。</li><li>集成 C/C+和Fortran 代码的工具。</li><li>强大的线性代数、傅立叶变换和随机数功能。</li></ul><p>NumPy 最重要的一个特点是其 N 维数组对象 ndarray，它是一系列同类型数据的集合，以 0 下标为开始进行集合中元素的索引。ndarray 对象是用于存放同类型元素的多维数组。ndarray 中的每个元素在内存中都有相同存储大小的区域。</p><p>ndarray对象的内容可以通过索引或切片来访问和修改，与 Python 中 list 的切片操作一样。ndarray 数组可以基于 0 - n 的下标进行索引，切片对象可以通过内置的 slice 函数，并设置 start, stop 及 step 参数进行，从原数组中切割出一个新数组。</p><h2 id="Pandas"><a href="#Pandas" class="headerlink" title="Pandas"></a>Pandas</h2><p>Pandas是一个强大的分析结构化数据的工具集；它的使用基础是Numpy（提供高性能的矩阵运算）；用于数据挖掘和数据分析，同时也提供数据清洗功能。</p><p>Series是一种类似于一维数组的对象，由一组数据(各种NumPy数据类型)以及一组与之相关的数据标签(即索引)组成。仅由一组数据也可产生简单的Series对象。<br><img src="/assets/post_img/article52/Series.jpeg" alt="Series"><br>DataFrame是Pandas中核心的一个表格型的数据结构，包含有一组有序的列，每列可以是不同的值类型(数值、字符串、布尔型等)，DataFrame即有行索引也有列索引，可以被看做是由Series组成的字典。</p><p>Pandas 适用于处理以下类型的数据：</p><ul><li>与 SQL 或 Excel 表类似的，含异构列的表格数据;</li><li>有序和无序（非固定频率）的时间序列数据;</li><li>带行列标签的矩阵数据，包括同构或异构型数据;</li><li>任意其它形式的观测、统计数据集, 数据转入 Pandas 数据结构时不必事先标记。</li></ul><p>利用Pandas做数据清洗也是一个非常常见的应用，例如空值、重复数据和错误数据的清洗。</p><h2 id="SciPy"><a href="#SciPy" class="headerlink" title="SciPy"></a>SciPy</h2><p>SciPy 是基于 Numpy 的科学计算库，用于数学、科学、工程学等领域，很多有一些高阶抽象和物理模型需要使用 SciPy。</p><p>NumPy 能够做一些基础的分析或变换，比如转置/逆矩阵/均值方差的计算等; SciPy则可以提供高阶的分析，比如拟合/回归/参数估计等。</p><p>SciPy被组织成覆盖不同科学计算领域的子包，如下：</p><div class="table-container"><table><thead><tr><th style="text-align:center">子包</th><th style="text-align:center">应用</th></tr></thead><tbody><tr><td style="text-align:center">scipy.cluster</td><td style="text-align:center">矢量量化/Kmeans</td></tr><tr><td style="text-align:center">scipy.constants</td><td style="text-align:center">物理和数学常数</td></tr><tr><td style="text-align:center">scipy.fftpack</td><td style="text-align:center">傅里叶变换</td></tr><tr><td style="text-align:center">scipy.integrate</td><td style="text-align:center">集成例程</td></tr><tr><td style="text-align:center">scipy.interpolate</td><td style="text-align:center">插值</td></tr><tr><td style="text-align:center">scipy.io</td><td style="text-align:center">数据输入和输出</td></tr><tr><td style="text-align:center">scipy.linalg</td><td style="text-align:center">线性代数例程</td></tr><tr><td style="text-align:center">scipy.ndimage</td><td style="text-align:center">n维图像包</td></tr><tr><td style="text-align:center">scipy.odr</td><td style="text-align:center">正交距离回归</td></tr><tr><td style="text-align:center">scipy.optimize</td><td style="text-align:center">优化</td></tr><tr><td style="text-align:center">scipy.signal</td><td style="text-align:center">信号处理</td></tr><tr><td style="text-align:center">scipy.sparse</td><td style="text-align:center">稀疏矩阵</td></tr><tr><td style="text-align:center">scipy.spatial</td><td style="text-align:center">空间数据结构和算法</td></tr><tr><td style="text-align:center">scipy.special</td><td style="text-align:center">任何特殊的数学函数</td></tr><tr><td style="text-align:center">scipy.stats</td><td style="text-align:center">统计</td></tr></tbody></table></div><h2 id="Sklearn"><a href="#Sklearn" class="headerlink" title="Sklearn"></a>Sklearn</h2><p>全称Scikit-learn，Scikit-learn是一个开源的机器学习库，它支持有监督和无监督的学习。它还提供了用于模型拟合，数据预处理，模型选择和评估以及许多其他实用程序的各种工具。</p><p>支持机器学习的六大任务模块：分类（Classification）、回归(Regression)、聚类（Clustering）、降维、模型选择和预处理。</p><p>分类：识别某个对象属于哪个类别，常用的算法有：SVM（支持向量机）、nearest neighbors（最近邻）、random forest（随机森林），常见的应用有：垃圾邮件识别、图像识别。</p><p>回归：预测与对象相关联的连续值属性，常见的算法有：SVR（支持向量机）、 ridge regression（岭回归）、Lasso，常见的应用有：药物反应，预测股价。</p><p>聚类：将相似对象自动分组，常用的算法有：k-Means、 spectral clustering、mean-shift，常见的应用有：客户细分，分组实验结果。</p><p>降维：减少要考虑的随机变量的数量，常见的算法有：PCA（主成分分析）、feature selection（特征选择）、non-negative matrix factorization（非负矩阵分解），常见的应用有：可视化，提高效率。</p><p>模型选择：比较，验证，选择参数和模型，常用的模块有：grid search（网格搜索）、cross validation（交叉验证）、 metrics（度量）。它的目标是通过参数调整提高精度。</p><p>预处理：特征提取和归一化，常用的模块有：preprocessing，feature extraction，常见的应用有：把输入数据（如文本）转换为机器学习算法可用的数据。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;学深度学习也有一段时间了，想着同时也需要看一看机器学习的算法，对机器学习的基础有一个全面些的了解，过程中发现对个别机器学习库的了解不多，写个博客简单总结一下。&lt;/p&gt;
-&lt;p&gt;主要介绍的库有：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;pandas&lt;/li&gt;
-&lt;li&gt;numpy&lt;/li&gt;
-&lt;li&gt;scipy&lt;/li&gt;
-&lt;li&gt;sklearn</summary>
-    
-    
-    
-    
-    <category term="Python" scheme="http://silencezheng.top/tags/Python/"/>
-    
-    <category term="机器学习" scheme="http://silencezheng.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
