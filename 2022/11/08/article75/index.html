@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Tag: Servlet | SilenceZheng66-BLOG</title>
+  <title>深度学习常用术语解释 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/tags/Servlet/index.html">
+  <meta name="description" content="前言深度学习常用术语解释，持续更新～">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习常用术语解释">
+<meta property="og:url" content="http://silencezheng.top/2022/11/08/article75/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言深度学习常用术语解释，持续更新～">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-08T14:00:16.000Z">
+<meta property="article:modified_time" content="2022-11-08T14:00:52.846Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
@@ -151,195 +157,247 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article75" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深度学习常用术语解释
+    </h1>
+  
+
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/11/08/article75/" class="archive-article-date">
+  	<time datetime="2022-11-08T14:00:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-08</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">884字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">3分</span>
+      </span>
+    </span>
+</div>
+          
+        <!-- 添加完成 -->
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>深度学习常用术语解释，持续更新～<br><span id="more"></span></p>
+<h2 id="Backbone"><a href="#Backbone" class="headerlink" title="Backbone"></a>Backbone</h2><p>主干网络，或称骨干网络，通常是网络的一部分，大多时候指的是提取特征的网络，其作用就是提取图片中的信息，供后面的网络使用。这些网络经常使用的是ResNet、VGG等，而不是我们自己设计的网络，因为这些网络已经证明了在分类等问题上的特征提取能力是很强的。在用这些网络作为Backbone的时候，都是直接加载官方已经训练好的模型参数，后面接着我们自己的网络。让网络的这两个部分同时进行训练，因为加载的Backbone模型已经具有提取特征的能力了，在我们的训练过程中，会对它进行微调，使得其更适合于我们自己的任务。</p>
+<h2 id="Head"><a href="#Head" class="headerlink" title="Head"></a>Head</h2><p>Head即整个网络的头部，是获取网络输出内容的网络，利用之前（Backbone）提取的特征，做出预测。</p>
+<h2 id="Neck"><a href="#Neck" class="headerlink" title="Neck"></a>Neck</h2><p>是指放在Backbone和Head之间的层，是为了更好的利用Backbone提取的特征。</p>
+<h2 id="Pretext-task"><a href="#Pretext-task" class="headerlink" title="Pretext task"></a>Pretext task</h2><p>用于预训练的任务，可以翻译为前置任务或代理任务。</p>
+<h2 id="Downstream-task"><a href="#Downstream-task" class="headerlink" title="Downstream task"></a>Downstream task</h2><p>下游任务，用于微调的任务。</p>
+<h2 id="Warm-up"><a href="#Warm-up" class="headerlink" title="Warm up"></a>Warm up</h2><p>用一个小的学习率先训练几个epoch，这是因为网络的参数是随机初始化的，一开始就采用较大的学习率容易数值不稳定。</p>
+<h2 id="End-to-End"><a href="#End-to-End" class="headerlink" title="End to End"></a>End to End</h2><p>端到端，给一个输入，获得一个输出，中间的处理过程处于黑箱中，相当于打包成应用了。</p>
+<h2 id="Standardization"><a href="#Standardization" class="headerlink" title="Standardization"></a>Standardization</h2><p>标准化，指将数据按比例缩放，使其落入一个小区间中，缩放后均值为$0$，方差为$1$。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。</p>
+<p>例如在数据预处理时为了将所有特征放在一个共同的尺度上，会通过<strong>将特征重新缩放到零均值和单位方差</strong>来标准化数据。这既能方便优化，又能避免惩罚分配给某一特征的系数超过其他特征（一视同仁）。</p>
+<p>在训练过程中，对输入进行规范化可以加速深度网络权重参数的收敛速度。</p>
+<h2 id="Normalization"><a href="#Normalization" class="headerlink" title="Normalization"></a>Normalization</h2><p>这个词真的需要好好理解一下，其实首先应该想到翻译为“规范化”，它包括归一化、标准化甚至正则化，作为一个统称。比如Batch Normalization其实做的是Standardization的事，所以翻译成批量规范化或者批量标准化。</p>
+<p>其次这个词又可以指归一化，即把数值放缩到$0$到$1$的小区间中。归一化可以消除量纲对最终结果的影响，使不同变量具有可比性。</p>
+<p>关于这个词的解读是要具体问题具体分析了，甚至有时Standardization也被作为统称。</p>
+<h2 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a>Regularization</h2><p>正则化，一般形式是在整个平均损失函数的最后增加一个正则项（比如L2范数正则化，也有其他形式的正则化，作用不同）。正则项越大表明惩罚力度越大，等于0表示不做惩罚。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>[1]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/348800083">https://zhuanlan.zhihu.com/p/348800083</a><br>[2]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/343692147">https://zhuanlan.zhihu.com/p/343692147</a><br>[3]<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014381464/article/details/81101551">https://blog.csdn.net/u014381464/article/details/81101551</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/09/09/article14/" class="archive-article-date">
-  	<time datetime="2020-09-09T14:49:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/09/article14/">Java那些看不懂的术语（菜鸟必备）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/11/08/article75/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/09/09/article13/" class="archive-article-date">
-  	<time datetime="2020-09-09T14:14:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/11/07/article74/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">注意力机制--《动手学深度学习》笔记0x0B</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/09/article13/">Servlet中的RequestDispatcher 两个方法详解</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/09/09/article12/" class="archive-article-date">
-  	<time datetime="2020-09-09T14:02:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/09/article12/">Servlet中的路径获取</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/08/06/article4/" class="archive-article-date">
-  	<time datetime="2020-08-05T21:06:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/06/article4/">servlet和servlet-mapping的作用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
 
+  
+
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Tue Nov 08 2022 22:00:16 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -374,9 +432,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
