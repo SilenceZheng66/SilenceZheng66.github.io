@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>目标检测常用评价指标 | SilenceZheng66-BLOG</title>
+  <title>二叉树非递归遍历 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言关于目标检测领域的常用评价指标进行一些个人解读，欢迎批评指正。 评价指标系列第二篇～上一次说了语义分割的内容，这次来搞目标检测，看了十余篇内容后终于搞明白些了，记录一下。本文说的内容比较浅，一方面是笔者水平实在菜鸡，另一方面写文的主要目的是让不了解目标检测的人读完能上手去做，而不用查三十个资料后再开始，就像博客的Slogan一样，“帮你在学习技术的路上节约半小时”。">
+  <meta name="description" content="前言不积跬步，无以至千里。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="目标检测常用评价指标">
-<meta property="og:url" content="http://silencezheng.top/2022/10/24/article72/index.html">
+<meta property="og:title" content="二叉树非递归遍历">
+<meta property="og:url" content="http://silencezheng.top/2022/11/09/article76/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
-<meta property="og:description" content="前言关于目标检测领域的常用评价指标进行一些个人解读，欢迎批评指正。 评价指标系列第二篇～上一次说了语义分割的内容，这次来搞目标检测，看了十余篇内容后终于搞明白些了，记录一下。本文说的内容比较浅，一方面是笔者水平实在菜鸡，另一方面写文的主要目的是让不了解目标检测的人读完能上手去做，而不用查三十个资料后再开始，就像博客的Slogan一样，“帮你在学习技术的路上节约半小时”。">
+<meta property="og:description" content="前言不积跬步，无以至千里。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article72/p-r.webp">
-<meta property="article:published_time" content="2022-10-23T16:50:28.000Z">
-<meta property="article:modified_time" content="2022-10-23T16:52:21.268Z">
+<meta property="article:published_time" content="2022-11-09T13:41:12.000Z">
+<meta property="article:modified_time" content="2022-11-09T13:41:39.361Z">
 <meta property="article:author" content="SilenceZheng66">
-<meta property="article:tag" content="深度学习">
-<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article72/p-r.webp">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
   
@@ -159,14 +156,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-article72" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-article76" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      目标检测常用评价指标
+      二叉树非递归遍历
     </h1>
   
 
@@ -177,8 +174,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2022/10/24/article72/" class="archive-article-date">
-  	<time datetime="2022-10-23T16:50:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-24</time>
+<a href="/2022/11/09/article76/" class="archive-article-date">
+  	<time datetime="2022-11-09T13:41:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-09</time>
 </a>
         <!-- 需要添加的位置 -->
         <!-- 开始添加字数统计-->
@@ -188,7 +185,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">2.7k字</span>
+        <span class="post-count">1k字</span>
       </span>
     </span>
 
@@ -197,7 +194,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">9分</span>
+        <span class="post-count">4分</span>
       </span>
     </span>
 </div>
@@ -208,77 +205,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于目标检测领域的常用评价指标进行一些个人解读，欢迎批评指正。</p>
-<p>评价指标系列第二篇～上一次说了语义分割的内容，这次来搞目标检测，看了十余篇内容后终于搞明白些了，记录一下。本文说的内容比较浅，一方面是笔者水平实在菜鸡，另一方面写文的主要目的是让不了解目标检测的人读完能上手去做，而不用查三十个资料后再开始，就像博客的Slogan一样，“帮你在学习技术的路上节约半小时”。<br><span id="more"></span></p>
-<h2 id="前置理解"><a href="#前置理解" class="headerlink" title="前置理解"></a>前置理解</h2><p>上一篇中，介绍了混淆矩阵和一些语义分割常用评价指标，例如P、R、IoU，这些在目标检测中都会用到，但是相对于语义分割来说，更加抽象一些。</p>
-<p>目标检测对我个人来说是一个相对陌生的领域，所以本文准备先从目标检测的一般过程说起。首先，目标检测中的基本单元是框，我把Ground Truth称为<strong>真实框</strong>（标签），把Prediction称为<strong>预测框</strong>。框中的内容可能是<strong>目标</strong>（需要），也可能是<strong>背景</strong>（不需要）。</p>
-<p>对于目标检测来说，模型需要完成的任务有两个，一是产生目标的预测框，二是对框内目标的类别进行预测，这又称为<strong>回归分支</strong>（连续）和<strong>分类分支</strong>（离散）。模型的预测输出通常如下所示（假设三分类，<strong>实际上不同模型的输出格式也不尽相同的</strong>。）：</p>
-<script type="math/tex; mode=display">
-\mathrm{y}=\left[\begin{array}{l}
-\mathrm{p}_{\mathrm{c}} \\
-\mathrm{b}_{\mathrm{x}} \\
-\mathrm{b}_{\mathrm{y}} \\
-\mathrm{b}_{\mathrm{w}} \\
-\mathrm{b}_{\mathrm{h}} \\
-\mathrm{C}_1 \\
-\mathrm{C}_2 \\
-\mathrm{C}_3
-\end{array}\right], \mathrm{y}_{\text {true }}=\left[\begin{array}{c}
-1 \\
-40 \\
-45 \\
-80 \\
-60 \\
-0 \\
-1 \\
-0
-\end{array}\right], \mathrm{y}_{\text {pred }}=\left[\begin{array}{c}
-0.88 \\
-41 \\
-46 \\
-82 \\
-59 \\
-0.01 \\
-0.95 \\
-0.04
-\end{array}\right]</script><p>其中, $\mathrm{p}_{\mathrm{c}}$ 为预测结果的置信度（Confidence），表达预测框内包含目标的概率。$\mathrm{b}_{\mathrm{x}}, \mathrm{b}_{\mathrm{y}}, \mathrm{b}_{\mathrm{w}}, \mathrm{b}_{\mathrm{h}}$ 分别为预测框左上点$x$坐标和$y$坐标以及预测框的宽度、长度，也可以是预测框的左上、右下两点的$x$坐标和$y$坐标，表达的意思是相同的。 $\mathrm{C}_1, \mathrm{C}_2, \mathrm{C}_3$ 为目标属于某个类别的概率。</p>
-<p>真实框和预测框的数量可能是不对等的，这是目标检测与语义分割的一大区别。现在我准备把这些内容再简化，归类为三个信息，<strong>目标置信度</strong>、<strong>定位信息</strong>和<strong>分类置信度</strong>，这里面有些事情需要讲清楚。</p>
-<p>第一，<strong>分类置信度</strong>可能有互斥和不互斥两种，取决于是否使用了softmax计算，本文中，默认分类置信度是互斥的，也就是说当模型输出了一个预测框，框内“目标”的类别就固定了（不论是否真的存在目标）。</p>
-<p>第二，预测框与真实框的贴合程度可以由<strong>定位信息</strong>计算IoU表示，上次提到了。</p>
-<p>以上，前置理解完毕，可以开始进行模型评估了。</p>
-<h2 id="重返混淆矩阵"><a href="#重返混淆矩阵" class="headerlink" title="重返混淆矩阵"></a>重返混淆矩阵</h2><p>从我们现有的信息来看，我们只有两个数值：<strong>目标置信度</strong>和<strong>定位信息</strong>。定位信息可以求IoU，但它依然是数值。基于mAP是目标检测中热门的评估指标的现状，我们希望能够继续用混淆矩阵来对预测框进行分类。众所周知，对数值分类的最简单方式就是在集合中画一条界限，将数值集分为两块，这条界限我们称为<strong>阈值</strong>。</p>
-<p>我们有两个数值，自然产生了两个阈值，即<strong>置信度阈值</strong>和<strong>IoU阈值</strong>。显然，前者能把预测分成里面大概率是目标的框和里面大概率是背景的框，后者则把预测分成了很像某个目标的框和与某个目标不沾边的框。好了，现在我们来说混淆矩阵的事。</p>
-<p>由于预测框类别已经固定，目标置信度和定位信息就是用来确定这框里面到底有没有目标，两个阈值用来判断一件事，这不就是二分类吗？没错，目标检测中我们还是用二分类，和之前多分类按照每个类别来看依然是二分类问题一样。</p>
-<p>那现在事情就变得简单了，只需要搞懂如何区别正负就可以了，这是由目标置信度和定位信息共同决定的。下面给出方法，首先我们假设测试集有$N$张图片，我们从中取出一张图片$Img_n$，取该图片中属于类别$C_1$的目标的真实框和预测为类别$C_1$的预测框作为待分类集合。</p>
-<ul>
-<li>TP：与某一真实框的IoU值大于IoU阈值，且目标置信度大于置信度阈值的预测框数量。每个真实框仅能匹配一个预测框，这意味这TP的最大值为真实框的数量。</li>
-<li>FN：漏检测的真实框数量。</li>
-<li>FP：目标置信度大于置信度阈值但不满足TP条件的预测框数量。</li>
-<li>TN：不考虑，因为Negative的样本想画可以画无数个，没有价值。</li>
-</ul>
-<p>初次看到这个判断方法多少还是有点懵，笔者解释一下，首先我们希望预测结果对每个目标至多只有一个预测框，这导致了即便有多个符合双阈值要求的预测框，对同一目标也只能<strong>选择一个置信度最高的预测框作为TP</strong>，其余重复预测框（虽然满足置信度要求）都进入FP。这样以后，能进入TP的目标也被确定了，剩下的真实框自然就成为了FN。</p>
-<h2 id="准确率-召回率曲线（Precision-Recall-Curve）"><a href="#准确率-召回率曲线（Precision-Recall-Curve）" class="headerlink" title="准确率-召回率曲线（Precision-Recall Curve）"></a>准确率-召回率曲线（Precision-Recall Curve）</h2><p>先回顾一下Precision和Recall的计算方式，这里就只考虑Positive了：</p>
-<script type="math/tex; mode=display">
-Precision = \frac{TP}{TP+FP} \\
-Recall = \frac{TP}{TP+FN}</script><p>由上面的分析可以看出，双阈值会影响P和R，通过调整阈值，就可以获得多个$(R,P)$对，通常我们通过指定IoU阈值（不小于0.5），调整置信度阈值的方式获得P-R曲线。事实上，精确率和召回率是一对由置信度阈值控制的冲突的变量，如果想要精准率提高，召回率则会下降，如果要召回率提高，精准率则会下降。当置信度阈值下降时，Recall单调上升，Precision总体呈下降趋势，这也很好理解，查的更全但是查的不准。</p>
-<p><img src="/assets/post_img/article72/p-r.webp" alt="pr"></p>
-<p>需要注意的是，在计算P-R曲线的过程中，置信度阈值的调整方式通常是对所有预测框按置信度降序排序，依次将置信度阈值设为某一预测框的置信度。并且<strong>P-R曲线的计算是以全测试集为域，按类别划分的</strong>，也就是说，计算类别$C_1$的P-R曲线时，预测框的基数为$C_1$在所有图片中的预测框数量之和，$100$个预测框可以计算$100$组$(R,P)$。另外，由于FP也需要满足置信度大于阈值的条件，<strong>参与整个P-R计算的预测框数量应该是持续增加的，最终达到$C_1$在所有图片中的预测框数量之和</strong>。（这里主要的意思就是粗体的地方，前面的原因可以有很多，主要就是需要按照前面定义的规则计算。）</p>
-<p>更重要的是，<strong>TP、FP和FN却需要在单张图片的范围内按类别计算，再以图片为单位求和构成总TP、FP和FN值，进而求得类别在数据集上的一个$(R,P)$</strong>。</p>
-<h2 id="AP（Average-Precision）"><a href="#AP（Average-Precision）" class="headerlink" title="AP（Average Precision）"></a>AP（Average Precision）</h2><p>经历了前面曲折艰难的分析，终于能够接近AP了。首先从字面上看，平均精确度，很容易联想到一种计算方式（笔者就这么干过）：对数据集中的每张图片单独计算Precision，然后求平均值，这不就是AP吗？实际上这是不对的，错误出在了对于Precision的理解上，Precision是一个<strong>Rate</strong>，我们现在的目的是评估模型<strong>对类别</strong>的检测效果，一个类别的查准率是建立在全数据集的样本之上的，显然，上述计算无法准确的表达这一内涵。</p>
-<p>如果有读者想不明白这一点，我可以再举一个例子来验证，例如有三堆球摆在我们面前，其中两堆相同，都由$3$个白球和$1$个红球构成，另外一堆由$1$个红球和$1$个白球构成，我希望得到这些球中的红球率。如果按照上述理解，我们可以分别计算三堆中的红球率，得到$\frac{1}{4},\frac{1}{4},\frac{1}{2}$，再求它们的算数平均值得到$\frac{1}{3}$。而实际上呢，红球率是$\frac{3}{10}$，因为红球率是指以球为基本单位的红球比率（也不知道我解释清楚没）。</p>
-<p>总之，Precision就是这样一个指标，要计算类别的AP，就要先获得P-R曲线。得到P-R曲线后，AP的计算方式就有很多了，根据不同的流行数据集，有几种常见的方式，罗列如下：</p>
-<ul>
-<li><p>按照VOC2007的方法，是先平滑曲线，对于每个点取其右边最大的P值，连成直线，然后等间距取11个点的最大P值，AP就是这11个Precision的平均值。</p>
-</li>
-<li><p>VOC2012，还是先按07的方法平滑曲线，然后计算PR曲线下面积作为AP值，因为本身P和R就是Rate，构成的正方形区域面积就是1，求曲线积分就完事了。</p>
-</li>
-<li><p>COCO数据集，设定多个IoU阈值（0.5至0.95，0.05为步长），在每一个IoU阈值下都有某一类别的AP值，然后求所有IOU阈值下的平均AP，以该平均AP值作为最终的某类别的AP值。</p>
-</li>
-</ul>
-<p>总的来说，就是一个精度越来越高的过程。</p>
-<h2 id="mAP（mean-Average-Precision）"><a href="#mAP（mean-Average-Precision）" class="headerlink" title="mAP（mean Average Precision）"></a>mAP（mean Average Precision）</h2><p>mAP和速度是最常用的目标检测模型评价指标，mAP顾名思义就是对所有分类的AP再求平均值。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]<a target="_blank" rel="noopener" href="https://blog.csdn.net/yegeli/article/details/109861867">https://blog.csdn.net/yegeli/article/details/109861867</a><br>[2]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/70306015">https://zhuanlan.zhihu.com/p/70306015</a><br>[3]<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/86b8208f634f">https://www.jianshu.com/p/86b8208f634f</a><br>[4]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94597205">https://zhuanlan.zhihu.com/p/94597205</a><br>[5]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101566089">https://zhuanlan.zhihu.com/p/101566089</a><br>[6]<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/fd9b1e89f983">https://www.jianshu.com/p/fd9b1e89f983</a></p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于<a href="https://silencezheng.top/">silencezheng.top</a>。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>不积跬步，无以至千里。</p>
+<span id="more"></span>
+<p>用Java写一下二叉树的非递归遍历，用print表示操作了，主要关注算法。</p>
+<p>树定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> val;</span><br><span class="line">        TreeNode left;</span><br><span class="line">        TreeNode right;</span><br><span class="line">        TreeNode() &#123;&#125;</span><br><span class="line">        TreeNode(<span class="keyword">int</span> val) &#123; <span class="keyword">this</span>.val = val; &#125;</span><br><span class="line">        TreeNode(<span class="keyword">int</span> val, TreeNode left, TreeNode right) &#123;</span><br><span class="line">          <span class="keyword">this</span>.val = val;</span><br><span class="line">          <span class="keyword">this</span>.left = left;</span><br><span class="line">          <span class="keyword">this</span>.right = right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="先序遍历（直觉版）"><a href="#先序遍历（直觉版）" class="headerlink" title="先序遍历（直觉版）"></a>先序遍历（直觉版）</h2><p>思路：根左右，从根节点开始先走到最左下节点，然后依次出栈，如果出栈的节点有右子节点则对右子节点再走到最左下，直至栈空。</p>
+<p>步骤：</p>
+<ol>
+<li>对当前节点走到最左下，每次对当前节点操作+入栈。</li>
+<li>元素出栈，若有右子节点则重复1，若无则重复2。</li>
+<li>栈空结束。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        Stack&lt;TreeNode&gt; nodeStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Null root error!&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            TreeNode temp = root;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (temp!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="comment">// 操作</span></span><br><span class="line">                System.out.println(temp.val);</span><br><span class="line">                nodeStack.add(temp);</span><br><span class="line">                temp = temp.left;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (!nodeStack.isEmpty())&#123;</span><br><span class="line">                temp = nodeStack.pop();</span><br><span class="line">                <span class="keyword">if</span> (temp.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                    temp = temp.right;</span><br><span class="line">                    <span class="keyword">while</span> (temp!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                        <span class="comment">// 操作</span></span><br><span class="line">                        System.out.println(temp.val);</span><br><span class="line">                        nodeStack.add(temp);</span><br><span class="line">                        temp = temp.left;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这个版本的基础上可以进行各种优化。</p>
+<h2 id="中序遍历（直觉版）"><a href="#中序遍历（直觉版）" class="headerlink" title="中序遍历（直觉版）"></a>中序遍历（直觉版）</h2><p>思路：左根右，从根节点走到最左下节点，然后依次出栈并操作，如果出栈的节点有右节点则对右节点再走到最左下，直至栈空。</p>
+<p>步骤：</p>
+<ol>
+<li>对当前节点走到最左下，每次对当前节点入栈。</li>
+<li>元素出栈，操作当前节点，若有右子节点则重复1，若无则重复2。</li>
+<li>栈空结束。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        Stack&lt;TreeNode&gt; nodeStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Null root error!&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            TreeNode temp = root;</span><br><span class="line">            <span class="keyword">while</span> (temp!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                nodeStack.add(temp);</span><br><span class="line">                temp = temp.left;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            temp = nodeStack.pop();</span><br><span class="line">            <span class="keyword">while</span> (temp!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="comment">// 操作</span></span><br><span class="line">                System.out.println(temp.val);</span><br><span class="line">                <span class="keyword">if</span>(temp.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                    temp = temp.right;</span><br><span class="line">                    <span class="keyword">while</span> (temp!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                        nodeStack.add(temp);</span><br><span class="line">                        temp = temp.left;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (nodeStack.isEmpty())&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                temp = nodeStack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这个版本的基础上可以进行各种优化。</p>
+<h2 id="后序遍历（直觉版）"><a href="#后序遍历（直觉版）" class="headerlink" title="后序遍历（直觉版）"></a>后序遍历（直觉版）</h2><p>思路：左右根，后序不能采用先序和中序的同款算法的主要原因是判断到当前节点存在右子树时，则不能对当前节点进行操作，而需要先对右子树做后序遍历，而即便是保留当前节点，并把右子树遍历完毕后，再对当前节点进行操作，仍然需要对当前节点的右子树是否已被遍历的状态进行判断，判断的依据是上一次操作的节点是否是右子节点。</p>
+<p>步骤：</p>
+<ol>
+<li>对当前节点走到最左下，每次对当前节点入栈。</li>
+<li>元素出栈，判断当前节点，若无右子树则操作并标记当前节点，若有右子树则判断右子树是否被访问过，若未被访问则保留当前节点状态，并依次入栈右子树左支，标记右子节点；若已访问过则操作当前节点，并标记当前节点。重复2。</li>
+<li>栈空结束。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postorderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        Stack&lt;TreeNode&gt; nodeStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Null root error!&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            TreeNode temp = root;</span><br><span class="line">            TreeNode mark = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span> (temp!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                nodeStack.add(temp);</span><br><span class="line">                temp = temp.left;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            temp = nodeStack.pop();</span><br><span class="line">            <span class="keyword">while</span> (temp!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(temp.right==<span class="keyword">null</span>)&#123;</span><br><span class="line">                    <span class="comment">// 操作</span></span><br><span class="line">                    System.out.println(temp.val);</span><br><span class="line">                    <span class="comment">// 标记当前节点</span></span><br><span class="line">                    mark = temp;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">// 当前节点含右子树的情况，判断前次处理节点是否是右子节点。</span></span><br><span class="line">                    <span class="keyword">if</span>(temp.right==mark)&#123;</span><br><span class="line">                        <span class="comment">// 操作</span></span><br><span class="line">                        System.out.println(temp.val);</span><br><span class="line">                        <span class="comment">// 标记当前节点</span></span><br><span class="line">                        mark = temp;</span><br><span class="line">                    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">// 保留状态</span></span><br><span class="line">                        nodeStack.add(temp);</span><br><span class="line">                        <span class="comment">// 入栈右子树的左支，并标记右子节点。</span></span><br><span class="line">                        temp = temp.right;</span><br><span class="line">                        mark = temp;</span><br><span class="line">                        <span class="keyword">while</span> (temp!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                            nodeStack.add(temp);</span><br><span class="line">                            temp = temp.left;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (nodeStack.isEmpty())&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                temp = nodeStack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这个版本的基础上可以进行各种优化。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>先把我个人认为符合直觉的遍历方法写一下，看起来比较复杂但是容易理解，后面再进行优化补充。</p>
+<p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>。</p>
 
       
 
@@ -323,11 +283,7 @@ Recall = \frac{TP}{TP+FN}</script><p>由上面的分析可以看出，双阈值�
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
         		</li>
       		
 		</ul>
@@ -383,7 +339,7 @@ Recall = \frac{TP}{TP+FN}</script><p>由上面的分析可以看出，双阈值�
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/10/24/article72/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/11/09/article76/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -397,18 +353,9 @@ Recall = \frac{TP}{TP+FN}</script><p>由上面的分析可以看出，双阈值�
   
 <nav id="article-nav">
   
-    <a href="/2022/11/04/article73/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          导向滤波
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/10/23/article71/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">语义分割常用评价指标</div>
+    <a href="/2022/11/08/article75/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深度学习常用术语解释</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -455,7 +402,7 @@ if(true){
   	repo: 'SilenceZheng66.github.io',
   	owner: 'SilenceZheng66',
   	admin: ['SilenceZheng66'],
-  	id: 'Mon Oct 24 2022 00:50:28 GMT+0800',
+  	id: 'Wed Nov 09 2022 21:41:12 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
