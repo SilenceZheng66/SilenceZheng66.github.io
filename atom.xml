@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-11-19T05:59:52.552Z</updated>
+  <updated>2022-11-20T06:12:25.015Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java中的==和equals</title>
+    <link href="http://silencezheng.top/2022/11/20/article79/"/>
+    <id>http://silencezheng.top/2022/11/20/article79/</id>
+    <published>2022-11-20T06:10:47.000Z</published>
+    <updated>2022-11-20T06:12:25.015Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>从Java数据类型出发，聊聊Java中的==和equals。<br><span id="more"></span></p><h2 id="Java数据类型"><a href="#Java数据类型" class="headerlink" title="Java数据类型"></a>Java数据类型</h2><p>Java 语言支持的数据类型分为两种：<strong>基本数据类型</strong>（Primitive Type）和<strong>引用数据类型</strong>（Reference Type）。</p><p><img src="/assets/post_img/article79/datatype.jpeg" alt="datatype"></p><p>引用数据类型建立在基本数据类型的基础上，包括数组、类和接口。引用数据类型是由用户自定义，用来限制其他数据的类型。<strong>空类型null也是一种引用类型，不能转换成基本类型，因此不要把一个 null 值赋给基本数据类型的变量。</strong></p><p>对于基本数据类型，Java 为每种基本数据类型分别设计了对应的类，称之为<strong>包装类</strong>（Wrapper Classes），除了Integer和Character以外，包装类名都和基本数据类型相同，只是首字母大写。关于数据类型的更多细节，就不在这里赘述了。</p><p><img src="/assets/post_img/article79/pd.jpeg" alt="pd"></p><h2 id="和-equals"><a href="#和-equals" class="headerlink" title="== 和 equals"></a>== 和 equals</h2><p>首先明确一点，<strong>equals方法不能作用于基本数据类型变量</strong>。关于这句话其实可以展开说明一下，首先基本类型是不能作为方法的主体的，这是一定的，但基本类型能不能作为equals中的参数呢？有时也是可以的，因为Java的“自动装箱”机制，基本类型在传入时可以被封装为包装类，事实上参与函数的是包装类。</p><p>在比较基本数据类型时，<code>==</code>比较的是值。</p><p>在比较引用类型时，<code>==</code>比较的是对象的内存地址。如果equals方法没有经过重写，则与<code>==</code>相同，比较地址；如果equals方法经过重写，对于Java提供的类来说，则是比较对象存储的内容是否相同，也就是比较“值”。</p><p>Java提供的绝大多数类（不是全部）都重写了equals方法，以上讲述的区别与联系主要是关于Java内置类和基本数据类型。</p><h2 id="equals-和-hashCode"><a href="#equals-和-hashCode" class="headerlink" title="equals() 和 hashCode()"></a>equals() 和 hashCode()</h2><p>对于我们自己写代码，新建一个类而言，要么就不重写equals方法，此时等同于<code>==</code>；要么就同时重写equals和hashCode方法，按照我们定义的规则来比较对象是否相等。</p><blockquote><p>Java中对equals()的规范</p><ol><li>对称性：如果x.equals(y)返回是”true”，那么y.equals(x)也应该返回是”true”。</li><li>自反性：x.equals(x)必须返回是”true”。</li><li>传递性：如果x.equals(y)返回是”true”，而且y.equals(z)返回是”true”，那么x.equals(z)也应该返回是”true”。</li><li>一致性：如果x.equals(y)返回是”true”，只要x和y内容一直不变，不管重复x.equals(y)多少次，返回都是”true”。</li><li>非空性，x.equals(null)，永远返回是”false”；假设z是和x不同类型的对象，则x.equals(z)永远返回是”false”。</li></ol></blockquote><p>hashCode()的作用是用来获取哈希码，用于确定对象在哈希表中的位置，与equals()一样，所有的类都有hashCode方法。hashCode()只有在创建某个类的哈希表时才有用，需要根据方法返回值确认对象在哈希表中的位置。如果一个对象一定不会在散列表中使用，那么是没有必要复写hashCode方法的。但一般情况下我们还是会复写hashCode方法，因为谁能保证这个对象不会出现在HashMap、HashSet、HashTable…中呢？</p><blockquote><p>Object.hashCode()的通用约定</p><ol><li>在应用程序中，只要对象的equals方法的比较操作所用的信息没有修改，那么对于同一个对象的多次调用hashCode()，必须始终返回同一个哈希值。</li><li>如果两个对象通过equals()比较相等，那么它们的哈希值相同。</li><li>如果两个对象通过equals()比较不等，他们的哈希值可能相同也可能不同，取决于hashCode的实现，由此哈希表的性能也会有区别。</li></ol></blockquote><p>考虑一个常见的场景，HashSet是一个不允许有重复元素的集合，该集合会维护一个已存入对象的哈希值表。当插入一个新的对象时，我们首先会想到使用equals()逐个比较来确定是否有重复元素，但这必然造成效率问题。另外一个合理的方式就是对该对象调用hashCode()得到哈希值，然后在哈希值表中进行比对，如果不存在则直接存入；如果存在，则再调用equals()进行比较，相同的话就不再存入，不同的话散列到其他地址。这样一来实际调用equals()的次数就大大降低了。</p><p>因此，如果不重写对象的hashCode()方法，就有可能造成相同对象产生不同哈希值的情况，这就破坏了HashSet的性质。当然，这只是不重写hashCode(),或者说不遵守hashCode()规范的其中一个坏处。</p><p>对于equals() 和 hashCode()的部分，可以用两个问题来加深印象：<br>1、两个对象，如果a.equals(b)==true，那么a和b是否相等？<br>答：相等，但对象地址不一定相等。</p><p>2、两个对象，如果哈希值一样，那么两个对象是否相等？<br>答：不一定相等，判断两个对象是否相等，需要使用equals()。</p><p>最后，记录一个实现高质量equals()的诀窍：</p><blockquote><ol><li>使用<code>==</code>操作符检查“参数是否为这个对象的引用”；</li><li>使用<code>instanceof</code>操作符检查“参数是否为正确的类型”；</li><li>对于类中的关键属性，检查参数传入对象的属性是否与之相匹配；</li><li>编写完equals方法后，问自己它是否满足对称性、传递性、一致性；</li><li>重写equals方法时总是要重写hashCode方法；</li><li>不要将equals方法参数中的Object对象替换为其他的类型，在重写时不要忘掉<code>@Override</code>注解。</li></ol></blockquote><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1]<a href="http://c.biancheng.net/view/5672.html">http://c.biancheng.net/view/5672.html</a><br>[2]<a href="https://blog.csdn.net/qq_44543508/article/details/95449363">https://blog.csdn.net/qq_44543508/article/details/95449363</a><br>[3]<a href="https://www.jianshu.com/p/da7491e5be53">https://www.jianshu.com/p/da7491e5be53</a><br>[4]<a href="https://blog.csdn.net/u013063153/article/details/78808923">https://blog.csdn.net/u013063153/article/details/78808923</a><br>[5]<a href="https://cloud.tencent.com/developer/article/1018529">https://cloud.tencent.com/developer/article/1018529</a></p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;从Java数据类型出发，聊聊Java中的==和equals。&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>记忆化递归</title>
@@ -396,25 +415,6 @@
     <category term="深度学习" scheme="http://silencezheng.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     <category term="机器学习" scheme="http://silencezheng.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>smartmontools安装使用</title>
-    <link href="http://silencezheng.top/2022/09/08/article59/"/>
-    <id>http://silencezheng.top/2022/09/08/article59/</id>
-    <published>2022-09-08T10:58:22.000Z</published>
-    <updated>2022-09-08T11:02:14.025Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>介绍安装和使用磁盘监控工具smartmontools，以Mac为例。<br><span id="more"></span><br>smartmontools软件包包含两个实用程序（<code>smartctl</code> 和 <code>smartd</code>），使用内置在大多数现代 ATA/SATA、SCSI/SAS 和 NVMe 磁盘中的自我监控、分析和报告技术系统 (SMART) 来控制和监控存储系统。在许多情况下，这些工具将提供磁盘降级和故障的高级警告。 Smartmontools 最初源自 Linux smartsuite 包，实际上支持 ATA/SATA、SCSI/SAS 和 NVMe 磁盘以及 SCSI/SAS 磁带设备。它应该可以在任何现代 Linux、FreeBSD、NetBSD、OpenBSD、Darwin (macOS)、Solaris、Windows、Cygwin、OS/2、eComStation 或 QNX 系统上运行。 Smartmontools 也可以从许多不同的 Live CD/DVD 之一运行。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>brew install smartmontools</code></p><h2 id="检查硬盘"><a href="#检查硬盘" class="headerlink" title="检查硬盘"></a>检查硬盘</h2><p>方式一（通用）：<br>1、打开磁盘工具，找到设备名，如<code>disk3s1s1</code><br>2、<code>smartctl -a disk3s3s1</code></p><p>方式二（仅内置）：<br><code>smartctl -a disk0</code></p><h2 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h2><p><strong>ID1：Critical Warning警告状态</strong><br>RAW数值显示0为正常无警告，1为过热警告，2为闪存介质引起的内部错误导致可靠性降级，3为闪存进入只读状态，4为增强型断电保护功能失效（只针对有该特性的固态硬盘）。</p><p>正常情况下ID1的RAW属性值应为0，当显示为1时代表NVMe固态硬盘已经过热，需要改善散热条件或降低工作负载。属性值为2时应考虑返修或更换新硬盘，当属性值为3时硬盘已经进入只读状态，无法正常工作，应抓紧时间备份其中的数据。家用固态硬盘通常不会配备增强型断电保护（完整断电保护），所以通常该项目不会显示为4。</p><p><strong>ID2：Temperature当前温度（十进制显示）</strong></p><p><strong>ID3：Available Spare可用冗余空间（百分比显示）</strong><br>指示当前固态硬盘可用于替换坏块的保留备用块占出厂备用块总数量的百分比。该数值从出厂时的100%随使用过程降低，直至到零。ID3归零之前就有可能产生不可预料的故障，所以不要等到该项目彻底归零才考虑更换新硬盘。</p><p><strong>ID4：Available Spare Threshold备用空间阈值</strong><br>与ID3相关，当ID3的数值低于ID4所定义的阈值之后，固态硬盘被认为达到极限状态，此时系统可能会发出可靠性警告。该项数值由厂商定义，通常为10%或0%。</p><p><strong>ID5：Percentage Used已使用的写入耐久度（百分比显示）</strong><br>该项显示已产生的写入量占厂商定义总写入寿命的百分比。该项数值为动态显示，计算结果与写入量及固态硬盘的TBW总写入量指标有关。新盘状态下该项目为0%。</p><p><strong>ID6：Data Units Read读取扇区计数（1000）</strong><br>该项数值乘以1000后即为读取的扇区（512Byte）数量统计。</p><p><strong>ID7：Data Units Write写入扇区计数（1000）</strong><br>该项数值乘以1000后即为写入的扇区（512Byte）数量统计。</p><p><strong>ID8：Host Read Commands读取命令计数</strong><br>硬盘生命周期内累计接收到的读取命令数量统计。</p><p><strong>ID9：Host Write Commands写入命令计数</strong><br>硬盘生命周期内累计接收到的写入命令数量统计。</p><p><strong>ID10：Controller Busy Time主控繁忙时间计数</strong><br>该项统计的是主控忙于处理IO命令的时间总和（单位：分钟）。当IO队列有未完成的命令时，主控即处于“忙”的状态。</p><p><strong>ID11：Power Cycles通电次数</strong></p><p><strong>ID12：Power On Hours通电时间</strong></p><p><strong>ID13：Unsafe Shut downs不安全关机次数（异常断电计数）</strong></p><p><strong>ID14：Media and Data Integrity Errors闪存和数据完整性错误</strong></p><p>主控检测到未恢复的数据完整性错误的次数。正常情况下主控不应检测到数据完整性错误（纠错应该在此之前完成），当有不可校正的ECC、CRC校验失败或者LBA标签不匹配错误发生时，该数值会增加。正常情况下ID14应保持为零。</p><p><strong>ID15：Number of Error Information Log Entries错误日志条目计数</strong></p><p>控制器使用期限内，发生的错误信息日志条目的数量统计。正常情况该项目应为零。<br>有时该条目下会有<code>Read 1 entries from Error Information Log failed: GetLogPage failed: system=0x38, sub=0x0, code=745</code>之类的信息提示。</p><p><strong>以下项目</strong>为非标准项，并非所有NVMe SSD都支持显示。<br><strong>ID16：Warning Composite Temperature Time过热警告时间</strong><br><strong>ID17：Critical Composite Temerature Time过热临界温度时间</strong><br><strong>ID18-25：Temperature Sensor X：多个温度传感器（若存在）的读数</strong></p><p>参考：<a href="https://blog.csdn.net/qq_24343177/article/details/122521952">https://blog.csdn.net/qq_24343177/article/details/122521952</a></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;介绍安装和使用磁盘监控工具smartmontools，以Mac为例。&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
     
   </entry>
   
