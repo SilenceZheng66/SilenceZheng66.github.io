@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Archives: 2022/4 | SilenceZheng66-BLOG</title>
+  <title>Linux常用命令--深度学习向 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/archives/2022/04/index.html">
+  <meta name="description" content="前言总结一下Linux服务器使用的常见操作，深度学习向。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux常用命令--深度学习向">
+<meta property="og:url" content="http://silencezheng.top/2022/11/28/article82/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言总结一下Linux服务器使用的常见操作，深度学习向。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-28T11:44:22.000Z">
+<meta property="article:modified_time" content="2022-11-28T11:45:41.308Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
@@ -151,101 +156,269 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article82" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/04/04/article33/" class="archive-article-date">
-  	<time datetime="2022-04-04T09:26:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/04/article33/">M1芯片VMfusion安装win11教程</a>
+    <h1 class="article-title" itemprop="name">
+      Linux常用命令--深度学习向
     </h1>
   
 
-        <div class="article-info info-on-right">
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/11/28/article82/" class="archive-article-date">
+  	<time datetime="2022-11-28T11:44:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-28</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">750字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">3分</span>
+      </span>
+    </span>
+</div>
           
+        <!-- 添加完成 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总结一下Linux服务器使用的常见操作，深度学习向。<br><span id="more"></span></p>
+<h2 id="SSH密码登录"><a href="#SSH密码登录" class="headerlink" title="SSH密码登录"></a>SSH密码登录</h2><p><code>ssh account@ip</code><br><code>ssh -p port account@ip</code></p>
+<h2 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h2><p><code>ps aux</code>，又称BSD方式，其中a表示显示所有用户的进程(show processes for all users)；u表示显示用户(display the process’s user/owner)；x表示显示无控制终端的进程(also show processes not attached to a terminal)。</p>
+<p><code>ps -ef</code>，又称System V方式，e效果与a相同，f表示用ASCII字符显示树状结构，表达程序间的相互关系(ASCII art forest)。</p>
+<p>查看用户abc运行的进程：<code>ps -u abc</code></p>
+<p>显示System V格式下java进程：<code>ps -ef|grep java</code></p>
+<p>BSD在grep java下获取title：<code>ps aux|head -1;ps aux|grep java</code></p>
+<p>System V在grep java下获取title：<code>ps -ef|head -1;ps -ef|grep java</code></p>
+<p>top工具：<code>top</code></p>
+<h2 id="查看目前登入系统的用户信息"><a href="#查看目前登入系统的用户信息" class="headerlink" title="查看目前登入系统的用户信息"></a>查看目前登入系统的用户信息</h2><p><code>w</code></p>
+<h2 id="查看网卡信息"><a href="#查看网卡信息" class="headerlink" title="查看网卡信息"></a>查看网卡信息</h2><p><code>ifconfig</code><br><code>ip addr show</code></p>
+<h2 id="查看CPU"><a href="#查看CPU" class="headerlink" title="查看CPU"></a>查看CPU</h2><p>查看主频信息：<code>ls cpu</code></p>
+<p>查看详细信息：<code>cat /proc/cpuinfo</code></p>
+<h2 id="查看内存信息"><a href="#查看内存信息" class="headerlink" title="查看内存信息"></a>查看内存信息</h2><p>以MB为单位：<code>free -m</code></p>
+<p>以GB为单位：<code>free -g</code></p>
+<h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>查看系统版本：<code>cat /etc/issue</code></p>
+<h2 id="查看硬盘空间大小"><a href="#查看硬盘空间大小" class="headerlink" title="查看硬盘空间大小"></a>查看硬盘空间大小</h2><p>查看文件系统磁盘使用情况统计：<code>df -h</code></p>
+<p>查看指定目录所属磁盘情况：<code>df -h 目录名</code></p>
+<h2 id="Nvidia显卡配置"><a href="#Nvidia显卡配置" class="headerlink" title="Nvidia显卡配置"></a>Nvidia显卡配置</h2><p>查看显卡驱动版本、CUDA版本和显卡信息：<code>nvidia-smi</code></p>
+<p>每隔半秒刷新一次GPU信息：<code>watch -n 0.5 nvidia-smi</code></p>
+<p>查看CUDA Runtime版本：<code>nvcc -V</code></p>
+<p>TensorFlow查看显卡是否可用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(tf.config.list_physical_devices(<span class="string">&#x27;GPU&#x27;</span>))</span><br></pre></td></tr></table></figure></p>
+<p>Pytorch查看显卡是否可用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(torch.cuda.is_available())</span><br><span class="line"></span><br><span class="line">ngpu = <span class="number">1</span></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda:0&quot;</span> <span class="keyword">if</span> (torch.cuda.is_available() <span class="keyword">and</span> ngpu &gt; <span class="number">0</span>) <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(device)</span><br><span class="line"><span class="built_in">print</span>(torch.cuda.get_device_name(<span class="number">0</span>))</span><br></pre></td></tr></table></figure></p>
+<p>显卡驱动下载：<a target="_blank" rel="noopener" href="https://www.nvidia.com/download/index.aspx?lang=en-us">https://www.nvidia.com/download/index.aspx?lang=en-us</a></p>
+<h2 id="Conda"><a href="#Conda" class="headerlink" title="Conda"></a>Conda</h2><p>查看环境信息：<code>conda info -envs</code></p>
+<p>创建环境：<code>conda create --name ENVNAME python=3.x pkg1 pkg2 ...</code></p>
+<p>删除环境：<code>conda env remove -n ENVNAME</code></p>
+<p>查看通道：<code>conda config --show</code></p>
+<p>添加通道（中科大镜像）：<code>conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/</code></p>
+<p>删除通道：<code>conda config --remove channels ...</code></p>
+<h2 id="GNU-Screen"><a href="#GNU-Screen" class="headerlink" title="GNU Screen"></a>GNU Screen</h2><p>安装screen：<code>apt/yum install screen</code></p>
+<p>版本查看：<code>screen -v</code></p>
+<p>查看已创建的screen终端：<code>screenv -ls</code>，同名终端要用PID区分，输出格式为<code>PID.Name</code>；screen有两种状态<code>Attached</code>（活跃）和<code>Detached</code>（挂起）。</p>
+<p>创建一个叫Hello的虚拟终端（可创建同名）：<code>screen -S Hello</code></p>
+<p>创建（回到）一个叫Hello的虚拟终端（不可创建同名，如果存在则直接进入该终端）：<code>screen -R Hello</code></p>
+<p>清除虚拟终端法一：<code>进入对应终端，exit</code></p>
+<p>清除虚拟终端法二：<code>screen -R [PID/Name] -X quit</code></p>
+<p>后台运行虚拟终端：<code>在终端中按下ctrl+a 再按下d</code></p>
+<p>更多绑定键信息：<code>在终端中按下ctrl+a 再输入?</code></p>
+<p>进入活跃的虚拟终端前需要先挂起：<code>screen -d [PID/Name]</code>，否则<code>-R</code>回到活跃终端反而会创建新终端。</p>
+<p>总之，创建和回到终端前先<code>screenv -ls</code>确认一下是最好的。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MacOS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/11/28/article82/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/04/01/article32/" class="archive-article-date">
-  	<time datetime="2022-03-31T17:55:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/11/24/article81/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java位运算</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/01/article32/">机器学习概述--《动手学深度学习》笔记0x01</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
 
+  
+
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Mon Nov 28 2022 19:44:22 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -280,8 +453,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
