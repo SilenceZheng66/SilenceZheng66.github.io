@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2022-11-29T06:37:37.311Z</updated>
+  <updated>2022-12-16T13:03:36.222Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数值溢出问题</title>
+    <link href="http://silencezheng.top/2022/12/16/article84/"/>
+    <id>http://silencezheng.top/2022/12/16/article84/</id>
+    <published>2022-12-16T13:02:44.000Z</published>
+    <updated>2022-12-16T13:03:36.222Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>数值溢出，不得不考虑的问题…</p><span id="more"></span><h2 id="什么是溢出"><a href="#什么是溢出" class="headerlink" title="什么是溢出"></a>什么是溢出</h2><p>以Java语言为例，整数类型的上下溢出如下所示：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Overflow</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> posMax = <span class="number">0b1111111111111111111111111111111</span>;</span><br><span class="line">        <span class="keyword">int</span> negMin = -<span class="number">0b1111111111111111111111111111111</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(posMax); <span class="comment">// 2147483647</span></span><br><span class="line">        System.out.println(posMax+<span class="number">1</span>); <span class="comment">// -2147483648</span></span><br><span class="line">        System.out.println(posMax+<span class="number">2</span>); <span class="comment">// -2147483647</span></span><br><span class="line"></span><br><span class="line">        System.out.println(negMin); <span class="comment">// -2147483647</span></span><br><span class="line">        System.out.println(negMin-<span class="number">1</span>); <span class="comment">// -2147483648</span></span><br><span class="line">        System.out.println(negMin-<span class="number">2</span>); <span class="comment">// 2147483647</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>一旦出现溢出，程序的运行结果就变得不可控，逻辑上成立的算法实际上无法得到想要的结果，需要考虑数据类型的上下界限。</p><h2 id="如何防止数值溢出"><a href="#如何防止数值溢出" class="headerlink" title="如何防止数值溢出"></a>如何防止数值溢出</h2><p>以二分查找为例，查找在1到n内的某整数，若输入n为int型，则可能产生上溢出：<code>mid = (start + end)/2;</code>。</p><p>此处start的最小值为1，end的最大值为2147483647，在<code>start+end</code>值大于2147483647时就会发生上溢出。</p><p>一种聪明的解决办法是将求中位数的操作改变为：<code>mid = start + (end - start)/2;</code>，此时由于end不会超过int的上界，故不会发生溢出。</p><p>另一种解决办法是将求和操作放到long型中计算，然后转回int型，相较于上一种内存消耗增加：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="keyword">long</span> midL = ((<span class="keyword">long</span>)start + (<span class="keyword">long</span>)end)/<span class="number">2</span>;</span><br><span class="line">mid = (<span class="keyword">int</span>) midL;</span><br></pre></td></tr></table></figure><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;数值溢出，不得不考虑的问题…&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="数据结构与算法" scheme="http://silencezheng.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>常见字符编码介绍</title>
@@ -387,25 +406,6 @@
     
     
     <category term="机器学习" scheme="http://silencezheng.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>M系芯片配置TensorFlow环境</title>
-    <link href="http://silencezheng.top/2022/09/28/article64/"/>
-    <id>http://silencezheng.top/2022/09/28/article64/</id>
-    <published>2022-09-28T10:09:13.000Z</published>
-    <updated>2022-10-03T03:07:52.462Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如题，需求MacOS版本12+，主要参考<a href="https://developer.apple.com/metal/tensorflow-plugin/">官方教程</a>。<br><span id="more"></span></p><h2 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h2><p>有一个conda环境，进入。</p><h2 id="安装TensorFlow"><a href="#安装TensorFlow" class="headerlink" title="安装TensorFlow"></a>安装TensorFlow</h2><h3 id="1-安装TensorFlow依赖"><a href="#1-安装TensorFlow依赖" class="headerlink" title="1. 安装TensorFlow依赖"></a>1. 安装TensorFlow依赖</h3><p><code>conda install -c apple tensorflow-deps</code></p><h3 id="2-安装TensorFlow"><a href="#2-安装TensorFlow" class="headerlink" title="2. 安装TensorFlow"></a>2. 安装TensorFlow</h3><p><code>python -m pip install tensorflow-macos</code></p><h3 id="3-安装tensorflow-metal插件"><a href="#3-安装tensorflow-metal插件" class="headerlink" title="3. 安装tensorflow-metal插件"></a>3. 安装tensorflow-metal插件</h3><p><code>python -m pip install tensorflow-metal</code></p><h3 id="4-安装keras"><a href="#4-安装keras" class="headerlink" title="4. 安装keras"></a>4. 安装keras</h3><p><code>python -m pip install keras</code></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;如题，需求MacOS版本12+，主要参考&lt;a href=&quot;https://developer.apple.com/metal/tensorflow-plugin/&quot;&gt;官方教程&lt;/a&gt;。&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
     
   </entry>
   
