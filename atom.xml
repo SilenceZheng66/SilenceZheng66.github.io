@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2023-01-29T13:03:50.195Z</updated>
+  <updated>2023-02-09T05:37:54.227Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TestNewMacBook</title>
+    <link href="http://silencezheng.top/2023/02/09/article95/"/>
+    <id>http://silencezheng.top/2023/02/09/article95/</id>
+    <published>2023-02-09T05:37:30.000Z</published>
+    <updated>2023-02-09T05:37:54.227Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>反射的基本理解</title>
@@ -388,27 +401,6 @@
     
     
     <category term="数据结构与算法" scheme="http://silencezheng.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深度学习常用术语解释</title>
-    <link href="http://silencezheng.top/2022/11/08/article75/"/>
-    <id>http://silencezheng.top/2022/11/08/article75/</id>
-    <published>2022-11-08T14:00:16.000Z</published>
-    <updated>2022-11-08T14:00:52.846Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>深度学习常用术语解释，持续更新～<br><span id="more"></span></p><h2 id="Backbone"><a href="#Backbone" class="headerlink" title="Backbone"></a>Backbone</h2><p>主干网络，或称骨干网络，通常是网络的一部分，大多时候指的是提取特征的网络，其作用就是提取图片中的信息，供后面的网络使用。这些网络经常使用的是ResNet、VGG等，而不是我们自己设计的网络，因为这些网络已经证明了在分类等问题上的特征提取能力是很强的。在用这些网络作为Backbone的时候，都是直接加载官方已经训练好的模型参数，后面接着我们自己的网络。让网络的这两个部分同时进行训练，因为加载的Backbone模型已经具有提取特征的能力了，在我们的训练过程中，会对它进行微调，使得其更适合于我们自己的任务。</p><h2 id="Head"><a href="#Head" class="headerlink" title="Head"></a>Head</h2><p>Head即整个网络的头部，是获取网络输出内容的网络，利用之前（Backbone）提取的特征，做出预测。</p><h2 id="Neck"><a href="#Neck" class="headerlink" title="Neck"></a>Neck</h2><p>是指放在Backbone和Head之间的层，是为了更好的利用Backbone提取的特征。</p><h2 id="Pretext-task"><a href="#Pretext-task" class="headerlink" title="Pretext task"></a>Pretext task</h2><p>用于预训练的任务，可以翻译为前置任务或代理任务。</p><h2 id="Downstream-task"><a href="#Downstream-task" class="headerlink" title="Downstream task"></a>Downstream task</h2><p>下游任务，用于微调的任务。</p><h2 id="Warm-up"><a href="#Warm-up" class="headerlink" title="Warm up"></a>Warm up</h2><p>用一个小的学习率先训练几个epoch，这是因为网络的参数是随机初始化的，一开始就采用较大的学习率容易数值不稳定。</p><h2 id="End-to-End"><a href="#End-to-End" class="headerlink" title="End to End"></a>End to End</h2><p>端到端，给一个输入，获得一个输出，中间的处理过程处于黑箱中，相当于打包成应用了。</p><h2 id="Standardization"><a href="#Standardization" class="headerlink" title="Standardization"></a>Standardization</h2><p>标准化，指将数据按比例缩放，使其落入一个小区间中，缩放后均值为$0$，方差为$1$。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权。</p><p>例如在数据预处理时为了将所有特征放在一个共同的尺度上，会通过<strong>将特征重新缩放到零均值和单位方差</strong>来标准化数据。这既能方便优化，又能避免惩罚分配给某一特征的系数超过其他特征（一视同仁）。</p><p>在训练过程中，对输入进行规范化可以加速深度网络权重参数的收敛速度。</p><h2 id="Normalization"><a href="#Normalization" class="headerlink" title="Normalization"></a>Normalization</h2><p>这个词真的需要好好理解一下，其实首先应该想到翻译为“规范化”，它包括归一化、标准化甚至正则化，作为一个统称。比如Batch Normalization其实做的是Standardization的事，所以翻译成批量规范化或者批量标准化。</p><p>其次这个词又可以指归一化，即把数值放缩到$0$到$1$的小区间中。归一化可以消除量纲对最终结果的影响，使不同变量具有可比性。</p><p>关于这个词的解读是要具体问题具体分析了，甚至有时Standardization也被作为统称。</p><h2 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a>Regularization</h2><p>正则化，一般形式是在整个平均损失函数的最后增加一个正则项（比如L2范数正则化，也有其他形式的正则化，作用不同）。正则项越大表明惩罚力度越大，等于0表示不做惩罚。</p><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>[1]<a href="https://zhuanlan.zhihu.com/p/348800083">https://zhuanlan.zhihu.com/p/348800083</a><br>[2]<a href="https://zhuanlan.zhihu.com/p/343692147">https://zhuanlan.zhihu.com/p/343692147</a><br>[3]<a href="https://blog.csdn.net/u014381464/article/details/81101551">https://blog.csdn.net/u014381464/article/details/81101551</a></p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;深度学习常用术语解释，持续更新～&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="深度学习" scheme="http://silencezheng.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="机器学习" scheme="http://silencezheng.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
