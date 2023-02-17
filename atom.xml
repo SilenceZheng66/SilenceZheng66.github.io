@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2023-02-09T05:37:54.227Z</updated>
+  <updated>2023-02-17T11:43:56.060Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -17,15 +17,23 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>TestNewMacBook</title>
+    <title>MacOS下MySQL无法启动</title>
     <link href="http://silencezheng.top/2023/02/09/article95/"/>
     <id>http://silencezheng.top/2023/02/09/article95/</id>
     <published>2023-02-09T05:37:30.000Z</published>
-    <updated>2023-02-09T05:37:54.227Z</updated>
+    <updated>2023-02-17T11:43:56.060Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Mac下长时间没有使用MySQL，会发现无法启动。</p><span id="more"></span><p>原因可能是目录<code>/usr/local/mysql/data/</code>的mysql拥有者权限发生了变更，没有写的权限，所以需要对该目录赋予写的权限，操作命令如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R mysql /usr/<span class="built_in">local</span>/mysql/data</span><br></pre></td></tr></table></figure><p>然后再启动：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/<span class="built_in">local</span>/mysql/support-files/mysql.server start</span><br></pre></td></tr></table></figure><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://zhuanlan.zhihu.com/p/358820231">https://zhuanlan.zhihu.com/p/358820231</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Mac下长时间没有使用MySQL，会发现无法启动。&lt;/p&gt;</summary>
     
     
     
     
+    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
+    
+    <category term="MySQL" scheme="http://silencezheng.top/tags/MySQL/"/>
     
   </entry>
   
