@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://silencezheng.top/assets/post_img/article81/yfb.png">
 <meta property="article:published_time" content="2022-11-24T02:41:37.000Z">
-<meta property="article:modified_time" content="2022-11-24T02:42:45.103Z">
+<meta property="article:modified_time" content="2023-05-24T04:26:59.887Z">
 <meta property="article:author" content="SilenceZheng66">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -216,7 +216,7 @@
 <p><strong>反码</strong>的表示中，正数的反码是其原码本身，负数的反码是在其原码的基础上，符号位不变，其余各位取反。</p>
 <p><strong>补码</strong>的表示中，正数的补码是其原码本身，负数的补码是在其原码的基础上，符号位不变，其余各位取反后加1。</p>
 <p>以十进制正数1和-1为例，其各码如下：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">1:</span></span><br><span class="line"><span class="string">原码=反码=补码=0000</span> <span class="number">0001</span></span><br><span class="line"></span><br><span class="line"><span class="number">-1</span><span class="string">:</span></span><br><span class="line"><span class="string">原码=1000</span> <span class="number">0001</span></span><br><span class="line"><span class="string">反码=1111</span> <span class="number">1110</span></span><br><span class="line"><span class="string">补码=1111</span> <span class="number">1111</span></span><br></pre></td></tr></table></figure></p>
-<p>计算机实际只存储补码，因为<strong>只有补码的计算是准确的</strong>，这一点在此不作证明了。同时原码转换为补码的过程，也可以理解为数据存储到计算机内存中的过程，如下图：</p>
+<p>计算机中整数实际只存储补码，因为<strong>只有补码的计算是准确的</strong>，这一点在此不作证明了。同时原码转换为补码的过程，也可以理解为数据存储到计算机内存中的过程，如下图：</p>
 <p><img src="/assets/post_img/article81/yfb.png" alt="yfb"></p>
 <p>八位原码和八位反码能够表示的区间只有<code>[-127, 127]</code>，而八位补码可以表示的范围为<code>[-128, 127]</code>，因为十进制-127和-1的相加运算用补码表示算得的结果为<code>1000 0000</code>，即用原本的“-0”来表示-128。所以计算机中一个字节的取值范围是<code>[-128,127]</code>。</p>
 <p>需要注意的是，在计算机运算过后，对于负数结果需要转换为原码才能得到其真值。例如补码<code>0b1000 0001</code>，先转换为反码<code>0b1000 0000</code>，再按位取反（符号位不变）得到原码<code>0b1111 1111</code>，可知其真值为-127。</p>
