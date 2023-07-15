@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://silencezheng.top">
   <title>Git代码合并 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言近期有多端办公的需求，实操一下Git代码合并。">
+  <meta name="description" content="前言近期有多端办公的需求，实操一下代码合并。 结合IDEA的Git工具更加方便。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git代码合并">
 <meta property="og:url" content="http://silencezheng.top/2023/07/01/article107/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
-<meta property="og:description" content="前言近期有多端办公的需求，实操一下Git代码合并。">
+<meta property="og:description" content="前言近期有多端办公的需求，实操一下代码合并。 结合IDEA的Git工具更加方便。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-01T11:40:45.000Z">
-<meta property="article:modified_time" content="2023-07-01T11:42:08.764Z">
+<meta property="article:modified_time" content="2023-07-15T09:42:26.934Z">
 <meta property="article:author" content="SilenceZheng66">
 <meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary">
@@ -185,7 +185,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">474字</span>
+        <span class="post-count">633字</span>
       </span>
     </span>
 
@@ -194,7 +194,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">2分</span>
       </span>
     </span>
 </div>
@@ -205,32 +205,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期有多端办公的需求，实操一下Git代码合并。</p>
-<span id="more"></span>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期有多端办公的需求，实操一下代码合并。</p>
+<p>结合IDEA的Git工具更加方便。<br><span id="more"></span></p>
 <h2 id="本地仓库合并"><a href="#本地仓库合并" class="headerlink" title="本地仓库合并"></a>本地仓库合并</h2><p>要合并两个<strong>本地</strong>的 Git 仓库，可以按照以下步骤进行操作：</p>
-<ol>
-<li><p>进入第一个仓库的目录。</p>
-</li>
-<li><p>添加第二个仓库为远程仓库（仓库名可以取任意，与当前仓库有区分即可）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add &lt;远程仓库名称&gt; &lt;第二个仓库的路径&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git remote add another /path/to/another</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>拉取第二个仓库的代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git pull &lt;远程仓库名称&gt; &lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git remote add another /path/to/anoter</span></span><br></pre></td></tr></table></figure>
-<p>这将从第二个仓库中获取最新的代码变更。</p>
-</li>
-<li><p>将第二个仓库的代码合并到第一个仓库的主分支（或其他分支）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;远程仓库名称&gt;/&lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git merge another/main</span></span><br></pre></td></tr></table></figure>
-<p>这将把第二个仓库的代码变更合并到当前分支。当然，这一步可以用IDE提供的Git面板进行操作。</p>
-</li>
-<li><p>解决可能出现的冲突：<br>如果两个仓库之间存在冲突，你需要手动解决冲突。Git 会在代码合并过程中标记冲突的部分，你可以使用文本编辑器打开相应的文件并手动编辑以解决冲突。可以用IDE提供的Git面板进行操作，更加方便。</p>
-</li>
-<li><p>提交合并后的代码变更：</p>
-<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;<span class="keyword">Merge</span> another <span class="keyword">into</span> origin<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
-<p>这将提交合并后的代码变更。</p>
-</li>
-</ol>
+<p>1、 进入第一个仓库的目录。</p>
+<p>2、 添加第二个仓库为远程仓库（仓库名可以取任意，与当前仓库有区分即可）：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add &lt;远程仓库名称&gt; &lt;第二个仓库的路径&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git remote add another /path/to/another</span></span><br></pre></td></tr></table></figure></p>
+<p>3、 从远程仓库获取所有最新的提交历史和分支信息：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all</span><br></pre></td></tr></table></figure></p>
+<p>4、 查看远程仓库的分支：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r</span><br></pre></td></tr></table></figure></p>
+<p>5、 将远程仓库的代码合并到本地仓库的当前分支：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;远程仓库名称&gt;/&lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git merge another/&lt;brach&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>   这将把第二个仓库的代码变更合并到当前分支。当然，这一步可以用IDE提供的Git面板进行操作。</p>
+<p>6、 解决可能出现的冲突：<br>   如果两个仓库之间存在冲突，你需要手动解决冲突。Git 会在代码合并过程中标记冲突的部分，你可以使用文本编辑器打开相应的文件并手动编辑以解决冲突。可以用IDE提供的Git面板进行操作，更加方便。</p>
+<p>7、 提交合并后的代码变更：<br>   <figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;<span class="keyword">Merge</span> another <span class="keyword">into</span> origin<span class="string">&quot;</span></span><br></pre></td></tr></table></figure></p>
+<p>   这将提交合并后的代码变更。</p>
 <p>通过上述步骤，可以将两个本地的 Git 仓库进行合并。请确保在操作前备份仓库数据，以免意外丢失代码。</p>
 <h2 id="远端仓库合并"><a href="#远端仓库合并" class="headerlink" title="远端仓库合并"></a>远端仓库合并</h2><p>一样的方式，只是远端仓库可能有固定的仓库名，把本地地址替换为url即可。</p>
+<h2 id="Pull"><a href="#Pull" class="headerlink" title="Pull"></a>Pull</h2><p>Pull操作等于Fetch + Merge，如果已经确认过远端分支信息，可以直接Pull对应分支。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git pull &lt;远程仓库名称&gt; &lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git pull another &lt;brach&gt;</span></span><br></pre></td></tr></table></figure><br>这将从远端仓库中获取最新的代码变更并合并到本地当前分支。</p>
+<p>如果出现分歧，可能会报错：<code>fatal: Need to specify how to reconcile divergent branches.</code>，此时需要解决冲突或确认合并策略。</p>
+<h2 id="将远程分支添加到本地并创建一个新的本地分支"><a href="#将远程分支添加到本地并创建一个新的本地分支" class="headerlink" title="将远程分支添加到本地并创建一个新的本地分支"></a>将远程分支添加到本地并创建一个新的本地分支</h2><p>注意执行后切换到新的分支。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;new-branch-name&gt; &lt;remote-name&gt;/&lt;remote-branch-name&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
 
       
