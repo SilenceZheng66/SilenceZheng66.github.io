@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2023-07-22T11:25:51.378Z</updated>
+  <updated>2023-07-22T13:13:23.299Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>article110</title>
+    <link href="http://silencezheng.top/2023/07/22/article110/"/>
+    <id>http://silencezheng.top/2023/07/22/article110/</id>
+    <published>2023-07-22T13:13:08.000Z</published>
+    <updated>2023-07-22T13:13:23.299Z</updated>
+    
+    <content type="html"><![CDATA[<p>hihdfoafhiopasjfopa</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;hihdfoafhiopasjfopa&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>Lombok常用注解</title>
@@ -406,26 +429,6 @@
     
     
     <category term="Python" scheme="http://silencezheng.top/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Visual Studio Code Server探索</title>
-    <link href="http://silencezheng.top/2023/01/06/article90/"/>
-    <id>http://silencezheng.top/2023/01/06/article90/</id>
-    <published>2023-01-06T15:05:07.000Z</published>
-    <updated>2023-01-06T15:06:49.778Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一时兴起，折腾折腾，主要是玩具性质。</p><p>目的是实现iPad上通过基于Web的方式连接远端VS Code Server编程。<br><span id="more"></span></p><h2 id="Visual-Studio-Code-Server"><a href="#Visual-Studio-Code-Server" class="headerlink" title="Visual Studio Code Server"></a>Visual Studio Code Server</h2><p>在以往的VS Code使用中，我们要么是在本地进行开发，要么是通过VS Code Remote Development extensions连接服务器进行开发。远程开发扩展的工作原理是在远端服务器上安装远程环境，通过本机上的VS Code以SSH连接远端源代码和运行时环境进行编程，它提供了很好的性能（正常网络下SSH不会太卡）和开发体验（像在本地开发一样）。</p><p>但如果我们想要在不能安装VS Code的设备上进行开发，或者是无法使用SSH进行连接时进行开发，该怎么办呢？</p><p>微软在这方面做了很多尝试，例如将VS Code搬到浏览器中，如果你现在登录到 <a href="https://vscode.dev">https://vscode.dev</a> 时，会看到一个完全在浏览器中运行的轻量级 VS Code 版本。</p><blockquote><p>.dev新顶级域名，开发专用域名。<br>.dev 域名主要面向开发人员，和.app 类似，它要求强制性使用 HTTPS，以阻挡广告恶意程序和 ISP 植入的跟踪代码。</p></blockquote><p>那么我们能否自己搭建一个这样的运行在浏览器中的 VS Code 呢？答案是Yep！</p><blockquote><p>Visual Studio Code Server是一个基于远程扩展使用的相同底层服务器构建的独立的服务，加上一些额外的功能，如交互式 CLI 和与 vscode.dev 更便利的安全连接。</p><p>VS Code 服务器允许您以新的方式使用 VS Code，例如：</p><ul><li>在 SSH 支持可能受限或需要基于 Web 的访问的远程计算机上进行开发。</li><li>在不支持安装 VS Code 桌面的机器上开发，例如 iPad / 平板电脑或 Chromebook。</li><li>体验所有代码都可以在浏览器沙箱中执行的客户端安全优势。</li></ul></blockquote><p>VS Code Server的详细信息：<a href="https://code.visualstudio.com/docs/remote/vscode-server">https://code.visualstudio.com/docs/remote/vscode-server</a></p><p>vscode.dev的详细信息：<a href="https://code.visualstudio.com/blogs/2021/10/20/vscode-dev">https://code.visualstudio.com/blogs/2021/10/20/vscode-dev</a></p><h2 id="在本地搭建VS-Code-Server"><a href="#在本地搭建VS-Code-Server" class="headerlink" title="在本地搭建VS Code Server"></a>在本地搭建VS Code Server</h2><p>在 Mac 下可以使用 brew 来安装一个 code-server。具体命令为：<code>brew install code-server</code>。 安装完成后，配置文件在<code>~/.config/code-server/config.yaml</code>。 修改bind-addr，从127.0.0.1:8080修改为0.0.0.0:8080，密码修改为你的密码。如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bind-addr:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">:8080</span></span><br><span class="line"><span class="attr">auth:</span> <span class="string">password</span></span><br><span class="line"><span class="attr">password:</span> <span class="string">yourpassword</span></span><br><span class="line"><span class="attr">cert:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure><br>然后使用<code>brew services start code-server</code>或直接运行code-server即可启动服务。通过浏览器访问127.0.0.1:8080，按提示输入上述设置的密码即可打开在线编辑器。</p><h2 id="在Ubuntu服务器上架设VS-Code-Server"><a href="#在Ubuntu服务器上架设VS-Code-Server" class="headerlink" title="在Ubuntu服务器上架设VS Code Server"></a>在Ubuntu服务器上架设VS Code Server</h2><p>注意运行服务的端口防火墙需要放开，通常是在云服务器平台进行安全组设置。</p><h3 id="自动安装方式一"><a href="#自动安装方式一" class="headerlink" title="自动安装方式一"></a>自动安装方式一</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check architecture</span></span><br><span class="line">arch</span><br><span class="line"><span class="comment"># download</span></span><br><span class="line">curl -fOL https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb</span><br><span class="line"><span class="comment"># install</span></span><br><span class="line">sudo dpkg -i code-server_4.9.1_amd64.deb</span><br><span class="line"><span class="comment"># boot auto-start and start now</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> --now code-server@<span class="variable">$USER</span></span><br><span class="line"><span class="comment"># Now visit http://127.0.0.1:8080. Your password is in ~/.config/code-server/config.yaml</span></span><br><span class="line"><span class="comment"># if you want to let public network user to access the service by public ip</span></span><br><span class="line">code-server --host <span class="string">&quot;0.0.0.0&quot;</span></span><br></pre></td></tr></table></figure><h3 id="自动安装方式二-未验证"><a href="#自动安装方式二-未验证" class="headerlink" title="自动安装方式二 (未验证)"></a>自动安装方式二 (未验证)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># download and install</span></span><br><span class="line">curl -fsSL https://code-server.dev/install.sh | sh</span><br><span class="line"><span class="comment"># start</span></span><br><span class="line">sudo systemctl start code-server@<span class="variable">$USER</span></span><br><span class="line"><span class="comment"># configure</span></span><br><span class="line">vim ~/.config/code-server/config.yaml <span class="comment"># then configure</span></span><br><span class="line"><span class="comment"># restart to make the configuration make effect</span></span><br><span class="line">sudo systemctl restart code-server@<span class="variable">$USER</span></span><br><span class="line"><span class="comment"># boot auto-start</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> code-server@<span class="variable">$USER</span></span><br></pre></td></tr></table></figure><h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop code-server@<span class="variable">$USER</span></span><br><span class="line">rm -rf /usr/lib/code-server</span><br><span class="line">rm -rf ~/.<span class="built_in">local</span>/share/code-server</span><br><span class="line">rm -rf ~/.config/code-server</span><br></pre></td></tr></table></figure><h2 id="在iPad上访问VS-Code-Server"><a href="#在iPad上访问VS-Code-Server" class="headerlink" title="在iPad上访问VS Code Server"></a>在iPad上访问VS Code Server</h2><p>有两种方式，一种是直接用浏览器访问远端的<code>IP:PORT</code>，另一种是安装软件Servediter for code-server，打开后选择自己的服务器（是免费的），输入地址和密码保存。</p><p>后者的沉浸感稍好一点，但需要安装软件略显麻烦。</p><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] <a href="https://blog.csdn.net/day_to_die/article/details/105990565">https://blog.csdn.net/day_to_die/article/details/105990565</a><br>[2] <a href="https://blog.csdn.net/weixin_43681778/article/details/116203039">https://blog.csdn.net/weixin_43681778/article/details/116203039</a><br>[3] <a href="https://blog.csdn.net/romanticRose/article/details/101351679">https://blog.csdn.net/romanticRose/article/details/101351679</a></p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;一时兴起，折腾折腾，主要是玩具性质。&lt;/p&gt;
-&lt;p&gt;目的是实现iPad上通过基于Web的方式连接远端VS Code Server编程。&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="VSCode" scheme="http://silencezheng.top/tags/VSCode/"/>
     
   </entry>
   
