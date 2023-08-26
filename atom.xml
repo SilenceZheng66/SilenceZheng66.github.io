@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2023-08-15T15:16:44.254Z</updated>
+  <updated>2023-08-26T05:13:41.546Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MyBatis-Plus之配置自动填充</title>
+    <link href="http://silencezheng.top/2023/08/26/article118/"/>
+    <id>http://silencezheng.top/2023/08/26/article118/</id>
+    <published>2023-08-26T05:12:19.000Z</published>
+    <updated>2023-08-26T05:13:41.546Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过<code>MetaObjectHandler</code>接口，配置MyBatis-Plus的自动填充。</p><p>MyBatis-Plus版本：<code>3.4.3.4</code><br><span id="more"></span></p><h2 id="什么是自动填充"><a href="#什么是自动填充" class="headerlink" title="什么是自动填充"></a>什么是自动填充</h2><p>通常在建表时，会设置一些公共字段，例如创建人（creator）、更新人（uptater）、创建时间（create_time）、更新时间（update_time）等等。</p><p>每次将实体对象新增入库时，都要设置创建人和创建时间；每次更新实体对象时，都要设置更新人和更新时间；如果这些都放在业务代码中，很是繁琐，于是就需要配置自动填充来简化工作。</p><h2 id="MetaObjectHandler"><a href="#MetaObjectHandler" class="headerlink" title="MetaObjectHandler"></a>MetaObjectHandler</h2><p><code>MetaObjectHandler</code> 是 MyBatis-Plus 提供的一个接口类，通过实现该接口并重写其中的方法，可以在执行数据库操作（插入和更新）时自动填充某些字段的值。</p><p><code>MetaObjectHandler</code> 中有若干默认方法（已实现）和两个接口方法（需实现），接口方法如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MetaObject 是 MyBatis 的一个反射工具类，用于操作 Java 对象的属性。它提供了一系列方法来获取、设置、判断和操作 Java 对象的属性，使得在不直接调用 JavaBean 的 getter 和 setter 方法的情况下进行属性操作变得更加方便和灵活。</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertFill</span><span class="params">(MetaObject metaObject)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updateFill</span><span class="params">(MetaObject metaObject)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>下面是一个基础的自动填充配置示例</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMetaObjectHandler</span> <span class="keyword">implements</span> <span class="title">MetaObjectHandler</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 新增时填充</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertFill</span><span class="params">(MetaObject metaObject)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.strictInsertFill(metaObject, <span class="string">&quot;createTime&quot;</span>, LocalDateTime.class, LocalDateTime.now()); <span class="comment">// 起始版本 3.3.0(推荐使用)</span></span><br><span class="line">            <span class="comment">// 或者</span></span><br><span class="line">            <span class="keyword">this</span>.strictInsertFill(metaObject, <span class="string">&quot;createTime&quot;</span>, () -&gt; LocalDateTime.now(), LocalDateTime.class); <span class="comment">// 起始版本 3.3.3(推荐)</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 修改时填充</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateFill</span><span class="params">(MetaObject metaObject)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.strictUpdateFill(metaObject, <span class="string">&quot;updateTime&quot;</span>, LocalDateTime.class, LocalDateTime.now()); <span class="comment">// 起始版本 3.3.0(推荐)</span></span><br><span class="line">            <span class="comment">// 或者</span></span><br><span class="line">            <span class="keyword">this</span>.strictUpdateFill(metaObject, <span class="string">&quot;updateTime&quot;</span>, () -&gt; LocalDateTime.now(), LocalDateTime.class); <span class="comment">// 起始版本 3.3.3(推荐)</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>要想使用 <code>MetaObjectHandler</code>，需要在其实现类上添加 <code>@Component</code> 注解，然后将其注册为 Spring 的一个 Bean，这样 MyBatis Plus 就会自动调用其中定义的方法来进行字段值的填充。</p><p>然后，在实体类上添加注解，告知Mybatis-Plus需要预留注入SQL字段：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@TableField(value = &quot;create_time&quot;,fill = FieldFill.INSERT)</span></span><br><span class="line"><span class="meta">@DateTimeFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line"><span class="keyword">private</span> LocalDateTime createTime;</span><br></pre></td></tr></table></figure><p>填充策略包括：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">FieldFill</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 默认不处理</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    DEFAULT,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入填充字段</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    INSERT,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新填充字段</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    UPDATE,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入和更新填充字段</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    INSERT_UPDATE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>1、如果属性有值则不覆盖，如果sql中赋值了，自动填充又设置为其他值，则以sql中的值为准。</p><p>2、如果填充值为null则不填充，比如<code>this.setFieldValByName(“update_time”, null, metaObject);</code>实际是不会更新为null的。</p><p>3、填充处理器（如<code>MyMetaObjectHandler</code>）在 Spring Boot 中需要声明<code>@Component</code>或<code>@Bean</code>注入</p><p>4、最好不要在自定义mapper方法中使用填充，非要使用的话需要使用特定参数注解，如<code>@Param(&quot;et&quot;)</code>等。</p><p>5、<code>update(T t,Wrapper updateWrapper)</code>时<code>t</code>不能为空,否则自动填充失效，如<code>this.update(new User(), new UpdateWrapper&lt;User&gt;().set(&quot;name&quot;, &quot;张三&quot;)));</code>不能省略<code>new User()</code>。</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;通过&lt;code&gt;MetaObjectHandler&lt;/code&gt;接口，配置MyBatis-Plus的自动填充。&lt;/p&gt;
+&lt;p&gt;MyBatis-Plus版本：&lt;code&gt;3.4.3.4&lt;/code&gt;&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
+    
+    <category term="MyBatis" scheme="http://silencezheng.top/tags/MyBatis/"/>
+    
+  </entry>
   
   <entry>
     <title>图卷积(GCN)学习</title>
@@ -405,27 +427,6 @@
     <category term="Java" scheme="http://silencezheng.top/tags/Java/"/>
     
     <category term="MyBatis" scheme="http://silencezheng.top/tags/MyBatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>M系Mac重装MySQL</title>
-    <link href="http://silencezheng.top/2023/03/17/article98/"/>
-    <id>http://silencezheng.top/2023/03/17/article98/</id>
-    <published>2023-03-17T05:39:15.000Z</published>
-    <updated>2023-03-17T05:40:07.924Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于原本的MySQL8抽风，经常<code>Communications link failure</code>和<code>ERROR 2013 (HY000): Lost connection to MySQL server during query</code>，各种方法试过后都无法解决，只好卸载重装了。</p><span id="more"></span><h2 id="卸载原有的MySQL"><a href="#卸载原有的MySQL" class="headerlink" title="卸载原有的MySQL"></a>卸载原有的MySQL</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo下进入/usr/<span class="built_in">local</span>，关闭mysql后执行如下命令：</span><br><span class="line"></span><br><span class="line">sudo rm /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">sudo rm -rf /usr/<span class="built_in">local</span>/mysql*</span><br><span class="line">sudo rm -rf /Library/StartupItems/MySQLCOM</span><br><span class="line">sudo rm -rf /Library/PreferencePanes/My*</span><br><span class="line">rm -rf ~/Library/PreferencePanes/My*</span><br><span class="line">sudo rm -rf /Library/Receipts/mysql*</span><br><span class="line">sudo rm -rf /Library/Receipts/MySQL*</span><br><span class="line">sudo rm -rf /var/db/receipts/com.mysql.*</span><br><span class="line">sudo rm /tmp/mysqlx.sock /tmp/mysqlx.sock.lock</span><br></pre></td></tr></table></figure><blockquote><p>如果你不是默认路径安装的或者忘记了是不是默认路径安装的，那么除了执行上面的命令之外，还要检查以下文件中是否有对应的文件，有的话删除即可。<br>检查 /usr/local/Cellar 目录是否有mysql文件，有的话删除。<br>检查 /usr/local/var 里的mysql文件，有的话删除。<br>检查 /tmp 里的 mysql.sock、mysql.sock.lock、my.cnf 文件，有的话删除。<br>err文件以及pid文件都是在 /usr/local/var/mysql 中，有的话删除。<br>brew安装的安装包存储在 /usr/local/Library/Cache/Homebrew ，有的话删除。<br>一定要记得执行brew cleanup。</p></blockquote><h2 id="下载对应版本的MySQL"><a href="#下载对应版本的MySQL" class="headerlink" title="下载对应版本的MySQL"></a>下载对应版本的MySQL</h2><p><a href="https://dev.mysql.com/downloads/mysql/">https://dev.mysql.com/downloads/mysql/</a></p><p>一路默认安装，记得输入管理员密码～</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;由于原本的MySQL8抽风，经常&lt;code&gt;Communications link failure&lt;/code&gt;和&lt;code&gt;ERROR 2013 (HY000): Lost connection to MySQL server during query&lt;/code&gt;，各种方法试过后都无法解决，只好卸载重装了。&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="MySQL" scheme="http://silencezheng.top/tags/MySQL/"/>
-    
-    <category term="MacOS" scheme="http://silencezheng.top/tags/MacOS/"/>
     
   </entry>
   
