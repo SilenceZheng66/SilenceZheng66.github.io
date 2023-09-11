@@ -6,22 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>开源协议简单了解 | SilenceZheng66-BLOG</title>
+  <title>Lombok原理简析 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近看到B站有人用pyqt5被发律师函，于是对开源协议产生了一些兴趣，对网络相关热门帖子结合协议官网整理归纳一下，简单了解一下开源协议，如有错误请评论指正，感谢。提及的协议有：GPL、LGPL、BSD、MIT、Apache License 2.0。">
+  <meta name="description" content="前言Lombok实现原理简析。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开源协议简单了解">
-<meta property="og:url" content="http://silencezheng.top/2022/05/14/article36/index.html">
+<meta property="og:title" content="Lombok原理简析">
+<meta property="og:url" content="http://silencezheng.top/2023/09/11/article121/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
-<meta property="og:description" content="最近看到B站有人用pyqt5被发律师函，于是对开源协议产生了一些兴趣，对网络相关热门帖子结合协议官网整理归纳一下，简单了解一下开源协议，如有错误请评论指正，感谢。提及的协议有：GPL、LGPL、BSD、MIT、Apache License 2.0。">
+<meta property="og:description" content="前言Lombok实现原理简析。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article36/clcr.jpg">
-<meta property="article:published_time" content="2022-05-14T14:55:13.000Z">
-<meta property="article:modified_time" content="2022-05-27T14:14:58.426Z">
+<meta property="article:published_time" content="2023-09-11T13:32:25.000Z">
+<meta property="article:modified_time" content="2023-09-11T13:36:03.780Z">
 <meta property="article:author" content="SilenceZheng66">
-<meta property="article:tag" content="开源协议">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Lombok">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article36/clcr.jpg">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
   
@@ -158,14 +157,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-article36" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-article121" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      开源协议简单了解
+      Lombok原理简析
     </h1>
   
 
@@ -176,8 +175,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2022/05/14/article36/" class="archive-article-date">
-  	<time datetime="2022-05-14T14:55:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-14</time>
+<a href="/2023/09/11/article121/" class="archive-article-date">
+  	<time datetime="2023-09-11T13:32:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-11</time>
 </a>
         <!-- 需要添加的位置 -->
         <!-- 开始添加字数统计-->
@@ -187,7 +186,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">2.5k字</span>
+        <span class="post-count">2.1k字</span>
       </span>
     </span>
 
@@ -196,7 +195,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">8分</span>
+        <span class="post-count">9分</span>
       </span>
     </span>
 </div>
@@ -207,56 +206,42 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近看到B站有人用pyqt5被发律师函，于是对开源协议产生了一些兴趣，对网络相关热门帖子结合协议官网整理归纳一下，简单了解一下开源协议，如有错误请评论指正，感谢。<br>提及的协议有：GPL、LGPL、BSD、MIT、Apache License 2.0。<br><span id="more"></span></p>
-<h2 id="0-基本概念"><a href="#0-基本概念" class="headerlink" title="0. 基本概念"></a>0. 基本概念</h2><h3 id="0-1-Copyleft和Copyright"><a href="#0-1-Copyleft和Copyright" class="headerlink" title="0.1. Copyleft和Copyright"></a>0.1. Copyleft和Copyright</h3><p>Copyleft和Copyright是两种截然相反的版权所有方式。copyright的英文本意是版权©️。copyleft现在被译为公共版权或非盈利版权。<br><img src="/assets/post_img/article36/clcr.jpg" alt="pic1"></p>
-<p><strong>Copyright</strong>：版权所有，即软件的一切权利归软件作者私有。<br>软件的版权和其它一切权利归软件作者所私有。用户只有使用权，没有其它权利，包括没有复制软件的权利。<br><strong>Copyleft</strong>：是一种让程序或其它作品保持自由的通用方法，它要求所有对 Copyleft 程序的修改和扩展都保持自由。但该规则仅与GNU相关。<br>Copyleft 是指任何人都可以重新分发软件，不管有没有进行修改，但必须同时保留软件所具有的自由特性。Copyleft是为了保证所有用户都拥有自由的权利。<br>一个程序遵循 Copyleft，我们首先声明它是有版权的；然后，我们给它加上发布的规则，这个规则就是一个法律声明，它赋予所有人有使用、修改和重新发布程序的代码 及其衍生作品 的权利，但要求在这个过程中发布规则是不可以改变的。这样的话，代码和自由权利在法律上就不可分割了。</p>
-<h3 id="0-2-其他"><a href="#0-2-其他" class="headerlink" title="0.2. 其他"></a>0.2. 其他</h3><p><strong>复制（Copy）</strong>：将软件复制到你的电脑，你客户的电脑，或者任何地方。<br><strong>分发（Distribution）</strong>：在网站供他人下载，拷贝到U盘送人。<br><strong>商用（Commercial use）</strong>：盈利，在分发软件的时候收费。<br><strong>修改（Modification）</strong>：添加或删除某个功能，在别的项目中使用部分代码等。<br><strong>专利使用（Patent use）</strong>：用于申请专利。<br><strong>个人使用（Private use）</strong>：供私人使用，基本都支持。<br>下面的介绍中权利部分严格按照以上概念进行，但通常带“自由”字眼的并非完全自由，有相应的规则加以限制，本文也会略微提到。<br><strong>开源</strong>：开源软件最大的特点是开放而不是免费，也就是任何人都可以得到软件的源代码，加以修改学习，甚至重新发放，但需要在版权限制范围之内。</p>
-<h2 id="1-GPL（GNU-General-Public-License）"><a href="#1-GPL（GNU-General-Public-License）" class="headerlink" title="1. GPL（GNU General Public License）"></a>1. GPL（GNU General Public License）</h2><p>GNU 通用公共许可证 (GPL)，目前共有3个版本，分别为GPLv1、GPLv2、GPLv3（最新）。<br>GNU 通用公共许可证有以下几种格式：HTML、纯文本、ODF、Docbook v4或者v5、Texinfo、LaTeX、Markdown和RTF。这些文档的格式不是为了单独发布使用，它们的目的是嵌入其他文档。</p>
-<p>GPL提供的权利主要有：自由复制、自由分发、“自由”修改、盈利、专利使用。<br>注意：</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Lombok实现原理简析。<br><span id="more"></span></p>
+<h2 id="JCP与JSR"><a href="#JCP与JSR" class="headerlink" title="JCP与JSR"></a>JCP与JSR</h2><p>JCP（Java Community Process）是管理 Java 生态（包括 J2SE、J2EE 等等）发展及指导和推动Java平台发展的合作组织，而JSR（Java Specification Request）则是由JCP提出的一种规范请求。</p>
+<blockquote>
+<p>JCP是由Sun Microsystems（现在是Oracle Corporation）创建的一个组织，负责制定和管理Java技术的发展。它包括了一系列专家组和工作组，这些组织和个人共同合作制定和更新Java规范。</p>
+<p>JSR 是 Java 规范请求。这是由一个或多个成员提交给 PMO 的文件，以提议开发新规范或对现有规范进行重大修订。 JCP 计划目前正在开发许多 Java 技术规范，包括 Java™ Micro Edition (Java ME™)、Java™ Platform Enterprise Edition (Java EE™) 和 Java™ Standard Edition (Java SE™) 的下一版本。 JSR 还指由这些提案产生的规范开发工作。</p>
+<p>JSR经历多个阶段，包括草案、提案、公开评论、维护和最终发布等。</p>
+<p>PMO 即 Program Management Office，项目管理办公室是 Oracle 内部负责监督 Java 社区流程并管理项目日常运行的小组。该规范的实际开发是在专家组内进行的。</p>
+</blockquote>
+<p>JCP：<a target="_blank" rel="noopener" href="https://jcp.org/en/home/index">https://jcp.org/en/home/index</a></p>
+<h2 id="JSR-000269"><a href="#JSR-000269" class="headerlink" title="JSR-000269"></a>JSR-000269</h2><p>JSR-000269（JSR-269）的目标是定义并实现Java编译时注解处理器的标准API，或称为可插拔注解处理（Pluggable Annotation Processing），该JSR提供了一种机制，使开发人员能够在Java源代码编译过程中访问和处理注解，从而实现更高级的语义效果和自动化任务。</p>
+<p>要完全的了解JSR-269的前因后果及技术细节，不应该在本文中寻找答案，本文仅铺垫一些形象化描述Lombok实现原理所必需的前置知识。总之，通过JSR-269的实现，开发人员可以利用编译时注解处理器的能力，以一种标准化和可扩展的方式对源代码进行自动化处理。这种处理包括生成额外的代码、进行静态分析、验证约束条件等。</p>
+<p>JSR-000269的原始提出第一节如下：</p>
+<blockquote>
+<p>J2SE 1.5引入了一种新的Java语言机制“注解”，允许使用注解类型对类、字段和方法进行注解。这些注解通常由编译时工具或运行时库来处理，以实现新的语义效果。为了支持编译时的注解处理，这个JSR将定义API，允许使用标准可插拔的API创建注解处理器。这将简化创建注解处理器的任务，并且还可以自动发现适用于给定源文件的合适的注解处理器。</p>
+<p>该规范将包括至少两个部分：一个部分是对Java编程语言进行建模的API部分，另一个部分用于声明注解处理器并控制它们的运行方式。由于注解是放置在程序元素上的，注解处理框架需要反映程序结构。注解处理器将能够指定它们处理的注解，并且多个处理器将能够合作运行。</p>
+<p>处理器和程序结构API可以在编译时访问；即此功能补充了核心反射支持读取注解的能力。</p>
+</blockquote>
+<h2 id="Lombok代码注入原理"><a href="#Lombok代码注入原理" class="headerlink" title="Lombok代码注入原理"></a>Lombok代码注入原理</h2><p>Lombok使用了JSR-269的API，即<code>javax.annotation.processing</code>下的一组接口，在编译期时把 Lombok 的注解代码，转换为常规的 Java ⽅法⽽实现注⼊。</p>
+<p>使用 <code>javac</code> 进行编译时，Lombok生成目标方法的流程如下：</p>
 <ol>
-<li>盈利收费前向你的客户提供该软件的GPL许可协议，以便让他们知道，他们可以从别的渠道免费得到这份软件，以及你收费的理由。</li>
-<li>修改时，使用了这段代码的项目也必须使用 GPL 协议。</li>
-<li>分发时，软件自始至终都以开放源代码形式发布，无论软件以何种形式发布，都必须同时附上源代码。</li>
-<li>GPLv3允许专利使用。</li>
+<li>首先 <code>javac</code> 对源代码进行分析生成一棵抽象语法树(AST)</li>
+<li>接着在运行过程中调用实现了 JSR-269 API 的 lombok 程序</li>
+<li>接着编译器会调用 lombok 程序对上面得到的抽象语法树 AST 进行处理，找到其注解所在类对应的语法树(AST)，然后修改该语法树，增加注解对应的方法或代码片段到定义的相应树节点</li>
+<li><code>javac</code> 使用修改后的抽象语法树生成最终的 class 文件</li>
 </ol>
-<p>总结：<br>GPL 大致就是一个Copyleft的体现。你可以去掉所有原作的版权信息，只要你保持开源，并且随源代码、二进制版附上GPL的许可证就行。开发或维护遵循 GPL 协议开发的软件的公司或个人，可以对使用者收取一定的服务费用。但必须无偿提供软件的完整源代码，不得将源代码与服务做捆绑或任何变相捆绑销售。</p>
-<h2 id="2-LGPL（GNU-Lesser-General-Public-License）"><a href="#2-LGPL（GNU-Lesser-General-Public-License）" class="headerlink" title="2. LGPL（GNU Lesser General Public License）"></a>2. LGPL（GNU Lesser General Public License）</h2><p>GNU宽通用公共许可证 (GNU LGPL)，其最新版本号是3。它对产品所保留的权利比 GPL 少。<br>GNU 宽通用公共许可证文本有以下格式：HTML、纯文本、Docbook、Texinfo、Markdown、ODF和RTF。这些文档的格式不是为了单独发布使用，它们的目的是嵌入其他文档。</p>
-<p>LGPL提供的权利：自由复制、自由分发、自由修改、盈利。<br>与GPL大致相同，但条件上有差异：</p>
-<ol>
-<li>GNU不建议使用LGPL，因为LGPL许可证允许专有软件使用该函数库；而普通的GNU GPL只允许在自由软件中使用该函数库。</li>
-<li>LGPL不要求其它使用LGPL授权代码的软件以LGPL方式发布。</li>
-<li>LGPL软件可以被转换成GPL，这种特性对于在GPL库或应用程序中直接使用LGPL程序有一定程度的帮助。</li>
-</ol>
-<p>总结：<br>使用普通GPL的函数库给予自由软件开发者一个超越专有软件开发者的优势：能够使用按照普通GPL发布的函数库，而专有软件的开发者不能使用这些库。<br>使用LGPL的常见情况是当专有软件可以通过其他函数库来实现使用自由软件函数库的功能时，该函数库便对自由软件没有任何独有优势，此时采用LGPL。</p>
-<h2 id="3-BSD-Berkeley-Software-Distribution"><a href="#3-BSD-Berkeley-Software-Distribution" class="headerlink" title="3. BSD (Berkeley Software Distribution)"></a>3. BSD (Berkeley Software Distribution)</h2><p>BSD，即伯克利软件分发许可协议。BSD协议的出发点是鼓励代码重用，可以将公开的资源纳入私人软件并使用闭源的形式进行出售，但是需要尊重代码作者的著作权。通常有BSD 3-Clause （又称”New BSD License”或”Modified BSD License”）, BSD 2-Clause（又称”Simplified BSD License”或”FreeBSD License”。<br>新 BSD 协议在软件分发方面，除需要包含一份版权提示和免责声明之外，没有任何限制。另外，该协议还禁止拿开发者的名义为衍生产品背书，但简单 BSD 协议删除了这一条款。</p>
-<p>BSD提供的权利：自由复制、自由分发、自由修改、盈利。<br>注意：</p>
-<ol>
-<li>BSD不允许专利使用。</li>
-<li>如果再发布的产品中包含源代码，则在源代码中必须带有原来代码中的 BSD 协议。如果再发布的只是二进制类库 / 软件，则需要在类库 / 软件的文档和版权声明中包含原来代码中的 BSD 协议。</li>
-<li>BSD 3-Clause不可以用开源代码的作者 / 机构名字和原来产品的名字做市场推广。</li>
-</ol>
-<p>总结：<br>BSD 代码鼓励代码共享，但需要尊重代码作者的著作权。BSD由于允许使用者修改和重新发布代码，也允许使用或在 BSD 代码上开发商业软件发布和销售，因此是对商业集成很友好的协议。很多的公司企业在选用开源产品的时候都首选 BSD 协议，因为可以完全控制这些第三方的代码，在必要的时候可以修改或者二次开发。</p>
-<h2 id="4-MIT-（Massachusetts-Institute-of-Technology）"><a href="#4-MIT-（Massachusetts-Institute-of-Technology）" class="headerlink" title="4. MIT （Massachusetts Institute of Technology）"></a>4. MIT （Massachusetts Institute of Technology）</h2><p>MIT 许可证之名源自麻省理工学院（Massachusetts Institute of Technology, MIT），又称「X 条款」（X License）或「X11 条款」（X11 License）<br>MIT 内容与三条款 BSD 许可证（3-clause BSD license）内容颇为近似，但是赋予软体被授权人更大的权利与更少的限制。<br>MIT 条款可与其他授权条款并存。另外，MIT 条款也是自由软体基金会（FSF）所认可的自由软体授权条款，与 GPL 相容。</p>
-<p>MIT提供的权利：自由复制、自由分发、自由修改、盈利。<br>注意：</p>
-<ol>
-<li>该软件及其相关文档对所有人免费，可以任意处置，包括使用，复制，修改，合并，发表，分发，再授权，或者销售。唯一的限制是，软件中必须包含上述版 权和许可提示。</li>
-<li>此授权条款并非属 copyleft 的自由软体授权条款，允许在自由 / 开放源码软件或非自由软件（proprietary software）所使用。</li>
-<li>不允许专利使用。</li>
-</ol>
-<p>总结：<br>MIT 协议是所有开源许可中最宽松的一个，除了必须包含许可声明外，再无任何限制。</p>
-<h2 id="5-Apache-License-2-0"><a href="#5-Apache-License-2-0" class="headerlink" title="5. Apache License 2.0"></a>5. Apache License 2.0</h2><p>Apache License 2.0是对商业应用友好的许可。使用者也可以在需要的时候修改代码来满足需要并作为开源或商业产品发布/销售。</p>
-<p>Apache License 2.0提供的权利：自由复制、自由分发、自由修改、盈利、专利使用。<br>注意：</p>
-<ol>
-<li>一旦被授权，永久拥有。</li>
-<li>在一个国家获得授权，适用于所有国家。</li>
-<li>授权免费，且无版税。</li>
-<li>任何人都可以获得授权。</li>
-<li>一旦获得授权，没有任何人可以取消。比如，你基于该产品代码开发了衍生产品，你不用担心会在某一天被禁止使用该代码。</li>
-<li>分发代码方面包含一些要求，主要是，要在声明中对参与开发的人给予认可并包含一份许可协议原文。</li>
-<li>如果修改了代码，需要在被修改的文件中说明。并且在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，商标，专利声明和其他原来作者规定需要包含的说明。</li>
-<li>如果再发布的产品中包含一个 Notice 文件，则在 Notice 文件中需要带有 Apache Licence。你可以在 Notice 中增加自己的许可，但不可以表现为对 Apache Licence 构成更改。</li>
-</ol>
-<p>总结：<br>Apache 协议 2.0 和除了为用户提供版权许可之外，还有专利许可，对于那些涉及专利内容的开发者而言，该协议最适合。</p>
+<h2 id="利用269API实现Setter注解"><a href="#利用269API实现Setter注解" class="headerlink" title="利用269API实现Setter注解"></a>利用269API实现Setter注解</h2><p>1、⾃定义注解<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> lombok.setter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.SOURCE)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MySetter &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、自定义注解处理器<br>注解处理器是代码生成的核心，对语法树的操作需要使用自己JDK的<code>tools.jar</code>，涉及到的核心库主要为<code>com.sun.tools.javac</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="keyword">package</span> lombok.setter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sun.source.tree.Tree.Kind;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.api.JavacTrees;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.code.Flags;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.code.Type;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.processing.JavacProcessingEnvironment;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.tree.JCTree;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.tree.TreeMaker;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.tree.TreeTranslator;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.util.Context;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.util.ListBuffer;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.util.Name;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.util.Names;</span><br><span class="line"><span class="keyword">import</span> com.sun.tools.javac.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> javax.annotation.processing.*;</span><br><span class="line"><span class="keyword">import</span> javax.lang.model.SourceVersion;</span><br><span class="line"><span class="keyword">import</span> javax.lang.model.element.Element;</span><br><span class="line"><span class="keyword">import</span> javax.lang.model.element.TypeElement;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SupportedAnnotationTypes(&quot;lombok.setter.MySetter&quot;)</span></span><br><span class="line"><span class="meta">@SupportedSourceVersion(SourceVersion.RELEASE_8)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySetterProcessor</span> <span class="keyword">extends</span> <span class="title">AbstractProcessor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> JavacTrees javacTrees; <span class="comment">// 提供了待处理的抽象语法树</span></span><br><span class="line">    <span class="keyword">private</span> TreeMaker treeMaker; <span class="comment">// 封装了创建AST节点的一些方法</span></span><br><span class="line">    <span class="keyword">private</span> Names names; <span class="comment">// 提供了创建标识符的方法</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ProcessingEnvironment processingEnv)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.init(processingEnv);</span><br><span class="line">        <span class="comment">// 获取资源</span></span><br><span class="line">        <span class="keyword">this</span>.javacTrees = JavacTrees.instance(processingEnv);</span><br><span class="line">        Context context = ((JavacProcessingEnvironment) processingEnv).getContext();</span><br><span class="line">        <span class="keyword">this</span>.treeMaker = TreeMaker.instance(context);</span><br><span class="line">        <span class="keyword">this</span>.names = Names.instance(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">process</span><span class="params">(Set&lt;? extends TypeElement&gt; annotations, RoundEnvironment roundEnv)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 获取MySetter注解的元素</span></span><br><span class="line">        Set&lt;? extends Element&gt; elementsAnnotatedWith = roundEnv.getElementsAnnotatedWith(MySetter.class);</span><br><span class="line">        elementsAnnotatedWith.forEach(element -&gt; &#123;</span><br><span class="line">            JCTree tree = javacTrees.getTree(element);</span><br><span class="line">            <span class="comment">// 使用 TreeTranslator 遍历抽象语法树</span></span><br><span class="line">            tree.accept(<span class="keyword">new</span> TreeTranslator() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visitClassDef</span><span class="params">(JCTree.JCClassDecl jcClassDecl)</span> </span>&#123;</span><br><span class="line">                    List&lt;JCTree.JCVariableDecl&gt; jcVariableDeclList = List.nil();</span><br><span class="line">                    <span class="comment">// 在抽象树中找出所有变量</span></span><br><span class="line">                    <span class="keyword">for</span>(JCTree jcTree:jcClassDecl.defs) &#123;</span><br><span class="line">                        <span class="keyword">if</span>(jcTree.getKind().equals(Kind.VARIABLE)) &#123;</span><br><span class="line">                            JCTree.JCVariableDecl jcVariableDecl = (JCTree.JCVariableDecl) jcTree;</span><br><span class="line">                            jcVariableDeclList = jcVariableDeclList.append(jcVariableDecl);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 对变量生成方法</span></span><br><span class="line">                    jcVariableDeclList.forEach(jcVariableDecl -&gt; &#123;</span><br><span class="line">                        jcClassDecl.defs = jcClassDecl.defs.prepend(makeGetterMethodDecl(jcVariableDecl));</span><br><span class="line">                    &#125;);</span><br><span class="line">                    <span class="keyword">super</span>.visitClassDef(jcClassDecl);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> JCTree.<span class="function">JCMethodDecl <span class="title">makeGetterMethodDecl</span><span class="params">(JCTree.JCVariableDecl jcVariableDecl)</span> </span>&#123;</span><br><span class="line">        ListBuffer&lt;JCTree.JCStatement&gt; statements = <span class="keyword">new</span> ListBuffer&lt;&gt;();</span><br><span class="line">        <span class="comment">// 生成表达式，例如 this.a = a;</span></span><br><span class="line">        JCTree.JCExpressionStatement aThis = makeAssignment(</span><br><span class="line">            treeMaker.Select(treeMaker.Ident(names.fromString(<span class="string">&quot;this&quot;</span>)), jcVariableDecl.getName()),</span><br><span class="line">            treeMaker.Ident(jcVariableDecl.getName())</span><br><span class="line">        );</span><br><span class="line">        statements.append(aThis);</span><br><span class="line">        JCTree.JCBlock block = treeMaker.Block(<span class="number">0</span>, statements.toList()); <span class="comment">// 创建代码块抽象语法树节点</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 生成入参</span></span><br><span class="line">        JCTree.JCVariableDecl param = treeMaker.VarDef( <span class="comment">// 创建一个变量定义节点</span></span><br><span class="line">            treeMaker.Modifiers(Flags.PARAMETER), <span class="comment">// 指定修饰符为入参</span></span><br><span class="line">            jcVariableDecl.getName(), <span class="comment">// 使用原始变量定义节点的名称作为入参的名称</span></span><br><span class="line">            jcVariableDecl.vartype, <span class="comment">// 使用原始变量定义节点的变量类型作为入参的类型</span></span><br><span class="line">            <span class="keyword">null</span> <span class="comment">// 表示入参没有初始值</span></span><br><span class="line">        );</span><br><span class="line">        List&lt;JCTree.JCVariableDecl&gt; parameters = List.of(param);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 生成返回对象</span></span><br><span class="line">        JCTree.JCExpression methodType = treeMaker.Type(</span><br><span class="line">            <span class="keyword">new</span> Type.JCVoidType()</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 结合内容生成方法</span></span><br><span class="line">        <span class="keyword">return</span> treeMaker.MethodDef(</span><br><span class="line">            treeMaker.Modifiers(Flags.PUBLIC),</span><br><span class="line">            getNewMethodName(jcVariableDecl.getName()),</span><br><span class="line">            methodType, List.nil(), parameters, List.nil(), block, <span class="keyword">null</span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Name <span class="title">getNewMethodName</span><span class="params">(Name name)</span> </span>&#123;</span><br><span class="line">        String s = name.toString();</span><br><span class="line">        <span class="comment">// 驼峰命名方法</span></span><br><span class="line">        <span class="keyword">return</span> names.fromString(</span><br><span class="line">            <span class="string">&quot;set&quot;</span> + s.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + s.substring(<span class="number">1</span>, name.length())</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> JCTree.<span class="function">JCExpressionStatement <span class="title">makeAssignment</span><span class="params">(JCTree.JCExpression lhs, JCTree.JCExpression rhs)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 生成赋值语句的抽象语法树节点</span></span><br><span class="line">        <span class="keyword">return</span> treeMaker.Exec(</span><br><span class="line">            treeMaker.Assign(</span><br><span class="line">                lhs, <span class="comment">// left-hand side</span></span><br><span class="line">                rhs  <span class="comment">// right-hand side</span></span><br><span class="line">            )</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、编译注解处理器<br>之后所有操作都在MySetter的目录下进行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac -cp /path/to/tools.jar MySetter* -d .</span><br></pre></td></tr></table></figure>
+<p>4、编写和编译目标类<br>目标类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MySetter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMySetter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Integer intt;</span><br><span class="line">    <span class="keyword">public</span> String strr;</span><br><span class="line">    <span class="keyword">public</span> Byte bytee;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用自定义注解处理器编译目标类：<code>javac -processor  lombok.setter.MySetterProcessor TestMySetter.java</code></p>
+<p>编译结果如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMySetter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Integer intt;</span><br><span class="line">    <span class="keyword">public</span> String strr;</span><br><span class="line">    <span class="keyword">public</span> Byte bytee;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBytee</span><span class="params">(Byte var1)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.bytee = var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStrr</span><span class="params">(String var1)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.strr = var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIntt</span><span class="params">(Integer var1)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.intt = var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestMySetter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Lombok插件"><a href="#Lombok插件" class="headerlink" title="Lombok插件"></a>Lombok插件</h2><p>前面形象化的讲述了Lombok的代码生成原理，但这些都发生在编译期，代码编辑器如何获取到这些信息并提前应用到代码提示上呢？Lombok给主流集成开发环境编写了Lombok插件，在使用Lombok的过程中不需要编译即可实现代码提示和代码补全，相关源码都公开在GitHub上（见[9]），有兴趣的读者可以自行阅读研究。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1081626">https://developer.aliyun.com/article/1081626</a><br>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/shouchenchuan5253/article/details/111658356">https://blog.csdn.net/shouchenchuan5253/article/details/111658356</a><br>[3] <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43983762/article/details/105867398">https://blog.csdn.net/weixin_43983762/article/details/105867398</a><br>[4] <a target="_blank" rel="noopener" href="https://juejin.cn/post/7103011031672176677">https://juejin.cn/post/7103011031672176677</a><br>[5] <a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=269">https://jcp.org/en/jsr/detail?id=269</a><br>[6] <a target="_blank" rel="noopener" href="https://jcp.org/aboutJava/communityprocess/mrel/jsr269/index6.html">https://jcp.org/aboutJava/communityprocess/mrel/jsr269/index6.html</a><br>[7] <a target="_blank" rel="noopener" href="https://projectlombok.org/">https://projectlombok.org/</a><br>[8] <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/7/docs/technotes/guides/apt/GettingStarted.html">https://docs.oracle.com/javase/7/docs/technotes/guides/apt/GettingStarted.html</a><br>[9] <a target="_blank" rel="noopener" href="https://github.com/projectlombok/lombok">https://github.com/projectlombok/lombok</a></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
 
       
 
@@ -301,7 +286,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">开源协议</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Lombok</a>
         		</li>
       		
 		</ul>
@@ -357,7 +346,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/05/14/article36/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2023/09/11/article121/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -371,18 +360,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/05/16/article37/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          线性神经网络--《动手学深度学习》笔记0x03
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/05/10/article35/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spring boot学习笔记0x01</div>
+    <a href="/2023/09/10/article120/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Lombok之@Builder碎碎念</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -401,6 +381,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JCP%E4%B8%8EJSR"><span class="toc-number">2.</span> <span class="toc-text">JCP与JSR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSR-000269"><span class="toc-number">3.</span> <span class="toc-text">JSR-000269</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lombok%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">Lombok代码注入原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8269API%E5%AE%9E%E7%8E%B0Setter%E6%B3%A8%E8%A7%A3"><span class="toc-number">5.</span> <span class="toc-text">利用269API实现Setter注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lombok%E6%8F%92%E4%BB%B6"><span class="toc-number">6.</span> <span class="toc-text">Lombok插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">8.</span> <span class="toc-text">后记</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -429,7 +422,7 @@ if(true){
   	repo: 'SilenceZheng66.github.io',
   	owner: 'SilenceZheng66',
   	admin: ['SilenceZheng66'],
-  	id: 'Sat May 14 2022 22:55:13 GMT+0800',
+  	id: 'Mon Sep 11 2023 21:32:25 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
