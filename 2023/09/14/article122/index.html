@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Servlet中的RequestDispatcher 两个方法详解 | SilenceZheng66-BLOG</title>
+  <title>Optional使用入门 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言我认为讲的很详细的对RequestDispatcher的解释，记录一下。转自：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;35d9e05d5989  （翻译）英文原博：https:&#x2F;&#x2F;www.javatpoint.com&#x2F;requestdispatcher-in-servlet下面是简单总结：">
+  <meta name="description" content="前言Optional 是 Java 8 引进的一个新特性，它是一个容器对象，可以包含或不包含非空值。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Servlet中的RequestDispatcher 两个方法详解">
-<meta property="og:url" content="http://silencezheng.top/2020/09/09/article13/index.html">
+<meta property="og:title" content="Optional使用入门">
+<meta property="og:url" content="http://silencezheng.top/2023/09/14/article122/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
-<meta property="og:description" content="前言我认为讲的很详细的对RequestDispatcher的解释，记录一下。转自：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;35d9e05d5989  （翻译）英文原博：https:&#x2F;&#x2F;www.javatpoint.com&#x2F;requestdispatcher-in-servlet下面是简单总结：">
+<meta property="og:description" content="前言Optional 是 Java 8 引进的一个新特性，它是一个容器对象，可以包含或不包含非空值。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article13/forward.png">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article13/include.png">
-<meta property="article:published_time" content="2020-09-09T14:14:57.000Z">
-<meta property="article:modified_time" content="2020-09-09T14:29:04.000Z">
+<meta property="article:published_time" content="2023-09-14T15:08:57.000Z">
+<meta property="article:modified_time" content="2023-09-14T15:11:44.556Z">
 <meta property="article:author" content="SilenceZheng66">
 <meta property="article:tag" content="Java">
-<meta property="article:tag" content="Servlet">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article13/forward.png">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
   
@@ -160,14 +156,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-article13" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-article122" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Servlet中的RequestDispatcher 两个方法详解
+      Optional使用入门
     </h1>
   
 
@@ -178,8 +174,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/09/09/article13/" class="archive-article-date">
-  	<time datetime="2020-09-09T14:14:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-09</time>
+<a href="/2023/09/14/article122/" class="archive-article-date">
+  	<time datetime="2023-09-14T15:08:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-14</time>
 </a>
         <!-- 需要添加的位置 -->
         <!-- 开始添加字数统计-->
@@ -189,7 +185,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">226字</span>
+        <span class="post-count">1.1k字</span>
       </span>
     </span>
 
@@ -198,7 +194,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">4分</span>
       </span>
     </span>
 </div>
@@ -209,16 +205,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我认为讲的很详细的对RequestDispatcher的解释，记录一下。<br>转自：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/35d9e05d5989">https://www.jianshu.com/p/35d9e05d5989</a>  （翻译）<br>英文原博：<a target="_blank" rel="noopener" href="https://www.javatpoint.com/requestdispatcher-in-servlet">https://www.javatpoint.com/requestdispatcher-in-servlet</a><br>下面是简单总结：<br><span id="more"></span><br>请求调度器 接口 提供调度request到另一个资源（servlet/jsp/html）的功能。<br>该接口也可以用incloude方法包含另一个资源（servlet/jsp/html）的内容。它是servlet协作的一种方式。<br>在RequestDispatcher接口中定义了两种方法： forward和include</p>
-<p><strong>forward</strong><br>如下图所示，servlet2的response发送给客户端。而servlet1的response不会显示给用户。</p>
-<p><img src="/assets/post_img/article13/forward.png" alt="forward"></p>
-<p>ServletRequest接口的getRequestDispatcher（）方法返回RequestDispatcher的对象。句法：</p>
-<p><code>public RequestDispatcher getRequestDispatcher(String resource);</code>  </p>
-<p>例子:</p>
-<pre><code>RequestDispatcher requestDispatcher = request.getRequestDispatcher(&quot;/sessionLoginDemo/login.jsp&quot;);//得到转发器
-requestDispatcher.forward(request, response);//转发（调度）请求给/sessionLoginDemo/login.jsp 并由login.jsp发送response给客户端。
-</code></pre><p><strong>include</strong><br>如下图所示，servlet2的response包含在（正在发送给客户端的）servlet1的response包中。</p>
-<p><img src="/assets/post_img/article13/include.png" alt="include"></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Optional 是 Java 8 引进的一个新特性，它是一个容器对象，可以包含或不包含非空值。</p>
+<span id="more"></span>
+<h2 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h2><p>Optional的机制类似于受检异常，强迫API调用者面对没有返回值的现实，因为程序直接返回 null 很可能导致调用端产生错误（空指针异常！）。</p>
+<p>Optional 是用来作为方法返回值的，目的是清晰地表达返回值中没有结果的可能性。</p>
+<h2 id="常用方法及调用方式"><a href="#常用方法及调用方式" class="headerlink" title="常用方法及调用方式"></a>常用方法及调用方式</h2><ul>
+<li><p><code>of(value)</code>：创建一个包含指定非空值的 <code>Optional</code> 对象。</p>
+</li>
+<li><p><code>ofNullable(value)</code>：创建一个可能为空的 <code>Optional</code> 对象。如果传入的值为 <code>null</code>，则返回一个空的 <code>Optional</code>。</p>
+</li>
+<li><p><code>empty()</code>：创建一个空的 <code>Optional</code> 对象。</p>
+</li>
+<li><p><code>isPresent()</code>：检查 <code>Optional</code> 对象是否包含值。</p>
+</li>
+<li><p><code>get()</code>：获取 <code>Optional</code> 对象中的值。在调用之前应先使用 <code>isPresent()</code> 进行判断。</p>
+</li>
+</ul>
+<p><code>Optional</code> 支持方法链式调用，使得我们可以在一系列操作中进行空值检查和转换。</p>
+<p>下面是一个简单的示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; optionalValue = Optional.of(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (optionalValue.isPresent()) &#123;</span><br><span class="line">    String value = optionalValue.get();</span><br><span class="line">    System.out.println(value); <span class="comment">// 输出：Hello</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Optional&lt;String&gt; nullableValue = Optional.ofNullable(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">String result = nullableValue.orElse(<span class="string">&quot;Default Value&quot;</span>);</span><br><span class="line">System.out.println(result); <span class="comment">// 输出：Default Value</span></span><br></pre></td></tr></table></figure>
+<p>除了常用方法，还有一些方法可以对<code>Optional</code>对象进行快捷操作，如上面出现的<code>orElse</code>，下面介绍其中一些。</p>
+<ul>
+<li><p><code>orElse(T other)</code>：如果包含的值存在，则返回该值；如果不存在，则返回默认值 <code>other</code>。无论值是否存在，都会进行计算，并返回结果。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; optionalValue = Optional.of(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">String value = optionalValue.orElse(<span class="string">&quot;Default Value&quot;</span>);</span><br><span class="line">System.out.println(value); <span class="comment">// 输出：Hello</span></span><br><span class="line"></span><br><span class="line">Optional&lt;String&gt; emptyOptional = Optional.empty();</span><br><span class="line">String defaultValue = emptyOptional.orElse(<span class="string">&quot;Default Value&quot;</span>);</span><br><span class="line">System.out.println(defaultValue); <span class="comment">// 输出：Default Value</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>orElseGet(Supplier&lt;? extends T&gt; other)</code>：如果包含的值存在，则返回该值；如果不存在，则使用提供的 <code>Supplier</code> 函数来计算并返回值。与 <code>orElse()</code> 类似，但在值不存在时，<code>Supplier</code> 函数才会被调用。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; optionalValue = Optional.of(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">String value = optionalValue.orElseGet(() -&gt; expensiveOperation());</span><br><span class="line">System.out.println(value); <span class="comment">// 输出：Hello</span></span><br><span class="line"></span><br><span class="line">Optional&lt;String&gt; emptyOptional = Optional.empty();</span><br><span class="line">String computedValue = emptyOptional.orElseGet(() -&gt; expensiveOperation());</span><br><span class="line">System.out.println(computedValue); <span class="comment">// 调用 expensiveOperation() 方法，并输出其返回值</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier)</code>：如果包含的值存在，则返回该值；如果不存在，则抛出指定的异常。通过提供一个exceptionSupplier来生成异常对象。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; optionalValue = Optional.of(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">String value = optionalValue.orElseThrow(() -&gt; <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;Value not found&quot;</span>));</span><br><span class="line">System.out.println(value); <span class="comment">// 输出：Hello</span></span><br><span class="line"></span><br><span class="line">Optional&lt;String&gt; emptyOptional = Optional.empty();</span><br><span class="line">String computedValue = emptyOptional.orElseThrow(() -&gt; <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;Value not found&quot;</span>)); <span class="comment">// 抛出异常</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>ifPresent(Consumer&lt;? super T&gt; consumer)</code>：接受一个 Consumer 函数作为参数，并在包含的值存在时执行该函数。该方法无返回值。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; optionalValue = Optional.of(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">optionalValue.ifPresent(value -&gt; System.out.println(<span class="string">&quot;Value is present: &quot;</span> + value)); <span class="comment">// 输出：Value is present: Hello</span></span><br><span class="line"></span><br><span class="line">Optional&lt;String&gt; emptyOptional = Optional.empty();</span><br><span class="line">emptyOptional.ifPresent(value -&gt; System.out.println(<span class="string">&quot;Value is present: &quot;</span> + value)); <span class="comment">// 由于值不存在，所以不执行任何操作</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>1、不要使用<code>Optional</code>作为Java Bean实例域的类型<br>即避免以下这种代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AVOID</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">    [access_modifier] [<span class="keyword">static</span>] [<span class="keyword">final</span>] Optional&lt;String&gt; zip;</span><br><span class="line">    [access_modifier] [<span class="keyword">static</span>] [<span class="keyword">final</span>] Optional&lt;String&gt; telephone = Optional.empty();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>因为 <code>Optional</code> 没有实现Serializable接口（不可序列化）</p>
+<p>2、不要把容器类型包装在<code>Optional</code>中<br>即避免：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AVOID</span></span><br><span class="line"><span class="keyword">public</span> Optional&lt;List&lt;String&gt;&gt; fetchCartItems(<span class="keyword">long</span> id) &#123;</span><br><span class="line">    Cart cart = ... ;    </span><br><span class="line">    List&lt;String&gt; items = cart.getItems(); <span class="comment">// this may return null</span></span><br><span class="line">    <span class="keyword">return</span> Optional.ofNullable(items);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>因为容器类都有自己空值设计，如 <code>Collections.emptyList() Collections.emptySet() Collections.emptyMap() Stream.empty()</code> 等：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PREFER</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">fetchCartItems</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;</span><br><span class="line">    Cart cart = ... ;    </span><br><span class="line">    List&lt;String&gt; items = cart.getItems(); <span class="comment">// this may return null</span></span><br><span class="line">    <span class="keyword">return</span> items == <span class="keyword">null</span> ? Collections.emptyList() : items;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、不要给<code>Optional</code>对象赋值 null<br>避免：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AVOID</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Optional&lt;Cart&gt; <span class="title">fetchCart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Optional&lt;Cart&gt; emptyCart = <span class="keyword">null</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>而应该用 <code>Optional.empty()</code> 表达空值：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PREFER</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Optional&lt;Cart&gt; <span class="title">fetchCart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Optional&lt;Cart&gt; emptyCart = Optional.empty();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、尽量使用<code>Optional</code>提供的快捷API避免手写条件语句<br>代码更简洁。</p>
+<p>5、使用 <code>equals</code> 而不是 <code>==</code> 来比较 <code>Optional</code> 的值<br><code>Optional</code> 的 <code>equals</code> 方法已经实现了内部值比较。</p>
+<p>6、对于可能是空值的函数返回使用<code>Optional</code><br>对于读取值类型的函数使用是很好的实践。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html">https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html</a><br>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/128481434">https://zhuanlan.zhihu.com/p/128481434</a></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
 
       
 
@@ -264,10 +296,6 @@ requestDispatcher.forward(request, response);//转发（调度）请求给/sessi
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Servlet</a>
         		</li>
       		
 		</ul>
@@ -323,7 +351,7 @@ requestDispatcher.forward(request, response);//转发（调度）请求给/sessi
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2020/09/09/article13/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2023/09/14/article122/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -337,18 +365,9 @@ requestDispatcher.forward(request, response);//转发（调度）请求给/sessi
   
 <nav id="article-nav">
   
-    <a href="/2020/09/09/article14/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java那些看不懂的术语（菜鸟必备）
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/09/09/article12/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Servlet中的路径获取</div>
+    <a href="/2023/09/11/article121/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Lombok原理简析</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -395,7 +414,7 @@ if(true){
   	repo: 'SilenceZheng66.github.io',
   	owner: 'SilenceZheng66',
   	admin: ['SilenceZheng66'],
-  	id: 'Wed Sep 09 2020 22:14:57 GMT+0800',
+  	id: 'Thu Sep 14 2023 23:08:57 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
