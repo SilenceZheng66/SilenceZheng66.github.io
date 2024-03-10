@@ -6,7 +6,7 @@
   <link href="http://silencezheng.top/atom.xml" rel="self"/>
   
   <link href="http://silencezheng.top/"/>
-  <updated>2024-02-07T18:44:03.600Z</updated>
+  <updated>2024-03-10T10:58:59.995Z</updated>
   <id>http://silencezheng.top/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>回归问题指标计算</title>
+    <link href="http://silencezheng.top/2024/03/10/article127/"/>
+    <id>http://silencezheng.top/2024/03/10/article127/</id>
+    <published>2024-03-10T10:56:26.000Z</published>
+    <updated>2024-03-10T10:58:59.995Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>回归问题指标计算入门。<br><span id="more"></span></p><h1 id="RSE-Relative-Squared-Error"><a href="#RSE-Relative-Squared-Error" class="headerlink" title="RSE (Relative Squared Error)"></a><strong>RSE (Relative Squared Error)</strong></h1><p>相对平方误差是预测值与实际值之间的平方差与实际值的平方差的比率。计算公式如下：</p><script type="math/tex; mode=display">RSE = \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}</script><p>其中，$ y_i $ 是第 $ i $ 个观测值，$ \hat{y}_i $ 是对应的预测值，$ \bar{y} $ 是观测值的均值，$ n $ 是样本数量。</p><h1 id="RAE-Relative-Absolute-Error"><a href="#RAE-Relative-Absolute-Error" class="headerlink" title="RAE (Relative Absolute Error)"></a><strong>RAE (Relative Absolute Error)</strong></h1><p>相对绝对误差是预测值与实际值之间的绝对差与实际值的绝对差的比率。计算公式如下：</p><script type="math/tex; mode=display">RAE = \frac{\sum_{i=1}^{n} |y_i - \hat{y}_i|}{\sum_{i=1}^{n} |y_i - \bar{y}|}</script><h1 id="MSE-Mean-Squared-Error"><a href="#MSE-Mean-Squared-Error" class="headerlink" title="MSE (Mean Squared Error)"></a><strong>MSE (Mean Squared Error)</strong></h1><p>均方误差是预测值与实际值之间的平方差的平均值。计算公式如下：</p><script type="math/tex; mode=display">MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2</script><h1 id="RMSE-Root-Mean-Squared-Error"><a href="#RMSE-Root-Mean-Squared-Error" class="headerlink" title="RMSE (Root Mean Squared Error)"></a><strong>RMSE (Root Mean Squared Error)</strong></h1><p>均方根误差是均方误差的平方根，它提供了预测误差的标准化度量。计算公式如下：</p><script type="math/tex; mode=display">RMSE = \sqrt{MSE}</script><h1 id="MAPE-Mean-Absolute-Percentage-Error"><a href="#MAPE-Mean-Absolute-Percentage-Error" class="headerlink" title="MAPE (Mean Absolute Percentage Error)"></a><strong>MAPE (Mean Absolute Percentage Error)</strong></h1><p>平均绝对百分比误差是预测值与实际值之间的绝对百分比误差的平均值。计算公式如下：</p><script type="math/tex; mode=display">MAPE = \frac{100}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right|</script><h1 id="Correlation-Pearson-Correlation-Coefficient"><a href="#Correlation-Pearson-Correlation-Coefficient" class="headerlink" title="Correlation (Pearson Correlation Coefficient)"></a><strong>Correlation (Pearson Correlation Coefficient)</strong></h1><p>相关系数衡量了预测值与实际值之间的线性关系强度和方向。计算公式如下：</p><script type="math/tex; mode=display">\text{Correlation} = \frac{\sum_{i=1}^{n} (y_i - \bar{y})(\hat{y}_i - \bar{\hat{y}})}{\sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2 \sum_{i=1}^{n} (\hat{y}_i - \bar{\hat{y}})^2}}</script><p>其中，$ \bar{y} $ 和 $ \bar{\hat{y}} $ 分别是观测值和预测值的均值。</p><h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;回归问题指标计算入门。&lt;br&gt;</summary>
+    
+    
+    
+    
+    <category term="机器学习" scheme="http://silencezheng.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>VS Code 插件开发体验</title>
@@ -407,26 +426,6 @@
     
     
     <category term="Nginx" scheme="http://silencezheng.top/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git代码合并</title>
-    <link href="http://silencezheng.top/2023/07/01/article107/"/>
-    <id>http://silencezheng.top/2023/07/01/article107/</id>
-    <published>2023-07-01T11:40:45.000Z</published>
-    <updated>2023-07-15T09:42:26.934Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期有多端办公的需求，实操一下代码合并。</p><p>结合IDEA的Git工具更加方便。<br><span id="more"></span></p><h2 id="本地仓库合并"><a href="#本地仓库合并" class="headerlink" title="本地仓库合并"></a>本地仓库合并</h2><p>要合并两个<strong>本地</strong>的 Git 仓库，可以按照以下步骤进行操作：</p><p>1、 进入第一个仓库的目录。</p><p>2、 添加第二个仓库为远程仓库（仓库名可以取任意，与当前仓库有区分即可）：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add &lt;远程仓库名称&gt; &lt;第二个仓库的路径&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git remote add another /path/to/another</span></span><br></pre></td></tr></table></figure></p><p>3、 从远程仓库获取所有最新的提交历史和分支信息：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all</span><br></pre></td></tr></table></figure></p><p>4、 查看远程仓库的分支：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r</span><br></pre></td></tr></table></figure></p><p>5、 将远程仓库的代码合并到本地仓库的当前分支：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;远程仓库名称&gt;/&lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git merge another/&lt;brach&gt;</span></span><br></pre></td></tr></table></figure></p><p>   这将把第二个仓库的代码变更合并到当前分支。当然，这一步可以用IDE提供的Git面板进行操作。</p><p>6、 解决可能出现的冲突：<br>   如果两个仓库之间存在冲突，你需要手动解决冲突。Git 会在代码合并过程中标记冲突的部分，你可以使用文本编辑器打开相应的文件并手动编辑以解决冲突。可以用IDE提供的Git面板进行操作，更加方便。</p><p>7、 提交合并后的代码变更：<br>   <figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;<span class="keyword">Merge</span> another <span class="keyword">into</span> origin<span class="string">&quot;</span></span><br></pre></td></tr></table></figure></p><p>   这将提交合并后的代码变更。</p><p>通过上述步骤，可以将两个本地的 Git 仓库进行合并。请确保在操作前备份仓库数据，以免意外丢失代码。</p><h2 id="远端仓库合并"><a href="#远端仓库合并" class="headerlink" title="远端仓库合并"></a>远端仓库合并</h2><p>一样的方式，只是远端仓库可能有固定的仓库名，把本地地址替换为url即可。</p><h2 id="Pull"><a href="#Pull" class="headerlink" title="Pull"></a>Pull</h2><p>Pull操作等于Fetch + Merge，如果已经确认过远端分支信息，可以直接Pull对应分支。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git pull &lt;远程仓库名称&gt; &lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如： git pull another &lt;brach&gt;</span></span><br></pre></td></tr></table></figure><br>这将从远端仓库中获取最新的代码变更并合并到本地当前分支。</p><p>如果出现分歧，可能会报错：<code>fatal: Need to specify how to reconcile divergent branches.</code>，此时需要解决冲突或确认合并策略。</p><h2 id="将远程分支添加到本地并创建一个新的本地分支"><a href="#将远程分支添加到本地并创建一个新的本地分支" class="headerlink" title="将远程分支添加到本地并创建一个新的本地分支"></a>将远程分支添加到本地并创建一个新的本地分支</h2><p>注意执行后切换到新的分支。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;new-branch-name&gt; &lt;remote-name&gt;/&lt;remote-branch-name&gt;</span><br></pre></td></tr></table></figure></p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;近期有多端办公的需求，实操一下代码合并。&lt;/p&gt;
-&lt;p&gt;结合IDEA的Git工具更加方便。&lt;br&gt;</summary>
-    
-    
-    
-    
-    <category term="Git" scheme="http://silencezheng.top/tags/Git/"/>
     
   </entry>
   
