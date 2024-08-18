@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Archives | SilenceZheng66-BLOG</title>
+  <title>LeetCode周记 EP2 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/archives/page/9/index.html">
+  <meta name="description" content="前言这周周赛菜了…赶紧记一下。 本周主题：差分数组、动态规划 题目：  240615每日一题—Maximum Beauty of an Array After Applying Operation 240616周赛第三题—Maximum Total Damage With Spell Casting LC198打家劫舍—House Robber">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode周记 EP2">
+<meta property="og:url" content="http://silencezheng.top/2024/08/18/article133/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言这周周赛菜了…赶紧记一下。 本周主题：差分数组、动态规划 题目：  240615每日一题—Maximum Beauty of an Array After Applying Operation 240616周赛第三题—Maximum Total Damage With Spell Casting LC198打家劫舍—House Robber">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-18T10:44:02.000Z">
+<meta property="article:modified_time" content="2024-08-18T10:52:27.748Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="数据结构与算法">
+<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
@@ -151,37 +157,183 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article133" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/10/11/article69/" class="archive-article-date">
-  	<time datetime="2022-10-11T10:15:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/11/article69/">动态规划</a>
+    <h1 class="article-title" itemprop="name">
+      LeetCode周记 EP2
     </h1>
   
 
-        <div class="article-info info-on-right">
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2024/08/18/article133/" class="archive-article-date">
+  	<time datetime="2024-08-18T10:44:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-08-18</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.2k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">9分</span>
+      </span>
+    </span>
+</div>
           
+        <!-- 添加完成 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这周周赛菜了…赶紧记一下。</p>
+<p>本周主题：差分数组、动态规划</p>
+<p>题目：</p>
+<ul>
+<li>240615每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation/description/">Maximum Beauty of an Array After Applying Operation</a></li>
+<li>240616周赛第三题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-total-damage-with-spell-casting/description/">Maximum Total Damage With Spell Casting</a></li>
+<li>LC198打家劫舍—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber/description/">House Robber</a><span id="more"></span>
+</li>
+</ul>
+<h1 id="差分数组（Difference-Array）"><a href="#差分数组（Difference-Array）" class="headerlink" title="差分数组（Difference Array）"></a>差分数组（Difference Array）</h1><p>作用：开辟一块空间用于压缩对原数组上连续子数组的操作。</p>
+<h2 id="引出"><a href="#引出" class="headerlink" title="引出"></a>引出</h2><p>考虑数组 $a=[1,3,3,5,8]$，对其中的相邻元素两两作差（右边减左边），得到数组 $[2,0,2,3]$。然后在开头补上 $a[0]$，得到差分数组：$d=[1,2,0,2,3]$</p>
+<p>这有什么用呢？如果从左到右累加 ddd 中的元素，我们就「还原」回了 $a$ 数组 $[1,3,3,5,8]$。这类似求导与积分的概念。</p>
+<p>这又有什么用呢？现在把连续子数组 $a[1],a[2],a[3]$ 都加上 $10$，得到 $a’=[1,13,13,15,8]$。再次两两作差，并在开头补上 $a’[0]$，得到差分数组：$d’=[1,12,0,2,−7]$</p>
+<p>对比 $d$ 和 $d’$，可以发现只有 $d[1]$ 和 $d[4]$ 变化了，这意味着<strong>对 $a$ 中连续子数组的操作，可以转变成对差分数组 $d$ 中两个数的操作</strong>。</p>
+<h2 id="定义和性质"><a href="#定义和性质" class="headerlink" title="定义和性质"></a>定义和性质</h2><p>对于数组 $a$，定义其差分数组（difference array）为</p>
+<script type="math/tex; mode=display">
+d[i] = \begin{cases} a[0],&i=0\\ a[i]-a[i-1],&i\ge 1 \end{cases}
+​</script><p>性质 1：从左到右累加 $d$ 中的元素，可以得到数组 $a$。</p>
+<p>性质 2：如下两个操作是等价的。</p>
+<ul>
+<li>把 $a$ 的子数组 $a[i],a[i+1],\cdots,a[j]$ 都加上 $x$。</li>
+<li>把 $d[i]$ 增加 $x$，把 $d[j+1]$ 减少 $x$。</li>
+</ul>
+<p>利用性质 2，我们只需要 $O(1)$ 的时间就可以完成对 $a$ 的子数组的操作。最后利用性质 1 从差分数组复原出数组 $a$。</p>
+<p>注：也可以这样理解，$d[i]$ 表示把下标 $≥i$ 的数都加上 $d[i]$。</p>
+<h2 id="例题：Maximum-Beauty-of-an-Array-After-Applying-Operation"><a href="#例题：Maximum-Beauty-of-an-Array-After-Applying-Operation" class="headerlink" title="例题：Maximum Beauty of an Array After Applying Operation"></a>例题：Maximum Beauty of an Array After Applying Operation</h2><blockquote>
+<p><strong>Maximum Beauty of an Array After Applying Operation</strong></p>
+<p>You are given a 0-indexed array nums and a non-negative integer k.</p>
+<p>In one operation, you can do the following:</p>
+<p>Choose an index i that hasn’t been chosen before from the range [0, nums.length - 1].<br>Replace nums[i] with any integer from the range [nums[i] - k, nums[i] + k].<br>The beauty of the array is the length of the longest subsequence consisting of equal elements.</p>
+<p>Return the maximum possible beauty of the array nums after applying the operation any number of times.</p>
+<p>Note that you can apply the operation to each index only once.</p>
+<p>A subsequence of an array is a new array generated from the original array by deleting some elements (possibly none) without changing the order of the remaining elements.</p>
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;= nums.length &lt;= 1e5</li>
+<li>0 &lt;= nums[i], k &lt;= 1e5</li>
+</ul>
+</blockquote>
+<p>自然想到的思路是把每个元素看作是一个可换空间，将所有可换空间在一个足够大的空间中进行叠加，被最多可换空间覆盖到的地方即为所求结果。或者，把每个元素考虑为对其对应可换空间中的每一个位置投一票，最终票数最多的位置为所求结果。</p>
+<p>从数据范围上分析，区间大小应该为[-1e5, 2e5]。将区间为负数的部分用<code>offset</code>来表示，则可以写出以下解法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumBeauty</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>, n = nums.length;</span><br><span class="line">        <span class="comment">// 多开3个空间，为了存0、存差分数组上限和匹配下标</span></span><br><span class="line">        <span class="keyword">int</span>[] diffArr = <span class="keyword">new</span> <span class="keyword">int</span>[(<span class="keyword">int</span>)<span class="number">3e5</span>+<span class="number">3</span>];</span><br><span class="line">        <span class="keyword">int</span> ofst = (<span class="keyword">int</span>)<span class="number">1e5</span>+<span class="number">1</span>; <span class="comment">// diffArr[ofst]为0所在位置</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x:nums)&#123;</span><br><span class="line">            diffArr[x-k+ofst]++;</span><br><span class="line">            diffArr[x+k+ofst+<span class="number">1</span>]--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;diffArr.length;i++)&#123;</span><br><span class="line">            diffArr[i] += diffArr[i-<span class="number">1</span>];</span><br><span class="line">            res = Math.max(res, diffArr[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="打家劫舍"><a href="#打家劫舍" class="headerlink" title="打家劫舍"></a>打家劫舍</h1><p>周赛第三题属于值域上的打家劫舍，因此先来了解一下打家劫舍类型题目，其特点是<strong>对某一元素的选择会对其相邻区域造成影响</strong>。此类问题通常可以通过动态规划求解。</p>
+<blockquote>
+<p>House Robber</p>
+<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.</p>
+<p>Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.</p>
+</blockquote>
+<p>首先考虑最简单的情况。如果只有一间房屋，则偷窃该房屋，可以偷窃到最高总金额。如果只有两间房屋，则由于两间房屋相邻，不能同时偷窃，只能偷窃其中的一间房屋，因此选择其中金额较高的房屋进行偷窃，可以偷窃到最高总金额。</p>
+<p>如果房屋数量大于两间，应该如何计算能够偷窃到的最高总金额呢？对于第 $k(k&gt;2)$ 间房屋，有两个选项:</p>
+<ol>
+<li>偷窃第 $k$ 间房屋，那么就不能偷窃第 $k-1$ 间房屋，偷窃总金额为前 $k-2$ 间房屋的最高总金额与第 $k$ 间房屋的金额之和。</li>
+<li>不偷窃第 $k$ 间房屋，偷窃总金额为前 $k-1$ 间房屋的最高总金额。</li>
+</ol>
+<p>在两个选项中选择偷窃总金额较大的选项，该选项对应的偷窃总金额即为前 $k$ 间房屋能偷窃到的最高总金额。</p>
+<p>用 $d p[i]$ 表示前 $i$ 间房屋能偷窃到的最高总金额，那么就有如下的状态转移方程：</p>
+<script type="math/tex; mode=display">
+d p[i]=\max (d p[i-2]+\operatorname{nums}[i], d p[i-1])</script><p>边界条件为：</p>
+<script type="math/tex; mode=display">
+\begin{cases}d p[0]=\operatorname{nums}[0] & \text { 只有一间房屋，则偷窃该房屋 } \\ d p[1]=\max (n u m s[0], n u m s[1]) & \text { 只有两间房屋，选择其中金额较高的房屋进行偷窃 }\end{cases}</script><p>最终的答案即为 $d p[n-1]$, 其中 $n$ 是数组的长度。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> length = nums.length;</span><br><span class="line">        <span class="keyword">if</span> (length == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[length];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = Math.max(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; length; i++) &#123;</span><br><span class="line">            dp[i] = Math.max(dp[i - <span class="number">2</span>] + nums[i], dp[i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[length - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时，可以考虑使用滚动数组优化空间使用。上述方法使用了数组存储结果，考虑到每间房屋的最高总金额只和该房屋的前两间房屋的最高总金额相关，因此可以使用滚动数组，在每个时刻只需要存储前两间房屋的最高总金额。得到优化解法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> length = nums.length;</span><br><span class="line">        <span class="keyword">if</span> (length == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> first = nums[<span class="number">0</span>], second = Math.max(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> temp = second;</span><br><span class="line">            second = Math.max(first + nums[i], second);</span><br><span class="line">            first = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="例题：Maximum-Total-Damage-With-Spell-Casting"><a href="#例题：Maximum-Total-Damage-With-Spell-Casting" class="headerlink" title="例题：Maximum Total Damage With Spell Casting"></a>例题：Maximum Total Damage With Spell Casting</h2><blockquote>
+<p>Maximum Total Damage With Spell Casting</p>
+<p>A magician has various spells.</p>
+<p>You are given an array power, where each element represents the damage of a spell. Multiple spells can have the same damage value.</p>
+<p>It is a known fact that if a magician decides to cast a spell with a damage of power[i], they cannot cast any spell with a damage of power[i] - 2, power[i] - 1, power[i] + 1, or power[i] + 2.</p>
+<p>Each spell can be cast only once.</p>
+<p>Return the maximum possible total damage that a magician can cast.</p>
+</blockquote>
+<p>这道题不是从空间上限制选取，而是从值域上限制，因此我们可以考虑对原数组进行排序，使元素选取与空域产生一定相关性，方便状态记录。排序后，考虑聚合相等值的元素，每一步选取实际上都是选取了一组元素。</p>
+<p>用$nums$表示聚合后的排序数组，$total(nums[k])$表示元素$nums[k]$的值总和，用 $dp[i]$ 表示前 $i$ 个元素能造成的最高总伤害，那么对于$nums[k]$选或不选：</p>
+<ul>
+<li>不选，$dp[i] = dp[i-1]$;</li>
+<li>选，则值在$[nums[k]-2, nums[k]-1]$的元素不能选，令$j$为最小满足$nums[j]&gt;=nums[k]-2$的元素，则$dp[i] = dp[j-1] + total(nums[k])$。</li>
+</ul>
+<p>对两种情况取最大值，有如下的状态转移方程：</p>
+<script type="math/tex; mode=display">
+dp[i] = max(dp[i-1], dp[j-1] + total(nums[i]))</script><p>假设一种最坏的情况，$nums$中所有的元素都是连续的，那么在遇到元素$nums[i]$时，我们至少要保存三个状态才能够完成状态转移，即$dp[i-1], dp[i-2], dp[i-3]$，此时他们的末尾值分别对应$nums[i]-1,nums[i]-2,nums[i]-3$，则$j = i-2$，状态可能从$dp[i-3]$转移。也就是说，$dp[j-1]$的取值范围是$dp[i-1], dp[i-2], dp[i-3]$。</p>
+<p>边界条件为：</p>
+<script type="math/tex; mode=display">
+\begin{cases}d p[0]=total(\operatorname{nums}[0]) \\ d p[1]=
+\begin{cases} \max (total(\operatorname{nums}[0]), total(\operatorname{nums}[1])),&nums[0]-2<=nums[1]<nums[0] \\ dp[0]+total(\operatorname{nums}[1]), &nums[0]<nums[1]-2 \end{cases}\end{cases}</script><p>此时发现问题：面对下标为$2$的元素，并不存在状态$dp[-1]$供其转移（$dp[j-1]$的下界）。于是如果从$nums[2]$开始遍历则应该添加此状态（置0），或从$nums[3]$开始遍历。</p>
+<p>注意到当前状态仅与前三个状态有关，则可以用长度为$3$的滚动数组进行优化，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">maximumTotalDamage</span><span class="params">(<span class="keyword">int</span>[] power)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer, Long&gt; map = <span class="keyword">new</span> TreeMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x : power) &#123;</span><br><span class="line">            map.merge(x, (<span class="keyword">long</span>) x, Long::sum);</span><br><span class="line">        &#125;</span><br><span class="line">        Integer[] nums = map.keySet().toArray(<span class="keyword">new</span> Integer[<span class="number">0</span>]);</span><br><span class="line">        <span class="comment">// 三个状态</span></span><br><span class="line">        <span class="keyword">long</span>[] dp = <span class="keyword">new</span> <span class="keyword">long</span>[<span class="number">3</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = map.get(nums[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">if</span>(nums.length==<span class="number">1</span>) <span class="keyword">return</span> dp[<span class="number">1</span>]; </span><br><span class="line">        dp[<span class="number">2</span>] = nums[<span class="number">0</span>]&lt;nums[<span class="number">1</span>]-<span class="number">2</span>?dp[<span class="number">1</span>]+map.get(nums[<span class="number">1</span>]):Math.max(dp[<span class="number">1</span>], map.get(nums[<span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// j放到外面，可以避免每次都从0开始查</span></span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="comment">// 定位j</span></span><br><span class="line">            <span class="keyword">while</span> (nums[j] &lt; nums[i]-<span class="number">2</span>) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> pos = j==i?<span class="number">2</span>:(j==i-<span class="number">1</span>?<span class="number">1</span>:<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">long</span> tmp = dp[<span class="number">2</span>];</span><br><span class="line">            dp[<span class="number">2</span>] = Math.max(dp[<span class="number">2</span>], dp[pos]+map.get(nums[i]));</span><br><span class="line">            dp[<span class="number">0</span>] = dp[<span class="number">1</span>];</span><br><span class="line">            dp[<span class="number">1</span>] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>思考：如果把2换为k呢？一样的，多增加几个状态就行了，滚动数组法只需要k+1个状态。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber/solutions/263856/da-jia-jie-she-by-leetcode-solution/">https://leetcode.cn/problems/house-robber/solutions/263856/da-jia-jie-she-by-leetcode-solution/</a><br>[2] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-total-damage-with-spell-casting/solutions/2812389/tao-lu-da-jia-jie-she-pythonjavacgo-by-e-p9b5/">https://leetcode.cn/problems/maximum-total-damage-with-spell-casting/solutions/2812389/tao-lu-da-jia-jie-she-pythonjavacgo-by-e-p9b5/</a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -189,313 +341,136 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/10/06/article68/" class="archive-article-date">
-  	<time datetime="2022-10-06T08:21:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/06/article68/">复活Google翻译</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Chrome</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/10/05/article67/" class="archive-article-date">
-  	<time datetime="2022-10-05T15:14:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/05/article67/">高斯滤波与双边滤波</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/10/01/article66/" class="archive-article-date">
-  	<time datetime="2022-10-01T12:52:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/01/article66/">各种“监督”学习区分</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/09/29/article65/" class="archive-article-date">
-  	<time datetime="2022-09-29T13:19:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/29/article65/">什么是语义分割、实例分割、全景分割</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/09/28/article64/" class="archive-article-date">
-  	<time datetime="2022-09-28T10:09:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/28/article64/">M系芯片配置TensorFlow环境</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MacOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/09/22/article63/" class="archive-article-date">
-  	<time datetime="2022-09-22T04:00:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/22/article63/">利用VSCode编写LaTeX文件</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MacOS</a>
-        		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">VSCode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">LaTeX</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2024/08/18/article133/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/09/13/article62/" class="archive-article-date">
-  	<time datetime="2022-09-13T04:04:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-13</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2024/08/18/article132/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LeetCode周记 EP1</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/13/article62/">tesseract安装使用</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MacOS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Tesseract</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/8/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/">7</a><a class="page-number" href="/archives/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/17/">17</a><a class="extend next" rel="next" href="/archives/page/10/">下一页</a>
-    </nav>
   
 
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Sun Aug 18 2024 18:44:02 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -530,8 +505,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
