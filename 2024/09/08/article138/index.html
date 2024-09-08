@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Archives: 2024/3 | SilenceZheng66-BLOG</title>
+  <title>LeetCode周记 EP11 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/archives/2024/03/index.html">
+  <meta name="description" content="前言这周感觉还可以吧，有两道周赛做过的题。 一个感悟是，做题要遵守基本法，空间和时间是此消彼长的，动态规划的状态定义也是有章可循的。 本周主题：滑动窗口、枚举、动态规划 题目：  240902每日一题—Maximize the Confusion of an Exam 240905每日一题—Happy Students 240907每日一题—Find the Maximum Length of a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode周记 EP11">
+<meta property="og:url" content="http://silencezheng.top/2024/09/08/article138/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言这周感觉还可以吧，有两道周赛做过的题。 一个感悟是，做题要遵守基本法，空间和时间是此消彼长的，动态规划的状态定义也是有章可循的。 本周主题：滑动窗口、枚举、动态规划 题目：  240902每日一题—Maximize the Confusion of an Exam 240905每日一题—Happy Students 240907每日一题—Find the Maximum Length of a">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-08T14:31:23.000Z">
+<meta property="article:modified_time" content="2024-09-08T14:32:02.020Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="数据结构与算法">
+<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
@@ -151,109 +157,315 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article138" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/03/24/article128/" class="archive-article-date">
-  	<time datetime="2024-03-24T08:54:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-03-24</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/03/24/article128/">MyBatis-Plus之预定义CRUD</a>
+    <h1 class="article-title" itemprop="name">
+      LeetCode周记 EP11
     </h1>
   
 
-        <div class="article-info info-on-right">
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2024/09/08/article138/" class="archive-article-date">
+  	<time datetime="2024-09-08T14:31:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-08</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.3k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">11分</span>
+      </span>
+    </span>
+</div>
           
+        <!-- 添加完成 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这周感觉还可以吧，有两道周赛做过的题。</p>
+<p>一个感悟是，做题要遵守基本法，空间和时间是此消彼长的，动态规划的状态定义也是有章可循的。</p>
+<p>本周主题：滑动窗口、枚举、动态规划</p>
+<p>题目：</p>
+<ul>
+<li>240902每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximize-the-confusion-of-an-exam/description">Maximize the Confusion of an Exam</a></li>
+<li>240905每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/happy-students/description">Happy Students</a></li>
+<li>240907每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-maximum-length-of-a-good-subsequence-ii/description">Find the Maximum Length of a Good Subsequence II</a><span id="more"></span>
+<h1 id="Maximize-the-Confusion-of-an-Exam"><a href="#Maximize-the-Confusion-of-an-Exam" class="headerlink" title="Maximize the Confusion of an Exam"></a>Maximize the Confusion of an Exam</h1><blockquote>
+<p>Maximize the Confusion of an Exam</p>
+<p>A teacher is writing a test with n true/false questions, with ‘T’ denoting true and ‘F’ denoting false. He wants to confuse the students by maximizing the number of consecutive questions with the same answer (multiple trues or multiple falses in a row).</p>
+<p>You are given a string answerKey, where answerKey[i] is the original answer to the ith question. In addition, you are given an integer k, the maximum number of times you may perform the following operation:<br>Change the answer key for any question to ‘T’ or ‘F’ (i.e., set answerKey[i] to ‘T’ or ‘F’).</p>
+<p>Return the maximum number of consecutive ‘T’s or ‘F’s in the answer key after performing the operation at most k times.</p>
+</blockquote>
+</li>
+</ul>
+<p>这道题本来想考虑DP，状态为“最后一个元素为i，替换次数为j时的最大连续子串长度”，但有问题，最后一个元素可能会被替换，且最大子串只在全替换为T或F时才出现，怎么弄怎么别扭，还是用滑窗吧。</p>
+<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p>在指定字符的情况下，可以计算其最大连续数目。使用滑动窗口的方法，从左到右枚举右端点，维护区间中另一种字符的数量为 sum，当 sum 超过 k，我们需要让左端点右移，直到 sum≤k。移动过程中，我们记录滑动窗口的最大长度，即为指定字符的最大连续数目。答案为分别指定字符为 T 和 F 时的最大连续数目的较大值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxConsecutiveAnswers</span><span class="params">(String answerKey, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Math.max(maxConsecutiveChar(answerKey, k, <span class="string">&#x27;T&#x27;</span>), maxConsecutiveChar(answerKey, k, <span class="string">&#x27;F&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxConsecutiveChar</span><span class="params">(String answerKey, <span class="keyword">int</span> k, <span class="keyword">char</span> ch)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = answerKey.length();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>, sum = <span class="number">0</span>; right &lt; n; right++) &#123;</span><br><span class="line">            sum += answerKey.charAt(right) != ch ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (sum &gt; k) &#123;</span><br><span class="line">                sum -= answerKey.charAt(left++) != ch ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ans = Math.max(ans, right - left + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Happy-Students"><a href="#Happy-Students" class="headerlink" title="Happy Students"></a>Happy Students</h1><blockquote>
+<p>Happy Students</p>
+<p>You are given a 0-indexed integer array nums of length n where n is the total number of students in the class. The class teacher tries to select a group of students so that all the students remain happy.</p>
+<p>The ith student will become happy if one of these two conditions is met:</p>
+<ul>
+<li>The student is selected and the total number of selected students is strictly greater than nums[i].</li>
+<li>The student is not selected and the total number of selected students is strictly less than nums[i].</li>
+</ul>
+<p>Return the number of ways to select a group of students so that everyone remains happy.</p>
+</blockquote>
+<p>一开始拿到没想出好办法，回溯暴力了一下，超时了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">public</span> Set&lt;Set&lt;Integer&gt;&gt; mem;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countWays</span><span class="params">(List&lt;Integer&gt; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        res = <span class="number">0</span>;</span><br><span class="line">        mem = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        bt(nums, set, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bt</span><span class="params">(List&lt;Integer&gt; nums, Set&lt;Integer&gt; selected, <span class="keyword">int</span> p)</span></span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> success = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(selected.contains(i))&#123;</span><br><span class="line">                <span class="keyword">if</span>(selected.size()&lt;=nums.get(i))&#123;</span><br><span class="line">                    success = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(selected.size()&gt;=nums.get(i))&#123;</span><br><span class="line">                    success = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(success&amp;&amp;!mem.contains(selected))&#123;</span><br><span class="line">            mem.add(selected);</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// System.out.println(selected.toString());</span></span><br><span class="line">        <span class="keyword">if</span>(p==nums.size()) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=p;i&lt;nums.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(selected.contains(i)) <span class="keyword">continue</span>;</span><br><span class="line">            selected.add(i);</span><br><span class="line">            bt(nums, selected, p+<span class="number">1</span>);</span><br><span class="line">            selected.remove(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际上需要想明白选中人数为k时方案唯一，再按照这个思路去枚举就可以了。</p>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>根据题意可知，假设数组 nums 的长度为 n，此时设选中学生人数为 k，此时 k∈[0,n]，k 应满足如下：</p>
+<ul>
+<li>所有满足 nums[i]&lt;k 的学生应被选中；</li>
+<li>所有满足 nums[i]&gt;k 的学生不应被选中；</li>
+<li>不能存在 nums[i]=k 的学生；</li>
+</ul>
+<p>这意味着在确定当前已择中学生人数的前提下，则此时选择方案是唯一的，为方便判断，我们把 nums 从小到大排序。我们枚举选中的人数 k，由于 nums 已有序，此时最优分组一定是前 k 个学生被选中，剩余的 n−k 个学生不被选中，此时只需要检测选中的 k 个学生中的最大值是否满足小于 k，未被选中的学生中的最小值是否满足大于 k 即可，如果同时满足上述两个条件，则该分配方案可行，最终返回可行的方案计数即可，需要注意处理好边界 0 与 n。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countWays</span><span class="params">(List&lt;Integer&gt; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        Collections.sort(nums);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= n; k++) &#123;</span><br><span class="line">            <span class="comment">// 前 k 个元素的最大值是否小于 k</span></span><br><span class="line">            <span class="keyword">if</span> (k &gt; <span class="number">0</span> &amp;&amp; nums.get(k - <span class="number">1</span>) &gt;= k) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 后 n - k 个元素的最小值是否大于 k</span></span><br><span class="line">            <span class="keyword">if</span> (k &lt; n &amp;&amp; nums.get(k) &lt;= k) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Find-the-Maximum-Length-of-a-Good-Subsequence-II"><a href="#Find-the-Maximum-Length-of-a-Good-Subsequence-II" class="headerlink" title="Find the Maximum Length of a Good Subsequence II"></a>Find the Maximum Length of a Good Subsequence II</h1><blockquote>
+<p>Find the Maximum Length of a Good Subsequence II</p>
+<p>You are given an integer array nums and a non-negative integer k. A sequence of integers seq is called good if there are at most k indices i in the range [0, seq.length - 2] such that seq[i] != seq[i + 1].</p>
+<p>Return the maximum possible length of a good subsequence of nums.</p>
+</blockquote>
+<p>周赛原题，当时DP都没想出来，这周把基础DP想通了，先写一下。</p>
+<ol>
+<li>拆分子问题：从seq中取出最后一个，则有两种情况<ul>
+<li>情况一：seq中的前后不等对数量不变，则原问题变成了[0,i]上不超过k的</li>
+<li>情况二：不等对数量减1，原问题变成了[0,i]上不超过k-1的</li>
+</ul>
+</li>
+<li>定义状态<code>dp[i][j]</code>表示最后一个数为i时不超过j的最大长度</li>
+<li>状态转移：<code>dp[i][j]</code> = Max(遍历0到i-1中和i位置元素相同的j取最大, 遍历[0,i-1][j-1]取最大)</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumLength</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n][k+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k+<span class="number">1</span>;i++)&#123;</span><br><span class="line">            dp[<span class="number">0</span>][i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 计算</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;k+<span class="number">1</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">int</span> maxInd = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> o=<span class="number">0</span>;o&lt;i;o++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(nums[o]==nums[i]&amp;&amp;max&lt;=dp[o][j])&#123;</span><br><span class="line">                        max = dp[o][j];</span><br><span class="line">                        maxInd = o;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(j&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">int</span> max2 = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">int</span> maxInd2 = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> o=<span class="number">0</span>;o&lt;i;o++)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(max2&lt;=dp[o][j-<span class="number">1</span>])&#123;</span><br><span class="line">                            max2 = dp[o][j-<span class="number">1</span>];</span><br><span class="line">                            maxInd2 = o;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(max2&gt;max)&#123;</span><br><span class="line">                        max = max2;</span><br><span class="line">                        maxInd = maxInd2;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                dp[i][j] = max+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) res=Math.max(res, dp[i][k]);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么为什么这道题不能用01背包的状态来做呢？看起来不就是一个从一堆元素中选若干个的问题吗？这是因为01背包中，背包容量实际上包含了前序选择信息的最优解，即在当前背包容量支持放入当前物品时一定会选择放入。而对于本题来说，当前状态的前一个或上一个（指j-1和i-1）状态并不一定是对于本状态转移来说最优的，因为当前元素和前序元素中的某个值匹配时产生了更优解，而这个更优解是随遍历元素不断变动的。</p>
+<p>想通了这一点，舒服多了。。。当时困扰我好几天。</p>
+<p>然而上面的方法在大数据范围下还是不行，存在太多循环计算，下面介绍优化方案。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>PS：这题解写的依托，还是看我之前周赛时候的题解吧。</p>
+<p>我们在上面的方案基础上优化，上面的时间复杂度是$O(n^2k)$。假设当前元素<code>i</code>的前序元素为<code>x</code>，可以枚举两种情况：</p>
+<ul>
+<li><p>nums $[i] \neq n u m s[x]$, 对于此情况, 可以维护一个长度为 $k$ 的辅助数组 $z d$ 。其中 $z d[j]$ 表示枚举到位置 $i$ 之前，有 $j$ 个数字与其在序列中的后一个不相等的最长合法序列的长度，那么可以直接写出转移 $d p[i][j]=z d[j-1]+1$ 。</p>
+</li>
+<li><p>nums $[i]=n u m s[x]$, 假设有下标 $a&lt;b&lt;c$, 并且 nums $[a]=$ $n u m s[b]=\operatorname{nums}[c]$, 对于 $c$ 来说如果选取由 $a$ 转移过来计算答案, 那么一定不如 $a \rightarrow b \rightarrow c$ 更优, 所以会选取下标最近的相同的数进行转移。针对这种情况， $d p$ 使用哈希表维护能节省一些空间，并且在哈希表中用 $n u m s[i]$ 替换 $i$ 。</p>
+</li>
+</ul>
+<p>在每一次遍历 $i$ 计算完后更新 $z d$ ，最后的 $z d[k]$ 就是答案。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumLength</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        Map&lt;Integer, <span class="keyword">int</span>[]&gt; dp = <span class="keyword">new</span> HashMap&lt;Integer, <span class="keyword">int</span>[]&gt;();</span><br><span class="line">        <span class="keyword">int</span>[] zd = <span class="keyword">new</span> <span class="keyword">int</span>[k + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = nums[i];</span><br><span class="line">            dp.putIfAbsent(v, <span class="keyword">new</span> <span class="keyword">int</span>[k + <span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span>[] tmp = dp.get(v);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= k; j++) &#123;</span><br><span class="line">                tmp[j] = tmp[j] + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (j &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    tmp[j] = Math.max(tmp[j], zd[j - <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= k; j++) &#123;</span><br><span class="line">                zd[j] = Math.max(zd[j], tmp[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> zd[k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/happy-students/solutions/2895368/rang-suo-you-xue-sheng-bao-chi-kai-xin-d-45br/?envType=daily-question&amp;envId=2024-09-04">https://leetcode.cn/problems/happy-students/solutions/2895368/rang-suo-you-xue-sheng-bao-chi-kai-xin-d-45br/?envType=daily-question&amp;envId=2024-09-04</a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">源码阅读</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2024/09/08/article138/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/03/10/article127/" class="archive-article-date">
-  	<time datetime="2024-03-10T10:56:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-03-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2024/09/01/article137/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LeetCode周记 EP10</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/03/10/article127/">回归问题指标计算</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maximize-the-Confusion-of-an-Exam"><span class="toc-number">2.</span> <span class="toc-text">Maximize the Confusion of an Exam</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="toc-number">2.1.</span> <span class="toc-text">滑动窗口</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Happy-Students"><span class="toc-number">3.</span> <span class="toc-text">Happy Students</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE"><span class="toc-number">3.1.</span> <span class="toc-text">枚举</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Find-the-Maximum-Length-of-a-Good-Subsequence-II"><span class="toc-number">4.</span> <span class="toc-text">Find the Maximum Length of a Good Subsequence II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">4.1.</span> <span class="toc-text">动态规划</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">6.</span> <span class="toc-text">后记</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
 
+  
+
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Sun Sep 08 2024 22:31:23 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -288,8 +500,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
