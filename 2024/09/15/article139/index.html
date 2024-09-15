@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Tag: 数据结构与算法 | SilenceZheng66-BLOG</title>
+  <title>LeetCode周记 EP12 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/page/2/index.html">
+  <meta name="description" content="前言这周忙废了…挑战一天写完一周的题。 本周主题：双指针、枚举、单调队列 题目：  240910每日一题—Count Increasing Quadruplets 240912每日一题—Find the Maximum Number of Marked Indices 240913每日一题—Maximum Number of Robots Within Budget">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode周记 EP12">
+<meta property="og:url" content="http://silencezheng.top/2024/09/15/article139/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言这周忙废了…挑战一天写完一周的题。 本周主题：双指针、枚举、单调队列 题目：  240910每日一题—Count Increasing Quadruplets 240912每日一题—Find the Maximum Number of Marked Indices 240913每日一题—Maximum Number of Robots Within Budget">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-15T15:32:15.000Z">
+<meta property="article:modified_time" content="2024-09-15T15:32:55.793Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="数据结构与算法">
+<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
@@ -151,340 +157,154 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article139" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/06/06/article130/" class="archive-article-date">
-  	<time datetime="2024-06-05T19:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/06/06/article130/">树状数组（速食版）</a>
+    <h1 class="article-title" itemprop="name">
+      LeetCode周记 EP12
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/06/01/article129/" class="archive-article-date">
-  	<time datetime="2024-06-01T12:59:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-01</time>
+<a href="/2024/09/15/article139/" class="archive-article-date">
+  	<time datetime="2024-09-15T15:32:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-15</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/06/01/article129/">排列组合</a>
-    </h1>
-  
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.1k字</span>
+      </span>
+    </span>
 
-        <div class="article-info info-on-right">
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">9分</span>
+      </span>
+    </span>
+</div>
           
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        <!-- 添加完成 -->
+        
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这周忙废了…挑战一天写完一周的题。</p>
+<p>本周主题：双指针、枚举、单调队列</p>
+<p>题目：</p>
+<ul>
+<li>240910每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-increasing-quadruplets/description">Count Increasing Quadruplets</a></li>
+<li>240912每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices/description">Find the Maximum Number of Marked Indices</a></li>
+<li>240913每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-number-of-robots-within-budget/description">Maximum Number of Robots Within Budget</a></li>
+</ul>
+<span id="more"></span>
+<h1 id="Maximum-Number-of-Robots-Within-Budget"><a href="#Maximum-Number-of-Robots-Within-Budget" class="headerlink" title="Maximum Number of Robots Within Budget"></a>Maximum Number of Robots Within Budget</h1><blockquote>
+<p>Maximum Number of Robots Within Budget</p>
+<p>You have n robots. You are given two 0-indexed integer arrays, chargeTimes and runningCosts, both of length n. The ith robot costs chargeTimes[i] units to charge and costs runningCosts[i] units to run. You are also given an integer budget.</p>
+<p>The total cost of running k chosen robots is equal to max(chargeTimes) + k * sum(runningCosts), where max(chargeTimes) is the largest charge cost among the k robots and sum(runningCosts) is the sum of running costs among the k robots.</p>
+<p>Return the maximum number of consecutive robots you can run such that the total cost does not exceed budget.</p>
+</blockquote>
+<p>首先注意题目要求启动的机器人序列连续，则构成一个窗口，窗口内计算cost要小于budget且窗口尽量大。每次窗口移动可能会影响两个点进而影响窗口cost，一个是最大充电时间，一个是总体启动时间消耗。则这道题可以看为<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sliding-window-maximum/description/">Sliding Window Maximum</a>的变体题目。</p>
+<p>因此先来把<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sliding-window-maximum/description/">Sliding Window Maximum</a>的<strong>单调队列</strong>做法搞懂。</p>
+<p>PS：这道题我之前也写了一个<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sliding-window-maximum/solutions/2795111/treemap-by-silencezheng66-kb1i/">TreeMap的题解</a>，比较复杂，正好这次学一下单调队列的解法。</p>
+<p><strong>「单调队列」即满足单调性的双端队列</strong>，双端队列左侧为队首，右侧为队尾。</p>
+<h2 id="前置题目：Sliding-Window-Maximum"><a href="#前置题目：Sliding-Window-Maximum" class="headerlink" title="前置题目：Sliding Window Maximum"></a>前置题目：Sliding Window Maximum</h2><blockquote>
+<p>Sliding Window Maximum</p>
+<p>You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.</p>
+<p>Return the max sliding window.</p>
+</blockquote>
+<p>题目比较容易理解，就是取一个定长的滑窗在数组上滑出若干个最值，难点就是用尽量少的时间计算每个窗口中的最值。</p>
+<p>由于我们需要求出的是滑动窗口的最大值，如果当前的滑动窗口中有两个下标 $i$ 和 $j$, 其中 $i$ 在 $j$的左侧 $(i&lt;j)$ ，并且 $i$ 对应的元素不大于 $j$ 对应的元素（nums $[i] \leq n u m s[j]$） ，则当滑动窗口向右移动时，只要 $i$ 还在窗口中，那么 $j$ 一定也还在窗口中，这是 $i$ 在 $j$ 的左侧所保证的。因此, 由于 nums [j] 的存在, nums [i] 一定不会是滑动窗口中的最大值了, 我们可以将 nums [i]永久地移除。</p>
+<p>因此我们可以<strong>使用一个队列存储所有还没有被移除的下标</strong>。在队列中, 这些<strong>下标按照从小到大的顺序被存储, 并且它们在数组 nums 中对应的值是严格单调递减的</strong>。因为如果队列中有两个相邻的下标, 它们对应的值相等或者递增, 那么令前者为 $i$, 后者为 $j$, 就对应了上面所说的情况, 即 $n u m s[i]$ 会被移除，这就产生了矛盾。</p>
+<p>当滑动窗口向右移动时, 我们需要把一个新的元素放入队列中。为了保持队列的性质, 我们会不断地将新的元素与队尾的元素相比较, 如果前者大于等于后者, 那么队尾的元素就可以被永久地移除, 我们将其弹出队列。我们需要不断地进行此项操作, 直到队列为空或者新的元素小于队尾的元素。</p>
+<p>由于队列中下标对应的元素是严格单调递减的, 因此此时队首下标对应的元素就是滑动窗口中的最大值。同时，隨着窗口向右移动，队首元素可能会不在窗口中，我们还需要不断从队首弹出元素, 直到队首元素在窗口中为止。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] maxSlidingWindow(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        Deque&lt;Integer&gt; deque = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">        <span class="comment">// 先填充第一个窗口</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; ++i) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!deque.isEmpty() &amp;&amp; nums[i] &gt;= nums[deque.peekLast()]) &#123;</span><br><span class="line">                deque.pollLast();</span><br><span class="line">            &#125;</span><br><span class="line">            deque.offerLast(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n - k + <span class="number">1</span>];</span><br><span class="line">        ans[<span class="number">0</span>] = nums[deque.peekFirst()]; <span class="comment">// 队首为窗口最大值</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = k; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="comment">// 逐元素移动窗口</span></span><br><span class="line">            <span class="keyword">while</span> (!deque.isEmpty() &amp;&amp; nums[i] &gt;= nums[deque.peekLast()]) &#123;</span><br><span class="line">                deque.pollLast();</span><br><span class="line">            &#125;</span><br><span class="line">            deque.offerLast(i);</span><br><span class="line">            <span class="comment">// 抛弃不在窗口中的最值</span></span><br><span class="line">            <span class="keyword">while</span> (deque.peekFirst() &lt;= i - k) &#123;</span><br><span class="line">                deque.pollFirst();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 取出答案，注意peek只检查并不丢弃</span></span><br><span class="line">            ans[i - k + <span class="number">1</span>] = nums[deque.peekFirst()];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="题解（单调队列）：Maximum-Number-of-Robots-Within-Budget"><a href="#题解（单调队列）：Maximum-Number-of-Robots-Within-Budget" class="headerlink" title="题解（单调队列）：Maximum Number of Robots Within Budget"></a>题解（单调队列）：Maximum Number of Robots Within Budget</h2><p>本题相较于<code>Sliding Window Maximum</code>有几点需要注意：</p>
+<ol>
+<li>窗口大小不固定，队首弹出与budget相关而与窗口大小无关；</li>
+<li><code>chargeTimes</code>的最值处理逻辑相同；</li>
+<li>求解需要知道窗口左侧的位置，需要维护窗口左侧下标。</li>
+</ol>
+<p>队列中存储的还是<code>chargeTimes</code>的下标，因为下标与<code>runningCosts</code>一一对应，则计算总消耗时共用计算即可，本质上可以用单调队列还是因为两点，一是连续窗口，二是最值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumRobots</span><span class="params">(<span class="keyword">int</span>[] chargeTimes, <span class="keyword">int</span>[] runningCosts, <span class="keyword">long</span> budget)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>; <span class="comment">// 维护左侧下标</span></span><br><span class="line">        <span class="keyword">long</span> sum = <span class="number">0</span>; <span class="comment">// 用于与预算比较</span></span><br><span class="line">        Deque&lt;Integer&gt; q = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> right = <span class="number">0</span>; right &lt; chargeTimes.length; right++) &#123;</span><br><span class="line">            <span class="comment">// 1. 入队，与前置题目逻辑相同</span></span><br><span class="line">            <span class="keyword">while</span> (!q.isEmpty() &amp;&amp; chargeTimes[right] &gt;= chargeTimes[q.peekLast()]) &#123;</span><br><span class="line">                q.pollLast();</span><br><span class="line">            &#125;</span><br><span class="line">            q.addLast(right);</span><br><span class="line">            sum += runningCosts[right]; <span class="comment">// 累计cost</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 2. 窗口左端右移，通过预算与消耗比较判断</span></span><br><span class="line">            <span class="keyword">while</span> (!q.isEmpty() &amp;&amp; chargeTimes[q.peekFirst()] + (right - left + <span class="number">1</span>) * sum &gt; budget) &#123;</span><br><span class="line">                <span class="comment">// 出队逻辑，在左移过程中遇到最值要同步出队</span></span><br><span class="line">                <span class="keyword">if</span> (q.peekFirst() == left) &#123;</span><br><span class="line">                    q.pollFirst();</span><br><span class="line">                &#125;</span><br><span class="line">                sum -= runningCosts[left++]; <span class="comment">// 减去移出元素cost</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 3. 更新答案</span></span><br><span class="line">            ans = Math.max(ans, right - left + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Find-the-Maximum-Number-of-Marked-Indices"><a href="#Find-the-Maximum-Number-of-Marked-Indices" class="headerlink" title="Find the Maximum Number of Marked Indices"></a>Find the Maximum Number of Marked Indices</h1><blockquote>
+<p>Find the Maximum Number of Marked Indices</p>
+<p>You are given a 0-indexed integer array nums.</p>
+<p>Initially, all of the indices are unmarked. You are allowed to make this operation any number of times:</p>
+<p>Pick two different unmarked indices i and j such that 2 * nums[i] &lt;= nums[j], then mark i and j.<br>Return the maximum possible number of marked indices in nums using the above operation any number of times.</p>
+</blockquote>
+<p>这题我一开始的思路是按值排序后从大到小匹配，但这样贪心还是不能获得最佳答案，需要从如何获得最优解的角度考虑。当可获得最优解时，长度为 $n$ 的数组最多只会产生 $\left\lfloor\frac{n}{2}\right\rfloor$ 对匹配, 因此对数组从小到大排序以后, 我们将数组一分为二, 左侧元素只会与右侧元素匹配。</p>
+<p>这样操作就可以解决直接排序匹配中找不到最优配对的问题，对于右侧的一个元素，其最优配对的符合条件的元素既不是比他次大的元素，也不是全局最小的元素，而是划分成两半后左侧的符合条件的最大元素。</p>
+<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p>具体的, 我们令 $m=\left\lfloor\frac{n}{2}\right\rfloor$, 尝试将下标在 $[0, m-1]$ 范围内的元素 $n u m s[i]$ 与下标在 $[m, n-1]$ 范围内的元素 $n u m s[j]$ 进行匹配。我们从小到大枚举 $i$ ，然后找到最小的 $j$ 使其满足 $2 \times$ $n u m s[i] \leq n u m s[j]$ 。那些末满足条件而被跳过的 nums $[j]$ 将被忽略。持续这一过程,直到 $i=m$ 或 $j=n$ 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxNumOfMarkedIndices</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">int</span> m = n / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = m; i &lt; m &amp;&amp; j &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; n &amp;&amp; <span class="number">2</span> * nums[i] &gt; nums[j]) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j &lt; n) &#123;</span><br><span class="line">                res += <span class="number">2</span>;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Count-Increasing-Quadruplets-HARD"><a href="#Count-Increasing-Quadruplets-HARD" class="headerlink" title="Count Increasing Quadruplets HARD"></a>Count Increasing Quadruplets <font color=#FF4500 size=4 face='黑体'>HARD</font></h1><blockquote>
+<p>Count Increasing Quadruplets</p>
+<p>Given a 0-indexed integer array nums of size n containing all numbers from 1 to n, return the number of increasing quadruplets.</p>
+<p>A quadruplet (i, j, k, l) is increasing if:</p>
+<ul>
+<li>0 &lt;= i &lt; j &lt; k &lt; l &lt; n, and</li>
+<li>nums[i] &lt; nums[k] &lt; nums[j] &lt; nums[l].</li>
+</ul>
+</blockquote>
+<p>这道题直接暴力能解决一半，剩下一半学习成本有点高了，直接看灵神题解即可，现在没时间学了，感觉意义不大。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices/solutions/2905207/qiu-chu-zui-duo-biao-ji-xia-biao-by-leet-0j2m/?envType=daily-question&amp;envId=2024-09-12">https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices/solutions/2905207/qiu-chu-zui-duo-biao-ji-xia-biao-by-leet-0j2m/?envType=daily-question&amp;envId=2024-09-12</a><br>[2] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-increasing-quadruplets/solutions/2080632/you-ji-qiao-de-mei-ju-yu-chu-li-pythonja-exja/?envType=daily-question&amp;envId=2024-09-10">https://leetcode.cn/problems/count-increasing-quadruplets/solutions/2080632/you-ji-qiao-de-mei-ju-yu-chu-li-pythonja-exja/?envType=daily-question&amp;envId=2024-09-10</a><br>[3] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-number-of-robots-within-budget/solutions/1798725/by-endlesscheng-7ukp/?envType=daily-question&amp;envId=2024-09-13">https://leetcode.cn/problems/maximum-number-of-robots-within-budget/solutions/1798725/by-endlesscheng-7ukp/?envType=daily-question&amp;envId=2024-09-13</a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/03/article88/" class="archive-article-date">
-  	<time datetime="2023-01-03T14:05:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/01/03/article88/">滑动窗口</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/12/16/article84/" class="archive-article-date">
-  	<time datetime="2022-12-16T13:02:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/16/article84/">数值溢出问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/11/19/article78/" class="archive-article-date">
-  	<time datetime="2022-11-19T05:59:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/19/article78/">记忆化递归</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/11/09/article76/" class="archive-article-date">
-  	<time datetime="2022-11-09T13:41:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/09/article76/">二叉树非递归遍历</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/10/11/article69/" class="archive-article-date">
-  	<time datetime="2022-10-11T10:15:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/11/article69/">动态规划</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/07/13/article29/" class="archive-article-date">
-  	<time datetime="2021-07-13T09:09:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/13/article29/">双重指针，指针的指针！</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -494,30 +314,147 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C语言</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2024/09/15/article139/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2024/09/08/article138/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LeetCode周记 EP11</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maximum-Number-of-Robots-Within-Budget"><span class="toc-number">2.</span> <span class="toc-text">Maximum Number of Robots Within Budget</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E9%A2%98%E7%9B%AE%EF%BC%9ASliding-Window-Maximum"><span class="toc-number">2.1.</span> <span class="toc-text">前置题目：Sliding Window Maximum</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E8%A7%A3%EF%BC%88%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%EF%BC%89%EF%BC%9AMaximum-Number-of-Robots-Within-Budget"><span class="toc-number">2.2.</span> <span class="toc-text">题解（单调队列）：Maximum Number of Robots Within Budget</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Find-the-Maximum-Number-of-Marked-Indices"><span class="toc-number">3.</span> <span class="toc-text">Find the Maximum Number of Marked Indices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88"><span class="toc-number">3.1.</span> <span class="toc-text">双指针</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Count-Increasing-Quadruplets-HARD"><span class="toc-number">4.</span> <span class="toc-text">Count Increasing Quadruplets HARD</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">6.</span> <span class="toc-text">后记</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">上一页</a><a class="page-number" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
+  
+
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Sun Sep 15 2024 23:32:15 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
           </div>
         </div>
@@ -552,9 +489,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
