@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Archives | SilenceZheng66-BLOG</title>
+  <title>LeetCode周记 EP15 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/archives/page/4/index.html">
+  <meta name="description" content="前言被最小问题爆杀的一周… 本周主题：动态规划、二分查找、记忆化搜索 题目：  241001每日一题—Minimum Cost For Tickets 241003每日一题—Minimum Cost to Reach Destination in Time 241005每日一题—Minimum Time to Complete Trips">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode周记 EP15">
+<meta property="og:url" content="http://silencezheng.top/2024/10/07/article145/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言被最小问题爆杀的一周… 本周主题：动态规划、二分查找、记忆化搜索 题目：  241001每日一题—Minimum Cost For Tickets 241003每日一题—Minimum Cost to Reach Destination in Time 241005每日一题—Minimum Time to Complete Trips">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-06T19:10:16.000Z">
+<meta property="article:modified_time" content="2024-10-06T19:10:45.516Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="数据结构与算法">
+<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
@@ -151,359 +157,323 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article145" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LeetCode周记 EP15
+    </h1>
+  
+
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2024/10/07/article145/" class="archive-article-date">
+  	<time datetime="2024-10-06T19:10:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-07</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.8k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">13分</span>
+      </span>
+    </span>
+</div>
+          
+        <!-- 添加完成 -->
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>被最小问题爆杀的一周…</p>
+<p>本周主题：动态规划、二分查找、记忆化搜索</p>
+<p>题目：</p>
+<ul>
+<li>241001每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-cost-for-tickets/description">Minimum Cost For Tickets</a></li>
+<li>241003每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-cost-to-reach-destination-in-time/description">Minimum Cost to Reach Destination in Time</a></li>
+<li>241005每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-time-to-complete-trips/description">Minimum Time to Complete Trips</a></li>
+</ul>
+<span id="more"></span>
+<h1 id="Minimum-Cost-For-Tickets"><a href="#Minimum-Cost-For-Tickets" class="headerlink" title="Minimum Cost For Tickets"></a>Minimum Cost For Tickets</h1><blockquote>
+<p>Minimum Cost For Tickets<br>You have planned some train traveling one year in advance. The days of the year in which you will travel are given as an integer array days. Each day is an integer from 1 to 365.<br>Train tickets are sold in three different ways:</p>
+<ul>
+<li>a 1-day pass is sold for costs[0] dollars,</li>
+<li>a 7-day pass is sold for costs[-1] </li>
+<li>a 30-day pass is sold for costs[-1] </li>
+</ul>
+<p>The passes allow that many days of consecutive travel.<br>For example, if we get a 7-day pass on day 2, then we can travel for 7 days: 2, 3, 4, 5, 6, 7, and 8.<br>Return the minimum number of dollars you need to travel every day in the given list of days.</p>
+</blockquote>
+<p>无论记忆化搜索还是动态规划，都需要先<strong>划分子问题</strong>和<strong>定义状态转移</strong>。</p>
+<p>假设第 100 天是旅行的最后一天，分类讨论：</p>
+<ul>
+<li>在第 100 天购买为期 1 天的通行证，接下来需要解决的问题为：1 到 99 天的最小花费。</li>
+<li>在第 94 天购买为期 7 天的通行证，接下来需要解决的问题为：1 到 93 天的最小花费。</li>
+<li>在第 71 天购买为期 30 天的通行证，接下来需要解决的问题为：1 到 70 天的最小花费。<br>这些问题都是和原问题相似的、规模更小的子问题，可以用递归解决。</li>
+</ul>
+<blockquote>
+<p>动态规划有「选或不选」和「枚举选哪个」两种基本思考方式。在做题时，可根据题目要求，选择适合题目的一种来思考。本题用到的是「枚举选哪个」。</p>
+</blockquote>
+<p>根据上面的讨论，定义 $dfs(i)$ 表示 $1$ 到 $i$ 天的最小花费。如果第 $i$ 天不在 days 中，那么问题变成 $1$ 到 $i−1$ 天的最小花费，即 $dfs(i)=dfs(i−1)$</p>
+<p>如果第 $i$ 天在 days 中，分类讨论：</p>
+<ul>
+<li>在第 $i$ 天购买为期 $1$ 天的通行证，接下来需要解决的问题为：$1$ 到 $i−1$ 天的最小花费，即 $dfs(i)=dfs(i−1)+costs[0]$。</li>
+<li>在第 $i−6$ 天购买为期 $7$ 天的通行证，接下来需要解决的问题为：$1$ 到 $i−7$ 天的最小花费，即 $dfs(i)=dfs(i−7)+costs[1]$。</li>
+<li>在第 $i−29$ 天购买为期 $30$ 天的通行证，接下来需要解决的问题为：$1$ 到 $i−30$ 天的最小花费，即 $dfs(i)=dfs(i−30)+costs[2]$。</li>
+</ul>
+<p>这三种情况取最小值，就得到了 dfs(i)，即</p>
+<script type="math/tex; mode=display">
+dfs(i)=min(dfs(i−1)+costs[0],dfs(i−7)+costs[1],dfs(i−30)+costs[2])</script><p>递归边界：$dfs(i)=0$，其中 $i≤0$。此时没有要旅行的天数。</p>
+<p>递归入口：$dfs(D)$，其中 $D=days[n−1]$ 是最后一天。为了方便翻译成递推，我们从最后一天开始思考。</p>
+<h2 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h2><p>采用递归+记忆化的方式自顶向下解决问题，所谓自顶向下，即从最终结果$dfs(D)$向下延伸至底层计算。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mincostTickets</span><span class="params">(<span class="keyword">int</span>[] days, <span class="keyword">int</span>[] costs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> lastDay = days[days.length - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">boolean</span>[] isTravel = <span class="keyword">new</span> <span class="keyword">boolean</span>[lastDay + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> d : days) &#123;</span><br><span class="line">            isTravel[d] = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] memo = <span class="keyword">new</span> <span class="keyword">int</span>[lastDay + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> dfs(lastDay, isTravel, costs, memo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">boolean</span>[] isTravel, <span class="keyword">int</span>[] costs, <span class="keyword">int</span>[] memo)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (memo[i] &gt; <span class="number">0</span>) &#123; <span class="comment">// 之前计算过</span></span><br><span class="line">            <span class="keyword">return</span> memo[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!isTravel[i]) &#123;</span><br><span class="line">            <span class="keyword">return</span> memo[i] = dfs(i - <span class="number">1</span>, isTravel, costs, memo);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> memo[i] = Math.min(dfs(i - <span class="number">1</span>, isTravel, costs, memo) + costs[<span class="number">0</span>],</span><br><span class="line">                         Math.min(dfs(i - <span class="number">7</span>, isTravel, costs, memo) + costs[<span class="number">1</span>],</span><br><span class="line">                                  dfs(i - <span class="number">30</span>, isTravel, costs, memo) + costs[<span class="number">2</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>自底向上遍历，即从days数组的左侧开始，状态 $f[i]$ 的定义和 $dfs(i)$ 的定义是一样的，都表示 $1$ 到 $i$ 天的最小花费。</p>
+<p>相应的递推式（状态转移方程）也和 dfs 一样：</p>
+<script type="math/tex; mode=display">
+f[i]=min(f[i−1]+costs[0],f[i−7]+costs[1],f[i−30]+costs[2])</script><p>由于 $f[0]=0$ 且负数 $i$ 的状态值也为 $0$，我们可以把负数 $i$ 视作 $0$，上式等价于</p>
+<script type="math/tex; mode=display">
+f[i]=min(f[i−1]+costs[0],f[max(i−7,0)]+costs[1],f[max(i−30,0)]+costs[2])</script><p>初始值 $f[0]=0$，翻译自递归边界 $dfs(0)=0$。答案为 $f[D]$，翻译自递归入口 $dfs(D)$。所谓自底向上，即先计算底层结果，最后获得最终答案 $f[D]$。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mincostTickets</span><span class="params">(<span class="keyword">int</span>[] days, <span class="keyword">int</span>[] costs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> lastDay = days[days.length - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">boolean</span>[] isTravel = <span class="keyword">new</span> <span class="keyword">boolean</span>[lastDay + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> d : days) &#123;</span><br><span class="line">            isTravel[d] = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] f = <span class="keyword">new</span> <span class="keyword">int</span>[lastDay + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= lastDay; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!isTravel[i]) &#123;</span><br><span class="line">                f[i] = f[i - <span class="number">1</span>];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                f[i] = Math.min(f[i - <span class="number">1</span>] + costs[<span class="number">0</span>],</span><br><span class="line">                       Math.min(f[Math.max(i - <span class="number">7</span>, <span class="number">0</span>)] + costs[<span class="number">1</span>],</span><br><span class="line">                                f[Math.max(i - <span class="number">30</span>, <span class="number">0</span>)] + costs[<span class="number">2</span>]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[lastDay];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>对于本题，最理想的情况是时间复杂度仅与days数组的长度有关而与$D=days[n−1]$的大小无关。</p>
+<p>重新定义 $f[i]$ 表示旅行了 $i$ 天的最小花费：</p>
+<ul>
+<li>$f[0]$ 表示旅行 $0$ 天的最小花费，根据定义，$f[0]=0$。</li>
+<li>$f[1]$ 表示旅行 $1$ 天的最小花费，也就是完成 $days[0]$ 的最小花费。</li>
+<li>$f[2]$ 表示旅行 $2$ 天的最小花费，也就是完成 $days[0]$ 和 $days[1]$ 的最小花费。</li>
+<li>一般地，$f[i+1]$ 表示完成 $days[0]$ 到 $days[i]$ 的最小花费。</li>
+</ul>
+<p>分类讨论：</p>
+<ul>
+<li>在 $days[i]$ 购买为期 $1$ 天的通行证，接下来需要解决的问题为：完成 $days[0]$ 到 $days[i−1]$ 的最小花费，即 $f[i+1]=f[i]+costs[0]$。</li>
+<li>在第 $days[j]$ 天购买为期 $7$ 天的通行证，满足 $days[j]+7&gt;days[i]$（注意不是 ≥），接下来需要解决的问题为：完成 $days[0]$ 到 $days[j−1]$ 的最小花费，即 $f[i+1]=f[j]+costs[1]$。</li>
+<li>在第 $days[k]$ 天购买为期 $30$ 天的通行证，满足 $days[k]+30&gt;days[i]$，接下来需要解决的问题为：完成 $days[0]$ 到 $days[k−1]$ 的最小花费，即 $f[i+1]=f[k]+costs[2]$。 </li>
+</ul>
+<p>这三种情况取最小值，就得到了 $f[i+1]$，即</p>
+<script type="math/tex; mode=display">
+f[i+1]=min(f[i]+costs[0],f[j]+costs[1],f[k]+costs[2])</script><p>其中：</p>
+<ul>
+<li>$j$ 是满足 $days[j]&gt;days[i]−7$ 的最小的 $j$。</li>
+<li>$k$ 是满足 $days[k]&gt;days[i]−30$ 的最小的 $k$。<br>由于 $days$ 是有序数组，计算 $j$ 和 $k$ 可以用双指针（三指针）算法。初始值 $f[0]=0, j=0, k=0$。答案为 $f[n]$。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mincostTickets</span><span class="params">(<span class="keyword">int</span>[] days, <span class="keyword">int</span>[] costs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = days.length;</span><br><span class="line">        <span class="keyword">int</span>[] f = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> d = days[i];</span><br><span class="line">            <span class="keyword">while</span> (days[j] &lt;= d - <span class="number">7</span>) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (days[k] &lt;= d - <span class="number">30</span>) &#123;</span><br><span class="line">                k++;</span><br><span class="line">            &#125;</span><br><span class="line">            f[i + <span class="number">1</span>] = Math.min(f[i] + costs[<span class="number">0</span>], Math.min(f[j] + costs[<span class="number">1</span>], f[k] + costs[<span class="number">2</span>]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Minimum-Cost-to-Reach-Destination-in-Time"><a href="#Minimum-Cost-to-Reach-Destination-in-Time" class="headerlink" title="Minimum Cost to Reach Destination in Time"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-cost-to-reach-destination-in-time/description">Minimum Cost to Reach Destination in Time</a></h1><p>题意：从起点到终点，判断是否可在<code>maxTime</code>内到达，并计算最小过路费。</p>
+<p>注意：在$[1, maxTime]$中任一时间到达终点，所花费的过路费多少不一定，即时间与花费无关，因此需要计算全部后筛选出最小花费。</p>
+<h2 id="动态规划-1"><a href="#动态规划-1" class="headerlink" title="动态规划"></a>动态规划</h2><p>我们用 $f[t][i]$ 表示使用恰好 $t$ 分钟到达城市 $i$ 需要的最少通行费总和。<br>在状态转移时，我们考虑最后一次通行是从城市 $j$ 到达城市 $i$ 的，那么有状态转移方程：</p>
+<script type="math/tex; mode=display">
+f[t][i]=\min _{(j, i) \in E}\{f[t-\operatorname{cost}(j, i)][j]+\text { passingFees }[i]\}</script><p>其中 $(j, i) \in E$ 表示城市 $j$ 与 $i$ 存在一条道路， $\operatorname{cost}(j, i)$ 表示这条道路的耗费时间。<br>最终的答案即为 $f[1][n-1], f[2][n-1], \cdots, f[\operatorname{maxTime}][n-1]$ 中的最小值。</p>
+<p>初始状态为 $f[0][0]=passingFees[0]$, 即我们一开始位于 0 号城市, 需要交 $passingFees[0]$的通行费。</p>
+<p>由于状态中存放最小值，因此对于其它的状态，我们可以在一开始赋予它们一个极大值 $\infty$ 。如果最终的答案为 $\infty$, 说明无法在 maxTime 及以内完成旅行, 返回 $-1$ 。</p>
+<p>此外, 本题中的道路是以数组 $edges$ 的形式给定的, 在动态规划的过程中, 如果我们使用两重循环枚举 $t$ 和 $i$, 就不能利用 $edges$, 而需要使用额外的数据结构存储以 $i$ 为端点的所有道路。一种合理的解决方法是, 我们使用一重循环枚举 $t$, 另一重循环枚举 edges 中的每一条边 $(i, j, cost )$, 通过这条边更新 $f[t][i]$ 以及 $f[t][j]$ 的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minCost</span><span class="params">(<span class="keyword">int</span> maxTime, <span class="keyword">int</span>[][] edges, <span class="keyword">int</span>[] passingFees)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = passingFees.length;</span><br><span class="line">        <span class="keyword">int</span>[][] f = <span class="keyword">new</span> <span class="keyword">int</span>[maxTime + <span class="number">1</span>][n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= maxTime; i++) &#123;</span><br><span class="line">            Arrays.fill(f[i], Integer.MAX_VALUE);</span><br><span class="line">        &#125;</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = passingFees[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> t = <span class="number">1</span>; t &lt;= maxTime; t++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span>[] edge : edges) &#123;</span><br><span class="line">                <span class="keyword">int</span> i = edge[<span class="number">0</span>], j = edge[<span class="number">1</span>], cost = edge[<span class="number">2</span>];</span><br><span class="line">                <span class="keyword">if</span> (cost &lt;= t) &#123;</span><br><span class="line">                    <span class="comment">// 确保从前序更新过的状态转移，且双向都可以更新</span></span><br><span class="line">                    <span class="keyword">if</span> (f[t - cost][j] != Integer.MAX_VALUE) &#123;</span><br><span class="line">                        f[t][i] = Math.min(f[t][i], f[t - cost][j] + passingFees[i]);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (f[t - cost][i] != Integer.MAX_VALUE) &#123;</span><br><span class="line">                        f[t][j] = Math.min(f[t][j], f[t - cost][i] + passingFees[j]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> t = <span class="number">1</span>; t &lt;= maxTime; t++) &#123;</span><br><span class="line">            ans = Math.min(ans, f[t][n - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans == Integer.MAX_VALUE ? -<span class="number">1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Minimum-Time-to-Complete-Trips"><a href="#Minimum-Time-to-Complete-Trips" class="headerlink" title="Minimum Time to Complete Trips"></a>Minimum Time to Complete Trips</h1><blockquote>
+<p>Minimum Time to Complete Trips</p>
+<p>You are given an array time where time[i] denotes the time taken by the ith bus to complete one trip.</p>
+<p>Each bus can make multiple trips successively; that is, the next trip can start immediately after completing the current trip. Also, each bus operates independently; that is, the trips of one bus do not influence the trips of any other bus.</p>
+<p>You are also given an integer totalTrips, which denotes the number of trips all buses should make in total. Return the minimum time required for all buses to complete at least totalTrips trips.</p>
+</blockquote>
+<p>首先建立一个Map，其中key为时间，value为该时间对应的trip数量，假设该Map为<code>m</code>。假设当前存在的key为<code>k1, k2, k3,...,kn</code>，则对于时间<code>t</code>，完成的trip数量<code>f(t)</code>可如此计算：</p>
+<script type="math/tex; mode=display">
+f(t) = t/k1*v1 + t/k2*v2 + ... + t/kn*vn</script><p>可以发现<code>f(t)</code>具有单调性，故考虑二分查找。</p>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>二分查找的下界为$1$，上界为运行时间最短的bus运行<code>totalTrips</code>趟所用时间。实际测试中使用Map的方法时空效率均不如直接使用<code>time</code>数组进行<code>check</code>，在重复bus不多的情况下可以选择不使用Map。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Map&lt;Integer, Integer&gt; map;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">minimumTime</span><span class="params">(<span class="keyword">int</span>[] time, <span class="keyword">int</span> totalTrips)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// map</span></span><br><span class="line">        map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x:time) map.merge(x, <span class="number">1</span>, Integer::sum);</span><br><span class="line">        <span class="comment">// 二分查找下界与上界</span></span><br><span class="line">        <span class="keyword">long</span> l = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">long</span> r = (<span class="keyword">long</span>) totalTrips * Arrays.stream(time).min().orElse(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 二分查找寻找满足要求的最小的 t</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (check(mid, totalTrips)) &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断 t 时间内是否可以完成 totalTrips 趟旅途</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">check</span><span class="params">(<span class="keyword">long</span> t, <span class="keyword">int</span> totalTrips)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> period : map.keySet()) &#123;</span><br><span class="line">            cnt += t / period * map.get(period);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt &gt;= totalTrips;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-cost-for-tickets/solutions/2936177/jiao-ni-yi-bu-bu-si-kao-dpcong-ji-yi-hua-tkw4/?envType=daily-question&amp;envId=2024-10-01">https://leetcode.cn/problems/minimum-cost-for-tickets/solutions/2936177/jiao-ni-yi-bu-bu-si-kao-dpcong-ji-yi-hua-tkw4/?envType=daily-question&amp;envId=2024-10-01</a><br>[2] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-cost-to-reach-destination-in-time/solutions/869919/gui-ding-shi-jian-nei-dao-da-zhong-dian-n3ews/?envType=daily-question&amp;envId=2024-10-03">https://leetcode.cn/problems/minimum-cost-to-reach-destination-in-time/solutions/869919/gui-ding-shi-jian-nei-dao-da-zhong-dian-n3ews/?envType=daily-question&amp;envId=2024-10-03</a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/09/11/article121/" class="archive-article-date">
-  	<time datetime="2023-09-11T13:32:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/09/11/article121/">Lombok原理简析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Lombok</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2024/10/07/article145/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/09/10/article120/" class="archive-article-date">
-  	<time datetime="2023-09-10T12:23:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2024/10/05/article144/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LeetCode周记 EP14</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/09/10/article120/">Lombok之@Builder碎碎念</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Lombok</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/09/02/article119/" class="archive-article-date">
-  	<time datetime="2023-09-02T10:10:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/09/02/article119/">匿名内部类</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/08/26/article118/" class="archive-article-date">
-  	<time datetime="2023-08-26T05:12:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/26/article118/">MyBatis-Plus之配置自动填充</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
-        		</li>
-      		
-		</ul>
-	</div>
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
 
-          
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/08/15/article117/" class="archive-article-date">
-  	<time datetime="2023-08-15T15:11:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/15/article117/">图卷积(GCN)学习</a>
-    </h1>
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Mon Oct 07 2024 03:10:16 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">图论</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/08/13/article116/" class="archive-article-date">
-  	<time datetime="2023-08-13T07:48:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/13/article116/">Yilia图片居中</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/08/12/article115/" class="archive-article-date">
-  	<time datetime="2023-08-12T12:32:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/12/article115/">Redis安装使用入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/08/08/article114/" class="archive-article-date">
-  	<time datetime="2023-08-08T15:28:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/08/article114/">Pyinstaller逆向初体验</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">逆向</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/3/">上一页</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/19/">19</a><a class="extend next" rel="next" href="/archives/page/5/">下一页</a>
-    </nav>
-  
-
 
           </div>
         </div>
@@ -538,8 +508,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
