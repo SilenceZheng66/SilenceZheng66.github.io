@@ -6,24 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>导向滤波 | SilenceZheng66-BLOG</title>
+  <title>LeetCode周记 EP16 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言导向滤波学习，也可以说是论文笔记了。">
+  <meta name="description" content="前言这周AI喜提两项诺奖，工作定下来后还是要多研究一下AI应用。 本周主题：动态规划、滑动窗口、枚举 题目：  241007每日一题—Minimum Number of Refueling Stops 241009每日一题—Find Subarray With Bitwise OR Closest to K 241010每日一题—Find the Number of Good Pairs II">
 <meta property="og:type" content="article">
-<meta property="og:title" content="导向滤波">
-<meta property="og:url" content="http://silencezheng.top/2022/11/04/article73/index.html">
+<meta property="og:title" content="LeetCode周记 EP16">
+<meta property="og:url" content="http://silencezheng.top/2024/10/13/article147/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
-<meta property="og:description" content="前言导向滤波学习，也可以说是论文笔记了。">
+<meta property="og:description" content="前言这周AI喜提两项诺奖，工作定下来后还是要多研究一下AI应用。 本周主题：动态规划、滑动窗口、枚举 题目：  241007每日一题—Minimum Number of Refueling Stops 241009每日一题—Find Subarray With Bitwise OR Closest to K 241010每日一题—Find the Number of Good Pairs II">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article73/idea.jpeg">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article73/pseudocode-normal.png">
-<meta property="og:image" content="http://silencezheng.top/assets/post_img/article73/pseudocode-fast.png">
-<meta property="article:published_time" content="2022-11-04T13:27:06.000Z">
-<meta property="article:modified_time" content="2022-11-04T13:28:52.059Z">
+<meta property="article:published_time" content="2024-10-13T12:05:28.000Z">
+<meta property="article:modified_time" content="2024-10-13T12:06:10.741Z">
 <meta property="article:author" content="SilenceZheng66">
-<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="数据结构与算法">
+<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article73/idea.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
   
@@ -160,14 +157,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-article73" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-article147" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      导向滤波
+      LeetCode周记 EP16
     </h1>
   
 
@@ -178,8 +175,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2022/11/04/article73/" class="archive-article-date">
-  	<time datetime="2022-11-04T13:27:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-04</time>
+<a href="/2024/10/13/article147/" class="archive-article-date">
+  	<time datetime="2024-10-13T12:05:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-13</time>
 </a>
         <!-- 需要添加的位置 -->
         <!-- 开始添加字数统计-->
@@ -189,7 +186,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">2.1k字</span>
+        <span class="post-count">2k字</span>
       </span>
     </span>
 
@@ -198,7 +195,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">8分</span>
+        <span class="post-count">9分</span>
       </span>
     </span>
 </div>
@@ -209,74 +206,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>导向滤波学习，也可以说是论文笔记了。<br><span id="more"></span></p>
-<h2 id="各向同性（isotropy）滤波与各向异性（anisotropy）滤波"><a href="#各向同性（isotropy）滤波与各向异性（anisotropy）滤波" class="headerlink" title="各向同性（isotropy）滤波与各向异性（anisotropy）滤波"></a>各向同性（isotropy）滤波与各向异性（anisotropy）滤波</h2><p>对图像来说，各向同性滤波就是说滤波器在各方向上的梯度变化是相同的，对各个方向一视同仁的进行滤波。各向异性滤波是指滤波器会对各方向进行区别对待，有选择的进行滤波。</p>
-<p>高斯滤波属于<strong>各向同性滤波</strong>，根据二维高斯的图像就可以看出。</p>
-<p>双边滤波属于<strong>各向异性滤波</strong>，因为它会根据图像梯度变化情况改变滤波器形状。</p>
-<h2 id="导向滤波（Guided-Filter）"><a href="#导向滤波（Guided-Filter）" class="headerlink" title="导向滤波（Guided Filter）"></a>导向滤波（Guided Filter）</h2><p>导向滤波也属于各向异性滤波，也可以作为一种保边（Edge-preserving）滤波算法。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这周AI喜提两项诺奖，工作定下来后还是要多研究一下AI应用。</p>
+<p>本周主题：动态规划、滑动窗口、枚举</p>
+<p>题目：</p>
+<ul>
+<li>241007每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-number-of-refueling-stops/description">Minimum Number of Refueling Stops</a></li>
+<li>241009每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-subarray-with-bitwise-or-closest-to-k/description">Find Subarray With Bitwise OR Closest to K</a></li>
+<li>241010每日一题—<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-number-of-good-pairs-ii/description">Find the Number of Good Pairs II</a><span id="more"></span>
+</li>
+</ul>
+<h1 id="Minimum-Number-of-Refueling-Stops"><a href="#Minimum-Number-of-Refueling-Stops" class="headerlink" title="Minimum Number of Refueling Stops"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-number-of-refueling-stops/description">Minimum Number of Refueling Stops</a></h1><p>这道题磕磕绊绊也是写出来了，只是优化的有些慢，还是记录一下。</p>
+<p>下面是我解题过程中写的注释，包含了状态定义与状态转移：</p>
 <blockquote>
-<p>Derived from a local linear model, the guided filter generates the filtering output by considering the content of a guidance image, which can be the input image itself or another different image.</p>
-<p>We demonstrate that the guided filter is both effective and efficient in a great variety of computer vision and computer graphics applications including noise reduction, detail smoothing/enhancement, HDR compression, image matting/feathering, haze removal, and joint upsampling.</p>
+<p>A pick or no-pick problem, can be solved by DP, stations is sorted<br>Define dp[i][j] = remain fuel at i when pick j stations<br>Final problem = dp[target][x] where x &gt;= 0 and no more y&gt;=0&amp;&amp;y&lt;x<br>dp[i][j] = max(dp[i-1][j]-1, dp[i-1][j-1] + stations[i][1] - 1), where stations[i][0]=i</p>
 </blockquote>
-<p>导向滤波通过考虑<strong>引导图像</strong>的内容来生成滤波输出，引导图像可以是输入图像本身或另一个不同的图像。[1]中提到了双边滤波相比于导向滤波的两点缺陷，“have unwanted gradient reversal artifacts near edges”和难以进行维持精度的快速计算，这也是导向滤波的优势。</p>
-<p>文中还提到了<strong>联合双边滤波器</strong>（joint bilateral filter），它也是利用了引导图来改善双边滤波<strong>权值不稳定</strong>的问题（双边滤波边缘出现<strong>梯度翻转</strong>现象的原因）。</p>
-<p>文中先定义了一个<strong>通用的平移不变的线性滤波过程</strong>，包括一个引导图像 $\textit{I}$、一个输入图像 $\textit{p}$ 和一个输出图像 $\textit{q}$。</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-q_i=\sum_j W_{i j}(I) p_j \tag{1}
-\end{equation}</script><p>这里 $i$ 和 $j$ 表示的是两个像素，而不是像素的横纵坐标！像素 $i$ 的位置坐标表示为 $\mathbb{x}_i$，$q_i$ 表示输出图的像素 $i$ 处的值，滤波核 $W_{i j}(I)$ 是关于导向图和输入图的函数，当然也与 $i$ 有关。</p>
-<p>联合双边滤波器符合上述的线性滤波过程，其滤波核 $W^{\mathrm{bf}}$ 如下：</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-W_{i j}^{\mathrm{bf}}(I)=\frac{1}{K_i} \exp \left(-\frac{\left|\mathbf{x}_i-\mathbf{x}_j\right|^2}{\sigma_{\mathrm{s}}^2}\right) \exp \left(-\frac{\left|I_i-I_j\right|^2}{\sigma_{\mathrm{r}}^2}\right) \tag{2}
-\end{equation}</script><p>其中，$K_i$是归一化参数，用于保证$\sum_j W_{i j}^{\mathrm{bf}} = 1$，$\sigma_{\mathrm{s}}$ 和 $\sigma_{\mathrm{r}}$ 分别代表空域和值域（原文说值可以是 intensity 或 color）的对应参数，分别用于调整空域和值域的滤波程度（原文为similarity，我理解就和高斯中的标准差类似）。原文说当导向图和输入图相同时，联合双边滤波就退化为双边滤波，我理解里的双边滤波应该是要加两个2倍在分母的，但是效果应该一样。</p>
-<p>下面简单讨论下导向滤波的推导，主要还是学习如何计算。 文中首先假设导向滤波是一个导向图 $I$ 和 输出图 $q$ 间的<strong>局部线性模型</strong>。令 $w_k$ 是 $I$ 中的一个正方形窗口，其中心为像素 $k$，输出 $q$ 为 $I$ 在 $w_k$ 上的一个线性变换：</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-q_i=a_k I_i+b_k, \forall i \in \omega_k \tag{3}
-\end{equation}</script><p>这个稍微想一下就可以理解，假设 $w_k$ 是一个在 $I$ 上移动的九宫格，由于 $q$、$I$ 和 $p$都是尺寸一致的，那么每次移动产生的九个线性变化值就是 $q$ 对应 $I$ 位置上的值。当然这会引出一个问题，即同一个像素可能会被不同的窗口计算出多个值，如何确定最终输出的 $q_i$ 呢？文中提出了一种简单的处理办法，即取所有这些输出的平均。</p>
-<p>$a_k$ 和 $b_k$ 是窗口 $k$ 中的常量线性系数，顺便一提 $w_k$ 的半径定义为 $r$。 关于为何使用局部线性模型，是因为它确保了输出和导向图的边缘一致，具体可以看原文。</p>
-<p>为确定上述的两个线性系数，原文将输出建模为输入减去不想要的内容（噪声、纹理等）:</p>
-<script type="math/tex; mode=display">
-q_i = p_i - n_i</script><p>然后通过最小化输入和输出的差异来实现，具体来说，最小化如下函数(cost function in $w_k$)：</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-E\left(a_k, b_k\right)=\sum_{i \in \omega_k}\left(\left(a_k I_i+b_k-p_i\right)^2+\epsilon a_k^2\right) \tag{4}
-\end{equation}</script><p>其中 $\epsilon$ 是正则化参数，用于防止 $a_k$ 变得太大。通过线性回归求解$(4)$可得如下：</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-a_k=\frac{\frac{1}{|\omega|} \sum_{i \in \omega_k} I_i p_i-\mu_k \bar{p}_k}{\sigma_k^2+\epsilon} \tag{5}
-\end{equation}</script><script type="math/tex; mode=display">
-\begin{equation}
-b_k=\bar{p}_k-a_k \mu_k \tag{6}
-\end{equation}</script><p>其中 $\mu_k$ 和 $\sigma_k^2$ 分别是导向图在窗口 $k$ 中部分的均值和方差（像素值），$|\omega|$ 是窗口 $k$ 中的像素数，$\bar{p}_k$ 是 输入图 $p$ 在窗口 $k$ 中部分的均值，表示为 $\bar{p}_k=\frac{1}{|\omega|} \sum_{i \in \omega_k} p_i$。</p>
-<p>解释完各个符号的含义，让我们思考将上述的局部线性模型<strong>应用在整幅图像上</strong>，将图像中每一个能放置 $w_k$ 的区域进行运算（考虑将 $I$ 和 $p$ 叠放），并采用之前提到的取均值的方式，可得到滤波器输出如下：</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-q_i =\frac{1}{|\omega|} \sum_{k: i \in \omega_k}\left(a_k I_i+b_k\right) \tag{7}
-\end{equation}</script><script type="math/tex; mode=display">
-\begin{equation}
-=\bar{a}_i I_i+\bar{b}_i \tag{8}
-\end{equation}</script><p>其中$\bar{a}_i=\frac{1}{|\omega|} \sum_{k \in \omega_i} a_k$，$\bar{b}_i=\frac{1}{|\omega|} \sum_{k \in \omega_i} b_k$。</p>
-<p>下面原文对上述输出的保边性进行了一些论证，并指出$(5), (6), (8)$中的关系是在图像滤波中真实存在的，并且这三个关系（公式）可以分别重写为输入的加权和，如下：</p>
-<script type="math/tex; mode=display">
-a_k=\sum_j A_{k j}(I) p_j \\
-b_k=\sum_j B_{k j}(I) p_j \\
-q_i=\sum_j W_{i j}(I) p_j</script><p>其中 $A_{i j}, B_{i j}, W_{i j}$ 为三个仅依赖于导向图 $I$ 的权重，可以看到最终推出了一个输出和导向图与输入的<strong>平移不变线性滤波</strong>：$q_i=\sum_j W_{i j}(I) p_j$。那么我们只需要关心权重如何计算即可：</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-W_{i j}(I)=\frac{1}{|\omega|^2} \sum_{k:(i, j) \in \omega_k}\left(1+\frac{\left(I_i-\mu_k\right)\left(I_j-\mu_k\right)}{\sigma_k^2+\epsilon}\right) \tag{9}
-\end{equation}</script><p>解读一下这个权重，对于给定的输出像素 $i$，我们先寻找重叠图像（$I$ 和 $p$）中包含该像素的所有窗口 $k$，对于每个窗口 $k$，在 $I$ 上计算 $\mu_k$ 和 $\sigma_k^2$ 后代入计算权重，然后求得加权和。由于可以证明 $\sum_j W_{i j}(I)=1$，所以不需要对权重再进行归一化处理。</p>
-<p>总之，导向滤波符合一个平移不变的线性滤波模型，其权重通过导向图计算，最终结合输入图产生输出。</p>
-<p><img src="/assets/post_img/article73/idea.jpeg" alt="idea"></p>
-<h2 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h2><p>$(5), (6), (8)$ 的三个方程是导向滤波器的一种定义，令 $f_{mean}$ 表示半径为 $r$ 的均值滤波器，correlation（corr，<strong>相关系数</strong>），variance（var，<strong>方差</strong>）和covariance（cov，<strong>协方差</strong>）分别表示其本身含义。则可给出算法的伪代码如下：</p>
-<p><img src="/assets/post_img/article73/pseudocode-normal.png" alt="normal"></p>
-<p>算法中出现的<code>./ .*</code>等分别代表逐像素除、逐像素乘等操作。</p>
-<h2 id="个人的一点理解"><a href="#个人的一点理解" class="headerlink" title="个人的一点理解"></a>个人的一点理解</h2><p>文中总共提出了两种对导向滤波的定义方式，先是得到全图范围上的线性模型 $q_i=\bar{a}_i I_i+\bar{b}_i$，后又重新整理成线性滤波的形式 $q_i=\sum_j W_{i j}(I) p_j$，并求出了仅依赖导向图的滤波核权重。然后从线性模型和滤波核的角度分别分析了导向滤波Edge-Preserving的性质，考虑 $I \equiv p$ 的情况。</p>
-<h2 id="快速导向滤波（Fast-Guided-Filter）"><a href="#快速导向滤波（Fast-Guided-Filter）" class="headerlink" title="快速导向滤波（Fast Guided Filter）"></a>快速导向滤波（Fast Guided Filter）</h2><p>还没看[3]，先贴一个伪代码，日后需要再回来整理。</p>
-<p><img src="/assets/post_img/article73/pseudocode-fast.png" alt="fast"></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]Kaiming He, Jian Sun, Xiaoou Tang, Guided Image Filtering. IEEE Transactions on Pattern Analysis and Machine Intelligence, Volume 35, Issue 6, pp. 1397-1409, June 2013<br>[2]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/161666126">https://zhuanlan.zhihu.com/p/161666126</a><br>[3]<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1505.00996v1">https://arxiv.org/abs/1505.00996v1</a><br>[4]<a target="_blank" rel="noopener" href="http://kaiminghe.com/eccv10/">http://kaiminghe.com/eccv10/</a><br>[5]Guided Image Filtering, by Kaiming He, Jian Sun, and Xiaoou Tang, in ECCV 2010 (Oral).</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>从<code>dp[i-1][j-1]</code>转移，存在“代偿”情况，即<code>dp[i-1][j-1]</code>是一条不通的路，但由于后期遇到大station导致该路通行。为解决代偿，应仅从合法状态转移至新状态，实现方式是遇到不合法状态直接置为极小值后再参与比较。<br>定义好状态后，发现直接实现仍会超时，采取两步优化：</p>
+<ol>
+<li>通过转移方程可以了解到当前状态仅与上一状态有关，可采用滚动数组压缩为两行，优化空间。</li>
+<li>基于<code>stations is sorted</code>和<code>stations[n-1]&lt;target</code>可采用优化遍历，转而遍历<code>stations</code>，优化时间。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minRefuelStops</span><span class="params">(<span class="keyword">int</span> target, <span class="keyword">int</span> startFuel, <span class="keyword">int</span>[][] stations)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(startFuel&gt;=target) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 边界处理1</span></span><br><span class="line">        <span class="keyword">int</span> n = stations.length;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// 边界处理2</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][n+<span class="number">1</span>]; <span class="comment">// 滚动数组</span></span><br><span class="line">        Arrays.fill(dp[<span class="number">0</span>], startFuel);</span><br><span class="line">        <span class="keyword">int</span> last = <span class="number">0</span>, cur = <span class="number">1</span>, cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123; <span class="comment">// 优化遍历</span></span><br><span class="line">            <span class="keyword">int</span> dist = stations[i][-<span class="number">1</span>] </span><br><span class="line">            dp[cur][-<span class="number">1</span>] </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">                dp[cur][j] = Math.max(dp[last][j]&gt;=dist?dp[last][j] - dist:Integer.MIN_VALUE, </span><br><span class="line">                dp[last][j-<span class="number">1</span>]&gt;=dist?dp[last][j-<span class="number">1</span>] + stations[i][<span class="number">0</span>] </span><br><span class="line">            &#125;</span><br><span class="line">            cnt = stations[i][<span class="number">0</span>]; <span class="comment">// 移动已走过的距离</span></span><br><span class="line">            <span class="keyword">int</span> t = last;</span><br><span class="line">            last = cur;</span><br><span class="line">            cur = t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[last][j]&gt;=target-stations[n-<span class="number">1</span>][<span class="number">0</span>])&#123; <span class="comment">// 注意此时last才是cur</span></span><br><span class="line">                res = j;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Find-Subarray-With-Bitwise-OR-Closest-to-K"><a href="#Find-Subarray-With-Bitwise-OR-Closest-to-K" class="headerlink" title="Find Subarray With Bitwise OR Closest to K"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-subarray-with-bitwise-or-closest-to-k/description">Find Subarray With Bitwise OR Closest to K</a></h1><p>连续子数组变形题，上来就应该想到滑窗的…但是我还是选择了枚举，尝试了一下卡到$O(n^2)$优化不出来了，尝试了用每一位计数的方式也没什么用，下面贴灵神思路，更优些。</p>
+<p>基础枚举：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 暴力算法，会超时</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumDifference</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = nums[i];</span><br><span class="line">            ans = Math.min(ans, Math.abs(x - k)); <span class="comment">// 单个元素也算子数组</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                nums[j] |= x; <span class="comment">// 现在 nums[j] = 原数组 nums[j] 到 nums[i] 的 OR</span></span><br><span class="line">                ans = Math.min(ans, Math.abs(nums[j] - k));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>优化思路：把二进制数看成集合，两个数的 <code>OR</code> 就是两个集合的并集。</p>
+<p>在上述枚举过程中，<code>nums</code>中最左侧是最大的集合，从左向右依次是前序元素的子集，则当从右向左并入元素<code>x</code>的过程中，如果发现<code>x</code>已经是某元素的子集，则不需要再向左传播了，因为此时<code>x</code>已经是左侧所有元素的子集。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumDifference</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = nums[i];</span><br><span class="line">            ans = Math.min(ans, Math.abs(x - k));</span><br><span class="line">            <span class="comment">// 如果 x 是 nums[j] 的子集，就退出循环</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; (nums[j] | x) != nums[j]; j--) &#123;</span><br><span class="line">                nums[j] |= x;</span><br><span class="line">                ans = Math.min(ans, Math.abs(nums[j] - k));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p>参考引文[2]的解法，再看一下滑动窗口，由于连续子数组的“OR和”有单调性，因此可以使用。滑动窗口右移，窗口内的元素“OR和”只能变大或者不变；滑动窗口左移，窗口内的元素“OR和”只能变小或者不变。</p>
+<p>我们需要找到一个连续的子数组，使得它们的“OR和”的结果尽可能接近 k。通过滑动窗口的方式，我们可以不断扩大和缩小窗口来尝试找到符合条件的子数组。</p>
+<p>由于按位或运算具有不可逆的特点（即不像加法有逆运算减法），一旦某个位被置为 1，即使移除某些数字，OR 的结果中该位仍然可能保持为 1。因此，我们需要仔细追踪每个位的<strong>最后贡献位置</strong>。</p>
+<p>可以使用一个大小为 32 的数组 maxBitPos，记录每个位上最后一次贡献 1 的索引。当左边界移动时，我们检查是否需要移除某个位的贡献，如果该位的最后贡献位置是当前的 left，就可以安全地将该位清除。（这里太妙了，我也想到了用32位数组计数但是没想到和索引建立连接！）</p>
+<p>最后，在滑动窗口过程中，计算当前窗口的“OR和”curr，并通过比较<code>abs(curr - k)</code>来更新最小的绝对差。如果当前curr正好等于 k，直接返回 0，因为绝对差已经最小。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumDifference</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length, left = <span class="number">0</span>, right = <span class="number">0</span>, ans = Integer.MAX_VALUE, curr = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] maxBitPos = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">32</span>]; <span class="comment">// 记录每个位的最大位置</span></span><br><span class="line">        Arrays.fill(maxBitPos, -<span class="number">1</span>); <span class="comment">// 初始化数组</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (right &lt; n) &#123;</span><br><span class="line">            curr |= nums[right]; <span class="comment">// 当前窗口内的 OR 值</span></span><br><span class="line">            <span class="comment">// 更新 maxBitPos，记录每个位的最后出现位置</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (((nums[right] &gt;&gt; i) &amp; <span class="number">1</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">                    maxBitPos[i] = right;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ans = Math.min(ans, Math.abs(curr - k));</span><br><span class="line">            <span class="keyword">if</span> (curr == k) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 如果当前窗口正好匹配 k，直接返回</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果当前 OR 值大于 k，开始收缩窗口</span></span><br><span class="line">            <span class="keyword">while</span> (left &lt; right &amp;&amp; curr &gt; k) &#123;</span><br><span class="line">                <span class="comment">// 检查当前 left 是否在某个位上做出了贡献</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (((nums[left] &gt;&gt; i) &amp; <span class="number">1</span>) == <span class="number">1</span> &amp;&amp; maxBitPos[i] == left) &#123;</span><br><span class="line">                        curr &amp;= ~(<span class="number">1</span> &lt;&lt; i); <span class="comment">// 清除该位的贡献</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                ans = Math.min(ans, Math.abs(curr - k));</span><br><span class="line">                <span class="keyword">if</span> (curr == k) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 匹配到 k，返回</span></span><br><span class="line">                &#125;</span><br><span class="line">                left++; <span class="comment">// 缩小窗口</span></span><br><span class="line">            &#125;</span><br><span class="line">            right++; <span class="comment">// 扩展窗口</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Find-the-Number-of-Good-Pairs-II"><a href="#Find-the-Number-of-Good-Pairs-II" class="headerlink" title="Find the Number of Good Pairs II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-number-of-good-pairs-ii/description">Find the Number of Good Pairs II</a></h1><p>优化枚举，暴力枚举对于每个<code>nums1[i]</code>都需要遍历<code>nums2</code>长度，优化思路是先组织两个Map把查找效率降低，再遍历<code>nums2</code>，对于每个<code>nums2[j]</code>，遍历它的<code>n*k</code>倍，其中<code>n</code>为正整数，上界为<code>nums1</code>中的最大值。此时底层遍历的时间复杂度由$O(nums2.length)$变为了$O(\max(nums1)/k \times \log nums2.length)$，其中$\log nums2.length$是调和级数求和的结果，因此在$nums2.length$大的情况下这种优化可以显著降低底层遍历的耗时。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">numberOfPairs</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; count = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Map&lt;Integer, Integer&gt; count2 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> max1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums1) &#123;</span><br><span class="line">            count.put(num, count.getOrDefault(num, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            max1 = Math.max(max1, num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums2) &#123;</span><br><span class="line">            count2.put(num, count2.getOrDefault(num, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> a : count2.keySet()) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> b = a * k; b &lt;= max1; b += a * k) &#123;</span><br><span class="line">                <span class="keyword">if</span> (count.containsKey(b)) &#123;</span><br><span class="line">                    res += <span class="number">1L</span> * count.get(b) * count2.get(a); <span class="comment">// 避免乘积溢出</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-subarray-with-bitwise-or-closest-to-k/solutions/2798206/li-yong-and-de-xing-zhi-pythonjavacgo-by-gg4d/?envType=daily-question&amp;envId=2024-10-09">https://leetcode.cn/problems/find-subarray-with-bitwise-or-closest-to-k/solutions/2798206/li-yong-and-de-xing-zhi-pythonjavacgo-by-gg4d/?envType=daily-question&amp;envId=2024-10-09</a><br>[2] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-subarray-with-bitwise-or-closest-to-k/solutions/2943534/hua-dong-chuang-kou-by-hypnotised-e-3jcd/?envType=daily-question&amp;envId=2024-10-09">https://leetcode.cn/problems/find-subarray-with-bitwise-or-closest-to-k/solutions/2943534/hua-dong-chuang-kou-by-hypnotised-e-3jcd/?envType=daily-question&amp;envId=2024-10-09</a><br>[3] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-number-of-good-pairs-ii/solutions/2928182/you-zhi-shu-dui-de-zong-shu-ii-by-leetco-obro/?envType=daily-question&amp;envId=2024-10-11">https://leetcode.cn/problems/find-the-number-of-good-pairs-ii/solutions/2928182/you-zhi-shu-dui-de-zong-shu-ii-by-leetco-obro/?envType=daily-question&amp;envId=2024-10-11</a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
 
       
 
@@ -321,7 +285,11 @@ W_{i j}(I)=\frac{1}{|\omega|^2} \sum_{k:(i, j) \in \omega_k}\left(1+\frac{\left(
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机视觉</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
         		</li>
       		
 		</ul>
@@ -377,7 +345,7 @@ W_{i j}(I)=\frac{1}{|\omega|^2} \sum_{k:(i, j) \in \omega_k}\left(1+\frac{\left(
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2022/11/04/article73/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2024/10/13/article147/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -391,18 +359,9 @@ W_{i j}(I)=\frac{1}{|\omega|^2} \sum_{k:(i, j) \in \omega_k}\left(1+\frac{\left(
   
 <nav id="article-nav">
   
-    <a href="/2022/11/07/article74/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          注意力机制--《动手学深度学习》笔记0x0B
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/10/24/article72/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">目标检测常用评价指标</div>
+    <a href="/2024/10/12/article146/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LeetCode周记 EP5</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -421,6 +380,19 @@ W_{i j}(I)=\frac{1}{|\omega|^2} \sum_{k:(i, j) \in \omega_k}\left(1+\frac{\left(
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Minimum-Number-of-Refueling-Stops"><span class="toc-number">2.</span> <span class="toc-text">Minimum Number of Refueling Stops</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">2.1.</span> <span class="toc-text">动态规划</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Find-Subarray-With-Bitwise-OR-Closest-to-K"><span class="toc-number">3.</span> <span class="toc-text">Find Subarray With Bitwise OR Closest to K</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="toc-number">3.1.</span> <span class="toc-text">滑动窗口</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Find-the-Number-of-Good-Pairs-II"><span class="toc-number">4.</span> <span class="toc-text">Find the Number of Good Pairs II</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">6.</span> <span class="toc-text">后记</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -449,7 +421,7 @@ if(true){
   	repo: 'SilenceZheng66.github.io',
   	owner: 'SilenceZheng66',
   	admin: ['SilenceZheng66'],
-  	id: 'Fri Nov 04 2022 21:27:06 GMT+0800',
+  	id: 'Sun Oct 13 2024 20:05:28 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
