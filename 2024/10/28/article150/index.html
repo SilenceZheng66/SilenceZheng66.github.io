@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Tag: 数据结构与算法 | SilenceZheng66-BLOG</title>
+  <title>并查集Disjoint Set Union | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/page/3/index.html">
+  <meta name="description" content="前言最近做笔试和刷题都遇到并查集（Disjoint Set Union, DSU）的题目了，学习一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并查集Disjoint Set Union">
+<meta property="og:url" content="http://silencezheng.top/2024/10/28/article150/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言最近做笔试和刷题都遇到并查集（Disjoint Set Union, DSU）的题目了，学习一下。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://silencezheng.top/assets/post_img/article150/bcj.png">
+<meta property="og:image" content="http://silencezheng.top/assets/post_img/article150/rankUnion.png">
+<meta property="article:published_time" content="2024-10-27T16:54:36.000Z">
+<meta property="article:modified_time" content="2024-10-27T16:56:16.871Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://silencezheng.top/assets/post_img/article150/bcj.png">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
   
@@ -62,7 +70,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 150
+			总文章数 151
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -151,162 +159,138 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article150" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      并查集Disjoint Set Union
+    </h1>
+  
+
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2024/10/28/article150/" class="archive-article-date">
+  	<time datetime="2024-10-27T16:54:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-28</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.1k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">8分</span>
+      </span>
+    </span>
+</div>
+          
+        <!-- 添加完成 -->
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近做笔试和刷题都遇到并查集（Disjoint Set Union, DSU）的题目了，学习一下。<br><span id="more"></span></p>
+<h1 id="并查集（Disjoint-Set-Union-DSU）"><a href="#并查集（Disjoint-Set-Union-DSU）" class="headerlink" title="并查集（Disjoint Set Union, DSU）"></a>并查集（Disjoint Set Union, DSU）</h1><p>假设一个场景，$n$个人要么属于A帮派，要么属于B帮派，一个人属于某帮派的方式是直接或间接的给帮派老大打工，如何快速判断两人是否属于同一帮派呢？非常简单，看两人是否都给同一帮派老大打工就可以了。</p>
+<p>由此引出一种数据结构：<strong>并查集</strong>。并查集用于解决一些元素分组的问题。它管理一系列<strong>不相交</strong>的集合，并支持两种操作：</p>
+<ol>
+<li>合并（Union）：把两个不相交的集合合并为一个集合。</li>
+<li>查询（Find）：查询两个元素是否在同一个集合中。</li>
+</ol>
+<p>并查集的一个应用前提是某一成员只能归属到至多一个分组之中。将集合的初始状态设置为所有成员都认为自己是帮派老大（分组根节点），然后通过<strong>成员关系</strong>（例如图上的连接关系）进行分组合并，最终会得到如下形式的分组结果，这些树状子结构的集合称为并查集。</p>
+<p><img src="/assets/post_img/article150/bcj.png" alt="并查集"></p>
+<p>可以注意到每一个树状子结构存在唯一一个根节点，根节点自己也指向根节点，因此可以推出两种操作的实现：</p>
+<ol>
+<li>合并（Union）：将B合并进A中，只需要将B的根节点指向A中的任意一个节点即可，但直接指向A的根节点可以最大程度的减少树高。</li>
+<li>查询（Find）：查询某节点属于哪个集合，只需要递归的向上查找，直到找到自身指向自身的根节点。由此也可以得出结论，树高越低，查询效率越高。</li>
+</ol>
+<h1 id="最简实现"><a href="#最简实现" class="headerlink" title="最简实现"></a>最简实现</h1><p>我们可以通过一个长度为$n$的数组来存储$n$个节点各自的父节点。初状态下各节点指向自身。操作的实现按照前面的分析进行，即“根合并到根”和”递归查询“。可以看到使用很少的代码量即可实现并查集结构。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleDisjointSet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] parent;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化每个元素形成一个独立的集合</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SimpleDisjointSet</span><span class="params">(<span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            parent[i] = i;  <span class="comment">// 每个元素的父节点指向自己</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找给定元素所属的集合的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">            <span class="keyword">return</span> find(parent[x]);  <span class="comment">// 递归查找直到找到根节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 合并两个集合</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootX = find(x);</span><br><span class="line">        <span class="keyword">int</span> rootY = find(y);</span><br><span class="line">        <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">            parent[rootX] = rootY;  <span class="comment">// 将x所在的集合连接到y所在的集合，根合并到根</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SimpleDisjointSet dsu = <span class="keyword">new</span> SimpleDisjointSet(<span class="number">10</span>);  <span class="comment">// 创建一个大小为10的并查集</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 执行一些合并操作</span></span><br><span class="line">        dsu.union(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">        dsu.union(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">        dsu.union(<span class="number">4</span>, <span class="number">5</span>);</span><br><span class="line">        dsu.union(<span class="number">6</span>, <span class="number">7</span>);</span><br><span class="line">        dsu.union(<span class="number">7</span>, <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 查询一些元素是否属于同一个集合</span></span><br><span class="line">        System.out.println(dsu.find(<span class="number">1</span>) == dsu.find(<span class="number">3</span>));  <span class="comment">// true</span></span><br><span class="line">        System.out.println(dsu.find(<span class="number">1</span>) == dsu.find(<span class="number">5</span>));  <span class="comment">// false</span></span><br><span class="line">        System.out.println(dsu.find(<span class="number">6</span>) == dsu.find(<span class="number">8</span>));  <span class="comment">// true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h1><p>在上面的实现中，其实已经做到了所谓的路径压缩，即尽可能减少树高，让帮派成员都直接给老大打工。</p>
+<p>一种方式是从合并方法入手，另一种方式是从查询上实现路径压缩，这里给出从查询角度实现的代码。核心思想就是在每一次查询的递归过程中重构树，此时合并部分可以不用做压缩处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="comment">// 查找给定元素所属的集合的根节点</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parent[x] == x) &#123;</span><br><span class="line">        <span class="keyword">return</span> x;  <span class="comment">// 找到根节点</span></span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        parent[x] = find(parent[x]); <span class="comment">// 递归过程中把非根节点都指向根节点</span></span><br><span class="line">        <span class="keyword">return</span> parent[x]; <span class="comment">// 返回根节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并两个集合</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    parent[find(x)] = find(y); <span class="comment">// 把x所在的集合合并到y所在的集合上</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="按秩合并"><a href="#按秩合并" class="headerlink" title="按秩合并"></a>按秩合并</h1><p>并查集容易陷入一个思维误区：应用路径压缩后，产生的树都是”菊花图🌼“，即只有两层的树，一个根节点和若干一级子节点。</p>
+<p>可以证明实际情况并非如此：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line">dsu.union(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 1 -&gt; 2</span></span><br><span class="line">dsu.union(<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 1 -&gt; 2 -&gt; 3</span></span><br></pre></td></tr></table></figure></p>
+<p>无论哪种路径压缩方法，在不执行查询的情况下，初始化并查集时仍会产生多层树。如下图所示，假设当前需要将节点$8$加入节点$7$的分组中，有两种情况。</p>
+<p><img src="/assets/post_img/article150/rankUnion.png" alt="ru"></p>
+<p>显然我们应该选择树高更低的合并方法，即把高度更低的树合并到更高的树上。</p>
+<p>我们用一个数组$rank$记录每个根节点对应的树的深度（如果不是根节点，其rank相当于以它作为根节点的子树的深度）。一开始，把所有元素的rank（秩）设为1。合并时比较两个根节点，把rank较小者往较大者上合并。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author: SilenceZheng66</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DisjointSet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] parent;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] rank;  <span class="comment">// 用于记录每个节点所在树的高度（秩）</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化每个元素形成一个独立的集合</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DisjointSet</span><span class="params">(<span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        rank = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            parent[i] = i;  <span class="comment">// 每个元素的父节点指向自己</span></span><br><span class="line">            rank[i] = <span class="number">0</span>;    <span class="comment">// 初始秩为0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找给定元素所属的集合的根节点，并进行路径压缩</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">            <span class="comment">// 路径压缩：将x直接指向其最终的根节点</span></span><br><span class="line">            parent[x] = find(parent[x]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 合并两个集合，使用按秩合并</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rootX = find(x);</span><br><span class="line">        <span class="keyword">int</span> rootY = find(y);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">            <span class="comment">// 按秩合并</span></span><br><span class="line">            <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootX] = rootY;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果秩相同，则任意选择一个作为新的根节点，并增加该根节点的秩</span></span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">                rank[rootX]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>路径压缩和按秩合并如果一起使用，时间复杂度接近$O(n)$，但是很可能会破坏rank的准确性。原因如下：</p>
+<ol>
+<li>路径压缩的影响：<ul>
+<li>路径压缩在查找过程中将路径上的所有节点直接指向根节点，这会改变树的结构。</li>
+<li>由于路径压缩改变了树的高度，但 rank 值并没有相应更新，因此 rank 可能不再准确反映树的实际高度。</li>
+</ul>
+</li>
+<li>按秩合并的假设：<ul>
+<li>按秩合并基于一个假设：rank 值反映了树的高度（或深度）。</li>
+<li>如果路径压缩导致 rank 不再准确，那么按秩合并的效果可能会受到影响，因为合并操作依赖于 rank 来决定如何连接两棵树。</li>
+</ul>
+</li>
+</ol>
+<p>因此在同时使用的情况下，rank值事实上是树的高度上限。可以灵活选择如何使用按秩合并，考虑路径压缩的扰乱对整体效率的影响。</p>
+<h1 id="例题：Redundant-Connection"><a href="#例题：Redundant-Connection" class="headerlink" title="例题：Redundant Connection"></a>例题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/redundant-connection/description/?envType=daily-question&amp;envId=2024-10-27">Redundant Connection</a></h1><p>如果两个顶点属于相同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间已经连通，因此当前的边导致环出现，为附加的边，将当前的边作为答案返回。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] findRedundantConnection(<span class="keyword">int</span>[][] edges) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = edges.length;</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] edge = edges[i];</span><br><span class="line">            <span class="keyword">int</span> node1 = edge[<span class="number">0</span>], node2 = edge[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (find(parent, node1) != find(parent, node2)) &#123;</span><br><span class="line">                union(parent, node1, node2);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> edge;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span>[] parent, <span class="keyword">int</span> index1, <span class="keyword">int</span> index2)</span> </span>&#123;</span><br><span class="line">        parent[find(parent, index1)] = find(parent, index2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] parent, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[index] != index) &#123;</span><br><span class="line">            parent[index] = find(parent, parent[index]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent[index];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93647900">https://zhuanlan.zhihu.com/p/93647900</a><br>[2] <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/redundant-connection/solutions/557616/rong-yu-lian-jie-by-leetcode-solution-pks2/?envType=daily-question&amp;envId=2024-10-27">https://leetcode.cn/problems/redundant-connection/solutions/557616/rong-yu-lian-jie-by-leetcode-solution-pks2/?envType=daily-question&amp;envId=2024-10-27</a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/08/18/article132/" class="archive-article-date">
-  	<time datetime="2024-08-17T16:14:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/08/18/article132/">LeetCode周记 EP1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/08/07/article131/" class="archive-article-date">
-  	<time datetime="2024-08-07T06:28:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-08-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/08/07/article131/">LeetCode周记 EP7</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/06/06/article130/" class="archive-article-date">
-  	<time datetime="2024-06-05T19:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/06/06/article130/">树状数组（速食版）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/06/01/article129/" class="archive-article-date">
-  	<time datetime="2024-06-01T12:59:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/06/01/article129/">排列组合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -318,200 +302,128 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2024/10/28/article150/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2024/10/27/article149/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LeetCode周记 EP6</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/03/article88/" class="archive-article-date">
-  	<time datetime="2023-01-03T14:05:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-03</time>
-</a>
-        </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/01/03/article88/">滑动窗口</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/12/16/article84/" class="archive-article-date">
-  	<time datetime="2022-12-16T13:02:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/12/16/article84/">数值溢出问题</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/11/19/article78/" class="archive-article-date">
-  	<time datetime="2022-11-19T05:59:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/19/article78/">记忆化递归</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
 
-          
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/11/09/article76/" class="archive-article-date">
-  	<time datetime="2022-11-09T13:41:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/09/article76/">二叉树非递归遍历</a>
-    </h1>
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Mon Oct 28 2024 00:54:36 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/page/2/">上一页</a><a class="page-number" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">1</a><a class="page-number" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/page/4/">4</a><a class="extend next" rel="next" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/page/4/">下一页</a>
-    </nav>
-  
-
 
           </div>
         </div>
@@ -546,9 +458,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
