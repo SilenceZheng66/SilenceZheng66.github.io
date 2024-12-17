@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://silencezheng.top">
-  <title>Archives | SilenceZheng66-BLOG</title>
+  <title>KMP算法 | SilenceZheng66-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SilenceZheng66-BLOG">
-<meta property="og:url" content="http://silencezheng.top/archives/page/2/index.html">
+  <meta name="description" content="前言KMP（Knuth-Morris-Pratt）算法是一种用于字符串匹配（在字符串中查找子串）的高效算法，由Donald Knuth、Vaughan Pratt 和 James H. Morris 独立发明，并在1977年被共同发表。它改进了朴素字符串匹配算法，在最坏情况下的时间复杂度为 $O(n + m)$，其中 $n$ 是文本字符串的长度，$m$ 是模式字符串的长度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KMP算法">
+<meta property="og:url" content="http://silencezheng.top/2024/12/17/article153/index.html">
 <meta property="og:site_name" content="SilenceZheng66-BLOG">
+<meta property="og:description" content="前言KMP（Knuth-Morris-Pratt）算法是一种用于字符串匹配（在字符串中查找子串）的高效算法，由Donald Knuth、Vaughan Pratt 和 James H. Morris 独立发明，并在1977年被共同发表。它改进了朴素字符串匹配算法，在最坏情况下的时间复杂度为 $O(n + m)$，其中 $n$ 是文本字符串的长度，$m$ 是模式字符串的长度。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-17T07:40:32.000Z">
+<meta property="article:modified_time" content="2024-12-17T07:42:48.409Z">
 <meta property="article:author" content="SilenceZheng66">
+<meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SilenceZheng66-BLOG" type="application/atom+xml">
@@ -151,115 +156,135 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-article153" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      KMP算法
+    </h1>
+  
+
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2024/12/17/article153/" class="archive-article-date">
+  	<time datetime="2024-12-17T07:40:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-17</time>
+</a>
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.1k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">8分</span>
+      </span>
+    </span>
+</div>
+          
+        <!-- 添加完成 -->
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>KMP（Knuth-Morris-Pratt）算法是一种用于字符串匹配（在字符串中查找子串）的高效算法，由Donald Knuth、Vaughan Pratt 和 James H. Morris 独立发明，并在1977年被共同发表。它改进了朴素字符串匹配算法，在最坏情况下的时间复杂度为 $O(n + m)$，其中 $n$ 是文本字符串的长度，$m$ 是模式字符串的长度。<br><span id="more"></span></p>
+<h1 id="子串、子序列、真前缀和真后缀"><a href="#子串、子序列、真前缀和真后缀" class="headerlink" title="子串、子序列、真前缀和真后缀"></a>子串、子序列、真前缀和真后缀</h1><ul>
+<li><strong>子串</strong>：子串是由字符串中连续字符组成的新字符串。</li>
+<li><strong>子序列</strong>：子序列是通过删除字符串中某些字符而不改变其余字符顺序得到的序列。</li>
+<li><strong>真前缀</strong>：真前缀是指字符串的非空开头部分，不包括整个字符串本身。</li>
+<li><strong>真后缀</strong>：真后缀是指字符串的非空结尾部分，同样不包括整个字符串本身。</li>
+</ul>
+<h1 id="前缀函数"><a href="#前缀函数" class="headerlink" title="前缀函数"></a>前缀函数</h1><p>给定一个长度为 $n$ 的字符串 $s$，其<strong>前缀函数</strong>被定义为一个长度为 $n$ 的数组 $\pi$。 其中 $\pi[i]$ 的定义是：</p>
+<ol>
+<li>如果子串 $s[0\dots i]$ 有一对相等的真前缀与真后缀：$s[0\dots k-1]$ 和 $s[i - (k - 1) \dots i]$，那么 $\pi[i]$ 就是这个相等的真前缀（或者真后缀，因为它们相等）的长度，也就是 $\pi[i]=k$；</li>
+<li>如果不止有一对相等的，那么 $\pi[i]$ 就是其中最长的那一对的长度；</li>
+<li>如果没有相等的，那么 $\pi[i]=0$。</li>
+</ol>
+<p>简单来说 $\pi[i]$ 就是，子串 $s[0\dots i]$ 最长的相等的真前缀与真后缀的长度。</p>
+<p>用数学语言描述如下：</p>
+<script type="math/tex; mode=display">
+\pi[i] = \max_{k = 0 \dots i}\{k: s[0 \dots k - 1] = s[i - (k - 1) \dots i]\}</script><p>特别地，规定 $\pi[0]=0$。</p>
+<p>举例来说，字符串 $aabaaab$ 的前缀函数为 $[0, 1, 0, 1, 2, 2, 3]$。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span> <span class="selector-tag">a</span> <span class="selector-tag">b</span> <span class="selector-tag">a</span> <span class="selector-tag">a</span> <span class="selector-tag">a</span> <span class="selector-tag">b</span></span><br><span class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="计算前缀函数的算法"><a href="#计算前缀函数的算法" class="headerlink" title="计算前缀函数的算法"></a>计算前缀函数的算法</h1><p>最朴素的算法是双循环遍历，这个很容易想到。这种朴素算法的时间复杂度是$O(n^3)$，因为除去外层的双循环外，比对真前缀和真后缀的相等也需要进行一次遍历。</p>
+<p>考虑到当取一个尽可能大的 $\pi[i+1]$ 时，必然要求新增的 $s[i+1]$ 也与之对应的字符匹配，即 $s[i+1]=s[\pi[i]]$, 此时 $\pi[i+1] = \pi[i]+1$。所以当移动到下一个位置时，前缀函数的值要么增加一，要么维持不变，要么减少。则对于位置$i+1$的内部循环的起始位置可以从上一位置的$\pi[i]$开始，此时“内循环”和“子串对比”存在此消彼长的制约关系，即$\pi[i]$限制了求取$\pi[i+1]$的最大内循环次数，则时间复杂度下降至$O(n^2)$。</p>
+<p>继续考虑当 $s[i+1] \neq s[\pi[i]]$ 时如何跳转，即对于新指向的位置，在第一次对比时发生了<strong>失配</strong>。此时希望找到“合适的第二长度$j$”，使得在位置 $i$ 的前缀性质仍得以保持，也即 $s[0 \dots j - 1] = s[i - j + 1 \dots i]$：</p>
+<script type="math/tex; mode=display">
+\overbrace{\underbrace{s_0 ~ s_1}_j ~ s_2 ~ s_3}^{\pi[i]} ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}_j}^{\pi[i]} ~ s_{i+1}</script><p>如果我们找到了这样的长度 $j$，那么仅需要再次比较 $s[i + 1]$ 和 $s[j]$。如果它们相等，那么就有 $\pi[i + 1] = j + 1$。否则，我们需要找到子串 $s[0\dots i]$ 仅次于 $j$ 的第二长度 $j^{(2)}$，使得前缀性质得以保持，如此反复，直到 $j = 0$。如果 $s[i + 1] \neq s[0]$，则 $\pi[i + 1] = 0$。</p>
+<p>可以发现，因为 $s[0\dots \pi[i]-1] = s[i-\pi[i]+1\dots i]$，所以对于 $s[0\dots i]$ 的第二长度 $j$，有这样的性质：</p>
+<script type="math/tex; mode=display">
+s[0 \dots j - 1] = s[i - j + 1 \dots i]= s[\pi[i]-j\dots \pi[i]-1]</script><p>也就是说 $j$ 等价于子串 $s[\pi[i]-1]$ 的前缀函数值，即 $j=\pi[\pi[i]-1]$。同理，次于 $j$ 的第二长度等价于 $s[j-1]$ 的前缀函数值，$j^{(2)}=\pi[j-1]$。</p>
+<p>显然我们可以得到一个关于 $j$ 的状态转移方程：$j^{(n)}=\pi[j^{(n-1)}-1], \ \ (j^{(n-1)}&gt;0)$。所以最终我们可以构建一个不需要进行任何字符串比较，并且只进行 $O(n)$ 次操作的算法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span>[] prefix_function(String s) &#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.length();</span><br><span class="line">    <span class="keyword">int</span>[] pi = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> j = pi[i - <span class="number">1</span>]; <span class="comment">// 初始化 j</span></span><br><span class="line">        <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; s.charAt(i) != s.charAt(j)) &#123;</span><br><span class="line">            j = pi[j - <span class="number">1</span>];  <span class="comment">// 无法匹配时，找到次长的 j</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (s.charAt(i) == s.charAt(j)) &#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        pi[i] = j; <span class="comment">// 存储前缀函数值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pi;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体的算法优化过程可参考文献[1]。</p>
+<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>KMP算法用于在字符串中查找子串，该任务是前缀函数的一个典型应用。</p>
+<p>给定一个文本 $t$ 和一个字符串 $s$，我们尝试找到并展示 $s$ 在 $t$ 中的所有出现（occurrence）。</p>
+<p>为了简便起见，我们用 $n$ 表示字符串 $s$ 的长度，用 $m$ 表示文本 $t$ 的长度。</p>
+<p>我们构造一个字符串 $s + # + t$，其中 $#$ 为一个既不出现在 $s$ 中也不出现在 $t$ 中的分隔符。接下来计算该字符串的前缀函数。现在考虑该前缀函数除去最开始 $n + 1$ 个值（即属于字符串 $s$ 和分隔符的函数值）后其余函数值的意义。根据定义，$\pi[i]$ 为右端点在 $i$ 且同时为一个前缀的最长真子串的长度，具体到我们的这种情况下，其值为与 $s$ 的前缀相同且右端点位于 $i$ 的最长子串的长度。由于分隔符的存在，该长度不可能超过 $n$。而如果等式 $\pi[i] = n$ 成立，则意味着 $s$ 完整出现在该位置（即其右端点位于位置 $i$）。注意该位置的下标是对字符串 $s + # + t$ 而言的。</p>
+<p>因此如果在某一位置 $i$ 有 $\pi[i] = n$ 成立，则字符串 $s$ 在字符串 $t$ 的 $i - (n - 1) - (n + 1) = i - 2n$ 处出现。</p>
+<p>可以先根据以上原理，写出用 $O(n + m)$ 的时间以及 $O(n + m)$ 的内存解决该问题的代码如下。注意$O$符号描述的是当输入规模趋向于无穷大时算法性能的上界，它忽略常数因子。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> List&lt;Integer&gt; <span class="title">find_occurrences</span><span class="params">(String text, String pattern)</span> </span>&#123;</span><br><span class="line">    String cur = pattern + <span class="string">&#x27;#&#x27;</span> + text;</span><br><span class="line">    <span class="keyword">int</span> sz1 = text.length(), sz2 = pattern.length();</span><br><span class="line">    List&lt;Integer&gt; v = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">int</span>[] lps = prefix_function(cur);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = sz2 + <span class="number">1</span>; i &lt;= sz1 + sz2; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (lps[i] == sz2) &#123;</span><br><span class="line">            v.add(i - <span class="number">2</span> * sz2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们知道前缀函数的值永远不超过一特定值（即模式串的长度），那么我们不需要存储整个字符串以及整个前缀函数，而只需要存储字符串 $ s + #$ 以及相应的前缀函数值即可。我们可以一次读入字符串 $t$ 的一个字符并计算当前位置的前缀函数值。可以更新代码如下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> List&lt;Integer&gt; <span class="title">find_occurrences</span><span class="params">(String text, String pattern)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 计算模式串加上分隔符的前缀函数</span></span><br><span class="line">    String cur = pattern + <span class="string">&#x27;#&#x27;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] lps = prefix_function(cur);</span><br><span class="line">    </span><br><span class="line">    List&lt;Integer&gt; v = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">int</span> sz1 = text.length(), sz2 = pattern.length();</span><br><span class="line">    <span class="keyword">int</span> q = <span class="number">0</span>; <span class="comment">// 在模式串上进行匹配的位置指针</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历文本串的每一个字符</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sz1; ++i) &#123;</span><br><span class="line">        <span class="comment">// 如果不匹配并且 q &gt; 0，则回溯到之前的一个可能匹配点继续尝试匹配</span></span><br><span class="line">        <span class="keyword">while</span> (q &gt; <span class="number">0</span> &amp;&amp; pattern.charAt(q) != text.charAt(i)) &#123;</span><br><span class="line">            q = lps[q - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果匹配成功，则增加 q</span></span><br><span class="line">        <span class="keyword">if</span> (pattern.charAt(q) == text.charAt(i)) &#123;</span><br><span class="line">            q++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果 q 达到了模式串的长度，说明找到了一个完整匹配</span></span><br><span class="line">        <span class="keyword">if</span> (q == sz2) &#123;</span><br><span class="line">            <span class="comment">// 找到了一个匹配，记录匹配的起始位置</span></span><br><span class="line">            v.add(i - sz2 + <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// 准备找下一个匹配</span></span><br><span class="line">            q = lps[q - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因此 Knuth–Morris–Pratt 算法（简称 KMP 算法）用 $O(n + m)$ 的时间以及 $O(n)$ 的内存解决了该问题。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a target="_blank" rel="noopener" href="https://oi-wiki.org/string/kmp/">https://oi-wiki.org/string/kmp/</a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>首发于 <a href="https://silencezheng.top">silencezheng.top</a>，转载请注明出处。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏哟！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/10/07/article145/" class="archive-article-date">
-  	<time datetime="2024-10-06T19:10:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/10/07/article145/">LeetCode周记 EP15</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/10/05/article144/" class="archive-article-date">
-  	<time datetime="2024-10-05T09:58:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/10/05/article144/">LeetCode周记 EP14</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/10/05/article143/" class="archive-article-date">
-  	<time datetime="2024-10-04T17:55:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/10/05/article143/">线段树</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -271,227 +296,128 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://silencezheng.top/2024/12/17/article153/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/10/01/article142/" class="archive-article-date">
-  	<time datetime="2024-10-01T13:20:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2024/12/16/article152/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LeetCode周记 EP25</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/10/01/article142/">雪花算法</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/10/01/article141/" class="archive-article-date">
-  	<time datetime="2024-10-01T11:48:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/10/01/article141/">一致性哈希算法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/09/23/article140/" class="archive-article-date">
-  	<time datetime="2024-09-22T17:00:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/09/23/article140/">LeetCode周记 EP13</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
+       <div id="gitalk-container"></div>
+       <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
 
-          
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/09/15/article139/" class="archive-article-date">
-  	<time datetime="2024-09-15T15:32:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/09/15/article139/">LeetCode周记 EP12</a>
-    </h1>
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2d9a43bfd209a625ed82',
+  	clientSecret: '65aea43faefdf3534fed85cf790e82511546b04a',
+  	repo: 'SilenceZheng66.github.io',
+  	owner: 'SilenceZheng66',
+  	admin: ['SilenceZheng66'],
+  	id: 'Tue Dec 17 2024 15:40:32 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2024/09/08/article138/" class="archive-article-date">
-  	<time datetime="2024-09-08T14:31:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/09/08/article138/">LeetCode周记 EP11</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LeetCode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">上一页</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/20/">20</a><a class="extend next" rel="next" href="/archives/page/3/">下一页</a>
-    </nav>
-  
-
 
           </div>
         </div>
@@ -526,8 +452,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
